@@ -1,0 +1,509 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dataHub-首页</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/command.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/loader.css">
+<link rel="stylesheet" href="css/animate.css">
+<!--
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+-->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.stellar.js"></script>
+<script type="text/javascript" src="js/countUp.min.js"></script>
+<style>
+
+.pixel {
+	position: absolute;
+}
+
+#features h1 {
+    color: #434a54;
+    text-align: center;
+    margin-top:100px;
+}
+#features .text-muted {
+    color: #aab2bd;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+<div class="be-loader" style="display: block;">
+	    	<div class="spinner">
+				<div class="spinner-container container1">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+				</div>
+			  	<div class="spinner-container container2">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			  	</div>
+			  	<div class="spinner-container container3">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+  				</div>
+			</div>
+	    </div>
+
+
+
+
+
+<div class="parallax"  data-stellar-ratio="0.15" >
+  <div class="parallaxImg parallaxImg-header"></div>
+</div>
+<div id="header" style="position:relative;display:table;table-layout:fixed;height:100%;width:100%" class="section-header">
+
+        <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:#000000;background-color:rgba(0,0,0,0.2); '>
+            <div class="container">
+                <div class="navbar-header">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" style='color: #fff;font-size: 2em' class="navbar-brand">DataHub</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-right" >
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
+                        <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>                      
+                        <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+  <div style="width:100%;vertical-align:middle;display:table-cell;height:300px;padding:0;border:0" class="crp-showcase"> 
+  
+  
+  
+  		<div class="container">
+        	<div class="row"> 
+            	<div class="col-sm-12"> 
+                	<h1 class="text-center animated fadeInDown" id="heatt">阳光下的数据流通平台</h1> 
+						<div id="dashboard" class="text-center actions animated fadeInDown delay2">
+                         <div style="margin-top:50px;" class="container" id="seachHeader">
+                                                            
+                                <span class="search-span">
+                                    <input value="" autocomplete="off" maxlength="255" placeholder="请输入关键词" class="search-input" name="wd" id="kw">
+                                    <input type="submit" class="btn search-btn" value="搜索" id="su">
+                                </span>
+                                
+                            </div>
+                      </div>
+                 </div>
+             </div>
+        </div>
+
+  
+  		<div class="stopwatch">
+            <div class="number"><span id="stopwatch1">864</span>次流通记录</div>
+            <div class="number"><span id="stopwatch2">116</span>个数据项</div>
+            <div class="number"><span id="stopwatch3">578,694</span>个数据内容</div>
+          </div>
+              
+       <div class="small-label"> <small>数据截止到2015年10月20日</small> </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+  </div>
+  
+ <!--
+<div class="container"   style="padding:0px"  >
+  <div class="searchBox ">
+    <div class="forms">
+      <input type="text" class="border" placeholder="请输入关键词" name="">
+      <input type="button" class="button" name="" value="搜索">
+    </div>
+  </div>
+</div>
+-->
+
+
+<div class="container-fluid"  style="height:auto; background-color:#fff; padding: 0px;" >
+	
+        <div class="container" id="features">
+        	<div class="row"> 
+            	<div class="col-sm-12"> 
+            		<h1 id="fShuo">让天下数据便捷在线流通</h1>
+            		<h3 id="fShuoX" class="text-muted">去中心化  人工智能  开源协议  一键交付</h3>
+            	</div>
+        	</div>      	
+        </div>
+        <!-- change -->
+        <div id="changeH">
+        
+	        <div class="container" id='changeCom' style='margin-top:50px;padding:0px;'>
+	        	<div class="row"> 
+	            	<div class="col-md-12" style='text-align:center;'> 
+	            		<ul class="slick-tab" style="display: block;">
+	            			<li class="slick-active">
+	            				<button id="btn1" type="button" class='baaa' style='border-radius: 5px 0 0 5px;' >
+	            					&nbsp;&nbsp;企业
+	            				</button>
+	            			</li>
+	            			<li class="">
+	            				<button id='btn2' type="button" class='bfff' style='border-radius: 0px 5px 5px 0px;'>
+	            					&nbsp;&nbsp;开发者
+	            				</button>
+	            			</li>
+	            		</ul>
+	            	</div>
+	        	</div> 
+	      	     	
+	        </div>
+        
+	        <div class="container" style='margin-top:30px;padding:0px;' id='lun'>
+	        
+	        	<div id="lunCom">
+	        		<div id="xuF">
+			        	<div class="row">
+			             	<div class="col-md-3 col-sm-6 wobble-bottom xu1"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu2"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu3"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu4"> </div>
+			        	</div> 
+			        	
+			        	<div class="row">
+				            <div class="col-md-3 col-sm-6 wobble-bottom xu5"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu6"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu7"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu8"></div>
+			        	</div> 
+			        </div>
+			        
+			        <div id="xuT">
+			        	<div class="row">
+			             	<div class="col-md-3 col-sm-6 wobble-bottom xu9"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu10"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu11"> </div>
+			            	<div class="col-md-3 col-sm-6 wobble-bottom xu12"> </div>
+			        	</div> 
+			        	
+			        	<div class="row">
+				            <div class="col-md-3 col-sm-6 wobble-bottom xu13"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu14"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu15"></div>
+				           	<div class="col-md-3 col-sm-6 wobble-bottom xu16"></div>
+			        	</div> 
+			        </div>
+	        	</div>
+	        	
+	        	
+	        </div>
+	        
+	    </div>
+
+
+		<div class="container-fluid" style='margin-top:30px;padding:0px;background-color: #f9f9f9; border-top: 1px solid #aaa; border-bottom:1px solid #aaa; box-shadow:inset 0 0 10px #d9d9d9;'>
+			<div class='container' id='guanCom' >
+				<div class="row" style='margin:0px;'>
+						<h3 id='h3Guan'>最受关注数据</h3>
+						<div class="col-md-3" style='padding:0px;' id='guanindex'> 
+		           			<img src="images/guan.png" />
+		           		</div>
+						<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
+							<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan1.png" style='margin-top:30px'/>
+			           			<div class="feature-label" style='margin-top:20px;'>银联流水数据</div>
+	           				</div>		
+		           		</div>
+		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
+		           			<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan2.png"  style='margin-top:30px'/>
+		           				<div class="feature-label" style='margin-top:20px;'>电信用户标签</div>
+	           				</div>
+		           		</div>
+		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd3 guanNum">
+		           			<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan3.png"   style='margin-top:30px'/>
+		           				<div class="feature-label"   style='margin-top:20px'>企业工商信息库</div>
+	           				</div>
+		           		</div> 
+		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd4 guanNum" >
+		           			<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan4.png"  style='margin-top:30px' />
+		           				<div class="feature-label"  style='margin-top:20px'>GZC地图数据</div>
+	           				</div>
+		           		</div>
+		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
+		           			<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan5.png"   style='margin-top:30px'/>
+		           				<div class="feature-label"  style='margin-top:20px'>全国基站信息</div>
+	           				</div>
+		           		</div>
+		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
+		           			<div class="wobble-bottom guanDiv">
+			           			<img src="images/guan6.png"   style='margin-top:30px'/>
+		           				<div class="feature-label"  style='margin-top:20px'>电商商品库</div>
+	           				</div>
+		           		</div>
+					</div>
+				</div>
+			</div>
+			
+	<div class="container-fluid" style='margin-top:30px;padding:0px;'>
+		<div class='container' id='jingCom' >
+			<div class="row" style='text-align: center; margin-bottom:30px'>
+				<h2 style='color:#29aae1;font-size:25px; font-weight: bold;'>行业精选专题</h2>
+			</div>
+			<div class="row" style='margin:0px;'>
+					<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
+	           			<img src="images/jing1.png" />
+	           			<div class="feature-label">终端专题</div>
+	           		</div>
+					<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
+	           			<img src="images/jing2.png" />
+	           			<div class="feature-label">互联网专题</div>
+	           		</div>
+	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
+	           			<img src="images/jing3.png" />
+	           			<div class="feature-label">信征专题</div>
+	           		</div>
+	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdf jingNum"> 
+	           			<img src="images/jing4.png" />
+	           			<div class="feature-label">运营商专题</div>
+	           		</div>
+			</div>
+		</div>
+	</div>
+	
+
+			
+				
+        
+
+</div>
+
+	<div class="container-fluid" style='background-color: #f9f9f9;margin-bottom: -30px;' >
+	
+		<div class="container" id='fCom'>
+	
+			<div class="row" id="fComR">
+				
+				<div class="col-md-8">
+					<div class="row">
+						<div style='float: left;font-size:16px;font-weight: bold;'>
+							关于我们
+						</div>
+						<div id="f1">
+							<div class="footShuo1">
+								关于我们
+							</div>
+							<div class="footShuo1">
+								合作伙伴
+							</div>
+							<div class="footShuo1">
+								加入我们
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top:29px">
+						<div style='float: left;font-size:16px;font-weight: bold;'>
+							联系我们
+						</div>
+						<div id="f2">
+							<div style='float: left;margin-left:30px;'>
+								电话：010-82166688
+							</div>
+							<div style='float: left;margin-left:30px;'>
+								地址：北京市海淀区中关村软件园二期西北旺东路10号院东区 亚信大厦
+							</div>
+						</div>
+					</div>
+					<div class="row" style='margin-top:56px;border-top: 1px solid #aaa'>
+						<div style='float: left;margin-top:19px;margin-bottom:18px'>
+							版权信息备案信息
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-md-4">
+
+					
+					<div style='float: left;text-align: center;' id="weiComs">
+						<div style='float:left'>
+							<img src="images/wei1.png" />
+			           		<div class="feature-labelf">扫描微信公众号</div>
+						</div>
+						<div style='float:left;margin-left:18px'>
+							<img src="images/wei2.png" />
+			           		<div class="feature-labelf">扫描网站二维码</div>
+						</div>
+					</div>
+					
+				</div>				
+						
+			</div>
+
+
+		
+		</div>
+		
+		
+	</div>
+
+
+	<!-- 登陆框开始 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">登录</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <form>
+						  <div class="form-group">
+						    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
+						  </div>
+						  <div class="form-group">
+						    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+						  </div>
+						  <div class="checkbox">
+						    <label>
+						      <input type="checkbox"> 记住我
+						    </label>
+						  </div>
+						  <button id='signs' type="submit" class="btn btn-primary" style='width: 100%;'>登录</button>
+					</form>
+                    
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录框结束 -->
+
+
+</body>
+<script src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	
+	
+	
+	$.stellar({
+		positionProperty: 'transform',
+	   	verticalOffset: 1
+	});
+	
+		var options = {
+			useEasing : true, 
+			useGrouping : true, 
+			separator : ',', 
+			decimal : '.', 
+			prefix : '', 
+			suffix : '' 
+		};
+	
+	
+	var demo = new CountUp("stopwatch1", 0, 864, 0, 2.5, options);
+	var demo2 = new CountUp("stopwatch2", 0, 116, 0, 2.5, options);
+	var demo3 = new CountUp("stopwatch3", 0, 578694, 0, 2.5, options);
+	
+	
+	demo.start();
+	demo2.start();
+	demo3.start();
+	
+	$(document).ready(function(){
+		$(".slick-tab").children().click(function(){
+			$(this).siblings().children().removeClass().addClass("bfff");
+			$(this).children().removeClass().addClass("baaa");
+		});
+		
+		jQuery("#changeH").slide({mainCell:"#lunCom",nextCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
+		
+		
+		$("#sign-in").click(function(){
+			$(".modal-open").css("padding-right","15px");
+			$('#myModal').modal('toggle');			
+		});
+		
+		
+	});
+	
+
+	
+</script>
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/ngUrl.js"></script>
+<script>
+	$(document).ready(function(){
+//		console.log("123---");
+//		$("#sign-in").text("dddddd");
+
+/* 		$.ajax({
+    		url: ngUrl+"/select_labels",
+    		type: "get",
+    		cache:false,
+    		headers: {
+    			"Authorization": "Basicdfdddd"
+    		},
+    	   	async:false,
+    		dataType:'json',
+    		success:function(json){    			
+				console.log("测试数据："+json);  			
+    		}	
+    	}); */
+    	
+    	$('#myModal').on('shown.bs.modal', function (e) {
+    		 $("body").css("padding-right","0px");
+    	});
+    	
+    	$("#signs").click(function(){
+    		
+    	});
+		
+		
+	});
+</script>
+</html>

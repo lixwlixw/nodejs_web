@@ -1,0 +1,378 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/command.css">
+<link rel="stylesheet" href="css/loader.css">
+<link rel="stylesheet" href="css/animate.css">
+
+<link rel="stylesheet" href="css/selects.css">
+
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7); 
+	}	
+	.navbar-toggle .icon-bar {
+	    background-color: #fff;
+	}
+</style>
+
+<body>
+
+
+	<div class="be-loader" style="display: block;">
+	   	<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		  	<div class="spinner-container container2">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+		  	</div>
+		  	<div class="spinner-container container3">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 头部导航 -->
+	<header>
+		<div style="background-color:#29abe2;" class="navbar navbar-fixed-top" id="menu-nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="color: #fff;font-size: 2em" href="#">DataHub</a>
+                </div>
+                
+
+                
+                <div class="navbar-collapse collapse navbar-right">
+                    <!-- 搜索 -->
+	                <div class="col-sm-6" style="margin-top: 10px;">
+				    	<input type="text" class="form-control" placeholder="请输入查询条件" style="width:100%;height:28px;border: 0 none;">
+				  	</div>
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                        	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">数据精选</a>
+                        </li>
+                        <li>
+                        	<a style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
+                        </li>                       
+                        <li>
+                        	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+                        		<img src="images/i.png" />
+                        	</a>
+                        </li>                      
+                    </ul>
+                </div>
+            </div>
+        </div>	
+	</header>
+	
+	<!-- 内容页 -->
+	<div class="container-fluid" style='padding:0px;margin-top:50px;'>
+
+			<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="padding: 20px 20px;position: absolute;height:100%;"><!--TODO-->
+					<div id="navigator-name"><b>精选导航</b></div>
+					<ul id="navigator-ul">
+					</ul>
+			</div>
+			
+			<div class="col-md-10 col-sm-10" id="lComs">
+				
+				<!-- 适配 -->
+				<div id="navigator10" class="col-md-10 col-sm-10 navigator-background" ><!--TODO-->
+					<div id="navigator-name"><b>精选导航</b></div>
+					<ul id="navigator-ul10">
+					</ul>
+				</div>
+			
+			
+				<div id="terminal-content-head"><b>全部精选</b></div>
+				
+				
+				<div id="terminal-content-body">
+
+				</div>
+				
+								
+				
+			</div>		
+		
+	</div>
+	
+	
+	
+	<!-- 尾部 -->
+	<footer>
+		<div class="container-fluid navbar-fixed-bottom" style='background-color: #f9f9f9; height: 50px;'>
+			<p class="text-center" style='margin-top:18px;color:#969696;'>版权信息备案信息</p>
+		</div>
+	</footer>
+	
+	
+	
+
+
+</body>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/ngUrl.js"></script>
+<script>
+	var repos=[];
+	
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+
+	$(document).ready(function(){
+		$.ajax({
+			url: ngUrl+"/select_labels",
+    		type: "get",
+    		cache:false,
+    	   	async:false,
+    		dataType:'json',
+    		success:function(json){  
+    			if(json.data.length!=0){
+    				var pages=json.data.length;
+    				for(var i=0;i<pages;i++){
+    					$("#navigator-ul").append("<li>"+json.data[i].labelname+"</li>");	
+    					$("#navigator-ul10").append("<li>"+json.data[i].labelname+"</li>");
+    				}
+    			}else{
+    				
+    			}
+				console.log("测试数据："+json.data.length);  			
+    		},
+    		error:function(json){
+    			alert("程序出错，请稍后重试");
+    		}
+    	});
+		
+		ajaxRe();
+		
+		
+		
+		$("body").on("click","#navigator-ul li",function(){
+			$("#terminal-content-body").empty();
+			$("#terminal-content-body").append("<div class='container-fluid' id='loading'><p class='text-center'>正在加载请稍后...</p></div>");
+			repos.length = 0;//数据清空
+			
+			$(this).siblings().css("border","1px solid #ccc").css("color","#666");
+			$(this).siblings().removeClass("overs");
+			if($(this).hasClass("overs")){
+				$(this).removeClass("overs");
+				$(this).css("border","1px solid #ccc").css("color","#666");
+				ajaxRe();
+			}else{
+				$(this).addClass("overs");
+				$(this).css("border","1px solid #29abe2").css("color","#29abe2");
+				
+				$.ajax({
+					url: ngUrl+"/selects?select_labels="+$(this).text(),
+		    		type: "get",
+		    		cache:false,
+		    	   	async:false,
+		    		dataType:'json',
+		    		success:function(json){  	    			
+		    			if(json.data.length!=0){
+		    				var pages=json.data.length;
+		    				for(var i=0;i<pages;i++){
+		    					repos.push([json.data[i].repname,json.data[i].itemname]);			
+		    				}
+		    			}else{
+		    				console.log("报错");  			
+		    			}	    		
+		    		},
+		    		error:function(json){
+		    			alert("程序出错，请稍后重试");
+		    		}
+		    	});
+				
+				for(var i=0;i<repos.length;i++){
+					$.ajax({
+						url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+			    		type: "get",
+			    		cache:false,
+			    	   	async:false,
+			    		dataType:'json',
+			    		success:function(json){ 
+			    			$("#loading").empty();
+		    				var vvclass="";
+		    					var label=json.data.label.sys.supply_style;
+			    				if(label="single"){
+			    					vvclass="period";
+			    				}
+			    				if(label="batch"){
+			    					vvclass="api";
+			    				}
+			    				if(label="flow"){
+			    					vvclass="charge";
+			    				}
+		    					$("#terminal-content-body").append(""+
+				    					"<div>"+
+											"<div class='repo-head'>"+
+												"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
+												"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+											"</div>"+
+											"<div class='repo-body'>"+
+												"<div id='repo-text'>"+json.data.comment+"</div>"+
+												"<div class='repo-body-tail'>"+
+													"<div class='repo-body-tail-left'>"+
+														"<div class='updatetime-icon'></div>"+
+														"<div class='updatetime-value'>"+json.data.label.sys.refresh +"</div>"+
+														"<div class='tag-icon'></div>"+
+														"<div class='tag-value'>"+json.data.tags+"</div>"+
+													"</div>"+
+													"<div class='repo-body-tail-mid'>"+
+														"<div class="+vvclass+">"+json.data.label.sys.supply_style+"</div>"+
+				    								"</div>"+
+													"<div class='repo-body-tail-right'>"+
+														"<div class='shwr'>"+
+															"<div class='star-icon'></div>"+
+															"<div class='star-value'>"+json.data.stars+"</div>"+
+			    				                                "<div class='subscript-icon'></div>"+
+			    				                                "<div class='subscript-value'>0</div>"+
+			    				                                "<div class='downloaded-icon'></div>"+
+			    				                                "<div class='downloaded-value'>0</div>"+
+				    				                        "</div>"+
+													"</div>"+
+												"</div>"+
+											"</div>"+
+										"</div>"
+				    				);	    		
+			    		},
+			    		error:function(json){
+			    			alert("程序出错，请稍后重试");
+			    		}
+		    		}); 
+				}
+				
+				
+				
+				
+			}
+			
+
+
+			
+		});
+		
+		
+	});
+	
+	
+	function ajaxRe(){
+		$.ajax({
+			url: ngUrl+"/selects?select_labels",
+    		type: "get",
+    		cache:false,
+    	   	async:false,
+    		dataType:'json',
+    		success:function(json){  	    			
+    			if(json.data.length!=0){
+    				var pages=json.data.length;
+    				for(var i=0;i<pages;i++){
+    					repos.push([json.data[i].repname,json.data[i].itemname]);			
+    				}
+    			}else{
+    				console.log("报错");  			
+    			}	    		
+    		},
+    		error:function(json){
+    			alert("程序出错，请稍后重试");
+    		}
+    	});
+
+		for(var i=0;i<repos.length;i++){
+			$.ajax({
+				url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+	    		type: "get",
+	    		cache:false,
+	    	   	async:false,
+	    		dataType:'json',
+	    		success:function(json){ 
+	    			$("#loading").empty();
+    				var vvclass="";
+    					var label=json.data.label.sys.supply_style;
+	    				if(label="single"){
+	    					vvclass="period";
+	    				}
+	    				if(label="batch"){
+	    					vvclass="api";
+	    				}
+	    				if(label="flow"){
+	    					vvclass="charge";
+	    				}
+    					$("#terminal-content-body").append(""+
+		    					"<div>"+
+									"<div class='repo-head'>"+
+										"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
+										"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+									"</div>"+
+									"<div class='repo-body'>"+
+										"<div id='repo-text'>"+json.data.comment+"</div>"+
+										"<div class='repo-body-tail'>"+
+											"<div class='repo-body-tail-left'>"+
+												"<div class='updatetime-icon'></div>"+
+												"<div class='updatetime-value'>"+json.data.label.sys.refresh +"</div>"+
+												"<div class='tag-icon'></div>"+
+												"<div class='tag-value'>"+json.data.tags+"</div>"+
+											"</div>"+
+											"<div class='repo-body-tail-mid'>"+
+												"<div class="+vvclass+">"+json.data.label.sys.supply_style+"</div>"+
+		    								"</div>"+
+											"<div class='repo-body-tail-right'>"+
+												"<div class='shwr'>"+
+													"<div class='star-icon'></div>"+
+													"<div class='star-value'>"+json.data.stars+"</div>"+
+	    				                                "<div class='subscript-icon'></div>"+
+	    				                                "<div class='subscript-value'>0</div>"+
+	    				                                "<div class='downloaded-icon'></div>"+
+	    				                                "<div class='downloaded-value'>0</div>"+
+		    				                        "</div>"+
+											"</div>"+
+										"</div>"+
+									"</div>"+
+								"</div>"
+		    				);	    		
+	    		},
+	    		error:function(json){
+	    			alert("程序出错，请稍后重试");
+	    		}
+    		}); 
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>
