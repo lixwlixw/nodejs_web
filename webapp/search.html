@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dataHub-搜索</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/command.css">
+<link rel="stylesheet" href="css/loader.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/search.css">
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7); 
+	}	
+	.navbar-toggle .icon-bar {
+	    background-color: #fff;
+	}
+	.navbar-nav > li > a:focus{
+		background:none;
+	}
+</style>
+
+<body>
+
+
+	<!-- loading -->
+	<div class="be-loader" style="display: block;">
+	   	<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		  	<div class="spinner-container container2">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+		  	</div>
+		  	<div class="spinner-container container3">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 头部导航 -->
+	<header></header>
+	
+	<!-- 内容页 -->
+	<div class="container-fluid" style='padding:0px;margin-top:50px;'>
+	
+			<div class="col-md-12 col-sm-12" id="lComs">
+							
+				<div id="terminal-content-head"><b>为您找到相关结果</b><b id="ttnum"></b>个</div>
+	
+				<div id="terminal-content-body"></div>
+				
+			</div>		
+		
+	</div>
+		
+	<!-- 尾部 -->
+	<footer></footer>
+	
+	<div id="loginTem"></div>
+
+</body>
+<!-- 
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+ -->
+ <script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+
+/* 	if($.cookie("login_value")!=null){
+		$(window).load(function(){
+			$(".be-loader").fadeOut("slow");
+		});
+	}else{
+		$('#myModal').modal('toggle');	
+	} */
+	
+	var rtext='';
+    var itemid = /\?.*rtext=([^&]*).*$/;
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+    	rtext = itemid.exec(decodeURIComponent(window.location.href))[1];
+   	}
+    
+    var data={};
+	if(rtext!=""){
+		data={"text":rtext};
+	}
+
+	
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	
+	
+	
+/*  	$.ajax({
+		url: ngUrl+"/search",
+		type: "get",
+		cache:false,
+	   	async:false,
+	   	data:{"text":"ddddd"},
+		dataType:'json',
+		success:function(json){    			
+			console.log("测试数据："+json);  			
+		}	
+	});  */  
+	
+	
+	
+	
+	
+</script>
+
+<script>
+	var repos=[];
+	
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+
+	$(document).ready(function(){	
+		ajaxRe();
+	});
+	
+	
+	function ajaxRe(){
+		$.ajax({
+			url: ngUrl+"/search",
+    		type: "get",
+    		cache:false,
+    		data:data,
+    	   	async:false,
+    		dataType:'json',
+    		success:function(json){  	    			
+    			if(json.data.length!=0){
+    				var pages=json.data.results.length;
+    				var totals=json.data.total;
+    				$("#ttnum").text(totals);
+    				for(var i=0;i<pages;i++){
+    					repos.push([json.data.results[i].repname,json.data.results[i].itemname]);			
+    				}
+    			}else{
+    				console.log("报错");  			
+    			}	    		
+    		},
+    		error:function(json){
+    			alert("程序出错，请稍后重试");
+    		}
+    	});
+		
+		if(repos.length!=0){
+			for(var i=0;i<repos.length;i++){
+				$.ajax({
+					url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+		    		type: "get",
+		    		cache:false,
+		    	   	async:false,
+		    	   	data:data,
+		    		dataType:'json',
+		    		success:function(json){ 
+		    			$("#loading").empty();
+	    				var vvclass="";
+	    					var label=json.data.label.sys.supply_style;
+	    					if(label="single"){
+		    					vvclass="period";
+		    					labelV="实时单条";
+		    				}
+		    				if(label="batch"){
+		    					vvclass="api";
+		    					labelV="批量数据";
+		    				}
+		    				if(label="flow"){
+		    					vvclass="charge";
+		    					labelV="流式数据";
+		    				}
+		    				var times=json.data.optime;
+		    				var jdTime="";
+		    				var xdTime="";
+		    				var showTime="";
+		    				var nums=times.indexOf("|");
+		    				if(nums!="-1"){
+		    					jdTime=times.substring(0,nums+1);
+		    					xdTime=times.substring(nums+1,times.length);
+		    					showTime=xdTime;
+		    				}else{
+		    					showTime=times;
+		    				}
+		    				
+		    				
+	    					$("#terminal-content-body").append(""+
+			    					"<div>"+
+										"<div class='repo-head'>"+
+											"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
+											"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+										"</div>"+
+										"<div class='repo-body'>"+
+											"<div id='repo-text'>"+json.data.comment+"</div>"+
+											"<div class='repo-body-tail'>"+
+												"<div class='repo-body-tail-left'>"+
+													"<div class='updatetime-icon'></div>"+
+													"<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
+													"<div class='tag-icon'></div>"+
+													"<div class='tag-value'>"+json.data.tags+"</div>"+
+												"</div>"+
+												"<div class='repo-body-tail-mid'>"+
+													"<div class="+vvclass+">"+labelV+"</div>"+
+			    								"</div>"+
+												"<div class='repo-body-tail-right'>"+
+													"<div class='shwr'>"+
+														"<div class='star-icon'></div>"+
+														"<div class='star-value'>"+json.data.stars+"</div>"+
+		    				                                "<div class='subscript-icon'></div>"+
+		    				                                "<div class='subscript-value'>0</div>"+
+		    				                                "<div class='downloaded-icon'></div>"+
+		    				                                "<div class='downloaded-value'>0</div>"+
+			    				                        "</div>"+
+												"</div>"+
+											"</div>"+
+										"</div>"+
+									"</div>"
+			    				);	    		
+		    		},
+		    		error:function(json){
+		    			alert("程序出错，请稍后重试");
+		    		}
+	    		}); 
+			}
+		}else{
+			$("#loading").empty();
+			$("#terminal-content-body").append("<div class='repo-body'><p class='text-center'>暂无搜索相关数据</p></div>");
+		}
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+
+
+
+
+</html>

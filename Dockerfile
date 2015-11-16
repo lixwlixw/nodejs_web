@@ -1,4 +1,10 @@
 FROM nginx
 COPY nginx.conf /etc/nginx/nginx.conf
-VOLUME /datahub/src/main/webapp/
-ADD . /datahub/src/main/webapp/
+COPY start.sh /start.sh
+
+#VOLUME /datahub/src/main/webapp/
+ADD ./webapp /datahub/src/main/webapp
+ENV API_SERVER
+ENV API_PORT
+
+ENTRYPOINT["/start.sh"]

@@ -33,6 +33,14 @@
     margin-top: 20px;
 }
 
+#inLoginb{
+	display: block;
+}
+
+#inLoginf{
+	display: none;
+}
+
 
 </style>
 </head>
@@ -81,13 +89,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="#" style='color: #fff;font-size: 2em' class="navbar-brand">DataHub</a>
+                    <a href="/" style='color: #fff;font-size: 2em' class="navbar-brand">DataHub</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-right" >
-                    <ul class="nav navbar-nav">
+                    <ul id="inLoginb" class="nav navbar-nav">
                         <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>                      
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>
+                    </ul>
+                    <ul id="inLoginf" class="nav navbar-nav">
+                        <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
+                        <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>  
+                        <li><a id='innames' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'></a></li>                    
+                        <li><a id='logout' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>退出</a></li>
                     </ul>
                 </div>
             </div>
@@ -145,18 +159,6 @@
               
               
   </div>
-  
- <!--
-<div class="container"   style="padding:0px"  >
-  <div class="searchBox ">
-    <div class="forms">
-      <input type="text" class="border" placeholder="请输入关键词" name="">
-      <input type="button" class="button" name="" value="搜索">
-    </div>
-  </div>
-</div>
--->
-
 
 <div class="container-fluid"  style="height:auto; background-color:#fff; padding: 0px;" >
 	
@@ -382,41 +384,7 @@
 	</div>
 
 
-	<!-- 登陆框开始 -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">登录</h4>
-                </div>
-                <div class="modal-body">
-                    
-                    <form>
-						  <div class="form-group">
-						    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
-						  </div>
-						  <div class="form-group">
-						    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
-						  </div>
-						  <div class="checkbox">
-						    <label>
-						      <input type="checkbox"> 记住我
-						    </label>
-						  </div>
-						  <button id='signs' type="submit" class="btn btn-primary" style='width: 100%;'>登录</button>
-					</form>
-                    
-                    
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 登录框结束 -->
+	<div id="loginTem"></div>
 
 
 </body>
@@ -427,7 +395,7 @@
 		$(".be-loader").fadeOut("slow");
 	});
 	
-	
+	$("#loginTem").load("common/login.html");
 	
 	$.stellar({
 		positionProperty: 'transform',
@@ -464,7 +432,7 @@
 		
 		$("#sign-in").click(function(){
 			$(".modal-open").css("padding-right","15px");
-			$('#myModal').modal('toggle');			
+			$('#myModal').modal('toggle');		
 		});
 		
 		
@@ -475,33 +443,43 @@
 </script>
 
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
 <script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
 <script>
 	$(document).ready(function(){
-//		console.log("123---");
-//		$("#sign-in").text("dddddd");
-
-/* 		$.ajax({
-    		url: ngUrl+"/select_labels",
-    		type: "get",
-    		cache:false,
-    		headers: {
-    			"Authorization": "Basicdfdddd"
-    		},
-    	   	async:false,
-    		dataType:'json',
-    		success:function(json){    			
-				console.log("测试数据："+json);  			
-    		}	
-    	}); */
     	
-    	$('#myModal').on('shown.bs.modal', function (e) {
+    	 $('#myModal').on('shown.bs.modal', function (e) {
     		 $("body").css("padding-right","0px");
     	});
+    	 
+    	 
+    	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
+    		 $("#inLoginb").hide();
+    		 $("#inLoginf").show();
+    		 $("#innames").text($.cookie("tname"));
+    	 }else{
+    		 $("#inLoginb").show();
+    		 $("#inLoginf").hide();
+    	 }
+    	 
+   		$(document).on('keydown',"#kw",function (e) {
+  			  if (e.keyCode == 13) {
+  				  var vals=$(this).val();
+  				  location.href="search.html?rtext="+vals;
+  			  }
+  		 });
+   		
+   		$(document).on('click',"#su",function (e) {
+			  var vals=$("#kw").val();
+			  location.href="search.html?rtext="+vals;
+		 });
+   		
+   		
     	
-    	$("#signs").click(function(){
-    		
-    	});
+
 		
 		
 	});

@@ -1,1 +1,1 @@
-var ngUrl="ttt";
+var ngUrl="api";
