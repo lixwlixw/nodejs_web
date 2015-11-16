@@ -5,4 +5,5 @@ COPY start.sh /start.sh
 #VOLUME /datahub/src/main/webapp/
 ADD ./webapp /datahub/src/main/webapp
 
-ENTRYPOINT ["sh /start.sh"]
+CMD ["sh /start.sh"]
+#ENTRYPOINT ["sh /start.sh"]
