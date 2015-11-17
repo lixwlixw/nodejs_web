@@ -3,7 +3,7 @@
  */
 $(function(){
 
-    $('#signs').click(function(){
+	$(document).on('click','#signs',function(){
         var exampleInputEmail1 = $('#exampleInputEmail1').val();
         var exampleInputPassword1 = $('#exampleInputPassword1').val();
         var mdpass =  $.md5(exampleInputPassword1);
@@ -39,12 +39,11 @@ $(function(){
         
     });	
     
-    
-	 $("#logout").click(function(){
-			$.cookie("tname",null,{path:"/"});
-			$.cookie("token",null,{path:"/"}); 
-			location.href=window.location.href;
- 	 });
+	$(document).on('click','#logout',function(){
+		$.cookie("tname",null,{path:"/"});
+		$.cookie("token",null,{path:"/"}); 
+		location.href=window.location.href;
+ 	});
 	
 	
 });
