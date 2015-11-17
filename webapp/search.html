@@ -213,8 +213,8 @@
 	    					$("#terminal-content-body").append(""+
 			    					"<div>"+
 										"<div class='repo-head'>"+
-											"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
-											"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+											"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
+											"<div class='repo-head-right'>数据拥有方：<a href='repDetails.html?repname="+json.data.create_user+"'>"+json.data.create_user+"</a></div>"+	
 										"</div>"+
 										"<div class='repo-body'>"+
 											"<div id='repo-text'>"+json.data.comment+"</div>"+

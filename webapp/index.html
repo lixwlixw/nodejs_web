@@ -23,12 +23,13 @@
 }
 
 #features h1 {
-    color: #434a54;
+    color: #28abe3;
     text-align: center;
     margin-top:100px;
+    font-size: 30px;
 }
 #features .text-muted {
-    color: #aab2bd;
+    color: #010101;
     text-align: center;
     margin-top: 20px;
 }
@@ -89,13 +90,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="/" style='color: #fff;font-size: 2em' class="navbar-brand">DataHub</a>
+                    <a href="/" style='color: #fff;font-size: 2.8em' class="navbar-brand">DataHub</a>
                 </div>
                 <div class="navbar-collapse collapse navbar-right" >
                     <ul id="inLoginb" class="nav navbar-nav">
-                        <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
-                        <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>                      
-                        <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>
+                        <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>     
+                        <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>                  
+                        <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-left:15px;padding: 5px 10px;'>?</a></li>                      
+
                     </ul>
                     <ul id="inLoginf" class="nav navbar-nav">
                         <li class="active"><a href="selects.html" target="_blank" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
@@ -131,7 +133,7 @@
 
   
   		<div class="stopwatch">
-            <div class="number"><span id="stopwatch1">864</span>次流通记录</div>
+            <div class="number"><span id="stopwatch1">864</span><span style="font-size: 16px">次流通记录</span></div>
             <div class="number"><span id="stopwatch2">116</span>个数据项</div>
             <div class="number"><span id="stopwatch3">578,694</span>个数据内容</div>
           </div>
@@ -176,18 +178,20 @@
 	        <div class="container" id='changeCom' style='margin-top:50px;padding:0px;'>
 	        	<div class="row"> 
 	            	<div class="col-md-12" style='text-align:center;'> 
-	            		<ul class="slick-tab" style="display: block;">
-	            			<li class="slick-active">
-	            				<button id="btn1" type="button" class='baaa' style='border-radius: 5px 0 0 5px;' >
-	            					&nbsp;&nbsp;企业
-	            				</button>
-	            			</li>
-	            			<li class="">
-	            				<button id='btn2' type="button" class='bfff' style='border-radius: 0px 5px 5px 0px;'>
-	            					&nbsp;&nbsp;开发者
-	            				</button>
-	            			</li>
-	            		</ul>
+	            		<div class="container" id="fUls" >
+		            		<ul class="slick-tab" style="display: block;">
+		            			<li class="slick-active">
+		            				<button id="btn1" type="button" class='baaa' style='border-radius: 8px 0 0 8px;' >
+		            					&nbsp;&nbsp;数据需求方
+		            				</button>
+		            			</li>
+		            			<li class="">
+		            				<button id='btn2' type="button" class='bfff' style='border-radius: 0px 8px 8px 0px;'>
+		            					&nbsp;&nbsp;数据拥有方
+		            				</button>
+		            			</li>
+		            		</ul>
+	            		</div>
 	            	</div>
 	        	</div> 
 	      	     	
@@ -235,17 +239,17 @@
 	    </div>
 
 
-		<div class="container-fluid" style='margin-top:30px;padding:0px;background-color: #f9f9f9; border-top: 1px solid #aaa; border-bottom:1px solid #aaa; box-shadow:inset 0 0 10px #d9d9d9;'>
+		<div class="container-fluid" style='margin-top:30px;padding:0px;background-color: #f9f9f9; border-top: 1px solid #aaa; border-bottom:1px solid #aaa;'>
 			<div class='container' id='guanCom' >
 				<div class="row" style='margin:0px;'>
 						<h3 id='h3Guan'>最受关注数据</h3>
-						<div class="col-md-3" style='padding:0px;' id='guanindex'> 
+						<div class="col-md-3" style='padding:0px;border-left: 1px solid #aaa;border-top: 1px solid #aaa;border-bottom: 1px solid #aaa;height:300px;' id='guanindex'> 
 		           			<img src="images/guan.png" />
 		           		</div>
 						<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
 							<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan1.png" style='margin-top:30px'/>
-			           			<div class="feature-label" style='margin-top:20px;'>银联流水数据</div>
+			           			<div class="feature-label" style='margin-top:20px;'>电商商品库</div>
 	           				</div>		
 		           		</div>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
@@ -263,19 +267,19 @@
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd4 guanNum" >
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan4.png"  style='margin-top:30px' />
-		           				<div class="feature-label"  style='margin-top:20px'>GZC地图数据</div>
+		           				<div class="feature-label"  style='margin-top:20px'>全国基站信息</div>
 	           				</div>
 		           		</div>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan5.png"   style='margin-top:30px'/>
-		           				<div class="feature-label"  style='margin-top:20px'>全国基站信息</div>
+			           			<img src="images/guan6.png"   style='margin-top:30px'/>
+		           				<div class="feature-label"  style='margin-top:20px'>银联流水数据</div>
 	           				</div>
 		           		</div>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan6.png"   style='margin-top:30px'/>
-		           				<div class="feature-label"  style='margin-top:20px'>电商商品库</div>
+			           			<img src="images/guan5.png"   style='margin-top:30px'/>
+		           				<div class="feature-label"  style='margin-top:20px'>GZS地图数据</div>
 	           				</div>
 		           		</div>
 					</div>
@@ -289,20 +293,20 @@
 			</div>
 			<div class="row" style='margin:0px;'>
 					<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
-	           			<img src="images/jing1.png" />
-	           			<div class="feature-label">终端专题</div>
+	           			<img src="images/jing3.png" />
+	           			<div class="feature-labeljing">终端专题</div>
 	           		</div>
 					<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
 	           			<img src="images/jing2.png" />
-	           			<div class="feature-label">互联网专题</div>
+	           			<div class="feature-labeljing">互联网专题</div>
 	           		</div>
 	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
-	           			<img src="images/jing3.png" />
-	           			<div class="feature-label">信征专题</div>
+	           			<img src="images/jing4.png" />
+	           			<div class="feature-labeljing">征信专题</div>
 	           		</div>
 	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdf jingNum"> 
-	           			<img src="images/jing4.png" />
-	           			<div class="feature-label">运营商专题</div>
+	           			<img src="images/jing1.png" />
+	           			<div class="feature-labeljing">运营商专题</div>
 	           		</div>
 			</div>
 		</div>

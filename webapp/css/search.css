@@ -265,7 +265,10 @@
 			padding: 20px 20px;width: 100%;float: right;
 		}
 		
-
+		.repo-head-right a:hover{
+			color:#337ab7;
+			text-decoration:underline;
+		}
 		
 		
 @media (max-width:768px) {
