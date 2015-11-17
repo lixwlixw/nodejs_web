@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -151,7 +151,7 @@
 				$(this).css("border","1px solid #29abe2").css("color","#29abe2");
 				
 				$.ajax({
-					url: ngUrl+"/selects?select_labels="+$(this).text(),
+					url: ngUrl+"/selects?select_labels=%22"+$(this).text()+"%22",
 		    		type: "get",
 		    		cache:false,
 		    	   	async:false,
@@ -213,8 +213,8 @@
 		    					$("#terminal-content-body").append(""+
 				    					"<div>"+
 											"<div class='repo-head'>"+
-												"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
-												"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+												"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
+												"<div class='repo-head-right'>数据拥有方：<a href='javaScript:void(0);'>"+json.data.create_user+"</a></div>"+	
 											"</div>"+
 											"<div class='repo-body'>"+
 												"<div id='repo-text'>"+json.data.comment+"</div>"+
@@ -281,7 +281,7 @@
     			}	    		
     		},
     		error:function(json){
-    			alert("程序出错，请稍后重试");
+    			alert("程序出错了，请稍后重试");
     		}
     	});
 
@@ -325,8 +325,8 @@
     					$("#terminal-content-body").append(""+
 		    					"<div>"+
 									"<div class='repo-head'>"+
-										"<div class='repo-head-left'>"+repos[i][0]+"/"+repos[i][1]+"</div>"+
-										"<div class='repo-head-right'>数据拥有方："+json.data.create_user+"</div>"+
+										"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
+										"<div class='repo-head-right'>数据拥有方：<a href='javaScript:void(0);'>"+json.data.create_user+"</a></div>"+	
 									"</div>"+
 									"<div class='repo-body'>"+
 										"<div id='repo-text'>"+json.data.comment+"</div>"+
