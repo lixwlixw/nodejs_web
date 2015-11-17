@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-搜索</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/itemDetails.css">
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7);
+	}
+	.navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-nav > li > a:focus{
+		background:none;
+	}
+</style>
+
+<body>
+	<div class="be-loader" style="display: block;">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	<header></header>
+	<div id="dataitem" class="container-fluid">
+		<div id="dataitem-right">
+			<div id="introduce1">
+				<div class="introduce1-head"><b>关于DataItem name</b></div>
+				<div class="introduce1-body"></div>
+			</div>
+			<div id="introduce2">
+				<div class="introduce2-a">
+					<div>
+						<div class="a-icon"></div>
+						<div class="a-value"></div>
+					</div>
+				</div>
+				<div class="introduce2-b">
+					<span style="background-color: #fc9b00;">流式数据</span>
+					<span style="background-color: #20abe2;">周期</span>
+					<span style="background-color: #f06f77;">API</span>
+					<span style="background-color: #6ecbcc;">阶梯计费</span>
+				</div>
+				<!--<div class="introduce2-c">
+						<span class="col1">
+							<span class="row1 key">所属Repository</span>
+							<hr style="margin: 0px;padding: 0px;">
+							<span class="row1 value">数据拥有方</span>
+						</span>
+						<span class="col2">
+							<span class="row2 key">Repository Name</span>
+							<hr style="margin: 0px;padding: 0px;">
+							<span class="row2 value">中国移动</span>
+						</span>
+				</div>-->
+			</div>
+			<!--<div id="introduce3">
+				<div class="introduce3-icon"></div>
+				<div class="introduce3-text"><a>Client端下载</a></div>
+			</div>
+			<div id="introduce4">
+				<div class="introduce4-head">
+					<b>相关DataItem</b>
+				</div>
+				<div class="introduce4-body">
+					<div>
+						<div class="num">1</div>
+						<div class="name">DataItem Name</div>
+						<div class="icons">
+							<span class="star-icon"></span>
+							<span class="star-value">238</span>
+							<span class="subscript-icon"></span>
+							<span class="subscript-value">344</span>
+							<span class="downloaded-icon"></span>
+							<span class="downloaded-value">235</span>
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</div>
+		<div id="dataitem-left">
+			<div id="dataitem-head">
+				<div id="dataitem-head-left" style="text-align: left;float: left;">DataItem name</div>
+				<div id="dataitem-head-right" style="text-align: right;float: right;">
+					<span class="star-icon"></span>
+					<span class="star-value">238</span>
+					<span class="subscript-icon"></span>
+					<span class="subscript-value">344</span>
+					<span class="downloaded-icon"></span>
+					<span class="downloaded-value">235</span>
+				</div>
+			</div>
+			<div id="dataitem-body">
+				<div id="dataitem-tag">
+					<div class="tab-head">
+						<div class="tab-head-div">Tag:<span></span></div>
+						<div class="tab-head-icon"></div>
+					</div>
+					<div class="tag-body">
+						<div id="show-message" style="display: none">
+							您还没有登录，请<a>登陆</a>
+						</div>
+						<table></table>
+					</div>
+				</div>
+				<div id="dataitem-exemple">
+					<div class="tab-head">
+						<div class="tab-head-div">样例</div>
+						<div class="tab-head-icon"></div>
+					</div>
+					<div class="exemple-body"></div>
+				</div>
+				<div id="dataitem-metadata">
+					<div class="tab-head">
+						<div class="tab-head-div">元数据</div>
+						<div class="tab-head-icon"></div>
+					</div>
+					<div class="metadata-body"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer></footer>
+	<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	$(window).load(function(){
+		$("#dataitem-tag .tag-body .tag-4 .btn").click(function() {
+			//TODO
+			window.clipboardData.clearData("");
+			window.clipboardData.setData("text", "abc");
+		});
+		$("#dataitem-tag .tag-body .tag-5 .btn").click(function() {
+			var off = $(this).offset();
+			var dailog = $("#show-message");
+			dailog.css({position: "absolute",'top':off.top+25,'left':off.left-110});
+			dailog.css("display", "block");
+		});
+		$("#dataitem-tag #show-message a").click(function() {
+			$("#show-message").hide();
+		});
+		function stopPropagation(e) {
+			if (e.stopPropagation)
+				e.stopPropagation();
+			else
+				e.cancelBubble = true;
+		}
+		$(document).bind('click',function(e){
+			if(e.target.id != "show-message") {
+				$('#show-message').css('display','none');
+			}
+		});
+		$('#dataitem-tag .tag-body .tag-5 .btn').click(function(e){
+			stopPropagation(e);
+		});
+	});
+
+	$(document).ready(function(){
+		ajaxRe();
+	});
+
+
+	function ajaxRe(){
+		var repname = getParam("repname");
+		var itemname = getParam("itemname");
+		$.ajax({
+			url: ngUrl+"/repositories/"+repname+"/"+itemname,
+			type: "get",
+			cache:false,
+			data:{},
+			async:false,
+			dataType:'json',
+			success:function(json){
+				if(json.code == 0){
+					$("#dataitem-head-left").text(itemname);
+
+					$("#dataitem-head-right .star-value").text(json.data.stars);
+					$("#dataitem-head-right .subscript-value").text(0);
+					$("#dataitem-head-right .downloaded-value").text(0);
+
+					$("#dataitem-tag .tab-head .tab-head-div>span").text(json.data.tags);
+					for(var i=0; i<json.data.taglist.length; i++) {
+						var tag = json.data.taglist[i];
+						var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
+						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
+						var td3 = $("<td></td>").addClass("tag-3").text(tag.optime.substring(0, tag.optime.indexOf(".")));
+						var td4 = $("<td></td>").addClass("tag-4");
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", ""));
+						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
+						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
+						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
+						var divicon = $("<span></span>").addClass("icon").appendTo(td5div);
+						var divtext = $("<span></span>").addClass("text").text("0").appendTo(td5div);
+						var tr = $("<tr></tr>").append(td1).append(td3).append(td4).append(td5);
+						$("#dataitem-tag .tag-body table").append(tr);
+						if(json.data.lable.supply_style == "batch") {
+							tr.append(td2);
+						}else {
+							td1.css("width", "25%");
+							td3.css("width", "25%");
+							td4.css("width", "25%");
+							td5.css("width", "25%");
+						}
+					}
+
+					$("#dataitem-exemple .exemple-body").text(json.data.sample);
+					$("#dataitem-metadata .metadata-body").text(json.data.meta);
+
+					$("#introduce1 .introduce1-body").text(json.data.comment);
+
+					var times=json.data.optime;
+					var jdTime="";
+					var xdTime="";
+					var showTime="";
+					var nums=times.indexOf("|");
+					if(nums!="-1"){
+						jdTime=times.substring(0,nums+1);
+						xdTime=times.substring(nums+1,times.length);
+						showTime=xdTime;
+					}else{
+						showTime=times;
+					}
+					$("#introduce2 .introduce2-a .a-value").text(showTime);
+				}else {
+					console.log("报错");
+				}
+			},
+			error:function(json){
+				alert("程序出错，请稍后重试");
+			}
+		});
+	}
+	function getParam(key) {
+		var value='';
+		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+//		var itemid = /\?.*'+itemname+'=([^&]*).*$/;
+		if (itemid.test(decodeURIComponent(window.location.href))) {
+			value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		}
+		return value;
+	}
+</script>
+</html>
