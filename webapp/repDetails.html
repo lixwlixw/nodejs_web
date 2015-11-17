@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/repository.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/underscore-min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+<div id="dataitem" class="container-fluid">
+    <div id="dataitem-right">
+        <div id="introduce1">
+            <div class="introduce1-head"><b class="aboutrep"></b></div>
+            <div class="introduce1-body repcomment">亚信是在美国纳斯达克成功上市的第一家中国高科技企业（NASDAQ交易代码：ASIA）。总部设在北京，在成都、广州、上海、杭州、南京、福州、沈阳等地设有分支机构和研发中心。</div>
+        </div>
+        <div id="introduce2">
+            <div class="introduce2-a">
+                <div>
+                    <div class="a-icon"></div>
+                    <div class="a-value repoptime">一小时以前</div>
+                </div>
+            </div>
+            <div class="introduce2-b">
+                <div class="col-xs-4" style="border-right: 1px solid #e5e5e5;">数据拥有方</div>
+                <div class="col-xs-8 repcreate_user">create_user</div>
+            </div>
+
+        </div>
+        <div id="introduce3">
+            <div class="introduce3-icon"></div>
+            <div class="introduce3-text"><a>Client端下载</a></div>
+        </div>
+        <!--<div id="introduce4">-->
+            <!--<div class="introduce4-head">-->
+                <!--<b>最热DataItem</b>-->
+            <!--</div>-->
+            <!--<div class="introduce4-body">-->
+                <!--<div>-->
+                    <!--<div class="num">1</div>-->
+                    <!--<div class="name">DataItem Name</div>-->
+                    <!--<div class="icons">-->
+                        <!--<span class="star-icon"></span>-->
+                        <!--<span class="star-value">238</span>-->
+                        <!--<span class="subscript-icon"></span>-->
+                        <!--<span class="subscript-value">344</span>-->
+                        <!--<span class="downloaded-icon"></span>-->
+                        <!--<span class="downloaded-value">235</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div id="dataitem-left">
+        <div id="dataitem-head">
+            <div id="dataitem-head-left" class="repname" style="text-align: left;float: left;">DataItem name</div>
+            <div id="dataitem-head-right" style="text-align: right;float: right;">
+                <span class="star-icon"></span>
+                <span class="star-value starnum"></span>
+                <span class="subscript-icon"></span>
+                <span class="subscript-value numpulls"></span>
+                <span class="downloaded-icon"></span>
+                <span class="downloaded-value repdnum"></span>
+            </div>
+        </div>
+        <div id="dataitem-body" class="bigBox">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+    function showtime(times){
+        var jdTime="";
+        var xdTime="";
+        var showTime="";
+        var nums=times.indexOf("|");
+        if(nums!="-1"){
+            jdTime=times.substring(0,nums+1);
+            xdTime=times.substring(nums+1,times.length);
+            showTime=xdTime;
+        }else{
+            showTime=times;
+        }
+        return showTime;
+    }
+    var repname='';
+    var itemid = /\?.*repname=([^&]*).*$/;
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+        repname = itemid.exec(decodeURIComponent(window.location.href))[1];
+    }
+    $('.repname').html(repname);
+    $('.aboutrep').html('关于'+repname);
+    $(function() {
+
+        var datas = [];
+        function getrepname() {
+            $.ajax({
+                url: ngUrl + "/repositories/" + repname + "?items=1",
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    $('.repcomment').html(msg.data.comment);
+                    $('.repcreate_user').html(msg.data.create_user);
+                    $('.starnum').html(msg.data.stars)
+                    var times = msg.data.optime;
+                    showTime = showtime(times);
+                    $('.repoptime').html(showTime);
+                    ///////////////////////////////////////////
+                    for (i = 0; i < msg.data.dataitems.length; i++) {
+                        datas.push(msg.data.dataitems[i]);
+                    }
+                }
+
+            });
+
+        }
+
+        getrepname();
+        var htmls = '';
+        var fornum = datas.length;
+        //返回该repositories的订阅量
+        $.ajax({
+            url: ngUrl + "/subscription_stat/" +repname,
+            cache: false,
+            async: false,
+            success: function(msg){
+                $(".repdnum").html(msg.data.numsubs);
+            }
+        });
+        //返回该repositories的下载量
+        $.ajax({
+            url: ngUrl + "/transaction_stat/" +repname,
+            cache: false,
+            async: false,
+            success: function(msg){
+                $(".numpulls").html(msg.data.numpulls);
+            }
+        });
+        //返回该DataItem的订阅量
+        var dataitemd = [];
+        for(var i= 0;i<datas.length;i++) {
+            $.ajax({
+                url: ngUrl + "/subscription_stat/" +datas[i],
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    dataitemd.push(msg.data.numsubs);
+                }
+            });
+        }
+        //返回该DataItem的pull量
+        var dataitemdpullNum = [];
+        for(var i= 0;i<datas.length;i++) {
+            $.ajax({
+                url: ngUrl + "/transaction_stat/" +repname+datas[i],
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    dataitemdpullNum.push(msg.data.numpulls);
+                }
+            });
+        }
+        //填充items列表
+        console.log(datas);
+     for(var i=0;i<fornum;i++) {
+        $.ajax({
+            url: ngUrl + "/repositories/" + repname + "/"+datas[i],
+            cache: false,
+            async:false,
+            success: function (msg) {
+//                    alert(msg.data.taglist[0].optime)
+                var vvclass = "";
+                var label = msg.data.label.sys.supply_style;
+                if (label = "single") {
+                    vvclass = "period";
+                    labelV = "实时单条";
+                }
+                if (label = "batch") {
+                    vvclass = "api";
+                    labelV = "批量数据";
+                }
+                if (label = "flow") {
+                    vvclass = "charge";
+                    labelV = "流式数据";
+                }
+                var times = msg.data.optime;
+                showTime = showtime(times)
+                htmls =
+                        '<div id="dataitem-tag">'
+                        + '<div class="tab-head">'
+                        + '<div class="tab-head-div"> '+ datas[i] + "</div>"
+                        + '<div class="tab-head-icon"></div>'
+                        + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
+                        + '</div>'
+                        + '<div class="tag-body">'
+                        + '<table>'
+                        + '<tr>'
+                        + '<td class="tag-1">' + msg.data.comment + '</td>'
+                        + '</tr>'
+                        + '<tr>'
+                        + '<td class="tag-1 rightsimg">'
+                        + '<span class="time-icon"></span>'
+                        + '<span class="star-value">' + showTime + '</span>'
+                        + '<span class="browse-icon"></span>'
+                        + '<span class="subscript-value">' + msg.data.tags + '</span>'
+                        + '</td>'
+                        + '<td class="tag-2 filletspan">'
+                        + '<span class=' + vvclass + '>' + labelV + '</span>'
+                        + '</td>'
+                        + '<td class="tag-3 rightsimg nofloat" >'
+                        + '<span class="star-value">'+dataitemd[i]+'</span>'
+                        + '<span class="subscript-icon"></span>'
+                        + '<span class="subscript-value">'+dataitemdpullNum[i]+'</span>'
+                        + '<span class="downloaded-icon"></span>'
+                        + '<span class="downloaded-value">' + msg.data.stars + '</span>'
+                        + '<span class="star-icon"></span>'
+                        + '</td>'
+                        + '</tr>'
+                        + '</table>'
+                        + '</div>'
+                        + '</div>';
+                $('.bigBox').append(htmls);
+            }
+        });
+    }
+
+
+
+    })
+
+</script>
