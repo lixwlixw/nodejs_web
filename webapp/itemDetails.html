@@ -63,23 +63,20 @@
 					</div>
 				</div>
 				<div class="introduce2-b">
-					<span style="background-color: #fc9b00;">流式数据</span>
-					<span style="background-color: #20abe2;">周期</span>
-					<span style="background-color: #f06f77;">API</span>
-					<span style="background-color: #6ecbcc;">阶梯计费</span>
+					<span class="filetype"></span>
 				</div>
-				<!--<div class="introduce2-c">
+				<div class="introduce2-c">
 						<span class="col1">
 							<span class="row1 key">所属Repository</span>
 							<hr style="margin: 0px;padding: 0px;">
-							<span class="row1 value">数据拥有方</span>
+							<span class="row1 value"></span>
 						</span>
 						<span class="col2">
-							<span class="row2 key">Repository Name</span>
+							<span class="row2 key">数据拥有方</span>
 							<hr style="margin: 0px;padding: 0px;">
-							<span class="row2 value">中国移动</span>
+							<span class="row2 value"></span>
 						</span>
-				</div>-->
+				</div>
 			</div>
 			<!--<div id="introduce3">
 				<div class="introduce3-icon"></div>
@@ -110,11 +107,11 @@
 				<div id="dataitem-head-left" style="text-align: left;float: left;">DataItem name</div>
 				<div id="dataitem-head-right" style="text-align: right;float: right;">
 					<span class="star-icon"></span>
-					<span class="star-value">238</span>
+					<span class="star-value"></span>
 					<span class="subscript-icon"></span>
-					<span class="subscript-value">344</span>
+					<span class="subscript-value"></span>
 					<span class="downloaded-icon"></span>
-					<span class="downloaded-value">235</span>
+					<span class="downloaded-value"></span>
 				</div>
 			</div>
 			<div id="dataitem-body">
@@ -157,6 +154,7 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src="js/jquery.zclip.js"></script>
 <script>
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
@@ -166,10 +164,14 @@
 		$(".be-loader").fadeOut("slow");
 	});
 	$(window).load(function(){
-		$("#dataitem-tag .tag-body .tag-4 .btn").click(function() {
-			//TODO
-			window.clipboardData.clearData("");
-			window.clipboardData.setData("text", "abc");
+		$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
+			path:'js/ZeroClipboard.swf',
+			copy:function() {
+				return $(this).parent().children(".plaintext:first").val();
+			},
+			afterCopy:function() {
+				alert("复制成功");
+			},
 		});
 		$("#dataitem-tag .tag-body .tag-5 .btn").click(function() {
 			var off = $(this).offset();
@@ -213,29 +215,79 @@
 			dataType:'json',
 			success:function(json){
 				if(json.code == 0){
+					//设置repname
 					$("#dataitem-head-left").text(itemname);
-
+					//设置点赞量、订阅量、下载量
 					$("#dataitem-head-right .star-value").text(json.data.stars);
-					$("#dataitem-head-right .subscript-value").text(0);
-					$("#dataitem-head-right .downloaded-value").text(0);
-
+					$.ajax({
+						url: ngUrl+"/subscription_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .subscript-value").text(json.data.numsubs);
+							}
+						},
+						error:function(json){
+							alert("程序出错，请稍后重试");
+						}
+					});
+					$.ajax({
+						url: ngUrl+"/transaction_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .downloaded-value").text(json.data.numpulls);
+							}
+						},
+						error:function(json){
+							alert("程序出错，请稍后重试");
+						}
+					});
+					//设置tag数量
 					$("#dataitem-tag .tab-head .tab-head-div>span").text(json.data.tags);
+					//设置tag详情
 					for(var i=0; i<json.data.taglist.length; i++) {
 						var tag = json.data.taglist[i];
 						var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
 						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
-						var td3 = $("<td></td>").addClass("tag-3").text(tag.optime.substring(0, tag.optime.indexOf(".")));
-						var td4 = $("<td></td>").addClass("tag-4");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", ""));
+						var td3 = $("<td></td>").addClass("tag-3").text(tag.optime.substring(0, tag.optime.indexOf("."))).attr("title",tag.optime).css("cursor", "pointer");
+						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", ngUrl+"/"+repname+"/"+itemname+"/"+tag.tag));
 						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
 						var divicon = $("<span></span>").addClass("icon").appendTo(td5div);
-						var divtext = $("<span></span>").addClass("text").text("0").appendTo(td5div);
+						//设置tag下载量
+						var numpulls = -1;
+						$.ajax({
+							url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
+							type: "get",
+							cache:false,
+							data:{},
+							async:false,
+							dataType:'json',
+							success:function(json){
+								if(json.code == 0){
+									numpulls = json.data.numpulls;
+								}
+							},
+							error:function(json){
+								alert("程序出错，请稍后重试");
+							}
+						});
+						var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
 						var tr = $("<tr></tr>").append(td1).append(td3).append(td4).append(td5);
 						$("#dataitem-tag .tag-body table").append(tr);
-						if(json.data.lable.supply_style == "batch") {
-							tr.append(td2);
+						if(json.data.label.sys.supply_style == "batch") {
+							td2.insertAfter(td1);
 						}else {
 							td1.css("width", "25%");
 							td3.css("width", "25%");
@@ -243,12 +295,12 @@
 							td5.css("width", "25%");
 						}
 					}
-
+					//设置样例和元数据
 					$("#dataitem-exemple .exemple-body").text(json.data.sample);
 					$("#dataitem-metadata .metadata-body").text(json.data.meta);
-
+					//设置comment
 					$("#introduce1 .introduce1-body").text(json.data.comment);
-
+					//设置时间
 					var times=json.data.optime;
 					var jdTime="";
 					var xdTime="";
@@ -261,7 +313,38 @@
 					}else{
 						showTime=times;
 					}
-					$("#introduce2 .introduce2-a .a-value").text(showTime);
+					$("#introduce2 .introduce2-a .a-value").attr("title",times.substring(0, times.indexOf("|"))).text(showTime).css("cursor", "pointer");
+					//设置标签
+					if(json.data.label.sys.supply_style == "flow") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流失数据");
+					}else if(json.data.label.sys.supply_style == "batch") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#20abe2").text("批量数据");
+					}else if(json.data.label.sys.supply_style == "single") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#f06f77").text("单条数据");
+					}
+					var ptags = json.data.label.owner;
+					for(var i in ptags) {
+						$("<span></span>").addClass("personaltag").css("background-color", "#6ecbcc").text(ptags[i]).appendTo("#introduce2 .introduce2-b");
+					}
+
+					//设置仓库和数据拥有方
+					$("#introduce2 .introduce2-c .col1 .value").text(repname);
+					$.ajax({
+						url: ngUrl+"/users/"+json.data.create_user,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#introduce2 .introduce2-c .col2 .value").text(json.data.userName || json.data.nickName);
+							}
+						},
+						error:function(json){
+							alert("程序出错，请稍后重试");
+						}
+					});
 				}else {
 					console.log("报错");
 				}
@@ -271,10 +354,21 @@
 			}
 		});
 	}
+	$("#dataitem-tag .tag-body .tag-4 .btn").click(function() {
+		alert("----");
+	});
+	$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
+		path:'js/ZeroClipboard.swf',
+		copy:function() {
+			return $("#dataitem-tag .tag-body .tag-4 .plaintext").val();
+		},
+		afterCopy:function() {
+			alert("复制成功"+$("#dataitem-tag .tag-body .tag-4 .plaintext").val());
+		},
+	});
 	function getParam(key) {
 		var value='';
 		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-//		var itemid = /\?.*'+itemname+'=([^&]*).*$/;
 		if (itemid.test(decodeURIComponent(window.location.href))) {
 			value = itemid.exec(decodeURIComponent(window.location.href))[1];
 		}
