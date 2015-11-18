@@ -71,7 +71,7 @@
 					<ul id="navigator-ul10">
 					</ul>
 				</div>
-				<div id="terminal-content-head"><b>全部精选</b></div>
+				<div id="terminal-content-head"><b id="allJ">全部精选</b></div>
 				<div id="terminal-content-body"></div>	
 			</div>		
 		
@@ -146,11 +146,12 @@
 			if($(this).hasClass("overs")){
 				$(this).removeClass("overs");
 				$(this).css("border","1px solid #ccc").css("color","#666");
+				$("#allJ").text("全部精选");
 				ajaxRe();
 			}else{
 				$(this).addClass("overs");
 				$(this).css("border","1px solid #29abe2").css("color","#29abe2");
-				
+				$("#allJ").text($(this).text()+"精选");
 				$.ajax({
 					url: ngUrl+"/selects?select_labels=%22"+$(this).text()+"%22",
 		    		type: "get",
