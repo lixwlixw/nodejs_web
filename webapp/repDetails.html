@@ -6,11 +6,23 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <link rel="stylesheet" href="./css/repository.css">
+    <link rel="stylesheet" href="./css/pagination.css"/>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
+    <script src="./js/jquery.pagination.js"></script>
     <style type="text/css">
+        .pagination{
+            width: 100%;
+            text-align: center;
+        }
+        .pagination a{
+            border-radius: 3px;
+        }
+        .pagination span.current{
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +86,9 @@
         <div id="dataitem-body" class="bigBox">
 
         </div>
+        <div class="pages">
+
+        </div>
     </div>
 </div>
 <!-- 尾部 -->
@@ -109,17 +124,19 @@
     $('.repname').html(repname);
     $('.aboutrep').html('关于'+repname);
     $(function() {
-
         var datas = [];
-        function getrepname() {
+        var paegeitems;
+        function getrepname(pages) {
+            datas = [];
             $.ajax({
-                url: ngUrl + "/repositories/" + repname + "?items=1",
+                url: ngUrl + "/repositories/" + repname + "?items=1&page="+pages,
                 cache: false,
                 async: false,
                 success: function (msg) {
                     $('.repcomment').html(msg.data.comment);
                     $('.repcreate_user').html(msg.data.create_user);
                     $('.starnum').html(msg.data.stars)
+                    paegeitems = msg.data.items;
                     var times = msg.data.optime;
                     showTime = showtime(times);
                     $('.repoptime').html(showTime);
@@ -130,10 +147,9 @@
                 }
 
             });
-
         }
 
-        getrepname();
+        getrepname(1);
         var htmls = '';
         var fornum = datas.length;
         //返回该repositories的订阅量
@@ -179,71 +195,150 @@
             });
         }
         //填充items列表
-        console.log(datas);
-     for(var i=0;i<fornum;i++) {
-        $.ajax({
-            url: ngUrl + "/repositories/" + repname + "/"+datas[i],
-            cache: false,
-            async:false,
-            success: function (msg) {
-//                    alert(msg.data.taglist[0].optime)
-                var vvclass = "";
-                var label = msg.data.label.sys.supply_style;
-                if (label = "single") {
-                    vvclass = "period";
-                    labelV = "实时单条";
-                }
-                if (label = "batch") {
-                    vvclass = "api";
-                    labelV = "批量数据";
-                }
-                if (label = "flow") {
-                    vvclass = "charge";
-                    labelV = "流式数据";
-                }
-                var times = msg.data.optime;
-                showTime = showtime(times)
-                htmls =
-                        '<div id="dataitem-tag">'
-                        + '<div class="tab-head">'
-                        + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?itemname="+repname+'&'+datas[i]+"'>"+datas[i]+"</a></div>"
-                        + '<div class="tab-head-icon"></div>'
-                        + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
-                        + '</div>'
-                        + '<div class="tag-body">'
-                        + '<table>'
-                        + '<tr>'
-                        + '<td class="tag-1">' + msg.data.comment + '</td>'
-                        + '</tr>'
-                        + '<tr>'
-                        + '<td class="tag-1 rightsimg">'
-                        + '<span class="time-icon"></span>'
-                        + '<span class="star-value">' + showTime + '</span>'
-                        + '<span class="browse-icon"></span>'
-                        + '<span class="subscript-value">' + msg.data.tags + '</span>'
-                        + '</td>'
-                        + '<td class="tag-2 filletspan">'
-                        + '<span class=' + vvclass + '>' + labelV + '</span>'
-                        + '</td>'
-                        + '<td class="tag-3 rightsimg nofloat" >'
-                        + '<span class="star-value">'+dataitemd[i]+'</span>'
-                        + '<span class="subscript-icon"></span>'
-                        + '<span class="subscript-value">'+dataitemdpullNum[i]+'</span>'
-                        + '<span class="downloaded-icon"></span>'
-                        + '<span class="downloaded-value">' + msg.data.stars + '</span>'
-                        + '<span class="star-icon"></span>'
-                        + '</td>'
-                        + '</tr>'
-                        + '</table>'
-                        + '</div>'
-                        + '</div>';
-                $('.bigBox').append(htmls);
-            }
+
+      function funitemList(){
+          for(var i=0;i<fornum;i++) {
+              $.ajax({
+                  url: ngUrl + "/repositories/" + repname + "/"+datas[i],
+                  cache: false,
+                  async:false,
+                  success: function (msg) {
+                      var vvclass = "";
+                      var label = msg.data.label.sys.supply_style;
+                      if (label = "single") {
+                          vvclass = "period";
+                          labelV = "实时单条";
+                      }
+                      if (label = "batch") {
+                          vvclass = "api";
+                          labelV = "批量数据";
+                      }
+                      if (label = "flow") {
+                          vvclass = "charge";
+                          labelV = "流式数据";
+                      }
+                      var times = msg.data.optime;
+                      showTime = showtime(times)
+                      htmls =
+                              '<div id="dataitem-tag" class="itemList">'
+                              + '<div class="tab-head">'
+                              + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?itemname="+repname+'&'+datas[i]+"'>"+datas[i]+"</a></div>"
+                              + '<div class="tab-head-icon"></div>'
+                              + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
+                              + '</div>'
+                              + '<div class="tag-body">'
+                              + '<table>'
+                              + '<tr>'
+                              + '<td class="tag-1">' + msg.data.comment + '</td>'
+                              + '</tr>'
+                              + '<tr>'
+                              + '<td class="tag-1 rightsimg">'
+                              + '<span class="time-icon"></span>'
+                              + '<span class="star-value">' + showTime + '</span>'
+                              + '<span class="browse-icon"></span>'
+                              + '<span class="subscript-value">' + msg.data.tags + '</span>'
+                              + '</td>'
+                              + '<td class="tag-2 filletspan">'
+                              + '<span class=' + vvclass + '>' + labelV + '</span>'
+                              + '</td>'
+                              + '<td class="tag-3 rightsimg nofloat" >'
+                              + '<span class="star-value">'+dataitemd[i]+'</span>'
+                              + '<span class="subscript-icon"></span>'
+                              + '<span class="subscript-value">'+dataitemdpullNum[i]+'</span>'
+                              + '<span class="downloaded-icon"></span>'
+                              + '<span class="downloaded-value">' + msg.data.stars + '</span>'
+                              + '<span class="star-icon"></span>'
+                              + '</td>'
+                              + '</tr>'
+                              + '</table>'
+                              + '</div>'
+                              + '</div>';
+                      $('.bigBox').append(htmls);
+                  }
+              });
+          }
+      }
+
+        /////////////////////////////////////////////分页
+        funitemList();
+        $(".pages").pagination(paegeitems, {
+            maxentries:paegeitems,
+            items_per_page: 3,
+            num_display_entries: 5,
+            num_edge_entries: 5 ,
+            prev_text:"上一页",
+            next_text:"下一页",
+            ellipse_text:"...",
+//			    num_edge_entries:1,
+            link_to:"javascript:void(0)",
+            callback:fenS,
+            load_first_page:false
         });
-    }
-
-
-
+        $('.pagination a').attr('href','javascript:void(0)')
+        function fenS(new_page_index){
+            getrepname(new_page_index+1);
+            $('.bigBox').empty();
+            for(var i=0;i<fornum;i++) {
+                $.ajax({
+                    url: ngUrl + "/repositories/" + repname + "/"+datas[i],
+                    cache: false,
+                    async:false,
+                    success: function (msg) {
+                        var vvclass = "";
+                        var label = msg.data.label.sys.supply_style;
+                        if (label = "single") {
+                            vvclass = "period";
+                            labelV = "实时单条";
+                        }
+                        if (label = "batch") {
+                            vvclass = "api";
+                            labelV = "批量数据";
+                        }
+                        if (label = "flow") {
+                            vvclass = "charge";
+                            labelV = "流式数据";
+                        }
+                        var times = msg.data.optime;
+                        showTime = showtime(times)
+                        htmls =
+                                '<div id="dataitem-tag" class="itemList">'
+                                + '<div class="tab-head">'
+                                + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?itemname="+repname+'&'+datas[i]+"'>"+datas[i]+"</a></div>"
+                                + '<div class="tab-head-icon"></div>'
+                                + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
+                                + '</div>'
+                                + '<div class="tag-body">'
+                                + '<table>'
+                                + '<tr>'
+                                + '<td class="tag-1">' + msg.data.comment + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td class="tag-1 rightsimg">'
+                                + '<span class="time-icon"></span>'
+                                + '<span class="star-value">' + showTime + '</span>'
+                                + '<span class="browse-icon"></span>'
+                                + '<span class="subscript-value">' + msg.data.tags + '</span>'
+                                + '</td>'
+                                + '<td class="tag-2 filletspan">'
+                                + '<span class=' + vvclass + '>' + labelV + '</span>'
+                                + '</td>'
+                                + '<td class="tag-3 rightsimg nofloat" >'
+                                + '<span class="star-value">'+dataitemd[i]+'</span>'
+                                + '<span class="subscript-icon"></span>'
+                                + '<span class="subscript-value">'+dataitemdpullNum[i]+'</span>'
+                                + '<span class="downloaded-icon"></span>'
+                                + '<span class="downloaded-value">' + msg.data.stars + '</span>'
+                                + '<span class="star-icon"></span>'
+                                + '</td>'
+                                + '</tr>'
+                                + '</table>'
+                                + '</div>'
+                                + '</div>';
+                        $('.bigBox').append(htmls);
+                    }
+                });
+            }
+        }
     })
 
 </script>
