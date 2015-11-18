@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-数据拥有方详情</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/search.css">
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7);
+	}
+	.navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-nav > li > a:focus{
+		background:none;
+	}
+</style>
+
+<body>
+	<div class="be-loader" style="display: block;">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	<header></header>
+	<div id="userDet" class="container-fluid" style="margin-top:50px;background-color: #f6f9fc;padding: 0px 40px;">
+		<div id="userName" style="float: left;margin-top:22px;margin-bottom: 18px;font-weight: bold;"></div>
+		<div id="userCom" style="float: left;"></div>
+	</div>
+	<div class="col-md-12 col-sm-12" id="lComs">			
+		<div id="terminal-content-head"></div>
+		<div id="terminal-content-body"></div>	
+	</div>
+	<footer></footer>
+	<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	var repos=[];
+	$(document).ready(function(){
+		ajaxRe();
+		
+		$.ajax({
+			url: ngUrl+"/repositories?username="+getParam("username"),
+    		type: "get",
+    		cache:false,
+    	   	async:false,
+    		dataType:'json',
+    		success:function(json){  
+    			if(json.data.length!=0){
+    				var pages=json.data.length;
+    				for(var i=0;i<pages;i++){
+    					repos.push([json.data[i].repname]);			
+    				}
+    			}else{
+    				console.log("报错");
+    			}		
+    		},
+    		error:function(json){
+    			alert("程序出错，请稍后重试");
+    		}
+    	});
+		
+
+		
+		for(var i=0;i<repos.length;i++){
+			$.ajax({
+				url: ngUrl+"/repositories/"+repos[0],
+	    		type: "get",
+	    		cache:false,
+	    	   	async:false,
+	    		dataType:'json',
+	    		success:function(json){ 
+	    			$("#loading").empty();
+    					var vvclass="";
+    					var label=json.data.label.sys.supply_style;
+    					var labelV="";
+	    				if(label="single"){
+	    					vvclass="period";
+	    					labelV="实时单条";
+	    				}
+	    				if(label="batch"){
+	    					vvclass="api";
+	    					labelV="批量数据";
+	    				}
+	    				if(label="flow"){
+	    					vvclass="charge";
+	    					labelV="流式数据";
+	    				}
+	    				
+	    				var times=json.data.optime;
+	    				var jdTime="";
+	    				var xdTime="";
+	    				var showTime="";
+	    				var nums=times.indexOf("|");
+	    				if(nums!="-1"){
+	    					jdTime=times.substring(0,nums+1);
+	    					xdTime=times.substring(nums+1,times.length);
+	    					showTime=xdTime;
+	    				}else{
+	    					showTime=times;
+	    				}
+	    						    				
+	    				
+    					$("#terminal-content-body").append(""+
+		    					"<div>"+
+									"<div class='repo-head'>"+
+										"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[0]+"'>"+repos[0]+"</a></div>"+										
+									"</div>"+
+									"<div class='repo-body'>"+
+										"<div id='repo-text'>"+json.data.comment+"</div>"+
+										"<div class='repo-body-tail'>"+
+											"<div class='repo-body-tail-left'>"+
+												"<div class='updatetime-icon'></div>"+
+												"<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
+												"<div class='tag-icon' title='item数量'></div>"+
+												"<div class='tag-value'>"+json.data.items+"</div>"+
+											"</div>"+
+											"<div class='repo-body-tail-mid'>"+
+												"<div class="+vvclass+">"+labelV+"</div>"+
+		    								"</div>"+
+											"<div class='repo-body-tail-right'>"+
+												"<div class='shwr'>"+
+													"<div class='star-icon'  title='stars数量'></div>"+
+													"<div class='star-value'>"+json.data.stars+"</div>"+
+		    				                        "</div>"+
+											"</div>"+
+										"</div>"+
+									"</div>"+
+								"</div>"
+		    				);	    		
+	    		},
+	    		error:function(json){
+	    			alert("程序出错，请稍后重试");
+	    		}
+    		}); 
+		}
+		
+	});
+
+
+	function ajaxRe(){
+		var username = getParam("username");
+		$.ajax({
+			url: ngUrl+"/users/"+username,
+			type: "get",
+			cache:false,
+			data:{},
+			async:false,
+			dataType:'json',
+			success:function(json){
+				if(json.code == 0){
+					$("#userName").text(json.data.nickName);
+					$("#userCom").text(json.data.comment);
+				}else {
+					console.log("报错");
+				}
+			},
+			error:function(json){
+				alert("程序出错，请稍后重试");
+			}
+		});
+	}
+	function getParam(key) {
+		var value='';
+		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		if (itemid.test(decodeURIComponent(window.location.href))) {
+			value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		}
+		return value;
+	}
+</script>
+</html>

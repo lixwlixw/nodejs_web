@@ -171,6 +171,31 @@
     		}
     	});
 		
+		//返回该DataItem的订阅量
+        var dataitemd = [];
+        for(var i= 0;i<repos.length;i++) {
+            $.ajax({
+                url: ngUrl + "/subscription_stat/" +repos[i][0],
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    dataitemd.push(msg.data.numsubs);
+                }
+            });
+        }
+        //返回该DataItem的pull量
+        var dataitemdpullNum = [];
+        for(var i= 0;i<repos.length;i++) {
+            $.ajax({
+                url: ngUrl + "/transaction_stat/" +repos[i][0]+repos[i][1],
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    dataitemdpullNum.push(msg.data.numpulls);
+                }
+            });
+        }
+		
 		if(repos.length!=0){
 			for(var i=0;i<repos.length;i++){
 				$.ajax({
@@ -214,7 +239,7 @@
 			    					"<div>"+
 										"<div class='repo-head'>"+
 											"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
-											"<div class='repo-head-right'>数据拥有方：<a href='javaScript:void(0);'>"+json.data.create_user+"</a></div>"+	
+											"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?repname="+json.data.create_user+"'>"+json.data.create_user+"</a></div>"+	
 										"</div>"+
 										"<div class='repo-body'>"+
 											"<div id='repo-text'>"+json.data.comment+"</div>"+
@@ -230,12 +255,12 @@
 			    								"</div>"+
 												"<div class='repo-body-tail-right'>"+
 													"<div class='shwr'>"+
-														"<div class='star-icon'></div>"+
-														"<div class='star-value'>"+json.data.stars+"</div>"+
-		    				                                "<div class='subscript-icon'></div>"+
-		    				                                "<div class='subscript-value'>0</div>"+
-		    				                                "<div class='downloaded-icon'></div>"+
-		    				                                "<div class='downloaded-value'>0</div>"+
+													"<div class='star-icon' title='star量'></div>"+
+													"<div class='star-value'>"+json.data.stars+"</div>"+
+													"<div class='subscript-icon' title='订阅量'></div>"+
+    				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
+    				                                "<div class='downloaded-icon' title='pull量'></div>"+
+    				                                "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
 			    				                        "</div>"+
 												"</div>"+
 											"</div>"+
