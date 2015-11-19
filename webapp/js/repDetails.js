@@ -1,5 +1,6 @@
    
     var repname='';
+    var apendjson = {};
     $(function() {
 
     function judgeLabel (labels){
@@ -48,7 +49,7 @@
                     var showTime="";
                     var nums=times.indexOf("|");
                     if(nums!="-1"){
-                        jdTime=times.substr(0,10);
+                        jdTime=times.substr(0,19);
                         xdTime=times.substring(nums+1,times.length);
                         showTime=xdTime;
                     }else{
@@ -122,8 +123,9 @@
         //填充items列
      
       function funitemList(label){
-        apendjson = {};
+       
           for(var i=0;i<fornum;i++) {
+              apendjson = {};
               var itemloginName = '';
               $.ajax({
                   url: ngUrl + "/repositories/" + repname + "/"+datas[i],
@@ -141,12 +143,13 @@
                       var labels = msg.data.label.sys.supply_style;
                       var labeldatas = judgeLabel(labels);
                       var times = msg.data.optime;
+
                       var jdTime="";
                       var xdTime="";
                       var showTime="";
                       var nums=times.indexOf("|");
-                      if(nums!="-1"){
-                          jdTime=times.substring(0,nums+4);
+                      if(nums!="-1"){                
+                          jdTime=times.substr(0,19);
                           xdTime=times.substring(nums+1,times.length);
                           showTime=xdTime;
                       }else{
@@ -211,13 +214,14 @@
                         var vvclass = "";
                         var labels = msg.data.label.sys.supply_style;
                         var labeldatas = judgeLabel(labels);
-                        var times = msg.data.optime;
+                        var times = msg.data.optime;           
                         var jdTime="";
                         var xdTime="";
                         var showTime="";
                         var nums=times.indexOf("|");
                         if(nums!="-1"){
-                            jdTime=times.substring(0,nums+1);
+                            // jdTime=times.substring(0,nums+1);
+                            jdTime=times.substr(0,19);
                             xdTime=times.substring(nums+1,times.length);
                             showTime=xdTime;
                         }else{
@@ -245,7 +249,7 @@
 
     });
    
-   var apendjson = {};
+  
    function apendBigbox(apendjson,i){
                        htmls =
                                 '<div id="dataitem-tag" class="itemList">'
@@ -262,12 +266,12 @@
                                 + '<tr>'
                                 + '<td class="tag-1 rightsimg">'
                                 + '<span class="time-icon" title="更新时间"></span>'
-                                + '<span class="star-value" title='+apendjson.jdTime+'>' + apendjson.showTime + '</span>'
+                                + '<span class="star-value" title="'+apendjson.jdTime+'">' + apendjson.showTime + '</span>'
                                 + '<span class="browse-icon" title="item量"></span>'
                                 + '<span class="subscript-value">' + apendjson.tagss + '</span>'
                                 + '</td>'
                                 + '<td class="tag-2 filletspan">'
-                                + '<span class=' + apendjson.vvclass + '>' + apendjson.labelV + '</span>'
+                                + '<span class='+ apendjson.vvclass +'>' + apendjson.labelV + '</span>'
                                 + '</td>'
                                 + '<td class="tag-3 rightsimg nofloat" >'
                                 + '<span class="star-value">'+apendjson.dataitemd[i]+'</span>'
