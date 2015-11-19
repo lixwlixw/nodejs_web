@@ -261,7 +261,8 @@
 	    					$("#terminal-content-body").append(""+
 			    					"<div>"+
 										"<div class='repo-head'>"+
-											"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
+											"<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"/"+repos[i][1]+"</a></div>"+
+											"<div class='tab-head-icon'></div>"+
 											"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?repname="+json.data.create_user+"'>"+realname+"</a></div>"+	
 										"</div>"+
 										"<div class='repo-body'>"+
@@ -284,7 +285,7 @@
     				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
     				                                "<div class='downloaded-icon' title='pull量'></div>"+
     				                                "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
-			    				                        "</div>"+
+			    				                    "</div>"+
 												"</div>"+
 											"</div>"+
 										"</div>"+

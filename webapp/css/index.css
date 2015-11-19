@@ -6,6 +6,13 @@
     z-index: -1;
 }
 
+a{
+	color: #545454;
+}
+
+a:hover{
+	color: #545454;
+}
 
 
 .parallaxImg::before {
@@ -147,6 +154,7 @@
 }
 
 #sign-in {
+	/*
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border-color: rgba(255, 255, 255, 0.3);
     border-radius: 2.5px;
@@ -155,6 +163,10 @@
     font-size: 1em;
     padding: 6px 20px;
     transition: all 200ms ease-in-out 0s;
+    */
+    
+    
+    
 }
 #sign-help {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -406,25 +418,25 @@
 }
 
 .xu1{
-	background-image: URL(../images/xu1.jpg);
+	background-image: URL(../images/xu1.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	height: 200px;
 }
 .xu2{
-	background-image: URL(../images/xu2.jpg);
+	background-image: URL(../images/xu2.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	height: 200px;
 }
 .xu3{
-	background-image: URL(../images/xu3.jpg);
+	background-image: URL(../images/xu3.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	height: 200px;
 }
 .xu4{
-	background-image: URL(../images/xu4.jpg);
+	background-image: URL(../images/xu4.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	height: 200px;
@@ -455,7 +467,7 @@
 	background-image: URL(../images/xu12.jpg);
 }
 .xu13{
-	background-image: URL(../images/xu13.jpg);
+	background-image: URL(../images/xu13.png);
 }
 .xu14{
 	background-image: URL(../images/xu14.jpg);

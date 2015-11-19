@@ -58,7 +58,7 @@
 	<!-- 内容页 -->
 	<div class="container-fluid" style='padding:0px;margin-top:50px;'>
 
-			<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="padding: 20px 20px;position: absolute;height:100%;"><!--TODO-->
+			<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="padding: 20px 40px 20px 40px;position: absolute;height:100%;"><!--TODO-->
 					<div id="navigator-name"><b>精选导航</b></div>
 					<ul id="navigator-ul">
 					</ul>
@@ -97,6 +97,15 @@
 <script src="js/md5.js"></script>
 <script>
 
+	function getParam(key) {
+		var value='';
+		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		if (itemid.test(decodeURIComponent(window.location.href))) {
+			value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		}
+		return value;
+	}
+
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
@@ -132,7 +141,7 @@
     		}
     	});
 		
-		ajaxRe();
+		ajaxRe(1);
 		
 		
 		
@@ -147,7 +156,7 @@
 				$(this).removeClass("overs");
 				$(this).css("border","1px solid #ccc").css("color","#666");
 				$("#allJ").text("全部精选");
-				ajaxRe();
+				ajaxRe(0);
 			}else{
 				$(this).addClass("overs");
 				$(this).css("border","1px solid #29abe2").css("color","#29abe2");
@@ -261,7 +270,8 @@
 		    					$("#terminal-content-body").append(""+
 				    					"<div>"+
 											"<div class='repo-head'>"+
-												"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
+												"<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"/"+repos[i][1]+"</a></div>"+
+												"<div class='tab-head-icon'></div>"+
 												"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
 											"</div>"+
 											"<div class='repo-body'>"+
@@ -269,7 +279,7 @@
 												"<div class='repo-body-tail'>"+
 													"<div class='repo-body-tail-left'>"+
 														"<div class='updatetime-icon' title='更新时间'></div>"+
-														"<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
+														"<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
 														"<div class='tag-icon' title='tag数量'></div>"+
 														"<div class='tag-value'>"+json.data.tags+"</div>"+
 													"</div>"+
@@ -311,14 +321,31 @@
 	});
 	
 	
-	function ajaxRe(){
+	function ajaxRe(num){
+		var urlt="";
+		if(num==1){
+			var type=getParam("type");
+			if(type!=""){
+				urlt=ngUrl+"/selects?select_labels="+type;
+				$("#allJ").text(type+"精选");
+			}else{
+				urlt=ngUrl+"/selects?select_labels";
+			}
+		}
+		if(num==0){
+			urlt=ngUrl+"/selects?select_labels";
+		}
+
+		
+		
+		
 		$.ajax({
-			url: ngUrl+"/selects?select_labels",
+			url: urlt,
     		type: "get",
     		cache:false,
     	   	async:false,
     		dataType:'json',
-    		success:function(json){  	    			
+    		success:function(json){  
     			if(json.data.length!=0){
     				var pages=json.data.length;
     				for(var i=0;i<pages;i++){
@@ -383,17 +410,15 @@
 	    				}
 	    				
 	    				var times=json.data.optime;
-	    				var jdTime="";
+	    				var jdTime=times.substring(0, times.indexOf("."));
 	    				var xdTime="";
 	    				var showTime="";
 	    				var nums=times.indexOf("|");
 	    				if(nums!="-1"){
-	    					jdTime=times.substring(0,nums+1);
-	    					xdTime=times.substring(nums+1,times.length);
-	    					showTime=xdTime;
+	    					showTime=times.substring(times.indexOf("|")+1,times.length);
 	    				}else{
-	    					showTime=times;
-	    				}
+	    					showTime=times.substring(0, times.indexOf("."));
+	    				} 
 	    				
 	    		        var realname="";
 	    				//该用户昵称
@@ -428,7 +453,7 @@
 										"<div class='repo-body-tail'>"+
 											"<div class='repo-body-tail-left'>"+
 												"<div class='updatetime-icon' title='更新时间'></div>"+
-												"<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
+												"<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
 												"<div class='tag-icon' title='tag数量'></div>"+
 												"<div class='tag-value'>"+json.data.tags+"</div>"+
 											"</div>"+
