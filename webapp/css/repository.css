@@ -103,8 +103,12 @@
 #dataitem-head-right .downloaded-icon{
     background-position:-90px center ;
 }
+.tab-head{
+    width: 100%;
+    overflow: hidden;
+}
 .tab-head .tab-head-div {
-    font-size: 14px;
+    font-size: 1em;
     color: #fff;
     background-color: #29abe2;
     height: 32px;
@@ -113,6 +117,9 @@
     padding-right: 10px;
     border-radius: 5px 5px 0px 0px;
     float: left;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .tab-head .tab-head-icon {
     background-image: url("../images/slice.png");
