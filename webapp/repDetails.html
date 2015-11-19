@@ -75,11 +75,11 @@
         <div id="dataitem-head">
             <div id="dataitem-head-left" class="repname" style="text-align: left;float: left;">DataItem name</div>
             <div id="dataitem-head-right" style="text-align: right;float: right;">
-                <span class="star-icon"></span>
+                <span class="star-icon" title="atars量"></span>
                 <span class="star-value starnum"></span>
-                <span class="subscript-icon"></span>
+                <span class="subscript-icon" title="pull量"></span>
                 <span class="subscript-value numpulls"></span>
-                <span class="downloaded-icon"></span>
+                <span class="downloaded-icon" title="订阅量"></span>
                 <span class="downloaded-value repdnum"></span>
             </div>
         </div>
@@ -102,20 +102,6 @@
     $("header").load("common/header.html");
     $("footer").load("common/footer.html");
     $("#loginTem").load("common/login.html");
-    function showtime(times){
-        var jdTime="";
-        var xdTime="";
-        var showTime="";
-        var nums=times.indexOf("|");
-        if(nums!="-1"){
-            jdTime=times.substring(0,nums+1);
-            xdTime=times.substring(nums+1,times.length);
-            showTime=xdTime;
-        }else{
-            showTime=times;
-        }
-        return showTime;
-    }
     var repname='';
     var itemid = /\?.*repname=([^&]*).*$/;
     if (itemid.test(decodeURIComponent(window.location.href))) {
@@ -138,8 +124,21 @@
                     $('.starnum').html(msg.data.stars)
                     paegeitems = msg.data.items;
                     var times = msg.data.optime;
-                    showTime = showtime(times);
+                    var jdTime="";
+                    var xdTime="";
+                    var showTime="";
+                    var nums=times.indexOf("|");
+                    if(nums!="-1"){
+                        jdTime=times.substr(0,10);
+                        xdTime=times.substring(nums+1,times.length);
+                        alert(times);
+                        alert(jdTime)
+                        showTime=xdTime;
+                    }else{
+                        showTime=times;
+                    }
                     $('.repoptime').html(showTime);
+                    $('.repoptime').attr('title',jdTime);
                     ///////////////////////////////////////////
                     for (i = 0; i < msg.data.dataitems.length; i++) {
                         datas.push(msg.data.dataitems[i]);
@@ -218,7 +217,17 @@
                           labelV = "流式数据";
                       }
                       var times = msg.data.optime;
-                      showTime = showtime(times)
+                      var jdTime="";
+                      var xdTime="";
+                      var showTime="";
+                      var nums=times.indexOf("|");
+                      if(nums!="-1"){
+                          jdTime=times.substring(0,nums+1);
+                          xdTime=times.substring(nums+1,times.length);
+                          showTime=xdTime;
+                      }else{
+                          showTime=times;
+                      }
                       htmls =
                               '<div id="dataitem-tag" class="itemList">'
                               + '<div class="tab-head">'
@@ -233,9 +242,9 @@
                               + '</tr>'
                               + '<tr>'
                               + '<td class="tag-1 rightsimg">'
-                              + '<span class="time-icon"></span>'
-                              + '<span class="star-value">' + showTime + '</span>'
-                              + '<span class="browse-icon"></span>'
+                              + '<span class="time-icon" title="更新时间"></span>'
+                              + '<span class="star-value" title='+jdTime+'>' + showTime + '</span>'
+                              + '<span class="browse-icon" title="item量"></span>'
                               + '<span class="subscript-value">' + msg.data.tags + '</span>'
                               + '</td>'
                               + '<td class="tag-2 filletspan">'
@@ -243,11 +252,11 @@
                               + '</td>'
                               + '<td class="tag-3 rightsimg nofloat" >'
                               + '<span class="star-value">'+dataitemd[i]+'</span>'
-                              + '<span class="subscript-icon"></span>'
+                              + '<span class="subscript-icon" title="订阅量"></span>'
                               + '<span class="subscript-value">'+dataitemdpullNum[i]+'</span>'
-                              + '<span class="downloaded-icon"></span>'
+                              + '<span class="downloaded-icon" title="pull量"></span>'
                               + '<span class="downloaded-value">' + msg.data.stars + '</span>'
-                              + '<span class="star-icon"></span>'
+                              + '<span class="star-icon" title="stars量"></span>'
                               + '</td>'
                               + '</tr>'
                               + '</table>'
@@ -299,7 +308,17 @@
                             labelV = "流式数据";
                         }
                         var times = msg.data.optime;
-                        showTime = showtime(times)
+                        var jdTime="";
+                        var xdTime="";
+                        var showTime="";
+                        var nums=times.indexOf("|");
+                        if(nums!="-1"){
+                            jdTime=times.substring(0,nums+1);
+                            xdTime=times.substring(nums+1,times.length);
+                            showTime=xdTime;
+                        }else{
+                            showTime=times;
+                        }
                         htmls =
                                 '<div id="dataitem-tag" class="itemList">'
                                 + '<div class="tab-head">'
@@ -315,7 +334,7 @@
                                 + '<tr>'
                                 + '<td class="tag-1 rightsimg">'
                                 + '<span class="time-icon"></span>'
-                                + '<span class="star-value">' + showTime + '</span>'
+                                + '<span class="star-value" title='+jdTime+'>' + showTime + '</span>'
                                 + '<span class="browse-icon"></span>'
                                 + '<span class="subscript-value">' + msg.data.tags + '</span>'
                                 + '</td>'
