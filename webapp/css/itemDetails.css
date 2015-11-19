@@ -19,51 +19,76 @@
 	line-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 20px;
+	margin-left: -40px;
+	padding-left: 40px;
+}
+#dataitem-head-left span{
+	display: inline-block;
+	font-size: 0px;
+}
+#dataitem-head-left .repname:hover{
+	text-decoration: underline ;
+	cursor: pointer;
+}
+#dataitem-head-left .icon {
+	background-image: url("../images/sliceU1.png");
+	background-repeat: no-repeat;
+	background-position: -376px -3px;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 2px;
+	margin-bottom: -2px;
 }
 #dataitem-body>div {
 	margin-bottom: 30px;
 }
-#dataitem-head-left {
+#dataitem-head-left a, #dataitem-head-left>span {
 	width: auto;
-	height: 100%;
 	font-size: 20px;
 	color: #29abe2;
 }
 #dataitem-head-right {
 	width: auto;
 	height: 100%;
-	font-size: 14px;
-	color: #333;
 	padding-right: 10px;
+	font-size: 0px;
+}
+#dataitem-head-right>span {
+	font-size: 12px;
+	color: #666;
 }
 #dataitem-head-right>span,#introduce4 .icons>span {
 	display: inline-block;
 }
+#dataitem-head-right .icon{
+	margin-left: 10px;
+	margin-top: 1px;
+	margin-bottom: -1px;
+}
+#dataitem-head-right .value{
+	margin-left: 3px;
+}
 #dataitem-head-right .star-icon, #introduce4 .icons .star-icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
-	background-position: -60px 0px;
-	width: 20px;
-	height: 20px;
-	line-height: 50px;
+	background-position: -61px -8px;
+	width: 12px;
+	height: 12px;
 }
 #dataitem-head-right .subscript-icon, #introduce4 .icons .subscript-icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
-	background-position: -90px 0px;
-	width: 20px;
-	height: 20px;
-	line-height: 50px;
-	margin-left: 10px;
+	background-position: -92px -8px;
+	width: 12px;
+	height: 12px;
 }
 #dataitem-head-right .downloaded-icon, #introduce4 .icons .downloaded-icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
-	background-position: -120px 0px;
-	width: 20px;
-	height: 20px;
-	line-height: 50px;
-	margin-left: 10px;
+	background-position: -125px -8px;
+	width: 12px;
+	height: 12px;
 }
 .tab-head .tab-head-div {
 	font-size: 14px;
@@ -77,9 +102,9 @@
 	float: left;
 }
 .tab-head .tab-head-icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
-	background-position: -157px 0px;
+	background-position: -156px 0px;
 	width: 20px;
 	height: 32px;
 	line-height: 32px;
@@ -135,17 +160,25 @@
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
-	padding: 30px 20px;
+	padding: 30px 0px;
+	text-align: center;
+}
+#dataitem-tag .tag-body .tag-1 {
+	padding-left: 20px;
+	text-align: left;
+}
+#dataitem-tag .tag-body .tag-4 {
+	padding: 30px 0px;
 }
 #dataitem-tag .tag-body .tag-4 .plaintext{
-	width: 60%;
+	width: 100%;
 	height: 22px;
 	border: 1px solid #e5e5e5;
-	border-right: none;
+	/*border-right: none;*/
 	padding-left: 5px;
 	font-size: 14px;
 	color: #333;
-	margin-right: -4px;
+	/*margin-right: -4px;*/
 }
 #dataitem-tag .tag-body .tag-4 .btn{
 	width: 48px;
@@ -163,23 +196,31 @@
 	text-align: right;
 	padding-top:20px;
 	padding-bottom: 0px;
+	padding-right: 20px;
+	text-align: right;
+	font-size: 0px;
+}
+#dataitem-tag .tag-body .tag-5 .btn {
+	border-radius: 0px;
 }
 #dataitem-tag .tag-body .tag-5 .download {
 	font-size: 0px;
 	margin-top: 5px;
 }
 #dataitem-tag .tag-body .tag-5 .download>span {
-	font-size: 14px;
+	font-size: 12px;
+	color: #666;
 	display: inline-block;
 }
 #dataitem-tag .tag-body .tag-5 .download .icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
-	background-position: -126px -5px;
-	width: 15px;
-	height: 15px;
-	line-height: 50px;
-	margin-right: 5px;
+	background-position: -125px -8px;
+	width: 12px;
+	height: 12px;
+	margin-right: 3px;
+	margin-top: 1px;
+	margin-bottom: -1px;
 }
 #dataitem-tag .tag-body .tag-5 .btn{
 	width: 68px;
@@ -210,22 +251,27 @@
 	color: #666;
 	line-height: 24px;
 }
-#introduce2 .a-icon {
-	background-image: url("../images/slice.png");
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	width: 20px;
-	height: 20px;
-	margin-right: 5px;
-	margin-top: -4px;
-	margin-bottom: 4px;
-	float: left;
+#introduce2 .introduce2-a {
+	font-size: 0px;
 }
-#introduce2 .a-value {
-	font-size: 14px;
-	color: #333;
-	height: 100%;
+#introduce2 .introduce2-a span {
+	font-size: 0px;
+}
+#introduce2 .introduce2-a>span {
+	display: inline-block;
+	font-size: 12px;
 	line-height: 20px;
+	color: #666;
+}
+#introduce2 .a-icon {
+	background-image: url("../images/sliceU1.png");
+	background-repeat: no-repeat;
+	background-position: 0px -7px;
+	width: 12px;
+	height: 12px;
+	margin-right: 3px;
+	margin-top: 1px;
+	margin-bottom: -1px;
 }
 #introduce2 .introduce2-a {
 	margin-bottom: 10px;
@@ -270,7 +316,7 @@
 	margin-right: 8px;
 }
 #introduce3 .introduce3-icon {
-	background-image: url("../images/slice.png");
+	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
 	background-position: -202px -4px;
 	width: 20px;
@@ -327,6 +373,9 @@
 #introduce4 .introduce4-body>div .name {
 	font-size: 16px;
 	color: #666;
+}
+#dataitem-exemple, #dataitem-metadata {
+	word-break: break-all;
 }
 @media screen and (max-width: 768px){
 	#dataitem-right {
