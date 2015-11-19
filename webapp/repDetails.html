@@ -47,10 +47,10 @@
             </div>
 
         </div>
-        <div id="introduce3">
-            <div class="introduce3-icon"></div>
-            <div class="introduce3-text"><a>Client端下载</a></div>
-        </div>
+        <!--<div id="introduce3">-->
+            <!--<div class="introduce3-icon"></div>-->
+            <!--<div class="introduce3-text"><a>Client端下载</a></div>-->
+        <!--</div>-->
         <!--<div id="introduce4">-->
             <!--<div class="introduce4-head">-->
                 <!--<b>最热DataItem</b>-->
@@ -222,7 +222,7 @@
                       htmls =
                               '<div id="dataitem-tag" class="itemList">'
                               + '<div class="tab-head">'
-                              + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?itemname="+repname+'&'+datas[i]+"'>"+datas[i]+"</a></div>"
+                              + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repname+'&itemname='+datas[i]+"'>"+datas[i]+"</a></div>"
                               + '<div class="tab-head-icon"></div>'
                               + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
                               + '</div>'
@@ -264,7 +264,7 @@
         $(".pages").pagination(paegeitems, {
             maxentries:paegeitems,
             items_per_page: 3,
-            num_display_entries: 5,
+            num_display_entries: 1,
             num_edge_entries: 5 ,
             prev_text:"上一页",
             next_text:"下一页",
@@ -303,7 +303,7 @@
                         htmls =
                                 '<div id="dataitem-tag" class="itemList">'
                                 + '<div class="tab-head">'
-                                + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?itemname="+repname+'&'+datas[i]+"'>"+datas[i]+"</a></div>"
+                                + "<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repname+'&itemname='+datas[i]+"'>"+datas[i]+"</a></div>"
                                 + '<div class="tab-head-icon"></div>'
                                 + '<span class="haveuser">数据拥有方:' + msg.data.create_user + '</span>'
                                 + '</div>'
