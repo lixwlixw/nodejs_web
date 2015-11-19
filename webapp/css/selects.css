@@ -5,6 +5,11 @@
 			color:#337ab7;
 			text-decoration:underline;
 		}
+		
+		.repo-head-left a:hover{
+			text-decoration:underline;
+		}
+		
 		.navLabelMo {
 			border: 1px solid #29abe2;
 			color: #29abe2;
@@ -58,7 +63,7 @@
 			margin-bottom: 20px;
 		}
 		#terminal-content-body .repo-head-left {
-			font-size: 16px;
+			/* font-size: 16px;
 			color: #fff;
 			height: 32px;
 			line-height: 32px;
@@ -66,10 +71,43 @@
 			border-radius:5px 5px 0px 0px;
 			float:left;
 			border-bottom:32px solid #29abe2;
-			border-right:12px solid transparent;
+			border-right:12px solid transparent; */
+			border-bottom: 32px solid #29abe2;
+		    border-right: 12px solid transparent;
+		    color: #fff;
+		    float: left;
+		    font-size: 16px;
+		    height: 32px;
+		    line-height: 32px;
+		    padding: 0 10px;
 		}
+		
+		 .tab-head-div {
+		    background-color: #29abe2;
+		    border-radius: 5px 5px 0 0;
+		    color: #fff;
+		    float: left;
+		    font-size: 14px;
+		    height: 32px;
+		    line-height: 32px;
+		    padding-left: 10px;
+		    padding-right: 10px;
+		}
+		
+		 .tab-head-icon {
+		    background-image: url("../images/slice.png");
+		    background-position: -156px 0;
+		    background-repeat: no-repeat;
+		    float: left;
+		    height: 32px;
+		    line-height: 32px;
+		    margin-bottom: -5px;
+		    margin-top: 5px;
+		    width: 20px;
+		}
+		
 		#terminal-content-body .repo-head-right{
-			font-size: 14px;
+			font-size: 12px;
 			color: #666;
 			height: 32px;
 			line-height: 32px;
@@ -119,7 +157,7 @@
 			float:left;
 		}
 		#terminal-content-body .updatetime-icon {
-			background-image: url("../images/slice.png");
+			background-image: url("../images/sliceU1.png");
 			background-repeat: no-repeat;
 			/*background-attachment: fixed;*/
 			background-position: 3px -3px;

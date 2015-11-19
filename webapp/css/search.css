@@ -1,6 +1,11 @@
 		a{
 			color:#666;
 		}
+		
+		.repo-head-left a:hover{
+			text-decoration:underline;
+		}
+		
 		.navLabelMo {
 			border: 1px solid #29abe2;
 			color: #29abe2;
@@ -260,7 +265,7 @@
 		}
 		
 		#lComs{
-			padding: 20px 40px 0px 20px;float:right;margin-bottom:50px;
+			padding: 20px 40px 0px 20px;float:right;margin-bottom:50px;width:100%;
 		}
 		
 		#navigator10{

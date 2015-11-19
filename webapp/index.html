@@ -74,15 +74,13 @@
 
 
 
-
-
 <div class="parallax"  data-stellar-ratio="0.15" >
   <div class="parallaxImg parallaxImg-header"></div>
 </div>
 <div id="header" style="position:relative;display:table;table-layout:fixed;height:100%;width:100%" class="section-header">
-
+		
         <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:#000000;background-color:rgba(0,0,0,0.2); '>
-            <div class="container">
+            <div class="container" style="width:100%;">
                 <div class="navbar-header">
                     <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
                         <span class="sr-only">切换导航</span>
@@ -108,6 +106,7 @@
                 </div>
             </div>
         </div>
+        
 
   <div style="width:100%;vertical-align:middle;display:table-cell;height:300px;padding:0;border:0" class="crp-showcase"> 
   
@@ -161,7 +160,8 @@
               
               
   </div>
-
+ 
+ 
 <div class="container-fluid"  style="height:auto; background-color:#fff; padding: 0px;" >
 	
         <div class="container" id="features">
@@ -273,7 +273,7 @@
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan6.png"   style='margin-top:30px'/>
-		           				<div class="feature-label"  style='margin-top:20px'>银联流水数据</div>
+		           				<div class="feature-label"  style='margin-top:20px'>银联数据</div>
 	           				</div>
 		           		</div>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
@@ -406,7 +406,7 @@
 	   	verticalOffset: 1
 	});
 	
-		var options = {
+ 		var options = {
 			useEasing : true, 
 			useGrouping : true, 
 			separator : ',', 
@@ -423,7 +423,7 @@
 	
 	demo.start();
 	demo2.start();
-	demo3.start();
+	demo3.start(); 
 	
 	$(document).ready(function(){
 		$(".slick-tab").children().click(function(){

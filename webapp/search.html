@@ -209,18 +209,21 @@
 		    			$("#loading").empty();
 	    				var vvclass="";
 	    					var label=json.data.label.sys.supply_style;
-	    					if(label="single"){
+	    					
+	    					if(label=="single"){
 		    					vvclass="period";
-		    					labelV="实时单条";
+		    					//labelV="实时单条";
+		    					laber="API";
 		    				}
-		    				if(label="batch"){
+		    				if(label=="batch"){
 		    					vvclass="api";
 		    					labelV="批量数据";
 		    				}
-		    				if(label="flow"){
+		    				if(label=="flow"){
 		    					vvclass="charge";
 		    					labelV="流式数据";
 		    				}
+		    				
 		    				var times=json.data.optime;
 		    				var jdTime="";
 		    				var xdTime="";
@@ -234,20 +237,40 @@
 		    					showTime=times;
 		    				}
 		    				
+		    				var realname="";
+		    				//该用户昵称
+		    				$.ajax({
+		    					url: ngUrl+"/users/"+json.data.create_user,
+		    					type: "get",
+		    					cache:false,
+		    					data:{},
+		    					async:false,
+		    					dataType:'json',
+		    					success:function(json){
+		    						if(json.code == 0){
+		    							realname=json.data.userName;
+		    						}else {
+		    							console.log("报错");
+		    						}
+		    					},
+		    					error:function(json){
+		    						alert("程序出错，请稍后重试");
+		    					}
+		    				});
 		    				
 	    					$("#terminal-content-body").append(""+
 			    					"<div>"+
 										"<div class='repo-head'>"+
 											"<div class='repo-head-left'><a style='color:#fff' href='repDetails.html?repname="+repos[i][0]+"'>"+repos[i][0]+"</a>/<a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][1]+"</a></div>"+
-											"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?repname="+json.data.create_user+"'>"+json.data.create_user+"</a></div>"+	
+											"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?repname="+json.data.create_user+"'>"+realname+"</a></div>"+	
 										"</div>"+
 										"<div class='repo-body'>"+
 											"<div id='repo-text'>"+json.data.comment+"</div>"+
 											"<div class='repo-body-tail'>"+
 												"<div class='repo-body-tail-left'>"+
-													"<div class='updatetime-icon'></div>"+
+													"<div class='updatetime-icon' title='更新时间'></div>"+
 													"<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
-													"<div class='tag-icon'></div>"+
+													"<div class='tag-icon' title='tag数量'></div>"+
 													"<div class='tag-value'>"+json.data.tags+"</div>"+
 												"</div>"+
 												"<div class='repo-body-tail-mid'>"+

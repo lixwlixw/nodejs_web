@@ -143,6 +143,7 @@
     color:#fff;
     */
     color:#fff;
+    background-color:#007ad5;
 }
 
 #sign-in {
@@ -166,9 +167,11 @@
     transition: all 200ms ease-in-out 0s;
 }
 
+/*
 #fCom{
 	width: 1200px;
 }
+*/
 
 #fShuoX{
 	font-weight: bold;
@@ -579,9 +582,15 @@
 .stopwatch .number span {
 	font-size: 3em
 }
+.container{
+	width: 800px;
+}
 }
 
 @media (max-width:785px) {
+	.container{
+		width:auto;
+	}
 	.stopwatch .number span {
 		font-size: 2em
 	}
@@ -611,6 +620,9 @@
 }
 
 @media (max-width:420px) {
+	.container{
+		width:auto;
+	}
 	.stopwatch .number span {
 		font-size: 1em
 	}
