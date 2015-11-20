@@ -474,3 +474,19 @@
 .repcreate_user:hover{
     color:#29abe2;
 }
+.pagination a, .pagination span{
+    padding:0.5em 1em;
+}
+.pagination a{
+    border:1px solid #e5e5e5;
+    color: #666;
+     border-radius: 3px;
+}
+.pagination span.current{
+   border-radius: 3px;
+   background: #29abe2;
+}
+.pagination{
+    width: 100%;
+    text-align: right;
+}
