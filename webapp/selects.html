@@ -220,15 +220,15 @@
 		    					var label=json.data.label.sys.supply_style;
 		    					var labelV="";
 			    				if(label=="single"){
-			    					vvclass="period";
+			    					vvclass="api";
 			    					labelV="API";
 			    				}
 			    				if(label=="batch"){
-			    					vvclass="api";
+			    					vvclass="period";
 			    					labelV="批量数据";
 			    				}
 			    				if(label=="flow"){
-			    					vvclass="charge";
+			    					vvclass="flot-data";
 			    					labelV="流式数据";
 			    				}
 			    				
@@ -394,18 +394,19 @@
 	    		dataType:'json',
 	    		success:function(json){ 
 	    			$("#loading").empty();
-    				var vvclass="";
+    					var vvclass="";
     					var label=json.data.label.sys.supply_style;
+    					var labelV="";
     					if(label=="single"){
-	    					vvclass="period";
+	    					vvclass="api";
 	    					labelV="API";
 	    				}
 	    				if(label=="batch"){
-	    					vvclass="api";
+	    					vvclass="period";
 	    					labelV="批量数据";
 	    				}
 	    				if(label=="flow"){
-	    					vvclass="charge";
+	    					vvclass="flot-data";
 	    					labelV="流式数据";
 	    				}
 	    				
