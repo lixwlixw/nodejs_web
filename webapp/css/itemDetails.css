@@ -15,16 +15,19 @@
 	float: right;
 }
 #dataitem-head {
-	height: 50px;
+	min-height: 50px;
 	line-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 20px;
 	margin-left: -40px;
 	padding-left: 40px;
+	overflow: hidden;
+}
+#dataitem-head-left {
+	font-size: 0px;
 }
 #dataitem-head-left span{
 	display: inline-block;
-	font-size: 0px;
 }
 #dataitem-head-left .repname:hover{
 	text-decoration: underline ;
@@ -121,33 +124,37 @@
 	background-color: #fff;
 	text-align: center;
 	line-height: 60px;
+	z-index: 100;
 }
 #dataitem-tag #show-message a{
 	color: #29abe2;
 }
 #dataitem-tag #show-message a:hover{
 	cursor: pointer;
+	text-decoration: underline;
 }
 #dataitem-tag .tag-body{
 	clear: both;
-	min-height: 160px;
+	background-color: #f7fafc;
+	padding: 0px 20px 30px;
+	border: 1px solid #e5e5e5;
 	background-color: #f7fafc;
 }
 #dataitem-exemple .exemple-body{
 	clear: both;
 	min-height: 160px;
 	background-color: #f7fafc;
+	padding: 20px 20px;
 }
 #dataitem-metadata .metadata-body{
 	clear: both;
 	min-height: 160px;
 	background-color: #f7fafc;
+	padding: 20px 20px;
 }
 #dataitem-tag .tag-body table{
 	clear: both;
 	width: 100%;
-	border: 1px solid #e5e5e5;
-	background-color: #f7fafc;
 	font-size: 14px;
 	color: #333;
 	table-layout:fixed;
@@ -164,7 +171,6 @@
 	text-align: center;
 }
 #dataitem-tag .tag-body .tag-1 {
-	padding-left: 20px;
 	text-align: left;
 }
 #dataitem-tag .tag-body .tag-4 {
@@ -196,7 +202,6 @@
 	text-align: right;
 	padding-top:20px;
 	padding-bottom: 0px;
-	padding-right: 20px;
 	text-align: right;
 	font-size: 0px;
 }
@@ -245,6 +250,10 @@
 #introduce1 .introduce1-head {
 	font-size: 18px;
 	color: #333;
+	word-break: keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 #introduce1 .introduce1-body {
 	font-size: 14px;
@@ -291,29 +300,34 @@
 	margin-bottom: 10px;
 	font-size: 0;
 }
-#introduce2 .introduce2-c {
-	clear: both;
-}
-#introduce2 .introduce2-c>span {
-	clear: both;
-	display: inline-block;
-	width: 120px;
-	/*height: 56px;*/
+#introduce2 .introduce2-c>div{
 	border: 1px solid #e5e5e5;
-	border-radius: 5px;
-	text-align: center;
-	padding: 5px;
+	padding: 0px;
+	margin: 0px;
 }
-#introduce2 .introduce2-c .row1 {
-	font-size: 12px;
-	color: #333;
+#introduce2 .introduce2-c>div>div:nth-child(1) {
+	border-right: 1px solid #e5e5e5;
+	font-size:12px;
+	color:#333;
 }
-#introduce2 .introduce2-c .row2 {
-	font-size: 12px;
-	color: #666;
+#introduce2 .introduce2-c>div>div:nth-child(2) {
+	font-size:12px;
+	color:#666;
 }
-#introduce2 .introduce2-c .col1 {
-	margin-right: 8px;
+
+#introduce2 .introduce2-c>div:nth-child(1){
+	border-bottom: none;
+}
+#introduce2 .introduce2-c>div div {
+	padding: 0px;
+	word-break: keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+#introduce2 .introduce2-c>div a:hover {
+	color: #29abe2;
+	text-decoration: underline;
 }
 #introduce3 .introduce3-icon {
 	background-image: url("../images/sliceU1.png");

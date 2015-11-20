@@ -182,10 +182,10 @@
 
 }
 #dataitem-tag .tag-body td{
-    word-break: keep-all;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    /*word-break: keep-all;*/
+    /*white-space:nowrap;*/
+    /*overflow:hidden;*/
+    /*text-overflow:ellipsis;*/
     padding:8px;
 }
 #dataitem-tag .tag-body .tag-4 .plaintext{
@@ -409,6 +409,7 @@
 }
 .haveuser a:hover{
    color: #29abe2;
+    text-decoration: underline;
 }
 .nofloat span{
     float: right;
@@ -436,8 +437,8 @@
     border-radius: 2px;
     margin-left:1px;
 }
-.filletspan span.charge {
-    background-color: #6ecbcc;
+.filletspan span.flot-data {
+    background-color: #fc9b00;
     height: 20px;
     font-size: 12px;
     color: #fff;
@@ -473,6 +474,7 @@
 }
 .repcreate_user:hover{
     color:#29abe2;
+    text-decoration: underline;
 }
 .pagination a, .pagination span{
     padding:0.5em 1em;
@@ -489,4 +491,13 @@
 .pagination{
     width: 100%;
     text-align: right;
+}
+.nav > li > a:hover{
+    background-color:rgba(31,154,218,0.7);
+}
+.navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-nav > li > a:focus{
+    background:none;
 }
