@@ -182,10 +182,10 @@
 
 }
 #dataitem-tag .tag-body td{
-    word-break: keep-all;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    /*word-break: keep-all;*/
+    /*white-space:nowrap;*/
+    /*overflow:hidden;*/
+    /*text-overflow:ellipsis;*/
     padding:8px;
 }
 #dataitem-tag .tag-body .tag-4 .plaintext{
@@ -409,6 +409,7 @@
 }
 .haveuser a:hover{
    color: #29abe2;
+    text-decoration: underline;
 }
 .nofloat span{
     float: right;
@@ -473,6 +474,7 @@
 }
 .repcreate_user:hover{
     color:#29abe2;
+    text-decoration: underline;
 }
 .pagination a, .pagination span{
     padding:0.5em 1em;
