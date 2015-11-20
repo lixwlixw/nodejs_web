@@ -65,12 +65,12 @@
 				</div>
 				<div class="introduce2-c">
 						<div class="row rep">
-							<div class="col-xs-5" style="">所属Repository</div>
-							<div class="col-xs-7"><a href="#">aaa</a></div>
+							<div class="col-xs-5">所属Repository</div>
+							<div class="col-xs-7"><div></div><a href="#"></a></div>
 						</div>
 						<div class="row owner">
-							<div class="col-xs-5" style="border-right: 1px solid #e5e5e5;font-size:12px;color:#333;">数据拥有方</div>
-							<div class="col-xs-7"><a href="#">bbb</a></div>
+							<div class="col-xs-5">数据拥有方</div>
+							<div class="col-xs-7"><div></div><a href="#"></a></div>
 						</div>
 				</div>
 			</div>
@@ -319,7 +319,7 @@
 					$("#dataitem-exemple .exemple-body").html(json.data.Sample.replace(/\n/g, "<br/>"));
 					$("#dataitem-metadata .metadata-body").html(json.data.Meta.replace(/\n/g, "<br/>"));
 					//设置introduce1的itemname
-					$("#introduce1 .introduce1-head span:first").attr("title", repname).text(itemname);
+					$("#introduce1 .introduce1-head span:first").attr("title", itemname).text(itemname);
 					//设置comment
 					$("#introduce1 .introduce1-body").text(json.data.comment);
 					//设置时间

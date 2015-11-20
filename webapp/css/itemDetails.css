@@ -16,7 +16,6 @@
 }
 #dataitem-head {
 	min-height: 50px;
-	line-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 20px;
 	margin-left: -40px;
@@ -25,6 +24,7 @@
 }
 #dataitem-head-left {
 	font-size: 0px;
+	margin-top: 12px;
 }
 #dataitem-head-left span{
 	display: inline-block;
@@ -56,6 +56,9 @@
 	height: 100%;
 	padding-right: 10px;
 	font-size: 0px;
+	margin-top: 20px;
+	margin-bottom: -5px;
+	margin-bottom: 5px;
 }
 #dataitem-head-right>span {
 	font-size: 12px;
@@ -305,10 +308,19 @@
 	padding: 0px;
 	margin: 0px;
 }
+#introduce2 .introduce2-c>div>div:nth-child(2)>div {
+	margin-top: 3px;
+	margin-bottom: -3px;
+	height: 14px;
+	width: 0px;
+	border-left: 1px solid #e5e5e5;
+	margin-right: 10px;
+	display: inline-block;
+}
 #introduce2 .introduce2-c>div>div:nth-child(1) {
-	border-right: 1px solid #e5e5e5;
 	font-size:12px;
 	color:#333;
+	padding-left: 10px;
 }
 #introduce2 .introduce2-c>div>div:nth-child(2) {
 	font-size:12px;
