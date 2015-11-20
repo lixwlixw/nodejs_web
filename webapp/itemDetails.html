@@ -52,7 +52,7 @@
 	<div id="dataitem" class="container-fluid">
 		<div id="dataitem-right">
 			<div id="introduce1">
-				<div class="introduce1-head">关于DataItem name</div>
+				<div class="introduce1-head">关于<span></span></div>
 				<div class="introduce1-body"></div>
 			</div>
 			<div id="introduce2">
@@ -64,16 +64,14 @@
 					<span class="filetype"></span>
 				</div>
 				<div class="introduce2-c">
-						<span class="col1">
-							<span class="row1 key">所属Repository</span>
-							<hr style="margin: 0px;padding: 0px;">
-							<span class="row1 value"></span>
-						</span>
-						<span class="col2">
-							<span class="row2 key">数据拥有方</span>
-							<hr style="margin: 0px;padding: 0px;">
-							<span class="row2 value"></span>
-						</span>
+						<div class="row rep">
+							<div class="col-xs-5" style="">所属Repository</div>
+							<div class="col-xs-7"><a href="#">aaa</a></div>
+						</div>
+						<div class="row owner">
+							<div class="col-xs-5" style="border-right: 1px solid #e5e5e5;font-size:12px;color:#333;">数据拥有方</div>
+							<div class="col-xs-7"><a href="#">bbb</a></div>
+						</div>
 				</div>
 			</div>
 			<!--<div id="introduce3">
@@ -130,6 +128,7 @@
 						<table></table>
 					</div>
 				</div>
+
 				<div id="dataitem-exemple">
 					<div class="tab-head">
 						<div class="tab-head-div">样例</div>
@@ -184,7 +183,8 @@
 			dailog.css("display", "block");
 		});
 		$("#dataitem-tag #show-message a").click(function() {
-			$("#show-message").hide();
+			$(".modal-open").css("padding-right","15px");
+			$('#myModal').modal('toggle');
 		});
 		function stopPropagation(e) {
 			if (e.stopPropagation)
@@ -269,15 +269,17 @@
 						var tagtime=tag.optime;
 						var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
 						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
-						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime).css("cursor", "pointer");
+						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", ngUrl+"/"+repname+"/"+itemname+"/"+tag.tag));
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", "/"+repname+"/"+itemname+":"+tag.tag));
 //						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
 						var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
 						//设置tag下载量
 						var numpulls = -1;
+						var nummypulls = -1;
+						var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 						$.ajax({
 							url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
 							type: "get",
@@ -285,9 +287,11 @@
 							data:{},
 							async:false,
 							dataType:'json',
+							headers:header,
 							success:function(json){
 								if(json.code == 0){
 									numpulls = json.data.numpulls;
+									nummypulls = json.data.nummypulls;
 								}
 							},
 							error:function(json){
@@ -302,24 +306,27 @@
 						}
 						//已登录
 						if(login) {
-							var numpulls = $("<td></td>").addClass("numPulls").insertBefore(td4).text("aaa");
+							$("<td></td>").addClass("numPulls").insertBefore(td4).text("pull:"+nummypulls);
 							td5.children(".btn:first").click(function() {
+
 								$("#show-message .login").hide();
 								$("#show-message .tag").remove();
-								$("<span><a href=''>直接下载</a></span>").addClass("tag").appendTo($("#show-message"));
+								$("<span><!--<a href=''>-->请下载客户端<!--</a>--></span>").addClass("tag").appendTo($("#show-message"));
 							});
 						}
 					}
 					//设置样例和元数据
 					$("#dataitem-exemple .exemple-body").html(json.data.Sample.replace(/\n/g, "<br/>"));
 					$("#dataitem-metadata .metadata-body").html(json.data.Meta.replace(/\n/g, "<br/>"));
+					//设置introduce1的itemname
+					$("#introduce1 .introduce1-head span:first").attr("title", repname).text(itemname);
 					//设置comment
 					$("#introduce1 .introduce1-body").text(json.data.comment);
 					//设置时间
 					var time=json.data.optime;
 					var atime = time.substring(0, time.indexOf("."));
 					var btime = time.substring(time.indexOf("|")+1,time.length);
-					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime).css("cursor", "pointer");
+					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime);
 					//设置标签
 					if(json.data.label.sys.supply_style == "flow") {
 						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流式数据");
@@ -334,9 +341,10 @@
 					}
 
 					//设置仓库和数据拥有方
-					$("#introduce2 .introduce2-c .col1 .value").text(repname);
+					$("#introduce2 .introduce2-c .rep a").attr("title", repname).text(repname).attr("href", "repDetails.html?repname="+repname);
+					var createuser = json.data.create_user;
 					$.ajax({
-						url: ngUrl+"/users/"+json.data.create_user,
+						url: ngUrl+"/users/"+createuser,
 						type: "get",
 						cache:false,
 						data:{},
@@ -344,7 +352,8 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#introduce2 .introduce2-c .col2 .value").text(json.data.userName || json.data.nickName);
+								var owner = json.data.userName || json.data.nickName;
+								$("#introduce2 .introduce2-c .owner a").attr("title", owner).text(owner).attr("href", "dataOfDetails.html?username="+createuser);
 							}
 						},
 						error:function(json){
