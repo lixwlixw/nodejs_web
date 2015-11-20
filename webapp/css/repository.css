@@ -436,8 +436,8 @@
     border-radius: 2px;
     margin-left:1px;
 }
-.filletspan span.charge {
-    background-color: #6ecbcc;
+.filletspan span.flot-data {
+    background-color: #fc9b00;
     height: 20px;
     font-size: 12px;
     color: #fff;
@@ -489,4 +489,13 @@
 .pagination{
     width: 100%;
     text-align: right;
+}
+.nav > li > a:hover{
+    background-color:rgba(31,154,218,0.7);
+}
+.navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-nav > li > a:focus{
+    background:none;
 }

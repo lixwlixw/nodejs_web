@@ -21,15 +21,15 @@
               'labelV' : ''
           };
           if (labeldata.label == "single") {
-              labeldata.vvclass == "period";
+              labeldata.vvclass = "api";
               labeldata.labelV = "API";
           }
           if (labeldata.label == "batch") {
-              labeldata.vvclass = "api";
+              labeldata.vvclass = "period";
               labeldata.labelV = "批量数据";
           }
           if (labeldata.label == "flow") {
-              labeldata.vvclass = "charge";
+              labeldata.vvclass = "flot-data";
               labeldata.labelV = "流式数据";
           }
           return labeldata
