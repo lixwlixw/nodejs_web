@@ -2,9 +2,7 @@
  * Created by Administrator on 2015/11/13.
  */
 $(function(){
-
 	$(document).on('click','#signs',function(){
-        alert();
         var exampleInputEmail1 = $('#exampleInputEmail1').val();
         var exampleInputPassword1 = $('#exampleInputPassword1').val();
         var mdpass =  $.md5(exampleInputPassword1);
