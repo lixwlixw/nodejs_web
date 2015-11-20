@@ -60,7 +60,7 @@
     function getrepname(pages) {
             datas = [];
             $.ajax({
-                url: ngUrl + "/repositories/" + repname + "?items=1&page="+pages,
+                url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
                 cache: false,
                 async: false,
                 success: function (msg) {
@@ -173,7 +173,7 @@
         funitemList();
         $(".pages").pagination(paegeitems, {
             maxentries:paegeitems,
-            items_per_page: 3,
+            items_per_page: 6,
             num_display_entries: 1,
             num_edge_entries: 5 ,
             prev_text:"上一页",
@@ -250,10 +250,10 @@
                                 + '<span class='+ apendjson.vvclass +'>' + apendjson.labelV + '</span>'
                                 + '</td>'
                                 + '<td class="tag-3 rightsimg nofloat" >'
-                                + '<span class="star-value">'+apendjson.dataitemd[i]+'</span>'
-                                + '<span class="subscript-icon" title="订阅量"></span>'
                                 + '<span class="subscript-value">'+apendjson.dataitemdpullNum[i]+'</span>'
                                 + '<span class="downloaded-icon" title="pull量"></span>'
+                                + '<span class="star-value">'+apendjson.dataitemd[i]+'</span>'
+                                + '<span class="subscript-icon" title="订阅量"></span>'
                                 + '<span class="downloaded-value">' + apendjson.stars + '</span>'
                                 + '<span class="star-icon" title="stars量"></span>'
                                 + '</td>'

@@ -390,9 +390,10 @@
         padding-bottom: 10px;
     }
 }
-.introduce2-b div{
+.cur_name div{
     height: 14px;
-    padding:0px 3px 3px;
+    padding-left:10px;
+    padding-right:0px;
     margin-top:3px;
     overflow: hidden;
     font-size: 14px;
