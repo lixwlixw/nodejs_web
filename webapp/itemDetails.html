@@ -342,8 +342,9 @@
 
 					//设置仓库和数据拥有方
 					$("#introduce2 .introduce2-c .rep a").attr("title", repname).text(repname).attr("href", "repDetails.html?repname="+repname);
+					var createuser = json.data.create_user;
 					$.ajax({
-						url: ngUrl+"/users/"+json.data.create_user,
+						url: ngUrl+"/users/"+createuser,
 						type: "get",
 						cache:false,
 						data:{},
@@ -352,7 +353,7 @@
 						success:function(json){
 							if(json.code == 0){
 								var owner = json.data.userName || json.data.nickName;
-								$("#introduce2 .introduce2-c .owner a").attr("title", owner).text(owner).attr("href", "dataOfDetails.html?json.data.create_user");
+								$("#introduce2 .introduce2-c .owner a").attr("title", owner).text(owner).attr("href", "dataOfDetails.html?username="+createuser);
 							}
 						},
 						error:function(json){
