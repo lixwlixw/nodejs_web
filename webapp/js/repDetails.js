@@ -2,7 +2,18 @@
     var repname='';
     var apendjson = {};
     $(function() {
-
+    function getTimes(times){
+        var jsonTime = {};
+        jsonTime.nums=times.indexOf("|");
+        if(jsonTime.nums!="-1"){
+            jsonTime.jdTime=times.substr(0,19);
+            jsonTime.xdTime=times.substring(jsonTime.nums+1,times.length);
+            jsonTime.showTime=jsonTime.xdTime;
+        }else{
+            jsonTime.showTime=times;
+        }
+        return jsonTime;
+    }
     function judgeLabel (labels){
           var labeldata = {
               'label' : labels,
@@ -23,6 +34,7 @@
           }
           return labeldata
       };
+
         var itemid = /\?.*repname=([^&]*).*$/;
     if (itemid.test(decodeURIComponent(window.location.href))) {
         repname = itemid.exec(decodeURIComponent(window.location.href))[1];
@@ -32,7 +44,8 @@
         var datas = [];
         var paegeitems;
         var preloginname = '';
-        function getrepname(pages) {
+    //得到repname；
+    function getrepname(pages) {
             datas = [];
             $.ajax({
                 url: ngUrl + "/repositories/" + repname + "?items=1&page="+pages,
@@ -44,19 +57,9 @@
                     $('.starnum').html(msg.data.stars)
                     paegeitems = msg.data.items;
                     var times = msg.data.optime;
-                    var jdTime="";
-                    var xdTime="";
-                    var showTime="";
-                    var nums=times.indexOf("|");
-                    if(nums!="-1"){
-                        jdTime=times.substr(0,19);
-                        xdTime=times.substring(nums+1,times.length);
-                        showTime=xdTime;
-                    }else{
-                        showTime=times;
-                    }
-                    $('.repoptime').html(showTime);
-                    $('.repoptime').attr('title',jdTime);
+                    var jsonTime = getTimes(times);
+                    $('.repoptime').html(jsonTime.showTime);
+                    $('.repoptime').attr('title',jsonTime.jdTime);
                     ///////////////////////////////////////////
                     for (i = 0; i < msg.data.dataitems.length; i++) {
                         datas.push(msg.data.dataitems[i]);
@@ -121,9 +124,7 @@
             });
         }
         //填充items列
-     
       function funitemList(label){
-       
           for(var i=0;i<fornum;i++) {
               apendjson = {};
               var itemloginName = '';
@@ -143,25 +144,14 @@
                       var labels = msg.data.label.sys.supply_style;
                       var labeldatas = judgeLabel(labels);
                       var times = msg.data.optime;
-
-                      var jdTime="";
-                      var xdTime="";
-                      var showTime="";
-                      var nums=times.indexOf("|");
-                      if(nums!="-1"){                
-                          jdTime=times.substr(0,19);
-                          xdTime=times.substring(nums+1,times.length);
-                          showTime=xdTime;
-                      }else{
-                          showTime=times;
-                      }
+                      var jsonTime = getTimes(times);
                         apendjson.repname = repname;
                         apendjson.datas = datas;
                         apendjson.create_user = msg.data.create_user;
                         apendjson.itemloginName = itemloginName;
                         apendjson.comment = msg.data.comment;
-                        apendjson.jdTime = jdTime;
-                        apendjson.showTime = showTime;
+                        apendjson.jdTime = jsonTime.jdTime;
+                        apendjson.showTime = jsonTime.showTime;
                         apendjson.tagss = msg.data.tags;
                         apendjson.labelV = labeldatas.labelV;
                         apendjson.vvclass = labeldatas.vvclass;
@@ -191,7 +181,7 @@
         });
         $('.pagination a').attr('href','javascript:void(0)')
         function fenS(new_page_index){
-          apendjson = {};
+            apendjson = {};
             getrepname(new_page_index+1);
             $('.bigBox').empty();
              // alert(ngUrl + "/repositories/" + repname + "/"+datas[1]);
@@ -241,7 +231,6 @@
                         apendjson.dataitemdpullNum = dataitemdpullNum;
                         apendjson.stars = msg.data.stars;
                         apendBigbox(apendjson,i);
-                       
                     }
                 });
             }
