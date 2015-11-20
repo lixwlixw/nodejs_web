@@ -13,6 +13,18 @@
             jsonTime.showTime=times;
         }
         return jsonTime;
+    };
+    function getscreateName(create_user){
+      var itemloginName = '';
+       $.ajax({
+               url: ngUrl +"/users/"+create_user,
+               cache: false,
+               async: false,
+               success: function (datas) {
+                   itemloginName = datas.data.userName;
+               }
+           });
+       return itemloginName;
     }
     function judgeLabel (labels){
           var labeldata = {
@@ -133,14 +145,7 @@
                   cache: false,
                   async:false,
                   success: function (msg) {
-                      $.ajax({
-                          url: ngUrl +"/users/"+msg.data.create_user,
-                          cache: false,
-                          async: false,
-                          success: function (datas) {
-                              itemloginName = datas.data.userName;
-                          }
-                      });
+                     itemloginName = getscreateName(msg.data.create_user);
                       var labels = msg.data.label.sys.supply_style;
                       var labeldatas = judgeLabel(labels);
                       var times = msg.data.optime;
@@ -193,37 +198,19 @@
                     cache: false,
                     async:false,
                     success: function (msg) {
-                       $.ajax({
-                          url: ngUrl +"/users/"+msg.data.create_user,
-                          cache: false,
-                          async: false,
-                          success: function (datas) {
-                              itemloginName = datas.data.userName;
-                          }
-                      });
+                        itemloginName = getscreateName(msg.data.create_user);
                         var vvclass = "";
                         var labels = msg.data.label.sys.supply_style;
                         var labeldatas = judgeLabel(labels);
                         var times = msg.data.optime;           
-                        var jdTime="";
-                        var xdTime="";
-                        var showTime="";
-                        var nums=times.indexOf("|");
-                        if(nums!="-1"){
-                            // jdTime=times.substring(0,nums+1);
-                            jdTime=times.substr(0,19);
-                            xdTime=times.substring(nums+1,times.length);
-                            showTime=xdTime;
-                        }else{
-                            showTime=times;
-                        }
+                        var jsonTime = getTimes(times);
                         apendjson.repname = 'repname';
                         apendjson.datas = datas;
                         apendjson.create_user = msg.data.create_user;
                         apendjson.itemloginName = itemloginName;
                         apendjson.comment = msg.data.comment;
-                        apendjson.jdTime = jdTime;
-                        apendjson.showTime = showTime;
+                        apendjson.jdTime = jsonTime.jdTime;
+                        apendjson.showTime = jsonTime.showTime;
                         apendjson.tagss = msg.data.tags;
                         apendjson.labelV = labeldatas.labelV;
                         apendjson.vvclass = labeldatas.vvclass;
@@ -263,12 +250,12 @@
                                 + '<span class='+ apendjson.vvclass +'>' + apendjson.labelV + '</span>'
                                 + '</td>'
                                 + '<td class="tag-3 rightsimg nofloat" >'
-                                + '<span class="subscript-value">'+apendjson.dataitemdpullNum[i]+'</span>'
-                                + '<span class="downloaded-icon" title="pull量"></span>'
                                 + '<span class="star-value">'+apendjson.dataitemd[i]+'</span>'
                                 + '<span class="subscript-icon" title="订阅量"></span>'
+                                + '<span class="subscript-value">'+apendjson.dataitemdpullNum[i]+'</span>'
+                                + '<span class="downloaded-icon" title="pull量"></span>'
                                 + '<span class="downloaded-value">' + apendjson.stars + '</span>'
-                                + '<span class="star-icon" title="star量"></span>'
+                                + '<span class="star-icon" title="stars量"></span>'
                                 + '</td>'
                                 + '</tr>'
                                 + '</table>'
