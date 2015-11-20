@@ -52,15 +52,13 @@
 	<div id="dataitem" class="container-fluid">
 		<div id="dataitem-right">
 			<div id="introduce1">
-				<div class="introduce1-head"><b>关于DataItem name</b></div>
+				<div class="introduce1-head">关于DataItem name</div>
 				<div class="introduce1-body"></div>
 			</div>
 			<div id="introduce2">
 				<div class="introduce2-a">
-					<div>
-						<div class="a-icon"></div>
-						<div class="a-value"></div>
-					</div>
+					<span class="a-icon" title="更新时间"></span>
+					<span class="a-value"></span>
 				</div>
 				<div class="introduce2-b">
 					<span class="filetype"></span>
@@ -104,14 +102,19 @@
 		</div>
 		<div id="dataitem-left">
 			<div id="dataitem-head">
-				<div id="dataitem-head-left" style="text-align: left;float: left;">DataItem name</div>
+				<div id="dataitem-head-left" style="text-align: left;float: left;">
+					<span class="icon"></span>
+					<span class="repname"><a></a></span>
+					<span>&nbsp;/&nbsp;</span>
+					<span class="itemname"><b></b></span>
+				</div>
 				<div id="dataitem-head-right" style="text-align: right;float: right;">
-					<span class="star-icon"></span>
-					<span class="star-value"></span>
-					<span class="subscript-icon"></span>
-					<span class="subscript-value"></span>
-					<span class="downloaded-icon"></span>
-					<span class="downloaded-value"></span>
+					<span class="star-icon icon" title="star量"></span>
+					<span class="star-value value"></span>
+					<span class="subscript-icon icon" title="订阅量"></span>
+					<span class="subscript-value value"></span>
+					<span class="downloaded-icon icon" title="pull量"></span>
+					<span class="downloaded-value value"></span>
 				</div>
 			</div>
 			<div id="dataitem-body">
@@ -122,7 +125,7 @@
 					</div>
 					<div class="tag-body">
 						<div id="show-message" style="display: none">
-							您还没有登录，请<a>登陆</a>
+							<span class="login">您还没有登录，请<a>登录</a></span>
 						</div>
 						<table></table>
 					</div>
@@ -156,6 +159,7 @@
 <script src="js/md5.js"></script>
 <script src="js/jquery.zclip.js"></script>
 <script>
+	var login = false;
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
@@ -199,6 +203,9 @@
 	});
 
 	$(document).ready(function(){
+		if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
+			login = true;
+		}
 		ajaxRe();
 	});
 
@@ -216,7 +223,8 @@
 			success:function(json){
 				if(json.code == 0){
 					//设置repname
-					$("#dataitem-head-left").text(itemname);
+					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
+					$("#dataitem-head-left .itemname b").text(itemname);
 					//设置点赞量、订阅量、下载量
 					$("#dataitem-head-right .star-value").text(json.data.stars);
 					$.ajax({
@@ -232,7 +240,7 @@
 							}
 						},
 						error:function(json){
-							alert("程序出错，请稍后重试");
+							alert(json.msg);
 						}
 					});
 					$.ajax({
@@ -248,7 +256,7 @@
 							}
 						},
 						error:function(json){
-							alert("程序出错，请稍后重试");
+							alert(json.msg);
 						}
 					});
 					//设置tag数量
@@ -258,13 +266,16 @@
 						var tag = json.data.taglist[i];
 						var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
 						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
-						var td3 = $("<td></td>").addClass("tag-3").text(tag.optime.substring(0, tag.optime.indexOf("."))).attr("title",tag.optime).css("cursor", "pointer");
+						var tagtime=tag.optime;
+						var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
+						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
+						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime).css("cursor", "pointer");
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
 						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", ngUrl+"/"+repname+"/"+itemname+"/"+tag.tag));
-						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
+//						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
-						var divicon = $("<span></span>").addClass("icon").appendTo(td5div);
+						var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
 						//设置tag下载量
 						var numpulls = -1;
 						$.ajax({
@@ -280,7 +291,7 @@
 								}
 							},
 							error:function(json){
-								alert("程序出错，请稍后重试");
+								alert(json.msg);
 							}
 						});
 						var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
@@ -288,39 +299,34 @@
 						$("#dataitem-tag .tag-body table").append(tr);
 						if(json.data.label.sys.supply_style == "batch") {
 							td2.insertAfter(td1);
-						}else {
-							td1.css("width", "25%");
-							td3.css("width", "25%");
-							td4.css("width", "25%");
-							td5.css("width", "25%");
+						}
+						//已登录
+						if(login) {
+							var numpulls = $("<td></td>").addClass("numPulls").insertBefore(td4).text("aaa");
+							td5.children(".btn:first").click(function() {
+								$("#show-message .login").hide();
+								$("#show-message .tag").remove();
+								$("<span><a href=''>直接下载</a></span>").addClass("tag").appendTo($("#show-message"));
+							});
 						}
 					}
 					//设置样例和元数据
-					$("#dataitem-exemple .exemple-body").text(json.data.sample);
-					$("#dataitem-metadata .metadata-body").text(json.data.meta);
+					$("#dataitem-exemple .exemple-body").html(json.data.Sample.replace(/\n/g, "<br/>"));
+					$("#dataitem-metadata .metadata-body").html(json.data.Meta.replace(/\n/g, "<br/>"));
 					//设置comment
 					$("#introduce1 .introduce1-body").text(json.data.comment);
 					//设置时间
-					var times=json.data.optime;
-					var jdTime="";
-					var xdTime="";
-					var showTime="";
-					var nums=times.indexOf("|");
-					if(nums!="-1"){
-						jdTime=times.substring(0,nums+1);
-						xdTime=times.substring(nums+1,times.length);
-						showTime=xdTime;
-					}else{
-						showTime=times;
-					}
-					$("#introduce2 .introduce2-a .a-value").attr("title",times.substring(0, times.indexOf("|"))).text(showTime).css("cursor", "pointer");
+					var time=json.data.optime;
+					var atime = time.substring(0, time.indexOf("."));
+					var btime = time.substring(time.indexOf("|")+1,time.length);
+					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime).css("cursor", "pointer");
 					//设置标签
 					if(json.data.label.sys.supply_style == "flow") {
-						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流失数据");
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流式数据");
 					}else if(json.data.label.sys.supply_style == "batch") {
 						$("#introduce2 .introduce2-b .filetype").css("background-color", "#20abe2").text("批量数据");
 					}else if(json.data.label.sys.supply_style == "single") {
-						$("#introduce2 .introduce2-b .filetype").css("background-color", "#f06f77").text("单条数据");
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#f06f77").text("API");
 					}
 					var ptags = json.data.label.owner;
 					for(var i in ptags) {
@@ -342,7 +348,7 @@
 							}
 						},
 						error:function(json){
-							alert("程序出错，请稍后重试");
+							alert(json.msg);
 						}
 					});
 				}else {
@@ -350,22 +356,10 @@
 				}
 			},
 			error:function(json){
-				alert("程序出错，请稍后重试");
+				alert(json.msg);
 			}
 		});
 	}
-	$("#dataitem-tag .tag-body .tag-4 .btn").click(function() {
-		alert("----");
-	});
-	$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
-		path:'js/ZeroClipboard.swf',
-		copy:function() {
-			return $("#dataitem-tag .tag-body .tag-4 .plaintext").val();
-		},
-		afterCopy:function() {
-			alert("复制成功"+$("#dataitem-tag .tag-body .tag-4 .plaintext").val());
-		},
-	});
 	function getParam(key) {
 		var value='';
 		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
