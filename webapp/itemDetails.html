@@ -224,7 +224,22 @@
 					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#dataitem-head-left .itemname").text(itemname);
 					//设置点赞量、订阅量、下载量
-					$("#dataitem-head-right .star-value").text(json.data.stars);
+					$.ajax({
+						url: ngUrl+"/star_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .star-value").text(json.data.numstars);
+							}
+						},
+						error:function(json){
+							alert(json.msg);
+						}
+					});
 					$.ajax({
 						url: ngUrl+"/subscription_stat/"+repname+"/"+itemname,
 						type: "get",
