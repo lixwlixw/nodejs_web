@@ -1,6 +1,18 @@
 		a{
 			color:#666;
 		}
+		
+		.selectBody{
+			transition:border-left 0.45s ease 0s; 
+			border-left: 5px solid #fff;
+			/* box-shadow:1px 1px 5px 0px #666; */
+		}
+		
+		.selectBody:hover{
+			border-left: 5px solid #29abe2;
+			cursor: pointer;
+		}
+		
 		.repo-head-right a:hover{
 			color:#337ab7;
 			text-decoration:underline;
@@ -83,7 +95,7 @@
 		}
 		
 		 .tab-head-div {
-		    background-color: #29abe2;
+		   /*  background-color: #29abe2;
 		    border-radius: 5px 5px 0 0;
 		    color: #fff;
 		    float: left;
@@ -91,7 +103,16 @@
 		    height: 32px;
 		    line-height: 32px;
 		    padding-left: 10px;
-		    padding-right: 10px;
+		    padding-right: 10px; */
+		    color:#0077aa;
+		    font-size: 22px;
+		    float: left;
+		    padding:20px 0px 20px 20px;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    word-break: keep-all;
+		    max-width:700px;
 		}
 		
 		 .tab-head-icon {
@@ -114,20 +135,27 @@
 			padding-right: 10px;
 			text-align: right;
 			float: right;
+			padding:20px;
 		}
 
 		#terminal-content-body .repo-body {
-			padding: 10px 10px 10px 10px;
+			/* padding: 10px 10px 10px 10px;
 			font-size: 14px;
 			color: #666;
 			line-height: 24px;
 			border: 1px solid #e5e5e5;
 			margin-bottom: 30px;
 			float:left;
-			width:100%;
+			width:100%; */
+			padding: 0px 20px 20px 20px;
+			font-size: 14px;
+			color: #242424;
+			line-height: 24px;
+			float:left;
+			width:100%; 
 		}
 		#terminal-content-body .repo-body-tail {
-			margin-top: 10px;
+			margin-top: 20px;
 			height:100%;
 			float:left;
 			width:100%;
@@ -169,7 +197,8 @@
 		}
 		#terminal-content-body .updatetime-value {
 			font-size: 12px;
-			color: #666;
+			/* color: #666; */
+			color:#989898;
 			margin-right: 10px;
 			float:left;
 			line-height:12px;		
@@ -185,7 +214,7 @@
 		}
 		#terminal-content-body .tag-value {
 			font-size: 12px;
-			color: #6666;
+			color:#989898;
 			margin-right: 10px;
 			float:left;
 			line-height:12px;	
@@ -245,7 +274,7 @@
 		}
 		#terminal-content-body .star-value {
 			font-size: 12px;
-			color: #666;
+			color:#989898;
 			margin-right: 10px;
 			float:left;
 			line-height:12px;
@@ -262,7 +291,7 @@
 		}
 		#terminal-content-body .subscript-value {
 			font-size: 12px;
-			color: #666;
+			color:#989898;
 			margin-right: 10px;
 			float:left;
 			line-height:12px;
@@ -279,7 +308,7 @@
 		}
 		#terminal-content-body .downloaded-value {
 			font-size: 12px;
-			color: #666;
+			color:#989898;
 			float:left;
 			line-height:12px;
 		}
