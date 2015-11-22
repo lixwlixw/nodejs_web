@@ -64,7 +64,7 @@
 					</ul>
 			</div>
 			
-			<div class="col-md-10 col-sm-10" id="lComs">			
+			<div class="col-md-10 col-sm-10" id="lComs" style="background-color: #f5f5f5;">			
 				<!-- 适配 -->
 				<div id="navigator10" class="col-md-10 col-sm-10 navigator-background" ><!--TODO-->
 					<div id="navigator-name"><b>精选导航</b></div>
@@ -111,6 +111,19 @@
 	$("footer").load("common/footer.html");
 	$("#loginTem").load("common/login.html");
 	
+	
+	$(".selectBody").hover(function(){
+        alert("123");
+    },function(){
+        alert("234")  
+    })
+    
+/*     $(document).on('mouseenter','.selectBody',function(){
+    	alert("123")
+    }); */
+	
+	
+	
 	var repos=[];
 	
 	$(window).load(function(){
@@ -147,7 +160,7 @@
 		
 		$("body").on("click","#navigator-ul li",function(){
 			$("#terminal-content-body").empty();
-			$("#terminal-content-body").append("<div class='container-fluid' id='loading'><p class='text-center'>正在加载请稍后...</p></div>");
+			$("#terminal-content-body").append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
 			repos.length = 0;//数据清空
 			
 			$(this).siblings().css("border","1px solid #ccc").css("color","#666");
@@ -205,7 +218,21 @@
 		                    dataitemdpullNum.push(msg.data.numpulls);
 		                }
 		            });
-		        }		        		        
+		        }
+		        
+		      //返回该DataItem的star量
+		        var dataitemdstarNum = [];
+		        for(var i= 0;i<repos.length;i++) {
+		            $.ajax({
+		                url: ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],
+		                cache: false,
+		                async: false,
+		                success: function (msg) {
+		                	dataitemdstarNum.push(msg.data.numstars);
+		                }
+		            });
+		        }
+		        
 				
 				for(var i=0;i<repos.length;i++){
 					$.ajax({
@@ -219,7 +246,7 @@
 		    					var vvclass="";
 		    					var label=json.data.label.sys.supply_style;
 		    					var labelV="";
-			    				if(label=="single"){
+			    				if(label=="single"||label=="api"){
 			    					vvclass="api";
 			    					labelV="API";
 			    				}
@@ -233,17 +260,15 @@
 			    				}
 			    				
 			    				var times=json.data.optime;
-			    				var jdTime="";
+			    				var jdTime=times.substring(0, times.indexOf("."));
 			    				var xdTime="";
 			    				var showTime="";
 			    				var nums=times.indexOf("|");
 			    				if(nums!="-1"){
-			    					jdTime=times.substring(0,nums+1);
-			    					xdTime=times.substring(nums+1,times.length);
-			    					showTime=xdTime;
+			    					showTime=times.substring(times.indexOf("|")+1,times.length);
 			    				}else{
-			    					showTime=times;
-			    				}
+			    					showTime=times.substring(0, times.indexOf("."));
+			    				} 
 			    				
 			    				var realname="";
 			    				//该用户昵称
@@ -268,10 +293,10 @@
 			    						    				
 			    				
 		    					$("#terminal-content-body").append(""+
-				    					"<div>"+
+		    							"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
 											"<div class='repo-head'>"+
-												"<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"/"+repos[i][1]+"</a></div>"+
-												"<div class='tab-head-icon'></div>"+
+												"<div class='tab-head-div'><a style='color:#0077aa' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
+											//	"<div class='tab-head-icon'></div>"+
 												"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
 											"</div>"+
 											"<div class='repo-body'>"+
@@ -289,7 +314,7 @@
 													"<div class='repo-body-tail-right'>"+
 														"<div class='shwr'>"+
 															"<div class='star-icon' title='star量'></div>"+
-															"<div class='star-value'>"+json.data.stars+"</div>"+
+															"<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
 															"<div class='subscript-icon' title='订阅量'></div>"+
 		    				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
 		    				                                "<div class='downloaded-icon' title='pull量'></div>"+
@@ -385,6 +410,19 @@
             });
         }
         
+	      //返回该DataItem的star量
+        var dataitemdstarNum = [];
+        for(var i= 0;i<repos.length;i++) {
+            $.ajax({
+                url: ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],
+                cache: false,
+                async: false,
+                success: function (msg) {
+                	dataitemdstarNum.push(msg.data.numstars);
+                }
+            });
+        }
+        
 		for(var i=0;i<repos.length;i++){
 			$.ajax({
 				url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
@@ -397,7 +435,7 @@
     					var vvclass="";
     					var label=json.data.label.sys.supply_style;
     					var labelV="";
-    					if(label=="single"){
+    					if(label=="single"||label=="api"){
 	    					vvclass="api";
 	    					labelV="API";
 	    				}
@@ -443,10 +481,10 @@
 	    				});
 	    				
     					$("#terminal-content-body").append(""+
-		    					"<div>"+
+		    					"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
 									"<div class='repo-head'>"+
-										"<div class='tab-head-div'><a style='color:#fff' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"/"+repos[i][1]+"</a></div>"+
-										"<div class='tab-head-icon'></div>"+
+										"<div class='tab-head-div'><a style='color:#0077aa' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
+									//	"<div class='tab-head-icon'></div>"+
 										"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
 									"</div>"+
 									"<div class='repo-body'>"+
@@ -464,7 +502,7 @@
 											"<div class='repo-body-tail-right'>"+
 												"<div class='shwr'>"+
 												"<div class='star-icon' title='star量'></div>"+
-												"<div class='star-value'>"+json.data.stars+"</div>"+
+												"<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
 												"<div class='subscript-icon' title='订阅量'></div>"+
 				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
 				                                "<div class='downloaded-icon' title='pull量'></div>"+
