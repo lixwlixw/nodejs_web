@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/clientDownload.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+</head>
+<body>
+<!-- 头部导航 -->
+<header></header>
+<div class="clientTop">
+    Client端工具下载
+</div>
+<div class="container">
+        <div class="clientTitle">
+            <div class="titleImg title1"></div><strong>安装client端工具</strong>
+        </div>
+        <div class="boxworp">
+            <p class="nobg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p class="bg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p class="nobg_p">
+                使用源码安装：
+            </p>
+            <p class="bg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p class="nobg_p">
+                启动datahub服务：
+            </p>
+            <p class="bg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p class="nobg_p">
+                使用docker镜像：
+            </p>
+            <p class="bg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p class="nobg_p">
+                启动docker镜像：
+            </p>
+            <p class="bg_p">
+                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+            </p>
+            <p>
+                需要修改防火墙，使得docker镜像的35800映射到的主机端口可以被外部访问。
+            </p>
+        </div>
+        <div class="clientTitle">
+            <div class="titleImg title2"></div><strong>运行client端命令行</strong>
+        </div>
+        <div class="boxworp">
+            <p class="nobg_p">
+               datahub CLI是datahub-client的命令行客户端，用来执行datahub相关命令。
+            </p>
+            <p class="bmargin fcolor0">
+                db
+            </p>
+            <p class="smargin fcolor6">
+                管理datapool
+            </p>
+            <p class="smargin fcolor0">
+                repo
+            </p>
+            <p class="smargin fcolor6">
+                Repository管理
+            </p>
+            <p class="smargin fcolor0">
+               subs
+            </p>
+            <p class="smargin fcolor6">
+                Subscrption管理
+            </p>
+            <p class="smargin fcolor0">
+                login
+            </p>
+            <p class="smargin fcolor6">
+                登录到dataos.io
+            </p>
+            <p class="smargin fcolor0">
+                pull
+            </p>
+            <p class="smargin fcolor6">
+               下载数据
+            </p>
+        </div>
+        <div class="clientTitle">
+            <div class="titleImg title3"></div><strong>运行client端命令行</strong>
+        </div>
+        <div class="boxworp">
+            <div class="notebox bddashed">
+                <p>NOTE:</p>
+                <ul>
+                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
+                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
+                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
+                </ul>
+            </div>
+            <div class="smalltitle fcolor0">
+                 <span class="smallbg"></span><span>Datapool相关命令</span>
+            </div>
+            <div style="padding-left:18px;">
+                <p class="nobg_p fcolor0">
+                    1.列出所有命令池
+                </p>
+                <div style="padding-left:10px;">
+                         <p class="bg_p">
+                             datahub&nbsp;&nbsp;db
+                         </p>
+                         <p class="smargin fcolor0">
+                             输出
+                         </p>
+                         <p class="bg_p">
+                             {%DPNAME&nbsp;&nbsp;&nbsp;&nbsp;%DPTYPE}
+                         </p>
+                         <p class="smargin fcolor0">
+                             例子
+                         </p>
+                         <div class="bg_p">
+                             <p>$datahub&nbsp;dp</p>
+                             <p>dp1&nbsp;&nbsp;&nbsp;&nbsp;regular&nbsp;&nbsp;file</p>
+                             <p>dp2&nbsp;&nbsp;&nbsp;&nbsp;dp2</p>
+                             <p>dphere&nbsp;&nbsp;hdfs</p>
+                             <p>dpthere&nbsp;&nbsp;api</p>
+                             <p>$</p>
+                         </div>
+                </div>
+
+                <p class="nobg_p fcolor0">
+                    2.列出datapool详情
+                </p>
+                <div style="padding-left: 10px;">
+                        <div class="bg_p">datahub&nbsp;&nbsp;dp&nbsp;&nbsp;$DPNAME</div>
+                        <p class="smargin fcolor0">
+                            输出
+                        </p>
+                        <div class="bg_p">
+                            <p>%DPNAME%DPTYPE%DPCONN</p>
+                            <p>{%REPO/%ITEM:%TAG&nbsp;&nbsp;&nbsp;&nbsp;%LOCAL_TIME&nbsp;&nbsp;&nbsp;&nbsp;%T}</p>
+                        </div>
+                        <p class="smargin fcolor0">
+                            例子
+                        </p>
+                        <div class="bg_p">
+                            <p>$datahub&nbsp;dp</p>
+                            <p>dp1&nbsp;&nbsp;&nbsp;&nbsp;regular&nbsp;&nbsp;file</p>
+                            <p>dp2&nbsp;&nbsp;&nbsp;&nbsp;dp2</p>
+                            <p>dphere&nbsp;&nbsp;hdfs</p>
+                            <p>dpthere&nbsp;&nbsp;api</p>
+                            <p>$</p>
+                        </div>
+                </div>
+                <p class="nobg_p fcolor0">
+                    3.创建数据池
+                </p>
+                <div style="padding-left:10px;">
+                        <div class="notebox bddashed">
+                            目前只支持本地目录的数据池创建。daemon会有自己的可配置目录(默认/var/lib/datahub),使用参数dpconn指定据对路径，当没有设置dpconn选项时，会默认创建到daemon的工作目录。
+                        </div>
+                        <div class="bg_p">
+                            <p>datahub&nbsp;&nbsp;dp&nbsp;&nbsp;create&nbsp;&nbsp;$DPNAME[--type=dptype]</p>
+                            <p>[--conn=$dpcpnn]</p>
+                        </div>
+                        <p class="smargin fcolor0">
+                            输出
+                        </p>
+                        <div class="bg_p">
+                            <p>%msg</p>
+                        </div>
+                        <p class="smargin fcolor0">
+                            例子
+                        </p>
+                        <div class="bg_p">
+                            <p>$&nbsp;&nbsp;datahub&nbsp;&nbsp;dp&nbsp;&nbsp;create&nbsp;&nbsp;dp1&nbsp;&nbsp; --type=file</p>
+                            <p>--conn=/home/daemon/dp1</p>
+                            <p>dp1 created as /home/daemon/dp1</p>
+                            <p>$</p>
+                        </div>
+                </div>
+                <p class="nobg_p fcolor0">
+                    4.删除数据池
+                </p>
+                <div style="padding-left: 10px;">
+                        <div class="notebox bddashed">
+                            删除数据池不会删除目标数据池已保存的数据，该dp有发布的数据项时，不能被删除。删除是在sqlit中标记状态，不真实删除。
+                        </div>
+                        <div class="bg_p">
+                            <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                        </div>
+                        <p class="smargin fcolor0">
+                            输出
+                        </p>
+                        <div class="bg_p">
+                            <p>%msg</p>
+                        </div>
+                        <p class="smargin fcolor0">
+                            例子
+                        </p>
+                        <div class="bg_p">
+                            <p>%msg</p>
+                        </div>
+                </div>
+            </div>
+            <div class="smalltitle fcolor0">
+                    <span class="smallbg"></span><span>subs相关命令</span>
+            </div>
+            <div style="padding-left:18px;">
+                    <p class="nobg_p fcolor0">
+                        1.列出所有已订阅项
+                    </p>
+                    <div style="padding-left: 10px">
+                            <div class="bg_p">
+                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                输出
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                例子
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                    </div>
+                    <p class="nobg_p fcolor0">
+                        2.列出已订阅Item详情
+                    </p>
+                    <div style="padding-left: 10px">
+                            <div class="bg_p">
+                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                输出
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                例子
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                    </div>
+            </div>
+            <div class="smalltitle fcolor0">
+                    <span class="smallbg"></span><span>pull命令</span>
+            </div>
+            <div style="padding-left:18px;">
+                     <p class="nobg_p fcolor0">
+                         1.拉取某个item的tag
+                     </p>
+                     <div style="padding-left: 10px">
+                            <div class="bg_p">
+                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                输出
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                例子
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                     </div>
+            </div>
+            <div class="smalltitle fcolor0">
+                 <span class="smallbg"></span><span>login命令</span>
+            </div>
+            <div style="padding-left:18px;">
+                    <p class="nobg_p fcolor0">
+                        1.登录到dataos.io
+                    </p>
+                    <div style="padding-left: 10px">
+                            <div class="bg_p">
+                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                输出
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                            <p class="smargin fcolor0">
+                                例子
+                            </p>
+                            <div class="bg_p">
+                                <p>%msg</p>
+                            </div>
+                    </div>
+            </div>
+        </div>
+</div>
+<!-- 尾部 -->
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+</html>
+<script>
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+</script>
