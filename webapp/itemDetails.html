@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/pagination.css">
 	<link rel="stylesheet" href="css/itemDetails.css">
+
 </head>
 
 <style>
@@ -49,7 +51,7 @@
 	</div>
 </div>
 <header></header>
-<div id="dataitem" class="container-fluid">
+<div id="dataitem" class="container">
 	<div id="dataitem-right">
 		<div id="introduce1">
 			<div class="introduce1-head">关于<span></span></div>
@@ -126,6 +128,7 @@
 						<span class="login">您还没有登录，请<a>登录</a></span>
 					</div>
 					<table></table>
+					<div id="splitpage"></div>
 				</div>
 			</div>
 
@@ -155,8 +158,11 @@
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
 <script src="js/jquery.zclip.js"></script>
+<script src="js/jquery.pagination.js"></script>
 <script>
 	var login = false;
+	var firsttry = true;
+	var tags = 0;
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
@@ -205,14 +211,28 @@
 			login = true;
 		}
 		ajaxRe();
+		$("#splitpage").pagination(tags, {
+			callback: ajaxRe,//PageCallback() 为翻页调用次函数。
+			prev_text: " 上一页",
+			next_text: "下一页 ",
+			items_per_page: 6, //每页的数据个数
+			num_display_entries: 1, //两侧首尾分页条目数
+			num_edge_entries: 3, //连续分页主体部分分页条目数
+			current_page: 0,   //当前页码
+			ellipse_text:"...",
+			link_to:"javascript:void(0)"
+		});
 	});
 
 
-	function ajaxRe(){
+	function ajaxRe(index){
 		var repname = getParam("repname");
 		var itemname = getParam("itemname");
+		if(firsttry) {
+			index = 0;
+		}
 		$.ajax({
-			url: ngUrl+"/repositories/"+repname+"/"+itemname,
+			url: ngUrl+"/repositories/"+repname+"/"+itemname+"?page="+(index+1)+"&size=6",
 			type: "get",
 			cache:false,
 			data:{},
@@ -220,6 +240,12 @@
 			dataType:'json',
 			success:function(json){
 				if(json.code == 0){
+					//获取tags
+					tags = json.data.tags;
+					if(firsttry) {
+						firsttry = false;
+						return;
+					}
 					//设置repname
 					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#dataitem-head-left .itemname").text(itemname);
@@ -274,7 +300,8 @@
 					});
 					//设置tag数量
 					$("#dataitem-tag .tag-head .text").text(json.data.tags);
-					//设置tag详情
+					//设置tag详情，先清空table
+					$("#dataitem-tag .tag-body table").html("");
 					for(var i=0; i<json.data.taglist.length; i++) {
 						var tag = json.data.taglist[i];
 						var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
@@ -381,6 +408,7 @@
 				alert(json.msg);
 			}
 		});
+		$("body,html").animate({scrollTop:0},0);
 	}
 	function getParam(key) {
 		var value='';
