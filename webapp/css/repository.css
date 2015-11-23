@@ -287,7 +287,7 @@ body{
     clear: both;
     width: 278px;
     border: 1px solid #e5e5e5;
-    height: 22px;
+    padding:10px;
 }
 #introduce2 .introduce2-c {
     clear: both;
@@ -403,13 +403,11 @@ body{
     }
 }
 .cur_name div{
-    height: 14px;
     padding-left:10px;
     padding-right:0px;
     margin-top:3px;
     overflow: hidden;
     font-size: 14px;
-    line-height: 14px;
 }
 .haveuser{
     float: right;
