@@ -70,7 +70,7 @@
     function getrepname(pages) {
             datas = [];
             $.ajax({
-                url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
+                url: ngUrl + "/repositories/" + repname + "?items=1&size=2&page="+pages,
                 cache: false,
                 async: false,
                 success: function (msg) {
@@ -113,20 +113,26 @@
         var dataitemd = [];
         var dataitemdpullNum = [];
         var dataitemstarNum= [];
-        for(var i= 0;i<datas.length;i++) {
-             //返回该DataItem的订阅量
-            getAjax(ngUrl + "/subscription_stat/" +datas[i],function(msg){
-                 dataitemd.push(msg.data.numsubs);
-             });
-            //返回该DataItem的pull量
-             getAjax(ngUrl + "/transaction_stat/" +repname+datas[i],function(msg){
-               dataitemdpullNum.push(msg.data.numpulls);
-            });
-             // 返回item的star量
-            getAjax(ngUrl + "/star_stat/" +repname+"/"+datas[i],function(msg){
-                 dataitemstarNum.push(msg.data.numstars);
-            });
+        function getitemDeteails(){
+            dataitemd = [];
+            dataitemdpullNum = [];
+            dataitemstarNum= [];
+            for(var i= 0;i<datas.length;i++) {
+                //返回该DataItem的订阅量
+                getAjax(ngUrl + "/subscription_stat/" +datas[i],function(msg){
+                    dataitemd.push(msg.data.numsubs);
+                });
+                //返回该DataItem的pull量
+                getAjax(ngUrl + "/transaction_stat/" +repname+datas[i],function(msg){
+                    dataitemdpullNum.push(msg.data.numpulls);
+                });
+                // 返回item的star量
+                getAjax(ngUrl + "/star_stat/" +repname+"/"+datas[i],function(msg){
+                    dataitemstarNum.push(msg.data.numstars);
+                });
+            }
         }
+        getitemDeteails();
         //填充items列
         
       function funitemList(label){
@@ -166,7 +172,7 @@
         funitemList();
         $(".pages").pagination(paegeitems, {
             maxentries:paegeitems,
-            items_per_page: 6,
+            items_per_page: 2,
             num_display_entries: 1,
             num_edge_entries: 5 ,
             prev_text:"上一页",
@@ -181,6 +187,7 @@
         function fenS(new_page_index){
             apendjson = {};
             getrepname(new_page_index+1);
+            getitemDeteails();
             $('.bigBox').empty();
              // alert(ngUrl + "/repositories/" + repname + "/"+datas[1]);
             for(var i=0;i<fornum;i++) {
