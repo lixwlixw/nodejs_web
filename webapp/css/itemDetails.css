@@ -1,3 +1,25 @@
+.pagination a,.pagination span{
+	display: inline;
+	float: none;
+}
+.pagination a, .pagination span{
+	padding:0.5em 1em;
+}
+.pagination a{
+	border:1px solid #e5e5e5;
+	color: #666;
+	border-radius: 3px;
+}
+.pagination span.current{
+	border-radius: 3px;
+	background: #29abe2;
+}
+.pagination{
+	width: 100%;
+	text-align: right;
+	margin-bottom: 0px;
+}
+
 #dataitem {
 	overflow:auto;
 	padding-left: 40px;
@@ -18,8 +40,6 @@
 	min-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 30px;
-	margin-left: -40px;
-	padding-left: 40px;
 	overflow: hidden;
 }
 #dataitem-head-left {
@@ -112,9 +132,9 @@
 	font-size: 14px;
 }
 #dataitem-tag .tag-head .icon {
-	background-image: url("../images/sliceU1.png");
+	background-image: url("../images/itemicon.png");
 	background-repeat: no-repeat;
-	background-position: -32px -7px;
+	background-position: 0px 0px;
 	width: 8px;
 	height: 12px;
 	/*margin-top: 5px;*/
