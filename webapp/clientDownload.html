@@ -36,25 +36,26 @@
                 使用源码安装：
             </p>
             <p class="bg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+                go get github.com/asiainfoLDP/datahub
             </p>
             <p class="nobg_p">
                 启动datahub服务：
             </p>
             <p class="bg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+                sudo $GOPATH/bin/datahub --daemon --token xxxxxxxxxxx
             </p>
             <p class="nobg_p">
                 使用docker镜像：
             </p>
             <p class="bg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+                git clone https://github.com/asiainfoLDP/datahub  && cd datahub
+                docker build -t datahub .
             </p>
             <p class="nobg_p">
                 启动docker镜像：
             </p>
             <p class="bg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+                docker run -d -e "DAEMON_TOKEN=xxxxxxxxxxx" -e "DAEMON_ENTRYPOINT=http://XXXXXXXXXX:YYYY" -p xxxx:35800 datahub
             </p>
             <p>
                 需要修改防火墙，使得docker镜像的35800映射到的主机端口可以被外部访问。
@@ -105,9 +106,10 @@
             <div class="notebox bddashed">
                 <p>NOTE:</p>
                 <ul>
-                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
-                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
-                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中</li>
+                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中。错误信息会打印到终端。</li>
+                    <li>所有的命令执行都会记录到日志中，日志级别分[TRACE] [INFO] [WARNNING] [ERROR] [FATAL]。</li>
+                    <li>参数支持全名和简称两种形式，例如--type等同于-t。详情见命令帮助。</li>
+                    <li>参数赋值支持空格和等号两种形式，例如--type=file等同于--type file。</li>
                 </ul>
             </div>
             <div class="smalltitle fcolor0">
@@ -119,7 +121,7 @@
                 </p>
                 <div style="padding-left:10px;">
                          <p class="bg_p">
-                             datahub&nbsp;&nbsp;db
+                             datahub&nbsp;&nbsp;dp
                          </p>
                          <p class="smargin fcolor0">
                              输出
@@ -131,11 +133,11 @@
                              例子
                          </p>
                          <div class="bg_p">
-                             <p>$datahub&nbsp;dp</p>
-                             <p>dp1&nbsp;&nbsp;&nbsp;&nbsp;regular&nbsp;&nbsp;file</p>
-                             <p>dp2&nbsp;&nbsp;&nbsp;&nbsp;dp2</p>
-                             <p>dphere&nbsp;&nbsp;hdfs</p>
-                             <p>dpthere&nbsp;&nbsp;api</p>
+                             <p>$ datahub dp</p>
+                             <p>dp1     regular file </p>
+                             <p>dp2     db2</p>
+                             <p>dphere  hdfs</p>
+                             <p>dpthere api</p>
                              <p>$</p>
                          </div>
                 </div>
@@ -144,23 +146,24 @@
                     2.列出datapool详情
                 </p>
                 <div style="padding-left: 10px;">
-                        <div class="bg_p">datahub&nbsp;&nbsp;dp&nbsp;&nbsp;$DPNAME</div>
+                        <div class="bg_p">datahub dp $DPNAME</div>
                         <p class="smargin fcolor0">
                             输出
                         </p>
                         <div class="bg_p">
-                            <p>%DPNAME%DPTYPE%DPCONN</p>
-                            <p>{%REPO/%ITEM:%TAG&nbsp;&nbsp;&nbsp;&nbsp;%LOCAL_TIME&nbsp;&nbsp;&nbsp;&nbsp;%T}</p>
+                            <p>%DPNAME %DPTYPE %DPCONN</p>
+                            <p>{%REPO/%ITEM:%TAG       %LOCAL_TIME     %T}</p>
                         </div>
                         <p class="smargin fcolor0">
                             例子
                         </p>
                         <div class="bg_p">
-                            <p>$datahub&nbsp;dp</p>
-                            <p>dp1&nbsp;&nbsp;&nbsp;&nbsp;regular&nbsp;&nbsp;file</p>
-                            <p>dp2&nbsp;&nbsp;&nbsp;&nbsp;dp2</p>
-                            <p>dphere&nbsp;&nbsp;hdfs</p>
-                            <p>dpthere&nbsp;&nbsp;api</p>
+                            <p>$ datahub dp dp1</p>
+                            <p>dp1 regular file    /var/lib/datahub/dp1</p>
+                            <p>repo1/item1:tag1        12:34 Oct 11 2015       pub</p>
+                            <p>repo1/item1:tag2        15:00 Nov 2  2015       pub</p>
+                            <p>repo1/item2:latest  10:00 Nov 1  2015       pull</p>
+                            <p>cmcc/beijing:latest 10:00 Nov 1  2015       pull</p>
                             <p>$</p>
                         </div>
                 </div>
@@ -172,8 +175,8 @@
                             目前只支持本地目录的数据池创建。daemon会有自己的可配置目录(默认/var/lib/datahub),使用参数dpconn指定据对路径，当没有设置dpconn选项时，会默认创建到daemon的工作目录。
                         </div>
                         <div class="bg_p">
-                            <p>datahub&nbsp;&nbsp;dp&nbsp;&nbsp;create&nbsp;&nbsp;$DPNAME[--type=dptype]</p>
-                            <p>[--conn=$dpcpnn]</p>
+                            <p>datahub dp create $DPNAME [--type=$dptype]</p>
+                            <p>[--conn=$dpconn]</p>
                         </div>
                         <p class="smargin fcolor0">
                             输出
@@ -185,7 +188,7 @@
                             例子
                         </p>
                         <div class="bg_p">
-                            <p>$&nbsp;&nbsp;datahub&nbsp;&nbsp;dp&nbsp;&nbsp;create&nbsp;&nbsp;dp1&nbsp;&nbsp; --type=file</p>
+                            <p>$ datahub dp create dp1 --type=file</p>
                             <p>--conn=/home/daemon/dp1</p>
                             <p>dp1 created as /home/daemon/dp1</p>
                             <p>$</p>
@@ -199,19 +202,21 @@
                             删除数据池不会删除目标数据池已保存的数据，该dp有发布的数据项时，不能被删除。删除是在sqlit中标记状态，不真实删除。
                         </div>
                         <div class="bg_p">
-                            <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                            <p>datahub dp rm $DPNAME [-f]</p>
                         </div>
                         <p class="smargin fcolor0">
                             输出
                         </p>
                         <div class="bg_p">
-                            <p>%msg</p>
+                            <p></p>
                         </div>
                         <p class="smargin fcolor0">
                             例子
                         </p>
                         <div class="bg_p">
-                            <p>%msg</p>
+                            <p>$ datahub dp rm dp1</p>
+                            <p>ok</p>
+                            <p>$</p>
                         </div>
                 </div>
             </div>
@@ -224,19 +229,22 @@
                     </p>
                     <div style="padding-left: 10px">
                             <div class="bg_p">
-                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                                <p>datahub subs </p>
                             </div>
                             <p class="smargin fcolor0">
                                 输出
                             </p>
                             <div class="bg_p">
-                                <p>%msg</p>
+                                <p>{%REPO/%ITEM    %TYPE}</p>
                             </div>
                             <p class="smargin fcolor0">
                                 例子
                             </p>
                             <div class="bg_p">
-                                <p>%msg</p>
+                                <p>$ datahub subs</p>
+                                <p>cmcc/beijing        regular file</p>
+                                <p>repo1/testing       api</p>
+                                <p>$</p>
                             </div>
                     </div>
                     <p class="nobg_p fcolor0">
@@ -244,19 +252,34 @@
                     </p>
                     <div style="padding-left: 10px">
                             <div class="bg_p">
-                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                                <p>ddatahub subs $REPO/$ITEM</p>
                             </div>
                             <p class="smargin fcolor0">
                                 输出
                             </p>
                             <div class="bg_p">
-                                <p>%msg</p>
+                                <p>%REPO/%ITEM     %TYPE</p>
+                                <p>DESCRIPTION:</p>
+                                <p>%DESCRIPTION</p>
+                                <p>METADATA:</p>
+                                <p>%METADATA</p>
+                                <p>{%ITEM:%TAGNAME %UPDATE_TIME    %INFO}</p>
                             </div>
                             <p class="smargin fcolor0">
                                 例子
                             </p>
                             <div class="bg_p">
-                                <p>%msg</p>
+                                <p>$ datahub subs cmcc/beijing</p>
+                                <p>cmcc/beijing    regular file</p>
+                                <p>DESCRIPTION:</p>
+                                <p>移动数据北京地区</p>
+                                <p>METADATA:</p>
+                                <p>BLABLABLA</p>
+                                <p>beijing:chaoyang    15:34 Oct 12 2015       600M</p>
+                                <p>beijing:daxing  16:40 Oct 13 2015       435M</p>
+                                <p>beijing:shunyi  16:40 Oct 14 2015       324M</p>
+                                <p>beijing:haidian 16:40 Oct 15 2015       988M</p>
+                                <p>$</p>
                             </div>
                     </div>
             </div>
@@ -269,7 +292,7 @@
                      </p>
                      <div style="padding-left: 10px">
                             <div class="bg_p">
-                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                                <p>datahub pull $REPO/$ITEM[:$TAG] $DATAPOOL</p>
                             </div>
                             <p class="smargin fcolor0">
                                 输出
@@ -281,7 +304,9 @@
                                 例子
                             </p>
                             <div class="bg_p">
-                                <p>%msg</p>
+                                <p>$ datahub pull cmcc/beijing:chaoyang dp1</p>
+                                <p>OK.</p>
+                                <p>$</p>
                             </div>
                      </div>
             </div>
@@ -294,7 +319,7 @@
                     </p>
                     <div style="padding-left: 10px">
                             <div class="bg_p">
-                                <p>datahubdp&nbsp;rm&nbsp;$DPNAME&nbsp;[-f]</p>
+                                <p>datahub login [--user=user]</p>
                             </div>
                             <p class="smargin fcolor0">
                                 输出
@@ -307,6 +332,11 @@
                             </p>
                             <div class="bg_p">
                                 <p>%msg</p>
+                                <p>$ datahub login</p>
+                                <p>login: datahub</p>
+                                <p>password: *******</p>
+                                <p>[INFO]Authorization failed.</p>
+                                <p>$</p>
                             </div>
                     </div>
             </div>
