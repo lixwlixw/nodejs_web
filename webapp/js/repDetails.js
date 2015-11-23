@@ -1,6 +1,7 @@
    
     var repname='';
     var apendjson = {};
+    var fornum;
     $(function() {
     function getTimes(times){
         var jsonTime = {};
@@ -70,7 +71,7 @@
     function getrepname(pages) {
             datas = [];
             $.ajax({
-                url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
+                url: ngUrl + "/repositories/" + repname + "?items=1&size=2&page="+pages,
                 cache: false,
                 async: false,
                 success: function (msg) {
@@ -101,7 +102,7 @@
            $('.starnum').html(msg.data.numstars);
         });
         var htmls = '';
-        var fornum = datas.length;
+
         //返回该repositories的订阅量
         getAjax(ngUrl + "/subscription_stat/" +repname,function(msg){
            $(".repdnum").html(msg.data.numsubs);
@@ -136,6 +137,7 @@
         //填充items列
         
       function funitemList(label){
+           fornum = datas.length;
           for(var i=0;i<fornum;i++) {
               apendjson = {};
               var itemloginName = '';
@@ -172,7 +174,7 @@
         funitemList();
         $(".pages").pagination(paegeitems, {
             maxentries:paegeitems,
-            items_per_page: 6,
+            items_per_page: 2,
             num_display_entries: 1,
             num_edge_entries: 5 ,
             prev_text:"上一页",
@@ -185,8 +187,9 @@
         });
         $('.pagination a').attr('href','javascript:void(0)')
         function fenS(new_page_index){
-            apendjson = {};
             getrepname(new_page_index+1);
+            fornum = datas.length;
+            apendjson = {};
             getitemDeteails();
             $('.bigBox').empty();
              // alert(ngUrl + "/repositories/" + repname + "/"+datas[1]);

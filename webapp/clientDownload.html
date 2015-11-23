@@ -42,13 +42,13 @@
                 启动datahub服务：
             </p>
             <p class="bg_p">
-                sudo $GOPATH/bin/datahub --daemon --token xxxxxxxxxxx
+                sudo $GOPATH/bin/datahub --daemon --token <span class="havetoken">xxxxxxxxxxx</span>
             </p>
             <p class="nobg_p">
                 使用docker镜像：
             </p>
             <p class="bg_p">
-                git clone https://github.com/asiainfoLDP/datahub  && cd datahub
+                git clone https://github.com/asiainfoLDP/datahub  && cd datahub<br/>
                 docker build -t datahub .
             </p>
             <p class="nobg_p">
@@ -352,4 +352,11 @@
     $("header").load("common/header.html");
     $("footer").load("common/footer.html");
     $("#loginTem").load("common/login.html");
+    var account= $.cookie('token');
+    if(account != 'null'){
+        $('.havetoken').html(account);
+            }
+    else{
+        $('.havetoken').html('xxxxxxxxxx');
+    }
 </script>
