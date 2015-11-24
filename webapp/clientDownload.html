@@ -26,11 +26,11 @@
             <div class="titleImg title1"></div><strong>安装client端工具</strong>
         </div>
         <div class="boxworp">
-            <p class="nobg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
-            </p>
+            <!--<p class="nobg_p">-->
+                <!--在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:-->
+            <!--</p>-->
             <p class="bg_p">
-                在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:
+                curl http://hub.dataos.io/install.sh | sh -s xxxxxxxxxxxxxxxx
             </p>
             <p class="nobg_p">
                 使用源码安装：
@@ -55,7 +55,7 @@
                 启动docker镜像：
             </p>
             <p class="bg_p">
-                docker run -d -e "DAEMON_TOKEN=xxxxxxxxxxx" -e "DAEMON_ENTRYPOINT=http://XXXXXXXXXX:YYYY" -p xxxx:35800 datahub
+                docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>" -e "DAEMON_ENTRYPOINT=http://XXXXXXXXXX:YYYY" -p xxxx:35800 datahub
             </p>
             <p>
                 需要修改防火墙，使得docker镜像的35800映射到的主机端口可以被外部访问。
@@ -353,8 +353,18 @@
     $("footer").load("common/footer.html");
     $("#loginTem").load("common/login.html");
     var account= $.cookie('token');
+
     if(account != 'null'){
-        $('.havetoken').html(account);
+        $.ajax({
+            type: "get",
+            url:ngUrl+"/daemon/id",
+            cache:false,
+            async:false,
+            headers:{Authorization:"Token "+account},
+            success: function(msg){
+                $('.havetoken').html(msg.data.daemonid);
+            }
+        });
             }
     else{
         $('.havetoken').html('xxxxxxxxxx');
