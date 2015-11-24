@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+	<title>我的发布 10,14,44,52</title>
+	<!--css-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/myPublish.css">
+	<style>
+		.nav > li > a:hover{
+			background-color:rgba(31,154,218,0.7);
+		}
+		.navbar-toggle .icon-bar {
+			background-color: #fff;
+		}
+		.navbar-nav > li > a:focus{
+			background:none;
+		}
+	</style>
+	<!--js-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/ngUrl.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/base64.js"></script>
+	<script src="js/md5.js"></script>
+	<script>
+		$(function() {
+			//加载页面头尾登陆
+			$("a").focus(function(){this.blur()});
+			$("header").load("common/header.html");
+			$("footer").load("common/footer.html");
+			$("#loginTem").load("common/login.html");
+			$(window).load(function(){
+				$(".be-loader").fadeOut("slow");
+			});
+			//折叠筐：显示和隐藏每个rep的item列表
+			$("#publish-body .repolist .describe").click(function () {
+				var o = $(this).closest(".describe").next();
+//				o.slideToggle("fast");//垂直动画
+				o.toggle("fast");//垂直加水平动画
+			});
+
+			var reps;
+			//请求所有rep
+			$.ajax({
+				url: ngUrl+"/repositories",
+				type: "get",
+				cache:false,
+				data:{},
+				async:false,
+				dataType:'json',
+				headers:{ Authorization:"Token "+$.cookie("token") },
+				success:function(json){
+					if(json.code == 0){
+						reps = json.data;
+					}
+				},
+				error:function(json){
+					alert(json.msg);
+				}
+			});
+			//请求每个rep的详情
+			for(var i in reps) {
+				var rep = reps[i];
+				$.ajax({
+					url: ngUrl+"/repositories/"+rep.repname,
+					type: "get",
+					cache:false,
+					data:{items:1},
+					async:false,
+					dataType:'json',
+					headers:{ Authorization:"Token "+$.cookie("token") },
+					success:function(json){
+						if(json.code == 0){
+							for(var j in json.data) {
+								rep[j] = json.data[j];
+							}
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				//获取star量
+				$.ajax({
+					url: ngUrl+"/star_stat/"+rep.repname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							rep["numstars"] = json.data.numstars;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				//获取订阅量
+				$.ajax({
+					url: ngUrl+"/subscription_stat/"+rep.repname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							rep["numsubs"] = json.data.numsubs;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				//获取下载量
+				$.ajax({
+					url: ngUrl+"/transaction_stat/"+rep.repname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							rep["numpulls"] = json.data.numpulls;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+			}
+			//请求每个item详情
+			/*for(var i in reps) {
+				var rep = reps[i];
+				for(var j in rep.dataitems) {
+					var item = rep.dataitems[j];
+					$.ajax({
+						url: ngUrl+"/repositories/"+rep.repname+"/"+item,
+						type: "get",
+						cache:false,
+						data:{items:1},
+						async:false,
+						dataType:'json',
+						headers:{ Authorization:"Token "+$.cookie("token") },
+						success:function(json){
+							if(json.code == 0){
+								rep.dataitems[j] = json.data;
+							}
+						},
+						error:function(json){
+							alert(json.msg);
+						}
+					});
+					rep.dataitems[j]["name"] = item;
+				}
+			}*/
+			writeDom();
+			//把数据写入页面
+			function writeDom() {
+				//写仓库数量
+				$("#publish-body .repocount span").text(reps.length);
+				//写rep列表
+				for(var i in reps) {
+					var rep = reps[i];
+					//创建reporecord
+					var reporecord = $("<div></div>").addClass("reporecord").appendTo($("#publish-body .repolist"));
+					//创建describe，并追加到reporecord
+					var describe = $("<div></div>").addClass("describe").appendTo(reporecord);
+					//创建head并追加到describe
+					var head = $("<div></div>").addClass("head").appendTo(describe);
+					head.append($("<span></span>").addClass("head-text").append($("<a></a>").attr("href", "repDetails.html?repname="+rep.repname).text(rep.repname)));
+					head.append($("<span></span>").addClass("head-icon1"));
+					head.append($("<span></span>").addClass("head-icon2"));
+					//创建body，并追加到describe
+					var body = $("<div></div>").addClass("body").text(rep.comment).appendTo(describe);
+					//创建tail并追加到describe
+					var tail = $("<div></div>").addClass("tail").appendTo(describe);
+					//创建左侧icon并追加到tail
+					var left = $("<span></span>").addClass("left").appendTo(tail);
+					left.append($("<span></span>").addClass("left1-icon icon").attr("title", "更新时间"));
+					var showtime = rep.optime.substring(rep.optime.indexOf("|")+1,rep.optime.length);
+					var titletime = rep.optime.substring(0,rep.optime.indexOf("."));
+					left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
+					left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
+					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"公有"));
+					left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
+					left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
+					left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
+					left.append($("<span></span>").addClass("left4-value val").text(rep.dataitems.length));
+					//创建右侧icon并追加到tail
+					var right = $("<span></span>").addClass("right").appendTo(tail);
+					right.append($("<span></span>").addClass("right1-icon icon").attr("title", "star量"));
+					right.append($("<span></span>").addClass("right1-value val").text(rep.numstars));
+					right.append($("<span></span>").addClass("right2-icon icon").attr("title", "订阅量"));
+					right.append($("<span></span>").addClass("right2-value val").text(rep.numsubs));
+					right.append($("<span></span>").addClass("right2-icon icon").attr("title", "pull量"));
+					right.append($("<span></span>").addClass("right2-value val").text(rep.numpulls));
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+<div class="be-loader" style="display: block;">
+	<div class="spinner">
+		<div class="spinner-container container1">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container2">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container3">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+	</div>
+</div>
+<header></header>
+
+<div id="publish" class="container">
+	<div id="publish-head">
+		<span class="name"><b>我的发布</b></span>
+		<span class="add-icon"></span>
+	</div>
+	<div id="publish-body">
+		<div class="repocount">
+			Repository:<span></span>
+		</div>
+		<div class="repolist">
+			<!--<div class="reporecord">
+				<div class="describe">
+					<div class="head">
+						<span class="head-text"><a href="javascript:void(0);">Repository name</a></span>
+						<span class="head-icon1"></span>
+						<span class="head-icon2"></span>
+					</div>
+					<div class="body">测试测试测试测试测试测试测试测试测试测试测试测试</div>
+					<div class="tail">
+						<span class="left">
+							<span class="left1-icon icon" title="更新时间"></span>
+							<span class="left1-value val">一小时以前</span>
+							<span class="left2-icon icon" title="属性"></span>
+							<span class="left2-value val">私有</span>
+							<span class="left3-icon icon" title="托管状态"></span>
+							<span class="left3-value val">非托管</span>
+							<span class="left4-icon icon" title="DataItem"></span>
+							<span class="left4-value val">334,456</span>
+						</span>
+						<span class="right">
+							<span class="right1-icon icon" title="star量"></span>
+							<span class="right1-value val">238</span>
+							<span class="right2-icon icon" title="订阅量"></span>
+							<span class="right2-value val">344</span>
+							<span class="right3-icon icon" title="pull量"></span>
+							<span class="right3-value val">235</span>
+						</span>
+					</div>
+				</div>
+				<div class="tablelist" style="display: none;">
+					<div style="width: 100%">
+						<div class="dhead">
+							<span class="col1"><b>DateItem name</b></span>
+							<span class="col2"><b>更新时间</b></span>
+							<span class="col3"><b>属性</b></span>
+							<span class="col4"><b>Tag数量</b></span>
+						</div>
+						<div class="dbody">
+							<div class="row">
+								<span class="col1">DateItem name</span>
+								<span class="col2">2分钟以前</span>
+								<span class="col3">私有</span>
+								<span class="col4">333,444</span>
+							</div>
+							<div class="row">
+								<span class="col1">DateItem name</span>
+								<span class="col2">2分钟以前</span>
+								<span class="col3">私有</span>
+								<span class="col4">333,444</span>
+							</div>
+						</div>
+						<div class="dtail">
+							<span>
+								<span class="icon1"></span>
+								<span class="icon2"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>-->
+			<!--<div class="reporecord">
+				<div class="describe">
+					<div class="head">
+						<span class="head-text">Repository name</span>
+						<span class="head-icon1"></span>
+						<span class="head-icon2"></span>
+					</div>
+					<div class="body">测试测试测试测试测试测试测试测试测试测试测试测试</div>
+					<div class="tail">
+					<span class="left">
+						<span class="left1-icon icon"></span>
+						<span class="left1-value val">一小时以前</span>
+						<span class="left2-icon icon"></span>
+						<span class="left2-value val">私有</span>
+						<span class="left3-icon icon"></span>
+						<span class="left3-value val">非托管</span>
+						<span class="left4-icon icon"></span>
+						<span class="left4-value val">334,456</span>
+					</span>
+					<span class="right">
+						<span class="right1-icon icon"></span>
+						<span class="right1-value val">238</span>
+						<span class="right2-icon icon"></span>
+						<span class="right2-value val">344</span>
+						<span class="right3-icon icon"></span>
+						<span class="right3-value val">235</span>
+					</span>
+					</div>
+				</div>
+				<div class="tablelist">
+					<div style="width: 100%">
+						<div class="dhead">
+							<span class="col1"><b>DateItem name</b></span>
+							<span class="col2"><b>更新时间</b></span>
+							<span class="col3"><b>属性</b></span>
+							<span class="col4"><b>Tag数量</b></span>
+						</div>
+						<div class="dbody">
+							<div class="row">
+								<span class="col1">DateItem name</span>
+								<span class="col2">2分钟以前</span>
+								<span class="col3">私有</span>
+								<span class="col4">333,444</span>
+							</div>
+							<div class="row">
+								<span class="col1">DateItem name</span>
+								<span class="col2">2分钟以前</span>
+								<span class="col3">私有</span>
+								<span class="col4">333,444</span>
+							</div>
+						</div>
+						<div class="dtail">
+							<span>
+								<span class="icon1"></span>
+								<span class="icon2"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</div>
+	</div>
+</div>
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+#publish {
+	padding: 22px 40px;
+	background-color: #f5f5f5;
+	margin-top: 50px;
+	width: auto;
+}
+#publish-head {
+	margin-bottom: 25px;
+}
+#publish-head>span {
+	display: inline-block;
+}
+#publish-head .name {
+	font-size: 20px;
+	margin-right: 11px;
+}
+#publish-head .add-icon {
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -91px -28px;
+	width: 18px;
+	height: 18px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repocount{
+	font-size: 14px;
+	margin-bottom: 11px;
+}
+#publish-body .repolist .reporecord {
+	margin-bottom: 25px;
+	background-color: #fff;
+}
+#publish-body .repolist .describe {
+	padding: 20px;
+	border: 1px solid #e5e5e5;
+}
+#publish-body .repolist .describe .head {
+	margin-bottom: 20px;
+}
+#publish-body .repolist .reporecord .describe .head .head-text a {
+	font-size: 22px;
+	color: #0077aa;
+	color: #0077aa;
+}
+#publish-body .repolist .reporecord .describe .head .head-text a:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+#publish-body .repolist .describe .head>span {
+	display: inline-block;
+}
+#publish-body .repolist .describe .head .head-icon1{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -20px -28px;
+	width: 40px;
+	height: 17px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+	margin-left: 5px;
+}
+#publish-body .repolist .describe .head .head-icon2{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -166px -28px;
+	width: 20px;
+	height: 20px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+	float: right;
+}
+#publish-body .repolist .describe .head .head-icon2:hover{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -204px -26px;
+	cursor: pointer;
+}
+#publish-body .repolist .describe .body {
+	font-size: 14px;
+	line-height: 24px;
+	color: #242424;
+	margin-bottom: 20px;
+}
+#publish-body .repolist .describe .tail>span {
+	font-size: 0px;
+}
+#publish-body .repolist .describe .tail span {
+	display: inline-block;
+}
+#publish-body .repolist .describe .tail>span span{
+	font-size: 12px;
+	color: #989898;
+}
+
+#publish-body .repolist .describe .tail .right {
+	float: right;
+}
+#publish-body .repolist .describe .tail .left .icon {
+	margin-right: 3px;
+}
+#publish-body .repolist .describe .tail .left .val {
+	margin-right: 10px;
+}
+#publish-body .repolist .describe .tail .right .icon {
+	margin-left: 10px;
+}
+#publish-body .repolist .describe .tail .right .val {
+	margin-left: 3px;
+}
+
+#publish-body .repolist .describe .tail .left .left1-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -21px -126px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .left .left2-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -113px -126px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .left .left3-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -163px -126px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .left .left4-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -223px -126px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .right .right1-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -20px -76px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .right .right2-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -65px -76px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#publish-body .repolist .describe .tail .right .right3-icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -110px -76px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+
+#publish-body .repolist .tablelist {
+	border: 1px solid #e5e5e5;
+	border-top: none;
+}
+#publish-body .repolist .tablelist .dhead {
+	padding: 27px 55px 16px 55px;
+	background-color: #ccc;
+}
+#publish-body .repolist .tablelist span {
+	display: inline-block;
+}
+#publish-body .repolist .tablelist div {
+	font-size: 0px;
+}
+#publish-body .repolist .tablelist .dhead span, #publish-body .repolist .tablelist .dbody span {
+	font-size: 14px;
+	width: 25%;
+	word-break: keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+#publish-body .repolist .tablelist .dbody .row{
+	margin:0px 55px;
+	border-bottom: 1px solid #e5e5e5;
+}
+#publish-body .repolist .tablelist .dbody span{
+	height: 36px;
+	line-height: 36px;
+}
+#publish-body .repolist .tablelist .dbody .col1, #publish-body .repolist .tablelist .dhead .col1 {
+	padding-left: 41px;
+	text-align: left;
+}
+#publish-body .repolist .tablelist .dbody .col2, #publish-body .repolist .tablelist .dbody .col3,
+#publish-body .repolist .tablelist .dhead .col2, #publish-body .repolist .tablelist .dhead .col3 {
+	text-align: center;
+}
+#publish-body .repolist .tablelist .dbody .col4, #publish-body .repolist .tablelist .dhead .col4 {
+	padding-right: 41px;
+	text-align: right;
+}
+#publish-body .repolist .tablelist .dtail {
+	padding: 15px 62px 15px 0px;
+	overflow:hidden;
+}
+#publish-body .repolist .tablelist .dtail span {
+	display: inline-block;
+}
+#publish-body .repolist .tablelist .dtail>span {
+	float: right;
+}
+#publish-body .repolist .tablelist .dtail .icon1 {
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -92px -28px;
+	width: 18px;
+	height: 18px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+	margin-right: 19px;
+}
+#publish-body .repolist .tablelist .dtail .icon2 {
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -127px -28px;
+	width: 18px;
+	height: 18px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+
+@media screen and (max-width: 768px) {
+	#publish-body .repolist .describe .tail {
+		overflow: hidden;
+	}
+	#publish-body .repolist .describe .tail .left {
+		float: left;
+	}
+	#publish-body .repolist .describe .tail .right {
+		float: left;
+		clear: left;
+	}
+	#publish-body .repolist .describe .tail .right .right1-icon:nth-child(1) {
+		margin-left: 0px;
+	}
+	#publish-body .repolist .tablelist .dhead{
+		display: none;
+	}
+	#publish-body .repolist .tablelist .dbody .row > span{
+		text-align: left;
+		float: left;
+		padding-left: 20px;
+		width: 50%;
+	}
+	#publish-body .repolist .tablelist .dbody .row > span:nth-child(2n+1) {
+		clear: left;
+	}
+	#publish-body .repolist .tablelist .dbody .row{
+		margin: 0px 0px 0px 0px;
+	}
+}
+@media screen and (max-width: 420px) {
+	#publish-body .repolist .describe .tail > span span {
+		margin-bottom: 5px;
+		float: left;
+	}
+	#publish-body .repolist .describe .tail > span span:nth-child(2n+1) {
+		clear: left;
+	}
+	#publish-body .repolist .describe .tail .left {
+		margin-bottom: 20px;
+	}
+	#publish-body .repolist .describe .tail .right .icon {
+		margin-left: 0px;
+	}
+	#publish-body .repolist .tablelist .dbody .row > span {
+		width: 100%;
+		display: block;
+		float: none;
+	}
+}
