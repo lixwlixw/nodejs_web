@@ -417,7 +417,11 @@ body{
     text-align: right;
 }
 
-
+.itemnameitem{
+    font-weight: normal;
+    font-size:22px;
+    color: #989898;
+}
 
 
 

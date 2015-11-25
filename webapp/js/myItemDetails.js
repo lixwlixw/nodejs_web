@@ -2,6 +2,18 @@
  * Created by Administrator on 2015/11/24.
  */
 $(function(){
+    function getParam(key) {
+        var value='';
+        var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+        if (itemid.test(decodeURIComponent(window.location.href))) {
+            value = itemid.exec(decodeURIComponent(window.location.href))[1];
+        }
+        return value;
+    }
+    var repname = getParam("repname");
+    var itemname = getParam("itemname");
+    $('.renameitem').html(repname);
+    $('.itemnameitem').html("/"+itemname);
 	$(document).on('click','.togglebox',function(){
 		 var body = $(this).closest(".record").children("div[class=body]:first");
 				body.slideToggle("fast");
@@ -51,16 +63,37 @@ $(function(){
         }
         return jsonTime;
     };
+    ///////////////判断数据类型//////////////////
+    function judgeLabel (labels){
+          var labeldata = {
+              'label' : labels,
+              'vvclass' : '',
+              'labelV' : ''
+          };
+          if (labeldata.label == "single") {
+              labeldata.vvclass = "api";
+              labeldata.labelV = "API";
+          }
+          if (labeldata.label == "batch") {
+              labeldata.vvclass = "period";
+              labeldata.labelV = "批量数据";
+          }
+          if (labeldata.label == "flow") {
+              labeldata.vvclass = "flot-data";
+              labeldata.labelV = "流式数据";
+          }
+          return labeldata
+      };
      //返回该DataItem的订阅量
-      getAjax(ngUrl + "/subscription_stat/On_service",function(msg){
+      getAjax(ngUrl + "/subscription_stat/"+itemname,function(msg){
           $('.myitempull').html(msg.data.numsubs);
       });
       //返回该DataItem的pull量
-      getAjax(ngUrl + "/transaction_stat/Mobile_phone/On_service",function(msg){
+      getAjax(ngUrl + "/transaction_stat/"+repname+"/"+itemname,function(msg){
           $('.myitemdy').html(msg.data.numpulls);
       });
       // 返回item的star量
-      getAjax(ngUrl + "/star_stat/Mobile_phone/On_service",function(msg){
+      getAjax(ngUrl + "/star_stat/"+repname+"/"+itemname,function(msg){
           $('.myitemstar').html(msg.data.numstars);
       });
     // 得到tag的下载量
@@ -70,7 +103,7 @@ $(function(){
         if(account != 'null'){
             $.ajax({
                 type: "get",
-                url:ngUrl+"/transaction_stat/Mobile_phone/On_service/"+tagname,
+                url:ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tagname,
                 cache:false,
                 async:false,
                 headers:{Authorization: "Token "+account},
@@ -128,13 +161,26 @@ $(function(){
     var meta ;
     var sample;
     var paegetags;
+    var itemshowtime;
     function tagbox(pages){
         $('.con-main').empty();
-        	getAjax(ngUrl+'/repositories/Mobile_phone/On_service?size=6&page='+pages,function(msg){
+        	getAjax(ngUrl+'/repositories/'+repname+"/"+itemname+'?size=6&page='+pages,function(msg){
             tagallnum = msg.data.tags;
             taglist = msg.data.taglist;
-            meta = msg.data.meta;
-            sample = msg.data.sample;
+            var supply_style = msg.data.label.sys.supply_style;
+            var classjson = judgeLabel(supply_style)
+            $("#supply_style").attr('class',classjson.vvclass);
+            $("#supply_style").html(classjson.labelV);
+            if(msg.data.meta != null){
+                meta = msg.data.meta;
+            } else{
+                meta = '';
+            }
+            if(msg.data.sample != null){
+                sample = msg.data.sample;
+            } else{
+                sample = '';
+            }
             paegetags = msg.data.tags;
            var jsonTime = getTimes(msg.data.optime);
            var itemaccesstype = msg.data.itemaccesstype;
@@ -145,12 +191,13 @@ $(function(){
            	}
            $('.itemoptime').html(jsonTime.showTime);
            $('.itemoptime').attr('title',jsonTime.jdTime);
+           $('.itemcon').html(msg.data.comment)
 
         });
         var str = ' <div class="tagbox"> '+
             '<div class="head">'+
             '<span class="icon"></span>'+
-            '<span class="date">23456 Tag</span>'+
+            '<span class="date">'+paegetags+'Tag</span>'+
             '</div>'+
             '<div class="body">'+
             '<table>';
