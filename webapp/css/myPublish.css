@@ -205,7 +205,7 @@
 	height: 36px;
 	line-height: 36px;
 }
-#publish-body .repolist .tablelist .dhead .col1 a:hover{
+#publish-body .repolist .reporecord .tablelist .dtable .dbody .row .col1 a:hover{
 	text-decoration: underline;
 	color: #666;
 }
