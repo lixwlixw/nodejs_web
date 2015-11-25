@@ -205,6 +205,10 @@
 	height: 36px;
 	line-height: 36px;
 }
+#publish-body .repolist .tablelist .dhead .col1 a:hover{
+	text-decoration: underline;
+	color: #666;
+}
 #publish-body .repolist .tablelist .dbody .col1, #publish-body .repolist .tablelist .dhead .col1 {
 	padding-left: 41px;
 	text-align: left;
@@ -226,6 +230,9 @@
 }
 #publish-body .repolist .tablelist .dtail>span {
 	float: right;
+}
+#publish-body .repolist .tablelist .dtail>span span{
+	cursor: pointer;
 }
 #publish-body .repolist .tablelist .dtail .icon1 {
 	background-image: url("../images/myPublish.png");

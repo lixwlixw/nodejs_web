@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-	<title>我的发布 10,14,44,52</title>
+	<title>dataHub-我的发布 10,14,44,52</title>
 	<!--css-->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/command.css">
@@ -181,7 +181,7 @@
 					for(var i in rep.dataitems) {
 						var item = rep.dataitems[i];
 						var row = $("<div></div>").addClass("row").appendTo(dbody);
-						row.append($("<span></span>").addClass("col1").text(item.name));
+						row.append($("<span></span>").addClass("col1").append($("<a></a>").text(item.name).attr("href", "myItemDetails.html?repname="+rep.repname+"&itemname="+item.name)));
 						var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
 						var titletime = item.optime.substring(0,item.optime.indexOf("."));
 						row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
@@ -191,7 +191,7 @@
 					var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
 					var icons = $("<span></span>").appendTo(dtail);
 					icons.append($("<span></span>").addClass("icon1"));
-					icons.append($("<span></span>").addClass("icon2"));
+					icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?rename="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
 				}
 				//动画
 				var o = $(this).closest(".describe").next();
