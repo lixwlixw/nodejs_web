@@ -1,0 +1,110 @@
+#myItems {
+	padding: 22px 40px;
+	background-color: #f5f5f5;
+	margin-top: 50px;
+	width: auto;
+}
+#myItems-head {
+	margin-bottom: 25px;
+}
+#myItems-head>span {
+	display: inline-block;
+}
+#myItems-head .name {
+	font-size: 20px;
+	margin-right: 11px;
+}
+#myItems-body .repocount{
+	font-size: 0px;
+	margin-bottom: 11px;
+}
+#myItems-body .repocount > span{
+	display: inline-block;
+	font-size: 14px;
+}
+#myItems-body .repocount .repname{
+	margin-right: 10px;
+}
+#myItems-body .repocount .icon{
+	background-image: url("../images/myPublish.png");
+	background-repeat: no-repeat;
+	background-position: -223px -126px;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+	margin-right: 6px;
+}
+#myItems-body .tablelist {
+	border: 1px solid #e5e5e5;
+	border-top: none;
+	background-color: #fff;
+}
+#myItems-body .tablelist .dhead {
+	padding: 27px 55px 16px 55px;
+	background-color: #ccc;
+}
+#myItems-body .tablelist span {
+	display: inline-block;
+}
+#myItems-body .tablelist .dtable {
+	font-size: 0px;
+}
+#myItems-body .tablelist .dhead span, #myItems-body .tablelist .dbody span {
+	font-size: 14px;
+	width: 25%;
+	word-break: keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+#myItems-body .tablelist .dbody .row{
+	margin:0px 55px;
+	border-bottom: 1px solid #e5e5e5;
+}
+#myItems-body .tablelist .dbody span{
+	height: 36px;
+	line-height: 36px;
+}
+#myItems-body .tablelist .dtable .dbody .row .col1 a:hover{
+	text-decoration: underline;
+	color: #666;
+}
+#myItems-body .tablelist .dbody .col1, #myItems-body .tablelist .dhead .col1 {
+	padding-left: 41px;
+	text-align: left;
+}
+#myItems-body .tablelist .dbody .col2, #myItems-body .tablelist .dbody .col3,
+#myItems-body .tablelist .dhead .col2, #myItems-body .tablelist .dhead .col3 {
+	text-align: center;
+}
+#myItems-body .tablelist .dbody .col4, #myItems-body .tablelist .dhead .col4 {
+	padding-right: 41px;
+	text-align: right;
+}
+#splitpage {
+	font-size: 14px;
+}
+
+
+
+
+
+.pagination a, .pagination span{
+	padding:0.5em 1em;
+	display: inline;
+	float: none;
+}
+.pagination a{
+	border:1px solid #e5e5e5;
+	color: #666;
+	border-radius: 3px;
+}
+.pagination span.current{
+	border-radius: 3px;
+	background: #29abe2;
+}
+.pagination{
+	width: 100%;
+	text-align: right;
+}
