@@ -39,13 +39,6 @@
 			$(window).load(function(){
 				$(".be-loader").fadeOut("slow");
 			});
-			//折叠筐：显示和隐藏每个rep的item列表
-			$("#publish-body .repolist .describe").click(function () {
-				var o = $(this).closest(".describe").next();
-//				o.slideToggle("fast");//垂直动画
-				o.toggle("fast");//垂直加水平动画
-			});
-
 			var reps;
 			//请求所有rep
 			$.ajax({
@@ -139,32 +132,71 @@
 					}
 				});
 			}
-			//请求每个item详情
-			/*for(var i in reps) {
-				var rep = reps[i];
-				for(var j in rep.dataitems) {
-					var item = rep.dataitems[j];
-					$.ajax({
-						url: ngUrl+"/repositories/"+rep.repname+"/"+item,
-						type: "get",
-						cache:false,
-						data:{items:1},
-						async:false,
-						dataType:'json',
-						headers:{ Authorization:"Token "+$.cookie("token") },
-						success:function(json){
-							if(json.code == 0){
-								rep.dataitems[j] = json.data;
-							}
-						},
-						error:function(json){
-							alert(json.msg);
-						}
-					});
-					rep.dataitems[j]["name"] = item;
-				}
-			}*/
 			writeDom();
+			//折叠筐：显示和隐藏每个rep的item列表
+			$("#publish-body .repolist .describe").click(function () {
+				//获取仓库名
+				var repname = $(this).find(".head .head-text a:first").text();
+				//请求item详情
+				var rep = getRep(reps, repname);
+				//没有item就不请求，直接返回，也不折叠items列表
+				if(rep.items == 0 || rep.dataitems == undefined) {
+					rep.dataitems = [];
+					return;
+				}
+				//如果没有请求过dataitems就请求，已经请求过就跳过
+				if(rep.dataitems.length > 0 && rep.dataitems[0].name == undefined ) {
+					for (var j in rep.dataitems) {
+						var item = rep.dataitems[j];
+						$.ajax({
+							url: ngUrl + "/repositories/" + rep.repname + "/" + item,
+							type: "get",
+							cache: false,
+							data: {items: 1},
+							async: false,
+							dataType: 'json',
+							headers: {Authorization: "Token " + $.cookie("token")},
+							success: function (json) {
+								if (json.code == 0) {
+									rep.dataitems[j] = json.data;
+								}
+							},
+							error: function (json) {
+								alert(json.msg);
+							}
+						});
+						rep.dataitems[j]["name"] = item;
+					}
+				}
+				if($(this).next(".tablelist").length == 0) {
+					//创建tablelist
+					var tablelist = $("<div></div>").addClass("tablelist").css("display", "none").appendTo($(this).parent());
+					var dtable = $("<div></div>").addClass("dtable").appendTo(tablelist);
+					var dhead = $("<div></div>").addClass("dhead").appendTo(dtable);
+					dhead.append($("<span><b>DateItem name</b></span>").addClass("col1"));
+					dhead.append($("<span><b>更新时间</b></span>").addClass("col2"));
+					dhead.append($("<span><b>属性</b></span>").addClass("col3"));
+					dhead.append($("<span><b>Tag数量</b></span>").addClass("col4"));
+					var dbody = $("<div></div>").addClass("dbody").appendTo(dtable);
+					for(var i in rep.dataitems) {
+						var item = rep.dataitems[i];
+						var row = $("<div></div>").addClass("row").appendTo(dbody);
+						row.append($("<span></span>").addClass("col1").text(item.name));
+						var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
+						var titletime = item.optime.substring(0,item.optime.indexOf("."));
+						row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
+						row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+						row.append($("<span></span>").addClass("col4").text(item.tags));
+					}
+					var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
+					var icons = $("<span></span>").appendTo(dtail);
+					icons.append($("<span></span>").addClass("icon1"));
+					icons.append($("<span></span>").addClass("icon2"));
+				}
+				//动画
+				var o = $(this).closest(".describe").next();
+				o.toggle("fast");//垂直加水平动画
+			});
 			//把数据写入页面
 			function writeDom() {
 				//写仓库数量
@@ -196,7 +228,7 @@
 					left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
 					left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
 					left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
-					left.append($("<span></span>").addClass("left4-value val").text(rep.dataitems.length));
+					left.append($("<span></span>").addClass("left4-value val").text(rep.items));
 					//创建右侧icon并追加到tail
 					var right = $("<span></span>").addClass("right").appendTo(tail);
 					right.append($("<span></span>").addClass("right1-icon icon").attr("title", "star量"));
@@ -208,6 +240,13 @@
 				}
 			}
 		});
+		function getRep(reps,repname) {
+			for(var i in reps) {
+				if(reps[i].repname == repname) {
+					return reps[i];
+				}
+			}
+		}
 	</script>
 </head>
 <body>
@@ -245,126 +284,6 @@
 			Repository:<span></span>
 		</div>
 		<div class="repolist">
-			<!--<div class="reporecord">
-				<div class="describe">
-					<div class="head">
-						<span class="head-text"><a href="javascript:void(0);">Repository name</a></span>
-						<span class="head-icon1"></span>
-						<span class="head-icon2"></span>
-					</div>
-					<div class="body">测试测试测试测试测试测试测试测试测试测试测试测试</div>
-					<div class="tail">
-						<span class="left">
-							<span class="left1-icon icon" title="更新时间"></span>
-							<span class="left1-value val">一小时以前</span>
-							<span class="left2-icon icon" title="属性"></span>
-							<span class="left2-value val">私有</span>
-							<span class="left3-icon icon" title="托管状态"></span>
-							<span class="left3-value val">非托管</span>
-							<span class="left4-icon icon" title="DataItem"></span>
-							<span class="left4-value val">334,456</span>
-						</span>
-						<span class="right">
-							<span class="right1-icon icon" title="star量"></span>
-							<span class="right1-value val">238</span>
-							<span class="right2-icon icon" title="订阅量"></span>
-							<span class="right2-value val">344</span>
-							<span class="right3-icon icon" title="pull量"></span>
-							<span class="right3-value val">235</span>
-						</span>
-					</div>
-				</div>
-				<div class="tablelist" style="display: none;">
-					<div style="width: 100%">
-						<div class="dhead">
-							<span class="col1"><b>DateItem name</b></span>
-							<span class="col2"><b>更新时间</b></span>
-							<span class="col3"><b>属性</b></span>
-							<span class="col4"><b>Tag数量</b></span>
-						</div>
-						<div class="dbody">
-							<div class="row">
-								<span class="col1">DateItem name</span>
-								<span class="col2">2分钟以前</span>
-								<span class="col3">私有</span>
-								<span class="col4">333,444</span>
-							</div>
-							<div class="row">
-								<span class="col1">DateItem name</span>
-								<span class="col2">2分钟以前</span>
-								<span class="col3">私有</span>
-								<span class="col4">333,444</span>
-							</div>
-						</div>
-						<div class="dtail">
-							<span>
-								<span class="icon1"></span>
-								<span class="icon2"></span>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>-->
-			<!--<div class="reporecord">
-				<div class="describe">
-					<div class="head">
-						<span class="head-text">Repository name</span>
-						<span class="head-icon1"></span>
-						<span class="head-icon2"></span>
-					</div>
-					<div class="body">测试测试测试测试测试测试测试测试测试测试测试测试</div>
-					<div class="tail">
-					<span class="left">
-						<span class="left1-icon icon"></span>
-						<span class="left1-value val">一小时以前</span>
-						<span class="left2-icon icon"></span>
-						<span class="left2-value val">私有</span>
-						<span class="left3-icon icon"></span>
-						<span class="left3-value val">非托管</span>
-						<span class="left4-icon icon"></span>
-						<span class="left4-value val">334,456</span>
-					</span>
-					<span class="right">
-						<span class="right1-icon icon"></span>
-						<span class="right1-value val">238</span>
-						<span class="right2-icon icon"></span>
-						<span class="right2-value val">344</span>
-						<span class="right3-icon icon"></span>
-						<span class="right3-value val">235</span>
-					</span>
-					</div>
-				</div>
-				<div class="tablelist">
-					<div style="width: 100%">
-						<div class="dhead">
-							<span class="col1"><b>DateItem name</b></span>
-							<span class="col2"><b>更新时间</b></span>
-							<span class="col3"><b>属性</b></span>
-							<span class="col4"><b>Tag数量</b></span>
-						</div>
-						<div class="dbody">
-							<div class="row">
-								<span class="col1">DateItem name</span>
-								<span class="col2">2分钟以前</span>
-								<span class="col3">私有</span>
-								<span class="col4">333,444</span>
-							</div>
-							<div class="row">
-								<span class="col1">DateItem name</span>
-								<span class="col2">2分钟以前</span>
-								<span class="col3">私有</span>
-								<span class="col4">333,444</span>
-							</div>
-						</div>
-						<div class="dtail">
-							<span>
-								<span class="icon1"></span>
-								<span class="icon2"></span>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>-->
 		</div>
 	</div>
 </div>
