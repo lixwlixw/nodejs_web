@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/11/25.
  */
 $(function(){
-    //得到用户登录token;
+    //寰楀埌鐢ㄦ埛鐧诲綍token;
     var account= $.cookie('token');
     function getcurrpullnum(){
         $.ajax({
@@ -25,7 +25,6 @@ $(function(){
                         var times = msg.data[i].pulls[j].pulltime
                         times = times.substr(11,8);
                         str+=
-
                             '<tr>'+
                             '<td class="first">'+times+'</td>'+
                             '<td>'+msg.data[i].pulls[j].tag+'</td>'+
@@ -36,12 +35,15 @@ $(function(){
                     }
                     str+= '</table></div></div>';
                 }
-
-
                 str+= '</div>';
                 $('#pull-body').append(str);
             }
         });
     }
     getcurrpullnum();
+    var head = $("#pull-body .record .head");
+            head.click(function () {
+                 var body = $(this).closest(".record").children("div[class=body]:first");
+                body.slideToggle("fast");
+     });
 })
