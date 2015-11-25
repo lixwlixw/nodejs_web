@@ -257,7 +257,7 @@
                                 + '<span class="star-value">'+apendjson.dataitemd[i]+'</span>'
                                 + '<span class="subscript-icon" title="订阅量"></span>'
                                 + '<span class="downloaded-value">' + apendjson.dataitemstarNum[i] + '</span>'
-                                + '<span class="star-icon" title="stars量"></span>'
+                                + '<span class="star-icon" title="star量"></span>'
                                 + '</td>'
                                 + '</tr>'
                                 + '</table>'

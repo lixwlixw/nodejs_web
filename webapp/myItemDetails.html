@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/pagination.css"/>
+    <link rel="stylesheet" href="./css/myItemDetails.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="./js/jquery.pagination.js"></script>
+    <script src="js/myItemDetails.js"></script>
+</head>
+<body>
+<!-- 头部导航 -->
+<header></header>
+    <div class="container" style="margin-top:50px;padding-bottom:50px;">
+            <div class="release-top">我的发布</div>
+            <div class="itemList" id="dataitem-tag">
+                <div class="tag-body">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="padding-bottom:0px;" colspan="3" class="tag-1 itemListName">
+                                <a href="#">Film_and_television</a> <span class="itemListName-icon"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="tag-1 top-con">互联网主流视频网站的媒体资源信息。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tag-1 rightsimg">
+                                <span title="更新时间" class="time-icon"></span>
+                                <span title="" class="star-value marginleft itemoptime"></span>
+                                <span title="权限" class="private-icon"></span>
+                                <span class="subscript-value marginleft itemaccesstype"></span>
+                                <!-- <span title="非托管" class="trusteeship-icon"></span>
+                                <span title="2015-11-23 07:18:23" class="star-value marginleft">非托管</span>
+                                <span title="item量" class="havenum-icon"></span>
+                                <span class="subscript-value marginleft">1</span> -->
+                            </td>
+                            <td class="tag-2 filletspan">
+                                <span class="period">批量数据</span>
+                            </td>
+                            <td class="tag-3 rightsimg nofloat">
+                                <span class="subscript-value myitempull">0</span><span title="pull量" class="downloaded-icon"></span><span class="star-value myitemdy">0</span><span title="订阅量" class="subscript-icon"></span><span class="downloaded-value myitemstar">0</span><span title="star量" class="star-icon"></span>
+                            </td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content">
+                <ul class="leftnav">
+                    <li class="cur"><div>Tag信息</div> <span class="curbg"></span></li>
+                    <li><div>pull记录</div></li>
+                    <!-- <li><div>操作记录</div></li> -->
+                    <li><div>样例/元数据</div></li>
+                </ul>
+                <div class="con-main">
+
+                </div>
+                <div class="pages">
+                </div>
+            </div>
+    </div>
+    <!-- 尾部 -->
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+</html>
+<script>
+ $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+</script>
