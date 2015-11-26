@@ -38,7 +38,6 @@
 	<script>
 
 		$(function() {
-			var loadfirst = true;
 			var firstCall = true;
 			//加载页面头尾登陆
 			$("a").focus(function(){this.blur()});
@@ -69,14 +68,7 @@
 
 			//获取rep
 			function pageCallBack(index) {
-				if(!firstCall && loadfirst) {
-					loadfirst = false;
-					index = 0;
-				}else if(firstCall) {
-					index = 0;
-				}
-				var dbody = $("#myItems-body .tablelist .dtable .dbody:first");
-				dbody.html("");
+				index = index == undefined? 0 : index;
 				$.ajax({
 					url: ngUrl+"/repositories/"+rep.repname+"?size=6&page="+(index+1),
 					type: "get",
@@ -127,6 +119,9 @@
 					rep.dataitems[j]["name"] = item;
 				}
 				//写dom
+				var dbody = $("#myItems-body .tablelist .dtable .dbody:first");
+				dbody.html("");
+				$("#myItems-body .repocount .repname a").text(rep.repname).attr("href", "repDetails.html?repname="+rep.repname);
 				$("#myItems-body .repocount .numitems").text(numitems);
 				for(var i in rep.dataitems) {
 					var item = rep.dataitems[i];
@@ -159,7 +154,7 @@
 	</div>
 	<div id="myItems-body">
 		<div class="repocount">
-			<span class="repname">Repository name</span>
+			<span class="repname"><a></a></span>
 			<span class="icon"></span>
 			<span class="numitems"></span>
 		</div>
