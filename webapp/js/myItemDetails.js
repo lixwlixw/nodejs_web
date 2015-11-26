@@ -171,13 +171,13 @@ $(function(){
             var classjson = judgeLabel(supply_style)
             $("#supply_style").attr('class',classjson.vvclass);
             $("#supply_style").html(classjson.labelV);
-            if(msg.data.meta != null){
-                meta = msg.data.meta;
+            if(msg.data.Meta != null){
+                meta = msg.data.Meta;
             } else{
                 meta = '';
             }
-            if(msg.data.sample != null){
-                sample = msg.data.sample;
+            if(msg.data.Sample != null){
+                sample = msg.data.Sample;
             } else{
                 sample = '';
             }
