@@ -62,7 +62,7 @@
 			for(var i in reps) {
 				var rep = reps[i];
 				$.ajax({
-					url: ngUrl+"/repositories/"+rep.repname,
+					url: ngUrl+"/repositories/"+rep.repname+"?size=5",
 					type: "get",
 					cache:false,
 					data:{items:1},
@@ -135,6 +135,7 @@
 			writeDom();
 			//折叠筐：显示和隐藏每个rep的item列表
 			$("#publish-body .repolist .describe").click(function () {
+				var thos = $(this);
 				//获取仓库名
 				var repname = $(this).find(".head .head-text a:first").text();
 				//请求item详情
@@ -142,60 +143,73 @@
 				//没有item就不请求，直接返回，也不折叠items列表
 				if(rep.items == 0 || rep.dataitems == undefined) {
 					rep.dataitems = [];
-					return;
 				}
 				//如果没有请求过dataitems就请求，已经请求过就跳过
-				if(rep.dataitems.length > 0 && rep.dataitems[0].name == undefined ) {
-					for (var j in rep.dataitems) {
-						var item = rep.dataitems[j];
-						$.ajax({
-							url: ngUrl + "/repositories/" + rep.repname + "/" + item,
-							type: "get",
-							cache: false,
-							data: {items: 1},
-							async: false,
-							dataType: 'json',
-							headers: {Authorization: "Token " + $.cookie("token")},
-							success: function (json) {
-								if (json.code == 0) {
-									rep.dataitems[j] = json.data;
+				if((rep.dataitems.length > 0 && rep.dataitems[0].name == undefined) ||
+					(rep.dataitems.length == 0 && thos.next(".tablelist").length == 0)) {
+					$("#loaddiv").css({
+						top:thos.offset().top+"px",
+						left:thos.offset().left+"px",
+						width:thos.width()+40,
+						height:(thos.height()+43)+"px",
+						lineHeight:(thos.height()+40)+"px",
+					}).slideToggle("fast",function() {
+						for (var j in rep.dataitems) {
+							var item = rep.dataitems[j];
+							$.ajax({
+								url: ngUrl + "/repositories/" + rep.repname + "/" + item,
+								type: "get",
+								cache: false,
+								data: {items: 1},
+								async: false,
+								dataType: 'json',
+								headers: {Authorization: "Token " + $.cookie("token")},
+								success: function (json) {
+									if (json.code == 0) {
+										rep.dataitems[j] = json.data;
+									}
+								},
+								error: function (json) {
+									alert(json.msg);
 								}
-							},
-							error: function (json) {
-								alert(json.msg);
+							});
+							rep.dataitems[j]["name"] = item;
+						}
+						if(thos.next(".tablelist").length == 0) {
+							//创建tablelist
+							var tablelist = $("<div></div>").addClass("tablelist").css("display", "none").appendTo(thos.parent());
+							var dtable = $("<div></div>").addClass("dtable").appendTo(tablelist);
+							var dhead = $("<div></div>").addClass("dhead").appendTo(dtable);
+							dhead.append($("<span><b>DateItem name</b></span>").addClass("col1"));
+							dhead.append($("<span><b>更新时间</b></span>").addClass("col2"));
+							dhead.append($("<span><b>属性</b></span>").addClass("col3"));
+							dhead.append($("<span><b>Tag数量</b></span>").addClass("col4"));
+							var dbody = $("<div></div>").addClass("dbody").appendTo(dtable);
+							for(var i in rep.dataitems) {
+								var item = rep.dataitems[i];
+								var row = $("<div></div>").addClass("row").appendTo(dbody);
+								row.append($("<span></span>").addClass("col1").append($("<a></a>").text(item.name).attr("href", "myItemDetails.html?repname="+rep.repname+"&itemname="+item.name)));
+								var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
+								var titletime = item.optime.substring(0,item.optime.indexOf("."));
+								row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
+								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+								row.append($("<span></span>").addClass("col4").text(item.tags));
 							}
-						});
-						rep.dataitems[j]["name"] = item;
-					}
-				}
-				if($(this).next(".tablelist").length == 0) {
-					//创建tablelist
-					var tablelist = $("<div></div>").addClass("tablelist").css("display", "none").appendTo($(this).parent());
-					var dtable = $("<div></div>").addClass("dtable").appendTo(tablelist);
-					var dhead = $("<div></div>").addClass("dhead").appendTo(dtable);
-					dhead.append($("<span><b>DateItem name</b></span>").addClass("col1"));
-					dhead.append($("<span><b>更新时间</b></span>").addClass("col2"));
-					dhead.append($("<span><b>属性</b></span>").addClass("col3"));
-					dhead.append($("<span><b>Tag数量</b></span>").addClass("col4"));
-					var dbody = $("<div></div>").addClass("dbody").appendTo(dtable);
-					for(var i in rep.dataitems) {
-						var item = rep.dataitems[i];
-						var row = $("<div></div>").addClass("row").appendTo(dbody);
-						row.append($("<span></span>").addClass("col1").append($("<a></a>").text(item.name).attr("href", "myItemDetails.html?repname="+rep.repname+"&itemname="+item.name)));
-						var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
-						var titletime = item.optime.substring(0,item.optime.indexOf("."));
-						row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
-						row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
-						row.append($("<span></span>").addClass("col4").text(item.tags));
-					}
-					var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
-					var icons = $("<span></span>").appendTo(dtail);
-					icons.append($("<span></span>").addClass("icon1"));
-					icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
+							var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
+							var icons = $("<span></span>").appendTo(dtail);
+							icons.append($("<span></span>").addClass("icon1"));
+							icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
+						}
+						//动画
+						var o = thos.next();
+						o.toggle("fast");//垂直加水平动画
+						$("#loaddiv").slideToggle("slow");
+					});
+
 				}
 				//动画
-				var o = $(this).closest(".describe").next();
-				o.toggle("fast");//垂直加水平动画
+				thos.next().toggle("fast");//垂直加水平动画
+
 			});
 			//把数据写入页面
 			function writeDom() {
@@ -238,8 +252,33 @@
 					right.append($("<span></span>").addClass("right2-icon icon").attr("title", "pull量"));
 					right.append($("<span></span>").addClass("right2-value val").text(rep.numpulls));
 				}
+				$("<div id='loaddiv'></div>").css({
+					display:"none",
+					position:"absolute",
+					backgroundColor:"#fff",
+					textAlign:"center",
+					backgroundImage:"url('../images/loadingMd.gif')",
+					backgroundPosition:"50% 50%",
+					backgroundRepeat:"no-repeat",
+					opacity:"0.7"
+				}).appendTo($("#publish-body .repolist"));
 			}
+			//阻止事件传递
+			$(".reporecord .head .head-text a:first").click(function(e) {
+				stopEventStrans(e);
+			});
+			$(".reporecord .head .head-icon2").click(function(e) {
+				stopEventStrans(e);
+			});
 		});
+		function stopEventStrans(e) {
+			e = e || window.event;
+			if (e.stopPropagation) {
+				e.stopPropagation();//IE以外
+			} else {
+				e.cancelBubble = true;//IE
+			}
+		}
 		function getRep(reps,repname) {
 			for(var i in reps) {
 				if(reps[i].repname == repname) {
