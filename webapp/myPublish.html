@@ -39,6 +39,26 @@
 			$(window).load(function(){
 				$(".be-loader").fadeOut("slow");
 			});
+			//addRep
+			$("#publish-head .add-icon").click(function() {
+				$('#addRep').modal('toggle');
+			});
+			$("#addRep .submit input").click(function() {
+				var data = {};
+				data["name"] = $.trim($("#addRep .repname .value input").val());
+				data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
+				data["property"] = $.trim($("#addRep .property .value select").val());
+				if(data.name.search(/^[a-zA-Z0-9-]+$/) >= 0) {
+					alert("Repository 名称格式错误！");
+					return;
+				}
+				if(data.comment.length > 200) {
+					alert("Repository 描述太长！");
+					return;
+				}
+//				TODO 添加提交代码
+				$('#addRep').modal('toggle');
+			});
 			var reps;
 			//请求所有rep
 			$.ajax({
@@ -317,6 +337,42 @@
 	<div id="publish-head">
 		<span class="name"><b>我的发布</b></span>
 		<span class="add-icon"></span>
+		<div id="addRep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body" style="padding: 30px 30px 45px 30px">
+						<div class="head">
+							<span>新增Repository</span>
+							<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						</div>
+						<div class="repname">
+							<div class="key">Repository 名称</div>
+							<div class="value">
+								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"-"'>
+							</div>
+						</div>
+						<div class="repcomment">
+							<div class="key">Repository 描述</div>
+							<div class="value">
+								<textarea placeholder='200字以内'></textarea>
+							</div>
+						</div>
+						<div class="property">
+							<div class="key">属性</div>
+							<div class="value">
+								<select>
+									<option value="private">私&nbsp;&nbsp;有</option>
+									<option value="public">公&nbsp;&nbsp;有</option>
+								</select>
+							</div>
+						</div>
+						<div class="submit">
+							<input type="button" value="提交">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="publish-body">
 		<div class="repocount">

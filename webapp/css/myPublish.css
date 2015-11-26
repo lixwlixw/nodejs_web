@@ -22,6 +22,7 @@
 	height: 18px;
 	margin-top: 2px;
 	margin-bottom: -2px;
+	cursor: pointer;
 }
 #publish-body .repocount{
 	font-size: 14px;
@@ -254,6 +255,73 @@
 	margin-top: 2px;
 	margin-bottom: -2px;
 }
+
+
+/*Ìí¼Ó²Ö¿â*/
+#addRep .modal-dialog{
+	width: 520px;
+}
+#addRep .head{
+	margin-bottom: 30px;
+}
+#addRep .head span  {
+	font-size: 20px;
+	color: #333;
+}
+#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key{
+	font-size: 14px;
+	color: #29abe2;
+	margin-bottom: 10px;
+}
+#addRep .repname .value input{
+	width: 458px;
+	height: 38px;
+	padding: 0px 10px;
+	border: 1px solid #c7c7c7;
+	border-radius: 5px;
+	background-color: #fff;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
+}
+#addRep .repcomment .value textarea{
+	width: 458px;
+	height: 112px;
+	padding: 0px 10px;
+	border: 1px solid #c7c7c7;
+	border-radius: 5px;
+	background-color: #fff;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
+}
+#addRep .property .value select{
+	width: 92px;
+	height: 24px;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
+	border-radius: 5px;
+	padding-left: 23px;
+	appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+	-o-appearance:none;
+	-webkit-appearance:none;
+}
+#addRep .submit input{
+	width: 480px;
+	height: 40px;
+	background-color: #29abe2;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	border-radius: 5px;
+}
+#addRep .submit input:hover {
+	background-color: #4d63d0;
+}
+
 
 @media screen and (max-width: 768px) {
 	#publish-body .repolist .describe .tail {
