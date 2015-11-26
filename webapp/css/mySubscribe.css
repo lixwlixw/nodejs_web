@@ -1,0 +1,112 @@
+body{
+    background: #f5f5f5;
+}
+.container{
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+.subTop{
+    padding: 22px 0 25px;
+    font-size: 20px;
+    color: #333;
+}
+.mysubnum{
+    width: 100%;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #666666;
+}
+.sublist{
+    margin-top:10px;
+}
+.sublist_con{
+    padding:0px 10px 15px 5px;
+    border-left: 5px solid #ffffff;
+    background: #ffffff;
+    margin-bottom:30px;
+}
+.sublist_con:hover{
+    border-left: 5px solid #29abe2;
+}
+.mysubnumicon{
+    width: 20px;
+    height: 20px;
+    background:url("../images/release1.png") no-repeat ;
+    background-position: -218px -124px;
+    float: left;
+    margin-right:5px;
+}
+.sublist_con .row,.sublist_con .row .col-md-4{
+    margin:0;
+    padding:0;
+}
+.subtitle,.subtitle div{
+    height: 40px;
+    line-height: 40px;
+}
+.subcomment{
+    padding-top:10px;
+}
+
+.subtitlel{
+    font-size: 22px;
+    color: #0077aa;
+    white-space:nowrap; 
+    text-overflow:ellipsis; 
+    -o-text-overflow:ellipsis; 
+    overflow: hidden; 
+}
+.subtitlec{
+    text-align: center;
+}
+.subtitler{
+    text-align: right;
+
+}
+.color1{
+    color: #333;
+}
+.color2{
+    color: #29abe2;
+}
+.color3{
+    color: #33a112;
+}
+.centericon{
+    padding:10px;
+    background:url("../images/sliceU1.png") no-repeat -300px 5px;
+}
+.righticon{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+.rbg1{
+    background: #666;
+}
+.rbg2{
+    background: #29abe2;
+}
+.rbg3{
+    background: #33a112;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

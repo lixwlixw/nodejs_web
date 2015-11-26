@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/pagination.css"/>
+    <link rel="stylesheet" href="./css/mySubscribe.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="./js/jquery.pagination.js"></script>
+    <script src="js/mySubscribe.js"></script>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header></header>
+    <div class="container">
+            <div class="subTop">
+                我的订阅
+            </div>
+           <div class="mysubnum">
+                    <div class="mysubnumicon"></div><span class="allsubnum"></span>
+           </div>
+            <div class="sublist">
+                    <!-- <div class="sublist_con">
+                            <div class="row subtitle">
+                                <div class="col-md-4 subtitlel">.col-md-4</div>
+                                <div class="col-md-4 subtitlec"><span class="centericon"></span>.col-md-4</div>
+                                <div class="col-md-4 subtitler color2"><span class="righticon rbg2"></span>.col-md-4</div>
+                            </div>
+                            <div class="subcomment">1111</div>
+                    </div> -->
+            </div>
+    </div>
+    <footer></footer>
+    <div id="loginTem"></div>
+</body>
+</html>
+<script>
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+</script>
