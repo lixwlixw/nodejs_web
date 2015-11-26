@@ -43,6 +43,8 @@ $(function(){
                	for(var i = 0;i < fornum;i++){
                		var repname = msg.data[i].repname;
                		var itemname = msg.data[i].itemname;
+               		var subtime = msg.data[i].subtime;
+               			subtime = subtime.replace(/[A-Z]/g, " ");
                		var itemcomment
                		 $.ajax({
            					type: "get",
@@ -78,9 +80,9 @@ $(function(){
                				}
                	 			var str = '<div class="sublist_con">'+
                   				'<div class="row subtitle">'+
-                  				'<div class="col-md-4 subtitlel">'+repname+'/'+itemname+'</div>'+
-                  				'<div class="col-md-4 subtitlec"><span class="centericon"></span>'+msg.data[i].subtime+'</div>'+
-                  				'<div class="'+colors+'"><span class="'+rbg+'"></span>pull:'+pullnum+'</div>'+
+                  				'<div class="col-md-4 subtitlel"><a href="myItemDetails.html?repname='+repname+'&itemname='+itemname+'">'+repname+'/'+itemname+'</a></div>'+
+                  				'<div class="col-md-4 subtitlec"><span class="centericon" title="订阅时间"></span>'+subtime+'</div>'+
+                  				'<div class="'+colors+'"><span title="pull量" class="'+rbg+'"></span>pull:'+pullnum+'</div>'+
                   				'</div>'+
                   				'<div class="subcomment">'+itemcomment+'</div>'+
                   				'</div>';
