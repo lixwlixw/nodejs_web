@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-我的Items</title>
+	<!--css-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/pagination.css">
+	<link rel="stylesheet" href="css/myItems.css">
+	<style>
+		.nav > li > a:hover {
+			background-color: rgba(31, 154, 218, 0.7);
+		}
+
+		.navbar-toggle .icon-bar {
+			background-color: #fff;
+		}
+
+		.navbar-nav > li > a:focus {
+			background: none;
+		}
+	</style>
+	<!--js-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/ngUrl.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/base64.js"></script>
+	<script src="js/md5.js"></script>
+	<script src="js/jquery.pagination.js"></script>
+	<script>
+
+		$(function() {
+			var loadfirst = true;
+			var firstCall = true;
+			//加载页面头尾登陆
+			$("a").focus(function(){this.blur()});
+			$("header").load("common/header.html");
+			$("footer").load("common/footer.html");
+			$("#loginTem").load("common/login.html");
+			$(window).load(function(){
+				$(".be-loader").fadeOut("slow");
+			});
+
+			var rep = {};
+			var numitems = -1;
+			var repname = getParam("repname");
+			rep["repname"] = repname;
+			pageCallBack();
+			//分页
+			$("#splitpage").pagination(numitems, {
+				callback: pageCallBack,// 为翻页回调函数。
+				prev_text: " 上一页",
+				next_text: "下一页 ",
+				items_per_page: 6, //每页的数据个数
+				num_display_entries: 1, //两侧首尾分页条目数
+				num_edge_entries: 3, //连续分页主体部分分页条目数
+				current_page: 0,   //当前页码
+				ellipse_text:"...",
+				link_to:"javascript:void(0)"
+			});
+
+			//获取rep
+			function pageCallBack(index) {
+				if(!firstCall && loadfirst) {
+					loadfirst = false;
+					index = 0;
+				}else if(firstCall) {
+					index = 0;
+				}
+				var dbody = $("#myItems-body .tablelist .dtable .dbody:first");
+				dbody.html("");
+				$.ajax({
+					url: ngUrl+"/repositories/"+rep.repname+"?size=6&page="+(index+1),
+					type: "get",
+					cache:false,
+					data:{items:1},
+					async:false,
+					dataType:'json',
+					headers:{ Authorization:"Token "+$.cookie("token") },
+					success:function(json){
+						if(json.code == 0){
+							for(var j in json.data) {
+								rep[j] = json.data[j];
+							}
+							numitems = rep.items;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				if(firstCall) {
+					firstCall = false;
+					return;
+				}
+				//获取rep的items
+				if(rep.items == 0  || rep.dataitems == undefined) {
+					rep.dataitems = [];
+				}
+				for (var j in rep.dataitems) {
+					var item = rep.dataitems[j];
+					$.ajax({
+						url: ngUrl + "/repositories/" + rep.repname + "/" + item,
+						type: "get",
+						cache: false,
+						data: {items: 1},
+						async: false,
+						dataType: 'json',
+						headers: {Authorization: "Token " + $.cookie("token")},
+						success: function (json) {
+							if (json.code == 0) {
+								rep.dataitems[j] = json.data;
+							}
+						},
+						error: function (json) {
+							alert(json.msg);
+						}
+					});
+					rep.dataitems[j]["name"] = item;
+				}
+				//写dom
+				$("#myItems-body .repocount .numitems").text(numitems);
+				for(var i in rep.dataitems) {
+					var item = rep.dataitems[i];
+					var row = $("<div></div>").addClass("row").appendTo(dbody);
+					row.append($("<span></span>").addClass("col1").append($("<a></a>").text(item.name).attr("href", "myItemDetails.html?repname="+rep.repname+"&itemname="+item.name)));
+					var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
+					var titletime = item.optime.substring(0,item.optime.indexOf("."));
+					row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
+					row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+					row.append($("<span></span>").addClass("col4").text(item.tags));
+				}
+			}
+		});
+		function getParam(key) {
+			var value='';
+			var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+			if (itemid.test(decodeURIComponent(window.location.href))) {
+				value = itemid.exec(decodeURIComponent(window.location.href))[1];
+			}
+			return value;
+		}
+	</script>
+</head>
+<body>
+<header></header>
+
+<div id="myItems" class="container">
+	<div id="myItems-head">
+		<span class="name"><b>我的发布</b></span>
+	</div>
+	<div id="myItems-body">
+		<div class="repocount">
+			<span class="repname">Repository name</span>
+			<span class="icon"></span>
+			<span class="numitems"></span>
+		</div>
+		<div class="tablelist">
+			<div class="dtable">
+				<div class="dhead">
+					<span class="col1"><b>DateItem name</b></span>
+					<span class="col2"><b>更新时间</b></span>
+					<span class="col3"><b>属性</b></span>
+					<span class="col4"><b>Tag数量</b></span>
+				</div>
+				<div class="dbody">
+				</div>
+			</div>
+			<div id="splitpage"></div>
+		</div>
+	</div>
+</div>
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+</html>
