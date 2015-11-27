@@ -1,4 +1,4 @@
-#main{
+﻿#main{
 	
 	font-family:"΢���ź�";
 	margin:0px none;
@@ -45,10 +45,13 @@ margin:0px 0px 0px 0px;
 	background:white;
 	height:230px;
 }
+.lable-div{
+	height:20px;
+}
 .label-control-00{
 	color:red;
-	line-height:20px;
 	display:inline;
+	line-height:20px;
 	font-size:10px;	
 	font-weight:normal;
 }

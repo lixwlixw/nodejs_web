@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -73,7 +73,7 @@
 					<input type="password" id="oldpwd" class="form-control form-control-00" placeholder="旧密码" >
 					<input type="password" id="passwd"class="form-control form-control-00" placeholder="新密码" >
 					<input type="password" id="paspasswd" class="form-control form-control-00" placeholder="确认新密码" >
-					<label class="label-control-00"></label>
+					<div class="lable-div"><label class="label-control-00"></label></div>
 				</div>
 				<div class="btn-group-00">
 					  <div class="btn-group btn-group-01 " role="group">
@@ -178,16 +178,15 @@
 					if(data.code!=0){
 						$("#alert-fail").css("display","inline");
 						$("#alert-fail").append();
-
-					
 					}			
 				}
 			});
 			}
 			else if(pwd1!=pwd2)
 			{
-				$(".label-control-00").text("两次输入的密码不一样！");
-				$(".label-control-00").fadeOut(3000);
+				$(".label-control-00").text("两次输入的密码不一样！").show();
+				$(".label-control-00").fadeOut(2000);
+				
 			}
 			
 		});
