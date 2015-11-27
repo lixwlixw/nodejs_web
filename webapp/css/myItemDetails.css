@@ -424,7 +424,11 @@ body{
     color: #989898;
 }
 
-
+.metadata-icon a{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
 
 #editItem .modal-dialog{
     width: 520px;
