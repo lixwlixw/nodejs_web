@@ -58,7 +58,7 @@ $(function(){
        			    				// alert(JSON.stringify(XMLHttpRequest))
        			    				var code = JSON.parse(XMLHttpRequest.responseText).code;
        			    				if(isgo == false && code != 0){
-       			    					alert(JSON.parse(XMLHttpRequest.responseText).msg)
+       			    					alert("错误信息："+JSON.parse(XMLHttpRequest.responseText).msg)
        			    					return 
        			    				}
        			    		}
