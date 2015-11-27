@@ -324,27 +324,14 @@ $(function(){
         });
 
         $("#editItem .submit input").click(function() {
-                var data = {};
-                data["comment"] = $.trim($("#editItem .itemcomment .value textarea").val());
-                if(data.comment.length > 200) {
+                var dataitem = {};
+                dataitem["comment"] = $.trim($("#editItem .itemcomment .value textarea").val());
+                if(dataitem.comment.length > 200) {
                         alert('"DataItem 描述"太长！');
                         return;
                 }
-                data["itemaccesstype"] = $.trim($("#editItem .itempro .value select").val());
-                var itemtagDiv = $("#editItem .itemtag .value");
-                var labels = itemtagDiv.children("div");
-                for(var i=0; i<labels.length; i++) {
-                        var label = $(labels[i]);
-                        var labelkey = $.trim(label.children(".tagkey:first").val());
-                        var labelvalue = $.trim(label.children(".tagvalue:first").val());
-                        if(labelkey == "" || labelvalue == "") {
-                                alert("标签名和标签值不能为空！");
-                                return;
-                        }
-                        data["label"] = {};
-                        data["label"][labelkey] = labelvalue;
-
-                }
+                dataitem["itemaccesstype"] = $.trim($("#editItem .itempro .value select").val());
+                //修改item
                 $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname,
                         type: "PUT",
@@ -352,18 +339,51 @@ $(function(){
                         data:{},
                         async:false,
                         dataType:'json',
-                        data:JSON.stringify(data),
+                        data:JSON.stringify(dataitem),
                         headers:{ Authorization:"Token "+$.cookie("token") },
                         success:function(json){
                                 if(json.code == 0){
-                                        location.reload();
+                                        //修改label
+                                        var datalabel = {};
+                                        var itemtagDiv = $("#editItem .itemtag .value");
+                                        var labels = itemtagDiv.children("div");
+                                        for(var i=0; i<labels.length; i++) {
+                                                var label = $(labels[i]);
+                                                var labelkey = $.trim(label.children(".tagkey:first").val());
+                                                var labelvalue = $.trim(label.children(".tagvalue:first").val());
+                                                if(labelkey == "" || labelvalue == "") {
+                                                        alert("标签名和标签值不能为空！");
+                                                        return;
+                                                }
+                                                datalabel["owner."+labelkey] = labelvalue;
+
+                                        }
+                                        $.ajax({
+                                                url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
+                                                type: "PUT",
+                                                cache:false,
+                                                data:{},
+                                                async:false,
+                                                dataType:'json',
+                                                data:datalabel,
+                                                headers:{ Authorization:"Token "+$.cookie("token") },
+                                                success:function(json){
+                                                        if(json.code == 0){
+                                                                $('#editItem').modal('toggle');
+                                                                location.reload();
+                                                        }
+                                                },
+                                                error:function(json){
+                                                        alert(json.msg);
+                                                }
+                                        });
                                 }
                         },
                         error:function(json){
                                 alert(json.msg);
                         }
                 });
-                $('#editItem').modal('toggle');
+
         });
 })
 
