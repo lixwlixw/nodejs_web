@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>datahub-基本信息</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/command.css">
+<link rel="stylesheet" href="css/loader.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/selects.css">
+<link rel="stylesheet" href="css/basicInfo.css"style="text/css" />
+
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7); 
+	}	
+	.navbar-toggle .icon-bar {
+	    background-color: #fff;
+	}
+	.navbar-nav > li > a:focus{
+		background:none;
+	}
+</style>
+
+<body>
+
+
+	<div class="be-loader" style="display: block;">
+	   	<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		  	<div class="spinner-container container2">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+		  	</div>
+		  	<div class="spinner-container container3">
+			    <div class="circle1"></div>
+			    <div class="circle2"></div>
+			    <div class="circle3"></div>
+			    <div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 头部导航 -->
+	<header></header>
+	
+	<!-- 内容页 -->
+	<div  class="container main">
+	
+	<div class="topBox">
+		<div class="alertBox">
+			<div class="alert alert-success"id="alert-success" style="display:none" role="alert">恭喜您，提交成功！</div>
+			<div class="alert alert-danger"id="alert-fail" style="display:none" role="alert">您的提交有误,请先登录！</div>
+		</div>
+		
+		<div class="outBox">
+			<div class="title">
+				<p class="pm">基本信息</p>
+			</div>
+			<div class="inBox">
+				<p class="lead lead2">名称</p>
+				<input id="basicName" type="text" class="form-control form-control-self"  placeholder="10个字以内" maxlength="10">
+				<label class="nameNumber-control"></label>
+				<p class="lead lead2" >简介</p>
+				<textarea id="textComment" class="form-control form-control-self" rows="6" placeholder="200字以内"maxlength="200"></textarea>
+				<label class="commentNumber-control"></label>
+				<!--<p class="lead lead2">标签</p>
+				<input type="text" class="form-control form-control-self"   placeholder="用；分割不同标签" >-->
+				<br/>
+				<button type="button" class="btn-info" id="button01">提交</button>
+			</div>
+
+			
+		</div>
+	</div>
+	
+
+
+	<footer></footer>
+	
+	<div id="loginTem"></div>
+	
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+
+<script>
+
+
+$(document).ready(function(){
+	$(window).load(function(){
+
+		$("#basicName").keyup(function(){
+			
+			
+			if ($("#basicName").val().length==10)
+			{
+				$(".nameNumber-control").text("请控制在10个字以内！");
+				/*$("#basicName").val($("#textComment").val().substr(0,10));*/
+				
+				
+			}
+			else
+			{
+				$(".nameNumber-control").text(" ");
+			}
+		
+		})
+		$("#textComment").keyup(function(){
+			if ($("#textComment").val().length==200)
+			{
+				$(".commentNumber-control").text("请控制在200个字以内！");
+//				/*$("#textComment").val().length=$("#textComment").val().substr(0,200);*/
+			}	
+			else
+			{
+				$(".commentNumber-control").text(" ");
+			}
+		
+		})
+
+/*console.log(JSON.stringify($.cookie("token")));*/
+		$.ajax({
+			url:ngUrl+"/users/"+$.cookie("tname"),
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+			success:function(data){			
+				var nickName=data.data.nickName;
+				var comment=data.data.comment;
+				$("#basicName").val(nickName);	
+				$("#textComment").val(comment);
+				
+				
+				},
+			error:function(){
+			
+			
+			}
+		});
+	});
+	
+});
+
+$(document).ready(function(){
+		
+	
+	$("#button01").click(function(){
+		var mydata = {};
+		mydata["nickname"] = $("#basicName").val();
+		mydata["comments"] = $("#textComment").val();
+		
+	
+		$.ajax({
+		url:ngUrl+"/users/"+$.cookie("tname"),
+		type:"PUT",
+		cache:false,
+		async:false,
+
+		headers:{Authorization:"Token "+$.cookie("token")},
+		datatype:'json',
+		data: JSON.stringify(mydata),
+
+		success:function(data){
+				
+			if(data.code==0){
+					$("#alert-success").css("display","inline");
+					$("#alert-success").append();
+					$("#alert-success").fadeOut(3000);
+				}
+					
+			
+			},
+			error:function(data){
+
+			if(data.code!=0){
+				$("#alert-fail").css("display","inline");
+					$("#alert-fail").append();
+					$("#alert-fail").fadeOut(3000);
+				}
+			}
+		});
+			
+	});
+		
+});
+
+</script>
+	
+
+<script>
+
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+	
+	var repos=[];
+	
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+
+	$(document).ready(function(){
+
+	});
+</script>

@@ -1,0 +1,100 @@
+.main{
+	margin:0;
+	font-family:"微软雅黑";
+	border:0px none;
+	background:#f6f9fd;
+	width:100%;
+	height:100%;
+	margin:0 auto;
+}
+.topBox{
+margin-top:40px;
+}
+.alertBox{
+	height:50px;
+	width:100%; 
+	padding:11px 0px 10px 0px;
+	border:0px solid #FF6600; 
+	text-align:center;
+	
+}
+.title{
+	height:50px;
+	width:542px;
+	margin:0px auto;
+;
+}
+.pm{
+	
+	font-size:16pt; 
+	font-family:"微软雅黑";
+	font-weight:bold;
+	float:left;
+	clear:both;
+}
+.nameNumber-control{
+	margin-left:30px;
+	color:red;
+	font-weight:normal;
+}
+.commentNumber-control{
+	margin-left:30px;
+	color:red;
+	font-weight:normal;
+}
+
+.outBox{
+	margin-top:35px;
+	margin-bottom:50px;
+	border:0px solid ;
+
+}
+.inBox{
+	width:542px;
+	height:400px;
+	margin-top:20px;
+	padding-top:10px;
+	background:white;
+	margin:0px auto;
+	
+}
+.form-control-self{
+	margin:10px 30px 0px 30px;
+	width:470px;
+}
+.btn-info{
+	margin:20px 30px 0px 30px;
+	width:470px;height:40px;
+	border-radius:5px;
+	border:0 none;
+	background:#29aae1;	
+	font-size:11pt;
+	letter-spacing:5px;
+}
+
+.lead{
+	margin:10px 30px 0px 30px;
+	font-family:"微软雅黑";
+	font-size:12pt;
+	color:#29abe2
+}
+
+#alert-success{
+		width:100%; 
+		height:50px;
+		border:0px;
+		float:left;
+		font-size:12pt;
+	
+}
+#alert-fail{
+		width:100%; 
+		height:50px;
+		border:0px;
+		float:left;
+		font-size:12pt;
+}
+ 
+		
+	 
+		
