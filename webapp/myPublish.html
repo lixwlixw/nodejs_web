@@ -58,6 +58,9 @@
 					if(repname.search(/^[a-zA-Z0-9-]+$/) < 0) {
 						alert('"Repository 名称"格式错误！');
 						return;
+					}else if(repname.length > 52){
+						alert('"Repository 名称"太长！');
+						return;
 					}
 					method = "POST";
 				}else {
