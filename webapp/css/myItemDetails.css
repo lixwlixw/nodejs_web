@@ -426,7 +426,131 @@ body{
 
 
 
+#editItem .modal-dialog{
+    width: 520px;
+}
+#editItem .head{
+    margin-bottom: 30px;
+}
+#editItem .head span  {
+    font-size: 20px;
+    color: #333;
+}
+#editItem .itemname .key,#editItem .itemcomment .key,#editItem .itempro .key,#editItem .itemtag .key{
+    font-size: 14px;
+    color: #29abe2;
+    margin-bottom: 10px;
+}
+#editItem .itemname .value input{
+    width: 458px;
+    height: 38px;
+    padding: 0px 10px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+#editItem .itemcomment .value textarea{
+    width: 458px;
+    height: 112px;
+    padding: 0px 10px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+#editItem .itempro .value select{
+    width: 92px;
+    height: 24px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    padding-left: 23px;
+    appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    -o-appearance:none;
+    -webkit-appearance:none;
+}
+#editItem .itemtag {
+    margin-bottom: 30px;
+}
+#editItem .itemtag .key .addbtn {
+    display: inline-block;
+    font-size: 0px;
+}
+#editItem .itemtag .key .addbtn > span{
+    display: inline-block;
+    font-size: 14px;
+}
+#editItem .itemtag .key {
+    overflow: hidden;
+    border-bottom: 1px solid #c5c5c5;
+    padding-bottom: 5px;
+}
+#editItem .itemtag .key .tagname {
+    float: left;
+}
+#editItem .itemtag .key .addbtn {
+    float: right;
+    font-size: 12px;
+    color: #666;
+}
+#editItem .itemtag .key .addbtn .btnicon {
+    background-image: url("../images/myPublish.png");
+    background-repeat: no-repeat;
+    background-position: -91px -28px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    margin-left: 5px;
+    margin-bottom: -4px;
+    cursor: pointer;
+}
 
+#editItem .itemtag .value {
+    overflow: hidden;
+}
+#editItem .itemtag .value .persontag {
+    overflow: hidden;
+    width: 152px;
+    padding: 8px;
+    float: left;
+}
+#editItem .itemtag .value .persontag input, #editItem .itemtag .value .persontag div {
+    float: left;
+}
+#editItem .itemtag .value .persontag .tagkey,#editItem .itemtag .value .persontag .tagvalue {
+    width: 58px;
+    height: 22px;
+    border: 1px solid #c7c7c7;
+    font-size: 12px;
+    color: #666;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#editItem .itemtag .value .persontag .tagequal {
+    margin: 0px 4px;
+}
+
+#editItem .submit input{
+    width: 458px;
+    height: 40px;
+    background-color: #29abe2;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+}
+#editItem .submit input:hover {
+    background-color: #4d63d0;
+}
 
 
 

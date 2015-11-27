@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title></title>
+    <title>dataHub-我的Item详情</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <link rel="stylesheet" href="./css/pagination.css"/>
@@ -25,6 +25,52 @@
             <div class="release-top">我的发布</div>
             <div class="itemList" id="dataitem-tag">
                 <div class="tag-body">
+                    <div id="editItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body" style="padding: 30px 30px 45px 30px">
+                                    <div class="head">
+                                        <span>修改DataItem</span>
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                    </div>
+                                    <div class="itemname">
+                                        <div class="key">DataItem 名称</div>
+                                        <div class="value">
+                                            <input type="text" placeholder='52个字符以内，仅限使用英文字母、数字和"-"'>
+                                        </div>
+                                    </div>
+                                    <div class="itemcomment">
+                                        <div class="key">DataItem 描述</div>
+                                        <div class="value">
+                                            <textarea placeholder='200字以内'></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="itempro">
+                                        <div class="key">属性</div>
+                                        <div class="value">
+                                            <select>
+                                                <option value="private">私&nbsp;&nbsp;有</option>
+                                                <option value="public">公&nbsp;&nbsp;有</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="itemtag">
+                                        <div class="key">
+                                            <div class="tagname">标签</div>
+                                            <div class="addbtn">
+                                                <span class="btntext">添加自定义标签，最多添加5个</span>
+                                                <span class="btnicon"></span>
+                                            </div>
+                                        </div>
+                                        <div class="value"></div>
+                                    </div>
+                                    <div class="submit">
+                                        <input type="button" value="提交">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table style="width:100%;">
                         <tr>
                             <td style="padding-bottom:0px;" colspan="3" class="tag-1 itemListName">
