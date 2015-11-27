@@ -286,5 +286,116 @@ $(function(){
         $('.con-main').append(str);
     }
 
+        $("#editItem .itemtag .key .addbtn .btnicon").click(function() {
+                createItemTag();
+        });
+        $(".itemListName-icon").click(function() {
+                $.ajax({
+                        url: ngUrl+"/repositories/"+repname+"/"+itemname,
+                        type: "GET",
+                        cache:false,
+                        data:{},
+                        async:false,
+                        dataType:'json',
+                        headers:{ Authorization:"Token "+$.cookie("token") },
+                        success:function(json){
+                                if(json.code == 0){
+                                        var itemNameInput = $("#editItem .itemname .value input");
+                                        var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
+                                        var itemProSelect = $("#editItem .itempro .value select");
+                                        var itemtagDiv = $("#editItem .itemtag .value");
+                                        itemNameInput.val(repname).attr("disabled", "disabled");
+                                        itemCommentTextArea.val(json.data.comment);
+                                        itemProSelect.val(json.data.itemaccesstype);
+                                        if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
+                                                json.data.label.owner != undefined && json.data.label.owner != null && json.data.label.owner != "null") {
+                                                var lables = json.data.label.owner;
+                                                $("#editItem .itemtag .value").html("");
+                                                for(var i in lables) {
+                                                        createItemTag(i, lables[i]);
+                                                }
+                                        }
+                                }
+                        },
+                        error:function(json){
+                                alert(json.msg);
+                        }
+                });
+                $('#editItem').modal('toggle');
+        });
 
+        $("#editItem .submit input").click(function() {
+                var dataitem = {};
+                dataitem["comment"] = $.trim($("#editItem .itemcomment .value textarea").val());
+                if(dataitem.comment.length > 200) {
+                        alert('"DataItem 描述"太长！');
+                        return;
+                }
+                dataitem["itemaccesstype"] = $.trim($("#editItem .itempro .value select").val());
+                //修改item
+                $.ajax({
+                        url: ngUrl+"/repositories/"+repname+"/"+itemname,
+                        type: "PUT",
+                        cache:false,
+                        data:{},
+                        async:false,
+                        dataType:'json',
+                        data:JSON.stringify(dataitem),
+                        headers:{ Authorization:"Token "+$.cookie("token") },
+                        success:function(json){
+                                if(json.code == 0){
+                                        //修改label
+                                        var datalabel = {};
+                                        var itemtagDiv = $("#editItem .itemtag .value");
+                                        var labels = itemtagDiv.children("div");
+                                        for(var i=0; i<labels.length; i++) {
+                                                var label = $(labels[i]);
+                                                var labelkey = $.trim(label.children(".tagkey:first").val());
+                                                var labelvalue = $.trim(label.children(".tagvalue:first").val());
+                                                if(labelkey == "" || labelvalue == "") {
+                                                        alert("标签名和标签值不能为空！");
+                                                        return;
+                                                }
+                                                datalabel["owner."+labelkey] = labelvalue;
+
+                                        }
+                                        $.ajax({
+                                                url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
+                                                type: "PUT",
+                                                cache:false,
+                                                data:{},
+                                                async:false,
+                                                dataType:'json',
+                                                data:datalabel,
+                                                headers:{ Authorization:"Token "+$.cookie("token") },
+                                                success:function(json){
+                                                        if(json.code == 0){
+                                                                $('#editItem').modal('toggle');
+                                                                location.reload();
+                                                        }
+                                                },
+                                                error:function(json){
+                                                        alert(json.msg);
+                                                }
+                                        });
+                                }
+                        },
+                        error:function(json){
+                                alert(json.msg);
+                        }
+                });
+
+        });
 })
+
+function createItemTag(tagkey, tagvalue) {
+        tagkey = tagkey == undefined ? "": tagkey;
+        tagvalue = tagvalue == undefined ? "": tagvalue;
+        var itemtag = $("#editItem .itemtag .value");
+        if(itemtag.children("div").length < 5) {
+                var persontag = $("<div></div>").addClass("persontag").appendTo(itemtag);
+                persontag.append($("<input/>").addClass("tagkey").attr("type", "text").val(tagkey));
+                persontag.append($("<div>=</div>").addClass("tagequal"));
+                persontag.append($("<input/>").addClass("tagvalue").attr("type", "text").val(tagvalue));
+        }
+}

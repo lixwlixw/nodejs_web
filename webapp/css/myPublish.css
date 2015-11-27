@@ -308,6 +308,7 @@
 	-ms-appearance:none;
 	-o-appearance:none;
 	-webkit-appearance:none;
+	border: 1px solid #666;
 }
 #addRep .submit input{
 	width: 458px;
@@ -317,6 +318,7 @@
 	font-size: 18px;
 	text-align: center;
 	border-radius: 5px;
+	border:0 none;
 }
 #addRep .submit input:hover {
 	background-color: #4d63d0;

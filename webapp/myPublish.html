@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-	<title>dataHub-我的发布 10,14,44,52</title>
+	<title>dataHub-我的发布</title>
 	<!--css-->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/command.css">
@@ -45,6 +45,7 @@
 				$("#addRep .head span").text("新增Repository");
 				$("#addRep .repname .value input").removeAttr("disabled");
 				$("#addRep .repname .value input").val("");
+				$("#addRep .repcomment .value textarea").val("");
 				$('#addRep').modal('toggle');
 			});
 			$("#addRep .submit input").click(function() {
@@ -57,15 +58,15 @@
 					if(repname.search(/^[a-zA-Z0-9-]+$/) < 0) {
 						alert('"Repository 名称"格式错误！');
 						return;
+					}else if(repname.length > 52){
+						alert('"Repository 名称"太长！');
+						return;
 					}
 					method = "POST";
 				}else {
 					method = "PUT";
 				}
-				if(data.comment.search(/^[a-zA-Z0-9- ]+$/) < 0) {
-					alert('"Repository 描述"格式错误！');
-					return;
-				}else if(data.comment.length > 200) {
+				if(data.comment.length > 200) {
 					alert('"Repository 描述"太长！');
 					return;
 				}

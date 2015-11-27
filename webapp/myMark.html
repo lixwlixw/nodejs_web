@@ -104,7 +104,7 @@
 		var itemname=getParam("itemname");
 		var type=getParam("type");
 		
-		alert(repname+"-----"+itemname+"-----"+type);
+		//alert(repname+"-----"+itemname+"-----"+type);
 		
 		$.ajax({
 			url: ngUrl+"/repositories/"+repname+"/"+itemname,
@@ -113,7 +113,12 @@
 		   	async:false,
 			dataType:'json',
 			success:function(json){
-				$("#tt").html(json.data.Meta);
+				if(type=="meta"){
+					$("#tt").html(json.data.Meta);
+				}
+				if(type=="sample"){
+					$("#tt").html(json.data.Sample);
+				}
 				
 				testEditor = editormd("editormd", {
 			        width           : "90%",
@@ -133,13 +138,20 @@
 		}); 
 		
 	    $("#sub").click(function(){
-		    
+		    var datas="";
+	    	if(type=="meta"){
+	    		datas=JSON.stringify({"meta":testEditor.getMarkdown()})
+			}
+			if(type=="sample"){
+				datas=JSON.stringify({"sample":testEditor.getMarkdown()})
+			}
+	    	
 			$.ajax({
 				url: ngUrl+"/repositories/"+repname+"/"+itemname,
 	    		type: "put",
 	    		cache:false,
 	    	   	async:false,
-	    	   	data:JSON.stringify({type:testEditor.getMarkdown()}),
+	    	   	data:datas,
 	    	   	headers:{Authorization:"Token "+$.cookie("token")},
 	    		dataType:'json',
 	    		success:function(json){  

@@ -378,10 +378,13 @@
 	margin-right: 5px;
 	float: left;
 }
-#introduce3 .introduce3-text {
+#introduce3 .introduce3-text a{
 	font-size: 16px;
 	color: #29abe2;
 	cursor: pointer;
+}
+#introduce3 .introduce3-text a:hover {
+	text-decoration: underline;
 }
 #introduce3 {
 	margin-top: 20px;
