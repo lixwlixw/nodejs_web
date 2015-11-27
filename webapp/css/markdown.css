@@ -1,0 +1,18 @@
+.markdown a{
+    color: #337ab7;
+    text-decoration: none;
+}
+.markdown a:focus , .markdown a:hover{
+    color: #23527c;
+    text-decoration: underline;
+} 
+
+.markdown code{
+    background: #eee none repeat scroll 0 0;
+    color: #999;
+    background: #f6f6f6 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 3px;
+}

@@ -43,6 +43,27 @@
 	display: none;
 }
 
+/* 	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7); 
+	}	 */
+	
+	.nav .open > a, .nav .open > a:focus, .nav .open > a:hover{
+		background:none; 
+	}
+	
+	.dropdown-menu{
+		background-color:#000000;background-color:rgba(0,0,0,0.2); color:#fff;
+	}
+	
+	.dropdown-menu > li > a{
+		color:#fff;
+	}
+	
+	.dropdown-menu > li > a:hover{
+		background: none;
+		color:#fff;
+	}
+
 
 </style>
 </head>
@@ -109,9 +130,50 @@
                         <!--                     
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>
                         -->
+                        
+                        <!--
                         <li><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>  
                         <li><a id='innames' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'></a></li>                    
                         <li><a id='logout' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>退出</a></li>
+                        -->
+                        
+                        <li>
+                  	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
+                  		<img src="images/fl4.png" />
+                  	</a>
+                  </li>
+
+                  <li>
+                  	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
+                  		<img src="images/fl1.png" />
+                  	</a>
+                  </li>                       
+                  <li>
+                  	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<img src="images/fl2.png" />
+                  	</a>
+                  </li> 
+
+                  
+                 <li>
+                  	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+                  		<img src="images/fl3.png" />
+                  	</a>
+					  <ul class="dropdown-menu">
+					  	
+					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="basicPwd.html">修改密码</a></li>
+					    <li><a href="basicInfo.html">修改基本信息</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
+					  </ul>
+					  
+                 </li> 
+                        
+                        
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -382,13 +444,13 @@
 						</div>
 						<div id="f1">
 							<div class="footShuo1">
-								关于我们
+								<a href="partner.html?names=aboutus">关于我们</a>
 							</div>
 							<div class="footShuo1">
-								合作伙伴
+								<a href="partner.html?names=partner">合作伙伴</a>
 							</div>
 							<div class="footShuo1">
-								加入我们
+								<a href="partner.html?names=joinus">加入我们</a>
 							</div>
 						</div>
 					</div>

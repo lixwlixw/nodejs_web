@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-修改数据</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/editormd.css" />
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7);
+	}
+	.navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-nav > li > a:focus{
+		background:none;
+	}
+</style>
+
+<body  style="background-color: #f5f5f5;">
+	<div class="be-loader" style="display: block;">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	
+	<header></header>
+
+	<div class="container" style="padding: 0px;margin-top:100px;margin-bottom: 100px;">
+		<div class="row">
+			<div class="col-md-12 col-sm-12" id="lComs">			
+				<div id="editormd">
+				    <textarea id='tt' style="display:none;"></textarea>
+				</div> 	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">	
+				<button class="btn btn-info" type="button" style="float: right; margin-right:5%;" id='sub'>提交修改</button>		
+			</div>
+		</div>
+	</div>
+	
+	<footer></footer>
+	
+	<div id="loginTem"></div>
+	
+
+    <div class="modal fade" id="alerts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 20%">
+             <div class="alert alert-success" role="alert"><p class="text-center">修改成功</p></div>                     
+        </div>             
+    </div>
+	
+	
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/editormd.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	
+
+
+	$(document).ready(function(){
+
+		var testEditor=null;
+		
+		var repname=getParam("repname");
+		var itemname=getParam("itemname");
+		var type=getParam("type");
+		
+		alert(repname+"-----"+itemname+"-----"+type);
+		
+		$.ajax({
+			url: ngUrl+"/repositories/"+repname+"/"+itemname,
+			type: "get",
+			cache:false,
+		   	async:false,
+			dataType:'json',
+			success:function(json){
+				$("#tt").html(json.data.Meta);
+				
+				testEditor = editormd("editormd", {
+			        width           : "90%",
+			        autoHeight      : false,
+			        height          : "500",
+			        path            : "../js/lib/",
+			        htmlDecode      : "style,script,iframe", 
+			        saveHTMLToTextarea : true,
+			        toolbarIcons : function() {
+			            // Or return editormd.toolbarModes[name]; // full, simple, mini
+			            // Using "||" set icons align right.
+			            return ["undo", "redo", "|", "code", "bold", "hr", "del","quote","ucwords","uppercase","lowercase","|","h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","|","preview", "watch", "|", "fullscreen", "testIcon", "testIcon2", "file", "faicon", "||", "watch", "fullscreen", "preview", "testIcon"]
+			        }
+			    }); 
+				
+			}
+		}); 
+		
+	    $("#sub").click(function(){
+		    
+			$.ajax({
+				url: ngUrl+"/repositories/"+repname+"/"+itemname,
+	    		type: "put",
+	    		cache:false,
+	    	   	async:false,
+	    	   	data:JSON.stringify({type:testEditor.getMarkdown()}),
+	    	   	headers:{Authorization:"Token "+$.cookie("token")},
+	    		dataType:'json',
+	    		success:function(json){  
+	    			$('#alerts').modal('toggle');					
+	    		}
+	    	}); 
+	    
+	    	
+	    });
+	    
+	    $('#alerts').on('hidden.bs.modal', function (e) {
+	    	location.href=window.location.href;
+	    });
+
+
+		
+	});
+
+	function getParam(key) {
+		var value='';
+		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		if (itemid.test(decodeURIComponent(window.location.href))) {
+			value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		}
+		return value;
+	}
+</script>
+</html>
