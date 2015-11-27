@@ -22,235 +22,273 @@
     Client端工具下载
 </div>
 <div class="container">
-        <div class="clientTitle">
-            <div class="titleImg title1"></div><strong>安装client端工具</strong>
-        </div>
-        <div class="boxworp">
-            <!--<p class="nobg_p">-->
-                <!--在安装GO(需要GO1.4以上版本)语言和设置了GOPATH环境变量之后，安装datahub-client:-->
-            <!--</p>-->
-            <p class="bg_p">
-                curl http://hub.dataos.io/install.sh | sh -s xxxxxxxxxxxxxxxx
-            </p>
-            <p class="nobg_p">
-                使用源码安装：
-            </p>
-            <p class="bg_p">
-                go get github.com/asiainfoLDP/datahub
-            </p>
-            <p class="nobg_p">
-                启动datahub服务：
-            </p>
-            <p class="bg_p">
-                sudo $GOPATH/bin/datahub --daemon --token <span class="havetoken">xxxxxxxxxxx</span>
-            </p>
-            <p class="nobg_p">
-                使用docker镜像：
-            </p>
-            <p class="bg_p">
-                git clone https://github.com/asiainfoLDP/datahub  && cd datahub<br/>
-                docker build -t datahub .
-            </p>
-            <p class="nobg_p">
-                启动docker镜像：
-            </p>
-            <p class="bg_p">
-                docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>" -e "DAEMON_ENTRYPOINT=http://XXXXXXXXXX:YYYY" -p xxxx:35800 datahub
-            </p>
-            <p>
-                需要修改防火墙，使得docker镜像的35800映射到的主机端口可以被外部访问。
-            </p>
-        </div>
-        <div class="clientTitle">
-            <div class="titleImg title2"></div><strong>运行client端命令行</strong>
-        </div>
-        <div class="boxworp">
-            <p class="nobg_p">
-               datahub CLI是datahub-client的命令行客户端，用来执行datahub相关命令。
-            </p>
-            <p class="bmargin fcolor0">
-                db
-            </p>
-            <p class="smargin fcolor6">
-                管理datapool
-            </p>
-            <p class="smargin fcolor0">
-                repo
-            </p>
-            <p class="smargin fcolor6">
-                Repository管理
-            </p>
-            <p class="smargin fcolor0">
-               subs
-            </p>
-            <p class="smargin fcolor6">
-                Subscrption管理
-            </p>
-            <p class="smargin fcolor0">
-                login
-            </p>
-            <p class="smargin fcolor6">
-                登录到dataos.io
-            </p>
-            <p class="smargin fcolor0">
-                pull
-            </p>
-            <p class="smargin fcolor6">
-               下载数据
-            </p>
-        </div>
-        <div class="clientTitle">
-            <div class="titleImg title3"></div><strong>运行client端命令行</strong>
-        </div>
-        <div class="boxworp">
-            <div class="notebox bddashed">
-                <p>NOTE:</p>
-                <ul>
-                    <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中。错误信息会打印到终端。</li>
-                    <li>所有的命令执行都会记录到日志中，日志级别分[TRACE] [INFO] [WARNNING] [ERROR] [FATAL]。</li>
-                    <li>参数支持全名和简称两种形式，例如--type等同于-t。详情见命令帮助。</li>
-                    <li>参数赋值支持空格和等号两种形式，例如--type=file等同于--type file。</li>
-                </ul>
-            </div>
-            <div class="smalltitle fcolor0">
-                 <span class="smallbg"></span><span>Datapool相关命令</span>
-            </div>
-            <div style="padding-left:18px;">
-                <p class="nobg_p fcolor0">
-                    1.列出所有命令池
-                </p>
-                <div style="padding-left:10px;">
-                         <p class="bg_p">
-                             datahub&nbsp;&nbsp;dp
-                         </p>
-                         <p class="smargin fcolor0">
-                             输出
-                         </p>
-                         <p class="bg_p">
-                             {%DPNAME&nbsp;&nbsp;&nbsp;&nbsp;%DPTYPE}
-                         </p>
-                         <p class="smargin fcolor0">
-                             例子
-                         </p>
-                         <div class="bg_p">
-                             <p>$ datahub dp</p>
-                             <p>dp1     regular file </p>
-                             <p>dp2     db2</p>
-                             <p>dphere  hdfs</p>
-                             <p>dpthere api</p>
-                             <p>$</p>
-                         </div>
-                </div>
-
-                <p class="nobg_p fcolor0">
-                    2.列出datapool详情
-                </p>
-                <div style="padding-left: 10px;">
-                        <div class="bg_p">datahub dp $DPNAME</div>
-                        <p class="smargin fcolor0">
-                            输出
+        <div class="leftbox">
+                 <div class="clientintroduce"><a href="#" name="001" id="001">DataHub Cient端是一个P2P数据传输工具</a></div>
+                 <div class="bg_p" style="padding-bottom:20px;">
+                        <div class="bmargin fcolor0 bfont">便捷、快速的获取数据</div>
+                        <div class="smargin fcolor6">DataHub链接的任意数据，均可通过Client端一键获取</div>
+                        <div class="bmargin fcolor0 bfont">一键发布数据</div>
+                        <div class="smargin fcolor6">DataHub支持任意批量数据（如文本文件、HDFS、F3、DB等 ）、API、流数据的发布，支持数据时时在线链接</div>
+                        <div class="bmargin fcolor0 bfont">免费获取公开数据</div>
+                        <div class="smargin fcolor6">DataHub上链接的免费数据，均可通过Client端免费获取</div>
+                 </div>
+                 <div class="clientTitle bdbs" style="margin-top:80px;">
+                 <div class="titleImg title1"></div><strong><a href="#" name="002" id="002">支持三种Client端安装方式</a></strong>
+                 </div>
+                 <div class="downway bdbs">
+                      <div class="downway_con">
+                            <div class="downwayname  fcolor0">脚本安装</div>
+                            <div class="goway" id="gosetup_1">Set&nbsp;up</div>
+                      </div>
+                      <div class="downway_con">
+                            <div class="downwayname  fcolor0" >源码安装</div>
+                            <div class="goway" id="gosetup_2">Set&nbsp;up</div>
+                      </div>
+                      <div class="downway_con">
+                            <div class="downwayname  fcolor0" >Docker镜像安装</div>
+                            <div class="goway" id="gosetup_3">Set&nbsp;up</div>
+                      </div>
+                 </div>
+                 <div class="sub-nav" id="setup_1"> <span class="sub-navicon"></span><a href="#" name="003" id="003">1、使用脚本安装</a></div>
+                 <div class="boxworp bdbs">
+                        <div class="nobg_p">支持64位Debian，ubuntu，freebsd操作系统。打开终端，输入：</div>
+                        <div class="bg_p">curl -sSL https://dataos.io/datahub/install.sh | sh -s <span class="havetoken"></span></div>
+                        <div class="nobg_p  fcolor0">安装过程约持续1分钟，完成安装后DataHub服务会自动启动.</div>
+                        <div class="nobg_p  fcolor0">安装完成后：</div>
+                        <div class="nobg_p">停止DataHub 服务:</div>
+                        <div class="bg_p">udo datahub stop</div>
+                        <div class="nobg_p">启动DataHub 服务:</div>
+                        <div class="bg_p">sudo datahub --daemon --token <span class="havetoken"></span></div>
+                 </div>
+                 <div class="sub-nav" id="setup_2"> <span class="sub-navicon"></span><a href="#" name="004" id="004">2.使用源码安装:</a></div>
+                 <div class="boxworp bdbs">
+                        <div class="nobg_p">在安装GO(go1.4以上版本)语言和设置完GOPATH环境变量之后，安装DataHub Client：</div>
+                        <div class="bg_p">go get github.com/asiainfoLDP/datahub</div>
+                        <div class="nobg_p">启动DataHub服务</div>
+                        <div class="bg_p">sudo $GOPATH/bin/datahub --daemon --token <span class="havetoken"></span></div>
+                        <div class="nobg_p">停止DataHub服务</div>
+                        <div class="bg_p">sudo $GOPATH/bin/datahub stop</div>
+                 </div>
+                 <div class="sub-nav" id="setup_3"> <span class="sub-navicon"></span><a href="#" name="005" id="005">3.使用Docker镜像:</a></div>
+                 <div class="boxworp bdbs">
+                        <div class="bg_p">
+                                <p>git clone https://github.com/asiainfoLDP/datahub</p>
+                                <p>cd datahub</p>
+                                <p>docker build -t datahub .</p>
+                        </div>
+                        <div class="nobg_p">启动Docker镜像:</div>
+                        <div class="bg_p">docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>"  datahub</div>
+                        <div class="nobg_p fcolor0">网络策略要求：</div>
+                        <div class="smargin fcolor0">若需要向DataHub发布数据，需提供ENTRYPOINT，同时修改防火墙，使得Docker镜像的35800映射到的主机端口可以被外部访问。</div>
+                        <div class="smargin">例如:docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>" -e "DAEMON_ENTRYPOINT=http://example.com:35800" -p 35800:35800 datahub</div>
+                 </div>
+                  <div class="clientTitle bdbs" style="margin-top:50px;">
+                   <div class="titleImg title2"></div><strong><a href="#" name="006" id="006">DataHub Client端运行状态监控</a></strong>
+                 </div>
+                 <div class="monitorbox">
+                        <div class="monitorboxTop"></div>
+                        <div class="monitorboxCon">
+                             <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
+                             <div class="nobg_p">EntryPoint：<span class="havePoint">xxxxxxxxx</span></div>
+                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgre"></strong><span class="statecolor statecolorgre">Client端运行正常</span></div>
+                        </div>
+                 </div>
+                 <div class="clientTitle bdbs" style="margin-top:50px;">
+                   <div class="titleImg title3"></div><strong><a href="#" name="007" id="007">运行Datahub CLI</a></strong>
+                 </div>
+                 <div class="sub-nav">
+                        <span class="sub-navicon"></span>DataHub CLI是DataHub Client的命令行客户端，用来执行DataHub相关命令。
+                 </div>
+                 <div class="boxworp">
+                        <p class="bmargin fcolor0 fonttsize16">
+                            DP
                         </p>
-                        <div class="bg_p">
-                            <p>%DPNAME %DPTYPE %DPCONN</p>
-                            <p>{%REPO/%ITEM:%TAG       %LOCAL_TIME     %T}</p>
-                        </div>
-                        <p class="smargin fcolor0">
-                            例子
+                        <p class="smargin fcolor6">
+                            Datapool管理
                         </p>
-                        <div class="bg_p">
-                            <p>$ datahub dp dp1</p>
-                            <p>dp1 regular file    /var/lib/datahub/dp1</p>
-                            <p>repo1/item1:tag1        12:34 Oct 11 2015       pub</p>
-                            <p>repo1/item1:tag2        15:00 Nov 2  2015       pub</p>
-                            <p>repo1/item2:latest  10:00 Nov 1  2015       pull</p>
-                            <p>cmcc/beijing:latest 10:00 Nov 1  2015       pull</p>
-                            <p>$</p>
-                        </div>
-                </div>
-                <p class="nobg_p fcolor0">
-                    3.创建数据池
-                </p>
-                <div style="padding-left:10px;">
-                        <div class="notebox bddashed">
-                            目前只支持本地目录的数据池创建。daemon会有自己的可配置目录(默认/var/lib/datahub),使用参数dpconn指定据对路径，当没有设置dpconn选项时，会默认创建到daemon的工作目录。
-                        </div>
-                        <div class="bg_p">
-                            <p>datahub dp create $DPNAME [--type=$dptype]</p>
-                            <p>[--conn=$dpconn]</p>
-                        </div>
-                        <p class="smargin fcolor0">
-                            输出
+                        <p class="smargin fcolor0 fonttsize16">
+                            Repo
                         </p>
-                        <div class="bg_p">
-                            <p>%msg</p>
-                        </div>
-                        <p class="smargin fcolor0">
-                            例子
+                        <p class="smargin fcolor6">
+                            Repository管理
                         </p>
-                        <div class="bg_p">
-                            <p>$ datahub dp create dp1 --type=file</p>
-                            <p>--conn=/home/daemon/dp1</p>
-                            <p>dp1 created as /home/daemon/dp1</p>
-                            <p>$</p>
-                        </div>
-                </div>
-                <p class="nobg_p fcolor0">
-                    4.删除数据池
-                </p>
-                <div style="padding-left: 10px;">
-                        <div class="notebox bddashed">
-                            删除数据池不会删除目标数据池已保存的数据，该dp有发布的数据项时，不能被删除。删除是在sqlit中标记状态，不真实删除。
-                        </div>
-                        <div class="bg_p">
-                            <p>datahub dp rm $DPNAME [-f]</p>
-                        </div>
-                        <p class="smargin fcolor0">
-                            输出
+                        <p class="smargin fcolor0 fonttsize16">
+                           Subs
                         </p>
-                        <div class="bg_p">
-                            <p></p>
-                        </div>
-                        <p class="smargin fcolor0">
-                            例子
+                        <p class="smargin fcolor6">
+                            Subscrption管理
                         </p>
-                        <div class="bg_p">
-                            <p>$ datahub dp rm dp1</p>
-                            <p>ok</p>
-                            <p>$</p>
+                        <p class="smargin fcolor0 fonttsize16">
+                            Login
+                        </p>
+                        <p class="smargin fcolor6">
+                            登录到dataos.io
+                        </p>
+                        <p class="smargin fcolor0 fonttsize16">
+                            Pull
+                        </p>
+                        <p class="smargin fcolor6">
+                           下载数据
+                        </p>
+                        <p class="smargin fcolor0 fonttsize16">
+                            Pub
+                        </p>
+                        <p class="smargin fcolor6">
+                            发布DataItem 和Tag
+                        </p>
+                        <p class="smargin fcolor0 fonttsize16">
+                            Help
+                        </p>
+                        <p class="smargin fcolor6">
+                            提供帮助信息
+                        </p>
+                 </div>
+                 <div class="sub-nav">
+                        <span class="sub-navicon"></span>DataHub Client 命令行使用说明。
+                 </div>
+                 <div class="notebox bddashed">
+                        <p>NOTE:</p>
+                        <ul>
+                            <li>如果没有额外说明，所有的命令在没有错误发生时，不在终端输出任何信息，只记录到日志中。错误信息会打印到终端。</li>
+                            <li>所有的命令执行都会记录到日志中，日志级别分[TRACE] [INFO] [WARNNING] [ERROR] [FATAL]。</li>
+                            <li>参数支持全名和简称两种形式，例如--type等同于-t。详情见命令帮助。</li>
+                            <li>参数赋值支持空格和等号两种形式，例如--type=file等同于--type file。</li>
+                        </ul>
+                 </div>
+                 <div class="nobg_p fonttsize16 fcolor0">1. DataPool相关命令</div>
+                 <div style="padding-left:18px;">
+                        <p class="nobg_p fcolor0 fontw">
+                            1.1 列出所有命令池
+                        </p>
+                        <div style="padding-left:10px;">
+                                 <p class="bg_p">
+                                     datahub&nbsp;&nbsp;dp
+                                 </p>
+                                 <p class="smargin fcolor0">
+                                     输出
+                                 </p>
+                                 <p class="bg_p">
+                                     {%DPNAME&nbsp;&nbsp;&nbsp;&nbsp;%DPTYPE}
+                                 </p>
+                                 <p class="smargin fcolor0">
+                                     例子
+                                 </p>
+                                 <div class="bg_p">
+                                     <p>$ datahub dp</p>
+                                     <p>dp1     regular file </p>
+                                     <p>dp2     db2</p>
+                                     <p>dphere  hdfs</p>
+                                     <p>dpthere api</p>
+                                     <p>$</p>
+                                 </div>
                         </div>
-                </div>
-            </div>
-            <div class="smalltitle fcolor0">
-                    <span class="smallbg"></span><span>subs相关命令</span>
-            </div>
-            <div style="padding-left:18px;">
-                    <p class="nobg_p fcolor0">
-                        1.列出所有已订阅项
-                    </p>
-                    <div style="padding-left: 10px">
-                            <div class="bg_p">
-                                <p>datahub subs </p>
-                            </div>
-                            <p class="smargin fcolor0">
-                                输出
+                        <p class="nobg_p fcolor0 fontw">
+                            1.2 列出datapool详情
+                        </p>
+                        <div style="padding-left: 10px;">
+                                <div class="bg_p">datahub dp $DPNAME</div>
+                                <p class="smargin fcolor0">
+                                    输出
+                                </p>
+                                <div class="bg_p">
+                                    <p>%DPNAME %DPTYPE %DPCONN</p>
+                                    <p>{%REPO/%ITEM:%TAG       %LOCAL_TIME     %T}</p>
+                                </div>
+                                <p class="smargin fcolor0">
+                                    例子
+                                </p>
+                                <div class="bg_p">
+                                    <p>$ datahub dp dp1</p>
+                                    <p>dp1 regular file    /var/lib/datahub/dp1</p>
+                                    <p>repo1/item1:tag1        12:34 Oct 11 2015       pub</p>
+                                    <p>repo1/item1:tag2        15:00 Nov 2  2015       pub</p>
+                                    <p>repo1/item2:latest  10:00 Nov 1  2015       pull</p>
+                                    <p>cmcc/beijing:latest 10:00 Nov 1  2015       pull</p>
+                                    <p>$</p>
+                                </div>
+                        </div>
+                        <p class="nobg_p fcolor0 fontw">
+                            1.3 创建数据池
+                        </p>
+                        <div style="padding-left:10px;">
+                                <div class="notebox bddashed">
+                                    目前只支持本地目录的数据池创建。daemon会有自己的可配置目录(默认/var/lib/datahub),使用参数dpconn指定据对路径，当没有设置dpconn选项时，会默认创建到daemon的工作目录。
+                                </div>
+                                <div class="bg_p">
+                                    <p>datahub dp create $DPNAME [--type=$dptype]</p>
+                                    <p>[--conn=$dpconn]</p>
+                                </div>
+                                <p class="smargin fcolor0">
+                                    输出
+                                </p>
+                                <div class="bg_p">
+                                    <p>%msg</p>
+                                </div>
+                                <p class="smargin fcolor0">
+                                    例子
+                                </p>
+                                <div class="bg_p">
+                                    <p>$ datahub dp create dp1 --type=file</p>
+                                    <p>--conn=/home/daemon/dp1</p>
+                                    <p>dp1 created as /home/daemon/dp1</p>
+                                    <p>$</p>
+                                </div>
+                        </div>
+                        <p class="nobg_p fcolor0 fontw">
+                            1.4 删除数据池
+                        </p>
+                        <div style="padding-left: 10px;">
+                                <div class="notebox bddashed">
+                                    删除数据池不会删除目标数据池已保存的数据，该dp有发布的数据项时，不能被删除。删除是在sqlit中标记状态，不真实删除。
+                                </div>
+                                <div class="bg_p">
+                                    <p>datahub dp rm $DPNAME [-f]</p>
+                                </div>
+                                <p class="smargin fcolor0">
+                                    输出
+                                </p>
+                                <div class="bg_p">
+                                    <p></p>
+                                </div>
+                                <p class="smargin fcolor0">
+                                    例子
+                                </p>
+                                <div class="bg_p">
+                                    <p>$ datahub dp rm dp1</p>
+                                    <p>ok</p>
+                                    <p>$</p>
+                                </div>
+                        </div>
+                 </div>  
+                 <div class="nobg_p fonttsize16 fcolor0">2. Subs相关命令</div>
+                 <div style="padding-left:18px;">
+                            <p class="nobg_p fcolor0 fontw">
+                                 2.1 列出所有已订阅项
                             </p>
-                            <div class="bg_p">
-                                <p>{%REPO/%ITEM    %TYPE}</p>
+                            <div style="padding-left: 10px">
+                                    <div class="bg_p">
+                                        <p>datahub subs </p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        输出
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>{%REPO/%ITEM    %TYPE}</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        例子
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>$ datahub subs</p>
+                                        <p>cmcc/beijing        regular file</p>
+                                        <p>repo1/testing       api</p>
+                                        <p>$</p>
+                                    </div>
                             </div>
-                            <p class="smargin fcolor0">
-                                例子
+                            <p class="nobg_p fcolor0 fontw">
+                                2.2 列出已订阅Item详情
                             </p>
-                            <div class="bg_p">
-                                <p>$ datahub subs</p>
-                                <p>cmcc/beijing        regular file</p>
-                                <p>repo1/testing       api</p>
-                                <p>$</p>
-                            </div>
-                    </div>
-                    <p class="nobg_p fcolor0">
-                        2.列出已订阅Item详情
-                    </p>
-                    <div style="padding-left: 10px">
+                            <div style="padding-left: 10px">
                             <div class="bg_p">
                                 <p>ddatahub subs $REPO/$ITEM</p>
                             </div>
@@ -281,66 +319,163 @@
                                 <p>beijing:haidian 16:40 Oct 15 2015       988M</p>
                                 <p>$</p>
                             </div>
-                    </div>
-            </div>
-            <div class="smalltitle fcolor0">
-                    <span class="smallbg"></span><span>pull命令</span>
-            </div>
-            <div style="padding-left:18px;">
-                     <p class="nobg_p fcolor0">
-                         1.拉取某个item的tag
-                     </p>
-                     <div style="padding-left: 10px">
-                            <div class="bg_p">
-                                <p>datahub pull $REPO/$ITEM[:$TAG] $DATAPOOL</p>
-                            </div>
-                            <p class="smargin fcolor0">
-                                输出
+                 </div>  
+                 <div class="nobg_p fonttsize16 fcolor0">3. Pull命令</div>  
+                 <div style="padding-left:18px;">
+                            <p class="nobg_p fcolor0 fontw">
+                                 3.1 拉取某个item的tag
                             </p>
-                            <div class="bg_p">
-                                <p>%msg</p>
+                            <div style="padding-left: 10px">
+                                   <div class="bg_p">
+                                       <p>datahub pull $REPO/$ITEM[:$TAG] $DATAPOOL</p>
+                                   </div>
+                                   <p class="smargin fcolor0">
+                                       输出
+                                   </p>
+                                   <div class="bg_p">
+                                       <p>%msg</p>
+                                   </div>
+                                   <p class="smargin fcolor0">
+                                       例子
+                                   </p>
+                                   <div class="bg_p">
+                                       <p>$ datahub pull cmcc/beijing:chaoyang dp1</p>
+                                       <p>OK.</p>
+                                       <p>$</p>
+                                   </div>
                             </div>
-                            <p class="smargin fcolor0">
-                                例子
+                 </div>
+                 <div class="nobg_p fonttsize16 fcolor0">4. Login命令</div>
+                 <div class="notebox bddashed" style="margin-left:18px;">
+                     Login命令支持被动调用，用于DataHub Client与DataHub Server交互时作认证。并将认证信息保存到环境变量，免去后续指令重复输入认证信息。
+                 </div>
+                 <div style="padding-left:18px;">  
+                            <p class="nobg_p fcolor0 fontw">
+                                4.1 登录到dataos.io
                             </p>
-                            <div class="bg_p">
-                                <p>$ datahub pull cmcc/beijing:chaoyang dp1</p>
-                                <p>OK.</p>
-                                <p>$</p>
+                            <div style="padding-left: 10px">
+                                    <div class="bg_p">
+                                        <p>datahub login [--user=user]</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        输出
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>%msg</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        例子
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>%msg</p>
+                                        <p>$ datahub login</p>
+                                        <p>login: datahub</p>
+                                        <p>password: *******</p>
+                                        <p>[INFO]Authorization failed.</p>
+                                        <p>$</p>
+                                    </div>
                             </div>
-                     </div>
-            </div>
-            <div class="smalltitle fcolor0">
-                 <span class="smallbg"></span><span>login命令</span>
-            </div>
-            <div style="padding-left:18px;">
-                    <p class="nobg_p fcolor0">
-                        1.登录到dataos.io
-                    </p>
-                    <div style="padding-left: 10px">
-                            <div class="bg_p">
-                                <p>datahub login [--user=user]</p>
-                            </div>
-                            <p class="smargin fcolor0">
-                                输出
-                            </p>
-                            <div class="bg_p">
-                                <p>%msg</p>
-                            </div>
-                            <p class="smargin fcolor0">
-                                例子
-                            </p>
-                            <div class="bg_p">
-                                <p>%msg</p>
-                                <p>$ datahub login</p>
-                                <p>login: datahub</p>
-                                <p>password: *******</p>
-                                <p>[INFO]Authorization failed.</p>
-                                <p>$</p>
-                            </div>
-                    </div>
-            </div>
+                 </div>
+                 <div class="nobg_p fonttsize16 fcolor0">5. Pub相关命令</div>
+                 <div class="notebox bddashed" style="margin-left:18px;">
+                     -pub分为发布一个DataItem和发布一个Tag。发布DataItem必带参数：--datapool= , --accesstype= 发布Tag必带参数：--detail= , 用来描述Tag对应文件名，./表示当前路径；不带路径默认DataPool下所属Repository和DataItem的路径 可选参数--comment= ,描述DataItem或者Tag
+                 </div>
+                 <div style="padding-left:18px;">
+                        <p class="nobg_p fcolor0 fontw">
+                                5.1. 发布一个DataItem
+                        </p>
+                        <div style="padding-left: 10px">
+                                    <div class="bg_p">
+                                        <p>datahub pub $REPOSITORY/$DATAITEM --datapool=$DATAPOOL --accesstype=public [private]</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        输出
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>Pub success,  OK</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        例子
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>$./datahub pub music_1/migu --datapool=mydp</p>
+                                        <p>--accesstype=public</p>
+                                        <p>Pub success,  OK</p>
+                                    </div>
+                        </div>
+                        <p class="nobg_p fcolor0 fontw">
+                               5.2.发布一个Tag
+                        </p>
+                        <div style="padding-left: 10px">
+                                    <div class="bg_p">
+                                        <p>datahub pub $REPO/$ITEM:$Tag --detail=$path/$file</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        输出
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>Pub success, OK</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        例子
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>$ datahub pub music_1/migu:migu_user_info</p>
+                                        <p>--detail=./migu_user_info.txt</p>
+                                        <p>Pub success, OK</p>
+                                        <p>$</p>
+                                    </div>
+                        </div>
+                 </div>
+                 <div class="nobg_p fonttsize16 fcolor0">6. Help命令</div>
+                 <div class="notebox bddashed" style="margin-left:18px;">
+                     Help提供DataHub所有命令的帮助信息。
+                 </div>
+                 <div style="padding-left:18px;">
+                         <p class="nobg_p fcolor0 fontw">
+                                6.1. 列出帮助
+                        </p>
+                        <div style="padding-left: 10px">
+                                    <div class="bg_p">
+                                        <p>datahub help [$CMD] [$SUBCMD]</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        输出
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>Usage of %CMD %SUBCMD</p>
+                                        <p>{  %OPTION=%DEFAULT_VALUE     %OPTION_DESCRIPTION}</p>
+                                    </div>
+                                    <p class="smargin fcolor0">
+                                        例子
+                                    </p>
+                                    <div class="bg_p">
+                                        <p>$ datahub help dp create</p>
+                                        <p>Usage of dp create:</p>
+                                        <p>--conn=            datapool connection info</p>
+                                        <p>--name=            datapool name</p>
+                                        <p>--type, -T=file    datapool type</p>
+                                        <p>$ datahub help dp</p>
+                                        <p>Usage of dp:</p>
+                                        <p>dp [create | rm] &lt;dpname&gt;</p>
+                                    </div>
+                        </div>   
+                 </div>
+
+                 <!-- fdsfsdf -->
         </div>
+       </div>
+        <div class="rightbox">
+                <div class="right_p"><a href="#001">DataHub Client端介绍</a></div>
+                <div class="right_p"><a href="#002">DataHub Client端安装方式</a></div>
+                <ul class="waygo">
+                <li><a href="#003">脚本安装</a></li>
+                    <li><a href="#004">源码安装</a></li>
+                    <li><a href="#005">Docker镜像安装安装</a></li>
+                </ul>
+                <div class="right_p"><a href="#006">DataHub Client端运行状态监控</a></div>
+                <div class="right_p"><a href="#007">DataHub Client端命令行</a></div>
+        </div>         
 </div>
 <!-- 尾部 -->
 <footer></footer>
@@ -353,7 +488,8 @@
     $("footer").load("common/footer.html");
     $("#loginTem").load("common/login.html");
     var account= $.cookie('token');
-
+     var tname= $.cookie('tname');
+    //得到daemonid
     if(account != 'null'){
         $.ajax({
             type: "get",
@@ -369,4 +505,57 @@
     else{
         $('.havetoken').html('xxxxxxxxxx');
     }
+    // entrypoint
+     if(account != 'null'){
+        $.ajax({
+            type: "get",
+            url:ngUrl+"/daemon/ep/"+tname,
+            cache:false,
+            async:false,
+            headers:{Authorization:"Token "+account},
+            success: function(msg){
+                  if(msg.data == null){
+                    $('.havePoint').html("entrypoint为空"); 
+                    $('.statecolor').html('Client端失去连接');
+                    $('.stateicon').addClass('stateiconrgred').removeClass('stateiconrgre');
+                    $('.statecolor').addClass('statecolorgred').removeClass('statecolorgre');
+
+                  }else{
+                    $('.havePoint').html(msg.data.entrypoint); 
+                    $('.statecolor').html('Client端正常连接');
+                    $('.stateicon').addClass('stateiconrgre').removeClass('stateiconrgred');
+                    $('.statecolor').addClass('statecolorgre').removeClass('statecolorgred');
+
+                  }
+                   
+            }
+
+        });
+      }
+        
+$(function(){
+     $("#gosetup_1").click(function(){
+                  var sheight = document.documentElement.clientHeight;
+                  var soffsetTop = document.getElementById('setup_1').offsetTop;    
+                if(sheight<soffsetTop){
+                     window.scrollTo(0,soffsetTop-50)
+                 }
+      });
+     $("#gosetup_2").click(function(){
+                  var sheight = document.documentElement.clientHeight;
+                  var soffsetTop = document.getElementById('setup_2').offsetTop;    
+                if(sheight<soffsetTop){
+                     window.scrollTo(0,soffsetTop-50)
+                 }
+      });
+     $("#gosetup_3").click(function(){
+                  var sheight = document.documentElement.clientHeight;
+                  var soffsetTop = document.getElementById('setup_3').offsetTop;    
+                if(sheight<soffsetTop){
+                     window.scrollTo(0,soffsetTop-50)
+                 }
+      });
+})
+           
+    
 </script>
