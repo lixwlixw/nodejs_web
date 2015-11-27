@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/pagination.css">
 	<link rel="stylesheet" href="css/itemDetails.css">
+	<link rel="stylesheet" href="css/markd">
 
 </head>
 
@@ -159,6 +160,7 @@
 <script src="js/md5.js"></script>
 <script src="js/jquery.zclip.js"></script>
 <script src="js/jquery.pagination.js"></script>
+<script src='js/marked.js'></script>
 <script>
 	var login = false;
 	var firsttry = true;
@@ -356,8 +358,8 @@
 						}
 					}
 					//设置样例和元数据
-					$("#dataitem-exemple .exemple-body").html(json.data.Sample.replace(/\n/g, "<br/>"));
-					$("#dataitem-metadata .metadata-body").html(json.data.Meta.replace(/\n/g, "<br/>"));
+					$("#dataitem-exemple .exemple-body").html(marked(json.data.Sample));
+					$("#dataitem-metadata .metadata-body").html(marked(json.data.Meta));
 					//设置introduce1的itemname
 					$("#introduce1 .introduce1-head span:first").attr("title", itemname).text(itemname);
 					//设置comment
