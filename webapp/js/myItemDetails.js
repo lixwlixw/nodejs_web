@@ -13,6 +13,7 @@ $(function(){
     var repname = getParam("repname");
     var itemname = getParam("itemname");
     $('.renameitem').html(repname);
+    $('.renameitem').attr("href","myPublish.html?repname="+repname);
     $('.itemnameitem').html("/"+itemname);
 	$(document).on('click','.togglebox',function(){
 		 var body = $(this).closest(".record").children("div[class=body]:first");
@@ -278,9 +279,9 @@ $(function(){
         $('.con-main').empty();
          var str =  '<div class="metadatabox">'+
             '<div class="metadatatop">样例 <div class="metadata-icon"></div></div>'+
-            '<div class="metadata-con">'+meta+'</div>'+
+            '<div class="metadata-con"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta">'+meta+'</a></div>'+
             '<div class="metadatatop">元数据 <div class="metadata-icon"></div></div>'+
-            '<div class="metadata-con">'+sample+'</div>'+
+            '<div class="metadata-con"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample">'+sample+'</a></div>'+
             '</div>';
         $('.con-main').append(str);
     }
