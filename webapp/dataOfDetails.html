@@ -52,7 +52,7 @@
 		<div id="userName" style="float: left;margin-top:22px;margin-bottom: 10px;font-weight: bold;width:100%;font-size:20px;"></div>
 		<div id="userCom" style="float: left;margin-bottom:15px;"></div>
 	</div>
-	<div class="container-fluid" style="padding: 0px;">
+	<div class="container" style="padding: 0px;">
 		<div class="col-md-12 col-sm-12" id="lComs">			
 			<div id="terminal-content-head"></div>
 			<div id="terminal-content-body"></div>	
@@ -105,7 +105,7 @@
 		
 		for(var i=0;i<repos.length;i++){
 			$.ajax({
-				url: ngUrl+"/repositories/"+repos[0],
+				url: ngUrl+"/repositories/"+repos[i],
 	    		type: "get",
 	    		cache:false,
 	    	   	async:false,
@@ -128,7 +128,7 @@
 	    				
 	    				var subnum="";
 	    				$.ajax({
-	    					url: ngUrl+"/subscription_stat/"+repos[0],
+	    					url: ngUrl+"/subscription_stat/"+repos[i],
 	    					type: "get",
 	    					cache:false,
 	    					data:{},
@@ -148,7 +148,7 @@
 	    				
 	    				var transnum="";
 	    				$.ajax({
-	    					url: ngUrl+"/transaction_stat/"+repos[0],
+	    					url: ngUrl+"/transaction_stat/"+repos[i],
 	    					type: "get",
 	    					cache:false,
 	    					data:{},
@@ -168,7 +168,7 @@
 	    				
 	    				var starsnum="";
 	    				$.ajax({
-	    					url: ngUrl+"/star_stat/"+repos[0],
+	    					url: ngUrl+"/star_stat/"+repos[i],
 	    					type: "get",
 	    					cache:false,
 	    					data:{},
@@ -239,7 +239,7 @@
 			dataType:'json',
 			success:function(json){
 				if(json.code == 0){
-					$("#userName").text(json.data.nickName);
+					$("#userName").text(json.data.userName);
 					$("#userCom").text(json.data.comment);
 				}else {
 					console.log("报错");

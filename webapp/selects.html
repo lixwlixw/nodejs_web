@@ -56,10 +56,10 @@
 	<header></header>
 	
 	<!-- 内容页 -->
-	<div class="container-fluid" style='padding:0px;margin-top:50px;'>
+	<div id="viewCon" class="container" style='padding:0px;margin-top:50px;background-color: #f5f5f5;'>
 
-			<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="padding: 20px 40px 20px 40px;position: absolute;height:100%;"><!--TODO-->
-					<div id="navigator-name"><b>精选导航</b></div>
+			<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="padding: 20px 0px 20px 0px;background-color: #f9f9f9;"><!--TODO-->
+					<div id="navigator-name"><b style="font-size: 20px;color: #333; margin-left:20px;">精选导航</b></div>
 					<ul id="navigator-ul">
 					</ul>
 			</div>
@@ -71,7 +71,7 @@
 					<ul id="navigator-ul10">
 					</ul>
 				</div>
-				<div id="terminal-content-head"><b id="allJ">全部精选</b></div>
+				<div id="terminal-content-head"><b id="allJ" style="font-size: 20px;color: #333;">全部精选</b></div>
 				<div id="terminal-content-body"></div>	
 			</div>		
 		
@@ -112,22 +112,23 @@
 	$("#loginTem").load("common/login.html");
 	
 	
-	$(".selectBody").hover(function(){
+/* 	$(".selectBody").hover(function(){
         alert("123");
     },function(){
         alert("234")  
-    })
+    }) */
     
 /*     $(document).on('mouseenter','.selectBody',function(){
     	alert("123")
     }); */
-	
-	
+    
 	
 	var repos=[];
 	
 	$(window).load(function(){
 		$(".be-loader").fadeOut("slow");
+		$("#navigator").css("height",$("#lComs").height());
+	    $("#viewCon").css("min-height",document.body.clientHeight);
 	});
 
 	$(document).ready(function(){
@@ -141,7 +142,7 @@
     			if(json.data.length!=0){
     				var pages=json.data.length;
     				for(var i=0;i<pages;i++){
-    					$("#navigator-ul").append("<li>"+json.data[i].labelname+"</li>");	
+    					$("#navigator-ul").append("<li><img src='images/nav_icon.png' style='margin-left:20px;margin-right:15px;'>"+json.data[i].labelname+"</img></li>");	
     					$("#navigator-ul10").append("<li>"+json.data[i].labelname+"</li>");
     				}
     			}else{
@@ -162,17 +163,17 @@
 			$("#terminal-content-body").empty();
 			$("#terminal-content-body").append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
 			repos.length = 0;//数据清空
-			
-			$(this).siblings().css("border","1px solid #ccc").css("color","#666");
+
+			$(this).siblings().css("background-color","#f9f9f9").css("color","#666");
 			$(this).siblings().removeClass("overs");
 			if($(this).hasClass("overs")){
 				$(this).removeClass("overs");
-				$(this).css("border","1px solid #ccc").css("color","#666");
+				$(this).css("background-color","#f9f9f9").css("color","#666");
 				$("#allJ").text("全部精选");
 				ajaxRe(0);
 			}else{
 				$(this).addClass("overs");
-				$(this).css("border","1px solid #29abe2").css("color","#29abe2");
+				$(this).css("background-color","#fff").css("color","#0077aa");
 				$("#allJ").text($(this).text()+"精选");
 				$.ajax({
 					url: ngUrl+"/selects?select_labels="+$(this).text(),
@@ -337,7 +338,11 @@
 				
 			}
 			
-
+			if($("#lComs").height()>document.body.clientHeight){
+				$("#navigator").css("height","auto").css("min-height",$("#lComs").height());
+			}else{
+				$("#navigator").css("height","auto").css("min-height",document.body.clientHeight);
+			}
 
 			
 		});

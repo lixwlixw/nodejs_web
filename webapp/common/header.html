@@ -2,6 +2,11 @@
 	.nav > li > a:hover{
 		background-color:rgba(31,154,218,0.7); 
 	}	
+	
+	.nav .open > a, .nav .open > a:focus, .nav .open > a:hover{
+		background-color:rgba(31,154,218,0.7); 
+	}
+	
 </style>
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
       <div class="container-fluid" style="padding: 0px 40px 0px 40px;">
@@ -46,38 +51,39 @@
                   <li class="active">
                   	<a style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
                   </li>
-                  <!--
+                 <li>
+                  	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
+                  		<img src="images/fl4.png" />
+                  	</a>
+                  </li>
+
                   <li>
-                  	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+                  	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<img src="images/fl1.png" />
                   	</a>
                   </li>                       
                   <li>
-                  	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+                  	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<img src="images/fl2.png" />
                   	</a>
                   </li> 
-                 	<li>
-                  	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
-                  		<img src="images/fl4.png" />
-                  	</a>
-                  </li>
-                  <li>
-                  	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+
+                  
+                 <li>
+                  	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<img src="images/fl3.png" />
                   	</a>
-                  </li>   
-                  --> 
-                  <li>
-                  	<a id="innames" style="color: #fff;font-size: 1em" href="javaScript:void(0);">
-                  		<img src="images/fl4.png" />
-                  	</a>
-                  </li>
-                  <li>
-                  	<a id="logout" style="color: #fff;font-size: 1em" href="javaScript:void(0);">
-                  		退出
-                  	</a>
-                  </li> 
+					  <ul class="dropdown-menu">
+					  	
+					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="basicPwd.html">修改密码</a></li>
+					    <li><a href="basicInfo.html">修改基本信息</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
+					  </ul>
+					  
+                 </li> 
                                      
               </ul>
           </div>
