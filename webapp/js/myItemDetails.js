@@ -310,6 +310,7 @@ $(function(){
                                         if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
                                                 json.data.label.owner != undefined && json.data.label.owner != null && json.data.label.owner != "null") {
                                                 var lables = json.data.label.owner;
+                                                $("#editItem .itemtag .value").html("");
                                                 for(var i in lables) {
                                                         createItemTag(i, lables[i]);
                                                 }
