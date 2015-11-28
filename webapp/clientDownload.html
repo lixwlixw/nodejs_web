@@ -49,7 +49,7 @@
                             <div class="goway" id="gosetup_3">Set&nbsp;up</div>
                       </div>
                  </div>
-                 <div class="sub-nav" id="setup_1"> <span class="sub-navicon"></span><a href="#" name="003" id="003">1、使用脚本安装</a></div>
+                 <div class="sub-nav" id="setup_1" style="padding-bottom:15px;"> <span class="sub-navicon"></span><a href="#" name="003" id="003">使用脚本安装</a></div>
                  <div class="boxworp bdbs">
                         <div class="nobg_p">支持64位Debian，ubuntu，freebsd操作系统。打开终端，输入：</div>
                         <div class="bg_p">curl -sSL https://dataos.io/datahub/install.sh | sh -s <span class="havetoken"></span></div>
@@ -60,7 +60,7 @@
                         <div class="nobg_p">启动DataHub 服务:</div>
                         <div class="bg_p">sudo datahub --daemon --token <span class="havetoken"></span></div>
                  </div>
-                 <div class="sub-nav" id="setup_2"> <span class="sub-navicon"></span><a href="#" name="004" id="004">2.使用源码安装:</a></div>
+                 <div class="sub-nav" id="setup_2" style="padding-bottom:15px;"> <span class="sub-navicon"></span><a href="#" name="004" id="004">使用源码安装:</a></div>
                  <div class="boxworp bdbs">
                         <div class="nobg_p">在安装GO(go1.4以上版本)语言和设置完GOPATH环境变量之后，安装DataHub Client：</div>
                         <div class="bg_p">go get github.com/asiainfoLDP/datahub</div>
@@ -69,7 +69,7 @@
                         <div class="nobg_p">停止DataHub服务</div>
                         <div class="bg_p">sudo $GOPATH/bin/datahub stop</div>
                  </div>
-                 <div class="sub-nav" id="setup_3"> <span class="sub-navicon"></span><a href="#" name="005" id="005">3.使用Docker镜像:</a></div>
+                 <div class="sub-nav" id="setup_3" style="padding-bottom:15px;"> <span class="sub-navicon"></span><a href="#" name="005" id="005">使用Docker镜像:</a></div>
                  <div class="boxworp bdbs">
                         <div class="bg_p">
                                 <p>git clone https://github.com/asiainfoLDP/datahub</p>
@@ -90,14 +90,14 @@
                         <div class="monitorboxCon">
                              <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
                              <div class="nobg_p">EntryPoint：<span class="havePoint">xxxxxxxxx</span></div>
-                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgre"></strong><span class="statecolor statecolorgre">Client端运行正常</span></div>
+                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端运行正常</span></div>
                         </div>
                  </div>
                  <div class="clientTitle bdbs" style="margin-top:50px;">
                    <div class="titleImg title3"></div><strong><a href="#" name="007" id="007">运行Datahub CLI</a></strong>
                  </div>
                  <div class="sub-nav">
-                        <span class="sub-navicon"></span>DataHub CLI是DataHub Client的命令行客户端，用来执行DataHub相关命令。
+                        <span class="sub-navicon twobg"></span>DataHub CLI是DataHub Client的命令行客户端，用来执行DataHub相关命令。
                  </div>
                  <div class="boxworp">
                         <p class="bmargin fcolor0 fonttsize16">
@@ -144,7 +144,7 @@
                         </p>
                  </div>
                  <div class="sub-nav">
-                        <span class="sub-navicon"></span>DataHub Client 命令行使用说明。
+                        <span class="sub-navicon twobg"></span>DataHub Client 命令行使用说明。
                  </div>
                  <div class="notebox bddashed">
                         <p>NOTE:</p>
@@ -466,15 +466,15 @@
         </div>
        </div>
         <div class="rightbox">
-                <div class="right_p"><a href="#001">DataHub Client端介绍</a></div>
-                <div class="right_p"><a href="#002">DataHub Client端安装方式</a></div>
-                <ul class="waygo">
-                <li><a href="#003">脚本安装</a></li>
-                    <li><a href="#004">源码安装</a></li>
-                    <li><a href="#005">Docker镜像安装安装</a></li>
-                </ul>
-                <div class="right_p"><a href="#006">DataHub Client端运行状态监控</a></div>
-                <div class="right_p"><a href="#007">DataHub Client端命令行</a></div>
+                <div class="rightwrop">
+                        <div class="right_p activecur"><a href="#001">DataHub Client端介绍</a></div>
+                        <div class="right_p"><a href="#002">DataHub Client端安装方式</a></div>
+                        <div class="right_p"><span class="rboxicon"></span><a href="#003">脚本安装</a></div>
+                        <div class="right_p"><span class="rboxicon"></span><a href="#004">源码安装</a></div>
+                        <div class="right_p"><span class="rboxicon"></span><a href="#005">Docker镜像安装安装</a></div>
+                        <div class="right_p"><a href="#006">DataHub Client端运行状态监控</a></div>
+                        <div class="right_p"><a href="#007">DataHub Client端命令行</a></div>
+                </div>
         </div>         
 </div>
 <!-- 尾部 -->
@@ -534,6 +534,44 @@
       }
         
 $(function(){
+    $('.rightwrop div').click(function(){
+        $(this).addClass('activecur').siblings().removeClass('activecur');
+    });
+    var setarr = [];
+    for(var i=0 ;i<7;i++){
+        setarr[i] = document.getElementById('00'+(i+1)).offsetTop;
+    }
+    function settop(setnum){
+        $('.rightwrop div').eq(setnum).addClass('activecur').siblings().removeClass('activecur');
+    }
+    $(window).scroll(function(){
+        var stop = document.body.scrollTop ||document.documentElement.scrollTop;
+        console.log()
+        if (stop == 0){
+            settop(0)
+        }
+        if(stop>(setarr[1]-140)){
+            settop(1)
+        }
+        if(stop>(setarr[2]-140)){
+            settop(2)
+        }
+        if(stop>(setarr[3]-140)){
+            settop(3)
+        }
+        if(stop>(setarr[4]-140)){
+            settop(4)
+        }
+        if(stop>(setarr[5]-140)){
+            settop(5)
+        }
+        if(stop>(setarr[6]-140)){
+            settop(6)
+        }
+
+
+    });
+
      $("#gosetup_1").click(function(){
                   var sheight = document.documentElement.clientHeight;
                   var soffsetTop = document.getElementById('setup_1').offsetTop;    
