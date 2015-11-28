@@ -24,13 +24,16 @@ body{
     margin-top:40px;
     padding-bottom: 15px;
 }
+.clientintroduce a,.clientTitle a:hover,.sub-nav a:hover{
+    color: #337ab7;
+}
 .leftbox{
     width: 75%;
     float: left;
 }
 .rightbox{
     width: 25%;
-    height: 100px;
+    height: 100%;
     float: left;
     padding-left:40px;
     padding-top:40px;
@@ -245,16 +248,11 @@ body{
     line-height: 30px;
     border-left: 2px solid #ffffff;
 }
-.right_p:hover{
-     border-left: 2px solid #0077aa;
-}
+
 .right_p a{
     color: #333;
 }
-.right_p a:hover{
-    color: #0077aa;
-   
-}
+
 .waygo{
     width: 100%;
     overflow: hidden;
@@ -265,19 +263,38 @@ body{
     line-height: 30px;
     border-right: 2px solid #ffffff;
 } 
-.waygo li:hover{
-     border-left: 2px solid #0077aa;
-}
+
 .waygo li a{
     color: #333;
 }
-.waygo li a:hover{
-         color: #0077aa;
+
+.rightwrop{
+    position: fixed;
+    top: 150px;
+    right:8%;
 }
 
+.activecur{
+    border-left: 2px solid #0077aa;
+    color: #0077aa;
+}
+.activecur a{
+    color: #0077aa;
+}
+.rboxicon{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    float: left;
+    border-radius: 5px;
+    background:#333;
+    margin-top:11px;
+    margin-right: 10px;
+}
 
-
-
+.twobg{
+    background: #337ab7;
+}
 
 
 
