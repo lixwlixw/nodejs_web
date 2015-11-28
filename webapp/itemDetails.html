@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/pagination.css">
 	<link rel="stylesheet" href="css/itemDetails.css">
-	<link rel="stylesheet" href="css/markd">
+	<link rel="stylesheet" href="css/markdown.css">
 
 </head>
 
@@ -137,13 +137,13 @@
 				<div class="exemple-head">
 					<span class="text">样例</span>
 				</div>
-				<div class="exemple-body"></div>
+				<div class="exemple-body markdown"></div>
 			</div>
 			<div id="dataitem-metadata">
 				<div class="metadata-head">
 					<span class="text">元数据</span>
 				</div>
-				<div class="metadata-body"></div>
+				<div class="metadata-body markdown"></div>
 			</div>
 		</div>
 	</div>
@@ -313,7 +313,7 @@
 						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
 						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", "/"+repname+"/"+itemname+":"+tag.tag));
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
 //						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
@@ -353,7 +353,7 @@
 
 								$("#show-message .login").hide();
 								$("#show-message .tag").remove();
-								$("<span><!--<a href=''>-->请下载客户端<!--</a>--></span>").addClass("tag").appendTo($("#show-message"));
+								$("<span><!--<a href=''>-->请下载Client端<!--</a>--></span>").addClass("tag").appendTo($("#show-message"));
 							});
 						}
 					}
