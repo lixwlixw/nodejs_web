@@ -19,10 +19,36 @@
 //   optimizer: fis.plugin('png-compressor')
 // });
 
+//fis.match('!/js/lib/**.{js,css}', {
+//	useHash: true
+//});
 
-fis.match('*.{js,css}', {
-  useHash: true
+
+//
+// fis.match('*', {
+//   useHash: true
+// });
+//
+//fis.match('*.html:js', {
+//  optimizer: fis.plugin('uglify-js')
+//});
+//
+//fis.match('*.html:css', {
+//    optimizer: fis.plugin('clean-css')
+//  });
+
+
+
+//fis.match("!/js/lib/**.{js,css}", {
+//	useHash: true
+//});
+
+fis.match(/.*(?!.*\/lib\/|.*\/plugins\/)^.*\.(js|css)/, {
+	useHash: true
 });
+
+
+
 
 //fis.match('*.js', {
 //	  // fis-optimizer-uglify-js 插件进行压缩，已内置

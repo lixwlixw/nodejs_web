@@ -20,8 +20,12 @@
 // });
 
 
-fis.match('*.{js,css}', {
-  useHash: true
+//fis.match('*.{js,css}', {
+//  useHash: true
+//});
+
+fis.match(/.*(?!.*\/lib\/|.*\/plugins\/)^.*\.(js|css)/, {
+	useHash: true
 });
 
 //fis.match('*.js', {

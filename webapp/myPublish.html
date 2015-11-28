@@ -79,6 +79,14 @@
 					dataType:'json',
 					data:JSON.stringify(data),
 					headers:{ Authorization:"Token "+$.cookie("token") },
+					beforeSend:function(){
+						$('#addRep .submit input').attr('disabled','disabled');
+						$('#addRep .submit input').val("正在保存中");
+					},
+					complete:function(){
+						$('#addRep .submit input').removeAttr('disabled');
+						$('#addRep .submit input').val("提交");
+					},
 					success:function(json){
 						if(json.code == 0){
 							location.reload();
@@ -188,7 +196,7 @@
 			$("#publish-body .repolist .describe").click(function () {
 				var thos = $(this);
 				//获取仓库名
-				var repname = $(this).find(".head .head-text a:first").text();
+				var repname = $(this).find(".head .head-text").text();
 				//请求item详情
 				var rep = getRep(reps, repname);
 				//没有item就不请求，直接返回，也不折叠items列表
@@ -250,6 +258,18 @@
 							var icons = $("<span></span>").appendTo(dtail);
 							icons.append($("<span></span>").addClass("icon1"));
 							icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
+							if(rep.dataitems.length == 0) {
+								tablelist.children().hide();
+								var noitem = $("<div id='noitem'></div>").css({width:"100%", height:"50px",lineHeight:"50px", textAlign:"center", color:"gray", fontSize:"14px"})
+									.text("没有Items！")
+									.appendTo(tablelist);
+							}else {
+								tablelist.children().show();
+								if($("noitem").length > 0){
+									$("noitem").remove();
+								}
+
+							}
 						}
 						//动画
 						var o = thos.next();
@@ -275,7 +295,7 @@
 					var describe = $("<div></div>").addClass("describe").appendTo(reporecord);
 					//创建head并追加到describe
 					var head = $("<div></div>").addClass("head").appendTo(describe);
-					head.append($("<span></span>").addClass("head-text").append($("<a></a>").attr("href", "repDetails.html?repname="+rep.repname).text(rep.repname)));
+					head.append($("<span></span>").addClass("head-text").text(rep.repname));
 					head.append($("<span></span>").addClass("head-icon1"));
 					head.append($("<span></span>").addClass("head-icon2"));
 					//创建body，并追加到describe
@@ -314,16 +334,12 @@
 					opacity:"0.7"
 				}).appendTo($("#publish-body .repolist"));
 			}
-			//阻止事件传递
-			$(".reporecord .head .head-text a:first").click(function(e) {
-				stopEventStrans(e);
-			});
 			//修改rep
 			$(".reporecord .head .head-icon2").click(function(e) {
 				$("#addRep .submit input").attr("repevent", "edit");
 				$("#addRep .head span").text("修改Repository");
 				$("#addRep .repname .value input").attr("disabled", "disabled");
-				var repname = $(this).parent().find("a:first").text();
+				var repname = $(this).parent().find(".head-text:first").text();
 				$("#addRep .repname .value input").val(repname);
 				$.ajax({
 					url: ngUrl+"/repositories/"+repname,
