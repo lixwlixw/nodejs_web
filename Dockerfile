@@ -10,7 +10,7 @@ RUN mkdir -p /datahub/raw/main/webapp
 ADD ./webapp /datahub/raw/main/webapp
 ADD ./fis-config.js /datahub/raw/main/fis-config.js
 WORKDIR /datahub/raw/main/webapp
-RUN fis3 release -d /datahub/src/main/webapp -f /datahub/raw/main/fis-config.js
+RUN fis3 release -d /datahub/src/main/ -f /datahub/raw/main/fis-config.js
 
 CMD ["/start.sh"]
 #ENTRYPOINT ["/start.sh"]
