@@ -515,7 +515,6 @@
             headers:{Authorization:"Token "+account},
             success: function(msg){
                   if(msg.data == null){
-                      alert("1111");
                     $('.havePoint').html("entrypoint为空"); 
                     $('.statecolor').html('Client端失去连接');
                     $('.stateicon').addClass('stateiconrgred').removeClass('stateiconrgre');
@@ -523,7 +522,6 @@
 
                   }
                if(msg.data != null) {
-                      alert("222");
                     $('.havePoint').html(msg.data.entrypoint); 
                     $('.statecolor').html('Client端正常连接');
                     $('.stateicon').addClass('stateiconrgre').removeClass('stateiconrgred');
