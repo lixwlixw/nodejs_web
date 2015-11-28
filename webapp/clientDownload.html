@@ -571,28 +571,22 @@ $(function(){
 
 
     });
-
+    function clicksettop(objid){
+        var sheight = document.documentElement.clientHeight;
+        var soffsetTop = document.getElementById(objid).offsetTop;
+        if(sheight<soffsetTop){
+            window.scrollTo(0,soffsetTop-50)
+        }
+    }
      $("#gosetup_1").click(function(){
-                  var sheight = document.documentElement.clientHeight;
-                  var soffsetTop = document.getElementById('setup_1').offsetTop;    
-                if(sheight<soffsetTop){
-                     window.scrollTo(0,soffsetTop-50)
-                 }
+         clicksettop('setup_1') ;
       });
      $("#gosetup_2").click(function(){
-                  var sheight = document.documentElement.clientHeight;
-                  var soffsetTop = document.getElementById('setup_2').offsetTop;    
-                if(sheight<soffsetTop){
-                     window.scrollTo(0,soffsetTop-50)
-                 }
-      });
+         clicksettop('setup_2') ;
+     });
      $("#gosetup_3").click(function(){
-                  var sheight = document.documentElement.clientHeight;
-                  var soffsetTop = document.getElementById('setup_3').offsetTop;    
-                if(sheight<soffsetTop){
-                     window.scrollTo(0,soffsetTop-50)
-                 }
-      });
+         clicksettop('setup_3') ;
+     });
 })
            
     
