@@ -252,17 +252,17 @@
 								var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
 								var titletime = item.optime.substring(0,item.optime.indexOf("."));
 								row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
-								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"开放"));
 								row.append($("<span></span>").addClass("col4").text(item.tags));
 							}
 							var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
 							var icons = $("<span></span>").appendTo(dtail);
-							icons.append($("<span></span>").addClass("icon1"));
+//							icons.append($("<span></span>").addClass("icon1"));
 							icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
 							if(rep.dataitems.length == 0) {
 								tablelist.children().hide();
 								var noitem = $("<div id='noitem'></div>").css({width:"100%", height:"50px",lineHeight:"50px", textAlign:"center", color:"gray", fontSize:"14px"})
-									.text("没有Items！")
+									.text("Items量为0！")
 									.appendTo(tablelist);
 							}else {
 								tablelist.children().show();
@@ -297,7 +297,7 @@
 					//创建head并追加到describe
 					var head = $("<div></div>").addClass("head").appendTo(describe);
 					head.append($("<span></span>").addClass("head-text").text(rep.repname));
-					head.append($("<span></span>").addClass("head-icon1"));
+//					head.append($("<span></span>").addClass("head-icon1"));
 					head.append($("<span></span>").addClass("head-icon2"));
 					//创建body，并追加到describe
 					var body = $("<div></div>").addClass("body").text(rep.comment).appendTo(describe);
@@ -310,7 +310,7 @@
 					var titletime = rep.optime.substring(0,rep.optime.indexOf("."));
 					left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
 					left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
-					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"公有"));
+					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"开放"));
 					left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
 					left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
 					left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
@@ -438,7 +438,7 @@
 							<div class="value">
 								<select>
 									<option value="private">私&nbsp;&nbsp;有</option>
-									<option value="public">公&nbsp;&nbsp;有</option>
+									<option value="public">开&nbsp;&nbsp;放</option>
 								</select>
 							</div>
 						</div>

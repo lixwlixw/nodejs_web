@@ -312,7 +312,7 @@ $(function(){
                                                 var lables = json.data.label.owner;
                                                 $("#editItem .itemtag .value").html("");
                                                 for(var i in lables) {
-                                                        createItemTag(i, lables[i]);
+                                                        createItemTag(i, lables[i], false);
                                                 }
                                         }
                                 }
@@ -354,6 +354,7 @@ $(function(){
                                 if(json.code == 0){
                                         //修改label
                                         var datalabel = {};
+                                        var dellabel = "?";
                                         var itemtagDiv = $("#editItem .itemtag .value");
                                         var labels = itemtagDiv.children("div");
                                         for(var i=0; i<labels.length; i++) {
@@ -364,9 +365,30 @@ $(function(){
                                                         alert("标签名和标签值不能为空！");
                                                         return;
                                                 }
-                                                datalabel["owner."+labelkey] = labelvalue;
+                                                if(label.attr("del") == "true") {
+                                                        dellabel +="owner."+labelkey +"="+ labelvalue+"&";
+                                                }else {
+                                                        datalabel["owner."+labelkey] = labelvalue;
+                                                }
 
                                         }
+                                        $.ajax({
+                                                url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label"+dellabel,
+                                                type: "DELETE",
+                                                cache:false,
+                                                data:{},
+                                                async:false,
+                                                dataType:'json',
+                                                //data:dellabel,
+                                                headers:{ Authorization:"Token "+$.cookie("token") },
+                                                success:function(json){
+                                                        if(json.code == 0){
+                                                        }
+                                                },
+                                                error:function(json){
+                                                        alert(json.msg);
+                                                }
+                                        });
                                         $.ajax({
                                                 url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
                                                 type: "PUT",
@@ -378,7 +400,6 @@ $(function(){
                                                 headers:{ Authorization:"Token "+$.cookie("token") },
                                                 success:function(json){
                                                         if(json.code == 0){
-                                                                $('#editItem').modal('toggle');
                                                                 location.reload();
                                                         }
                                                 },
@@ -386,6 +407,7 @@ $(function(){
                                                         alert(json.msg);
                                                 }
                                         });
+                                        $('#editItem').modal('toggle');
                                 }
                         },
                         error:function(json){
@@ -396,14 +418,21 @@ $(function(){
         });
 })
 
-function createItemTag(tagkey, tagvalue) {
+function createItemTag(tagkey, tagvalue, newlabel) {
         tagkey = tagkey == undefined ? "": tagkey;
         tagvalue = tagvalue == undefined ? "": tagvalue;
         var itemtag = $("#editItem .itemtag .value");
         if(itemtag.children("div").length < 5) {
-                var persontag = $("<div></div>").addClass("persontag").appendTo(itemtag);
+                var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).appendTo(itemtag);
                 persontag.append($("<input/>").addClass("tagkey").attr("type", "text").val(tagkey));
                 persontag.append($("<div>=</div>").addClass("tagequal"));
                 persontag.append($("<input/>").addClass("tagvalue").attr("type", "text").val(tagvalue));
+                persontag.append($("<div class='delicon'></div>").click(function() {
+                        if(persontag.attr("newlabel") != "true") {
+                                persontag.attr("del", true).hide();
+                        }else {
+                                persontag.remove();
+                        }
+                }));
         }
 }

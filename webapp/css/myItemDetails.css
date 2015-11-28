@@ -512,6 +512,17 @@ body{
     margin-bottom: -4px;
     cursor: pointer;
 }
+#editItem .itemtag .key .addbtn .btnicon:hover {
+    background-image: url("../images/edit_item.png");
+    background-repeat: no-repeat;
+    background-position: -51px 0px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    margin-bottom: -4px;
+    margin-left: 5px;
+    cursor: pointer;
+}
 
 #editItem .itemtag .value {
     overflow: hidden;
@@ -519,14 +530,15 @@ body{
 #editItem .itemtag .value .persontag {
     overflow: hidden;
     width: 152px;
-    padding: 8px;
+    padding-right: 3px;
     float: left;
+    margin-bottom: 10px;
 }
 #editItem .itemtag .value .persontag input, #editItem .itemtag .value .persontag div {
     float: left;
 }
 #editItem .itemtag .value .persontag .tagkey,#editItem .itemtag .value .persontag .tagvalue {
-    width: 58px;
+    width: 53px;
     height: 22px;
     border: 1px solid #c7c7c7;
     font-size: 12px;
@@ -538,7 +550,27 @@ body{
 #editItem .itemtag .value .persontag .tagequal {
     margin: 0px 4px;
 }
-
+#editItem .itemtag .value .persontag .delicon {
+    background-image: url("../images/edit_item.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    margin-bottom: -4px;
+    cursor: pointer;
+    float: left;
+    margin-left: 3px;
+}
+#editItem .itemtag .value .persontag .delicon:hover {
+    background-image: url("../images/edit_item.png");
+    background-repeat: no-repeat;
+    background-position: -26px 0px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    margin-bottom: -4px;
+}
 #editItem .submit input{
     width: 458px;
     height: 40px;
