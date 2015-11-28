@@ -252,7 +252,7 @@
 								var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
 								var titletime = item.optime.substring(0,item.optime.indexOf("."));
 								row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
-								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"开放"));
 								row.append($("<span></span>").addClass("col4").text(item.tags));
 							}
 							var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
@@ -310,7 +310,7 @@
 					var titletime = rep.optime.substring(0,rep.optime.indexOf("."));
 					left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
 					left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
-					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"公有"));
+					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"开放"));
 					left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
 					left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
 					left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
@@ -438,7 +438,7 @@
 							<div class="value">
 								<select>
 									<option value="private">私&nbsp;&nbsp;有</option>
-									<option value="public">公&nbsp;&nbsp;有</option>
+									<option value="public">开&nbsp;&nbsp;放</option>
 								</select>
 							</div>
 						</div>
