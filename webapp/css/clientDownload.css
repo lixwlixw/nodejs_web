@@ -24,8 +24,14 @@ body{
     margin-top:40px;
     padding-bottom: 15px;
 }
-.clientintroduce a,.clientTitle a:hover,.sub-nav a:hover{
+.clientintroduce a{
     color: #337ab7;
+}
+.clientTitle a,.sub-nav a{
+    color:#000;
+}
+.clientTitle a:hover,.sub-nav a:hover{
+    color:#000;
 }
 .leftbox{
     width: 75%;
@@ -58,6 +64,9 @@ body{
 .clientTitle strong{
     margin-left:10px;
     font-size: 24px;
+
+}
+.clientTitle strong a{
     color: #000;
 }
 .boxworp{
@@ -282,8 +291,9 @@ body{
     color: #0077aa;
 }
 .rboxicon{
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
+    margin-left: 10px;
     display: inline-block;
     float: left;
     border-radius: 5px;

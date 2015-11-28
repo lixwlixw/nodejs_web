@@ -237,7 +237,7 @@
 		    					labelV="流式数据";
 		    				}
 		    				
-		    				var times=json.data.optime;
+		    				/* var times=json.data.optime;
 		    				var jdTime="";
 		    				var xdTime="";
 		    				var showTime="";
@@ -248,7 +248,17 @@
 		    					showTime=xdTime;
 		    				}else{
 		    					showTime=times;
-		    				}
+		    				} */
+		    				var times=json.data.optime;
+		    				var jdTime=times.substring(0, times.indexOf("."));
+		    				var xdTime="";
+		    				var showTime="";
+		    				var nums=times.indexOf("|");
+		    				if(nums!="-1"){
+		    					showTime=times.substring(times.indexOf("|")+1,times.length);
+		    				}else{
+		    					showTime=times.substring(0, times.indexOf("."));
+		    				} 
 		    				
 		    				var realname="";
 		    				//该用户昵称

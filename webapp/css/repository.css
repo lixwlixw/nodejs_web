@@ -285,7 +285,6 @@ body{
 }
 #introduce2 .introduce2-b {
     clear: both;
-    width: 278px;
     border: 1px solid #e5e5e5;
     padding:10px;
 }
@@ -461,7 +460,6 @@ body{
     font-weight: normal;
 }
 .box-wrop{
-   padding-left:40px;
     padding-right:20px;
 }
 .tab-head .tab-head-div a:hover{
@@ -472,7 +470,7 @@ body{
     float: none;
 }
 .repNamebg{
-    margin-left:40px;
+    margin-left:10px;
     margin-right:7px;
     width: 20px;
     height: 50px;

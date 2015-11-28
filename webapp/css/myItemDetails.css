@@ -140,7 +140,7 @@ body{
 
 }
 .leftnav li.cur div{
-    width: 149px;
+    width: 130px;
     height: 60px;
     line-height: 60px;
     font-weight: bold;
@@ -148,7 +148,7 @@ body{
     border-left: 3px solid #4dc499;
     border-right: 0 none;
     float: left;
-    font-size: 18px;
+    font-size: 15px;
     background: #fbfcfe;
 
 
