@@ -177,6 +177,14 @@ $(document).ready(function(){
 		type:"PUT",
 		cache:false,
 		async:false,
+		beforeSend:function(){
+  		  	$('#button01').attr('disabled','disabled');
+			$('#button01').text('正在保存中');
+  		},
+		complete:function(){
+			$('#button01').removeAttr('disabled');
+			$('#button01').text('提交');
+		},
 
 		headers:{Authorization:"Token "+$.cookie("token")},
 		datatype:'json',
