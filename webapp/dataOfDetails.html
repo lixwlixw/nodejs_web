@@ -53,7 +53,7 @@
 		<div id="userCom" style="float: left;margin-bottom:15px;"></div>
 	</div>
 	<div class="container" style="padding: 0px;">
-		<div class="col-md-12 col-sm-12" id="lComs" style="padding:0px;">			
+		<div class="col-md-12 col-sm-12" id="lComs" style="padding: 0px;">			
 			<div id="terminal-content-head"></div>
 			<div id="terminal-content-body"></div>	
 		</div>
@@ -113,7 +113,7 @@
 	    		success:function(json){ 
 	    			$("#loading").empty();
 	    				
-	    				var times=json.data.optime;
+	    				/* var times=json.data.optime;
 	    				var jdTime="";
 	    				var xdTime="";
 	    				var showTime="";
@@ -124,7 +124,18 @@
 	    					showTime=xdTime;
 	    				}else{
 	    					showTime=times;
-	    				}
+	    				} */
+	    				
+	    			var times=json.data.optime;
+    				var jdTime=times.substring(0, times.indexOf("."));
+    				var xdTime="";
+    				var showTime="";
+    				var nums=times.indexOf("|");
+    				if(nums!="-1"){
+    					showTime=times.substring(times.indexOf("|")+1,times.length);
+    				}else{
+    					showTime=times.substring(0, times.indexOf("."));
+    				} 
 	    				
 	    				var subnum="";
 	    				$.ajax({
