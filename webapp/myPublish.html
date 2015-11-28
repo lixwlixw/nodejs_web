@@ -42,10 +42,11 @@
 			//addRep
 			$("#publish-head .add-icon").click(function() {
 				$("#addRep .submit input").attr("repevent", "add");
-				$("#addRep .head span").text("新增Repository");
+				$("#addRep .head .title").text("新增Repository");
 				$("#addRep .repname .value input").removeAttr("disabled");
 				$("#addRep .repname .value input").val("");
 				$("#addRep .repcomment .value textarea").val("");
+				$("#addRep .repname .key .promt").show();
 				$('#addRep').modal('toggle');
 			});
 			$("#addRep .submit input").click(function() {
@@ -337,8 +338,9 @@
 			//修改rep
 			$(".reporecord .head .head-icon2").click(function(e) {
 				$("#addRep .submit input").attr("repevent", "edit");
-				$("#addRep .head span").text("修改Repository");
+				$("#addRep .head .title").text("修改Repository");
 				$("#addRep .repname .value input").attr("disabled", "disabled");
+				$("#addRep .repname .key .promt").hide();
 				var repname = $(this).parent().find(".head-text:first").text();
 				$("#addRep .repname .value input").val(repname);
 				$.ajax({
@@ -414,11 +416,13 @@
 				<div class="modal-content">
 					<div class="modal-body" style="padding: 30px 30px 45px 30px">
 						<div class="head">
-							<span>新增Repository</span>
+							<span class="title">新增Repository</span>
 							<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 						</div>
 						<div class="repname">
-							<div class="key">Repository 名称</div>
+							<div class="key">
+								<span class="title">Repository 名称</span>
+								<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
 							<div class="value">
 								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"-"'>
 							</div>
