@@ -14,7 +14,7 @@ $(function(){
     var itemname = getParam("itemname");
     $('.renameitem').html(repname);
     $('.renameitem').attr("href","myPublish.html?repname="+repname);
-    $('.itemnameitem').html("/"+itemname);
+    $('.itemnameitem').html("&nbsp;/&nbsp;"+itemname);
 	$(document).on('click','.togglebox',function(){
 		 var body = $(this).closest(".record").children("div[class=body]:first");
 				body.slideToggle("fast");

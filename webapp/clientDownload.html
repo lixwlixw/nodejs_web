@@ -89,8 +89,8 @@
                         <div class="monitorboxTop"></div>
                         <div class="monitorboxCon">
                              <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
-                             <div class="nobg_p">EntryPoint：<span class="havePoint">xxxxxxxxx</span></div>
-                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端运行正常</span></div>
+                             <div class="nobg_p">EntryPoint：<span class="havePoint">entrypoint为空</span></div>
+                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>
                         </div>
                  </div>
                  <div class="clientTitle bdbs" style="margin-top:50px;">
@@ -515,12 +515,15 @@
             headers:{Authorization:"Token "+account},
             success: function(msg){
                   if(msg.data == null){
+                      alert("1111");
                     $('.havePoint').html("entrypoint为空"); 
                     $('.statecolor').html('Client端失去连接');
                     $('.stateicon').addClass('stateiconrgred').removeClass('stateiconrgre');
                     $('.statecolor').addClass('statecolorgred').removeClass('statecolorgre');
 
-                  }else{
+                  }
+               if(msg.data != null) {
+                      alert("222");
                     $('.havePoint').html(msg.data.entrypoint); 
                     $('.statecolor').html('Client端正常连接');
                     $('.stateicon').addClass('stateiconrgre').removeClass('stateiconrgred');
