@@ -1,8 +1,9 @@
+body {
+	background-color: #f5f5f5;
+}
 #myItems {
 	padding: 22px 40px;
-	background-color: #f5f5f5;
 	margin-top: 50px;
-	width: auto;
 }
 #myItems-head {
 	margin-bottom: 25px;

@@ -475,11 +475,7 @@ body{
     margin-bottom: 30px;
     border-radius: 5px;
     padding-left: 23px;
-    appearance:none;
-    -moz-appearance:none;
-    -ms-appearance:none;
-    -o-appearance:none;
-    -webkit-appearance:none;
+    border: 1px solid #666;
 }
 #editItem .itemtag {
     margin-bottom: 30px;
@@ -554,7 +550,7 @@ body{
     border: 0 none;
 }
 #editItem .submit input:hover {
-    background-color: #4d63d0;
+    background-color: #1998ce;
 }
 
 

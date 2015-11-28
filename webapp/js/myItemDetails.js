@@ -342,6 +342,14 @@ $(function(){
                         dataType:'json',
                         data:JSON.stringify(dataitem),
                         headers:{ Authorization:"Token "+$.cookie("token") },
+                        beforeSend:function(){
+                                $('#editItem .submit input').attr('disabled','disabled');
+                                $('#editItem .submit input').val("正在保存中");
+                        },
+                        complete:function(){
+                                $('#editItem .submit input').removeAttr('disabled');
+                                $('#editItem .submit input').val("提交");
+                        },
                         success:function(json){
                                 if(json.code == 0){
                                         //修改label

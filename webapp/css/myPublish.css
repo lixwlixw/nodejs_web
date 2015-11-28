@@ -1,8 +1,9 @@
+body{
+	background-color: #f5f5f5;
+}
 #publish {
 	padding: 22px 40px;
-	background-color: #f5f5f5;
 	margin-top: 50px;
-	width: auto;
 }
 #publish-head {
 	margin-bottom: 25px;
@@ -40,14 +41,9 @@
 #publish-body .repolist .describe .head {
 	margin-bottom: 20px;
 }
-#publish-body .repolist .reporecord .describe .head .head-text a {
+#publish-body .repolist .reporecord .describe .head .head-text {
 	font-size: 22px;
 	color: #0077aa;
-	color: #0077aa;
-}
-#publish-body .repolist .reporecord .describe .head .head-text a:hover{
-	text-decoration: underline;
-	cursor: pointer;
 }
 #publish-body .repolist .describe .head>span {
 	display: inline-block;
@@ -303,11 +299,6 @@
 	margin-bottom: 30px;
 	border-radius: 5px;
 	padding-left: 23px;
-	appearance:none;
-	-moz-appearance:none;
-	-ms-appearance:none;
-	-o-appearance:none;
-	-webkit-appearance:none;
 	border: 1px solid #666;
 }
 #addRep .submit input{
@@ -321,7 +312,7 @@
 	border:0 none;
 }
 #addRep .submit input:hover {
-	background-color: #4d63d0;
+	background-color: #1998ce;
 }
 
 
