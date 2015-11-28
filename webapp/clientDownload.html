@@ -489,6 +489,7 @@
     $("#loginTem").load("common/login.html");
     var account= $.cookie('token');
      var tname= $.cookie('tname');
+    alert(typeof account)
     //得到daemonid
     if(account != 'null'){
         $.ajax({
@@ -501,8 +502,8 @@
                 $('.havetoken').html(msg.data.daemonid);
             }
         });
-            }
-    else{
+        }
+    if(account == null || account == 'null'){
         $('.havetoken').html('xxxxxxxxxx');
     }
     // entrypoint
