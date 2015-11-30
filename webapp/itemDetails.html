@@ -110,12 +110,35 @@
 				<span class="itemname"></span>
 			</div>
 			<div id="dataitem-head-right" style="text-align: right;float: right;">
-				<span class="star-icon icon" title="star量"></span>
-				<span class="star-value value"></span>
-				<span class="subscript-icon icon" title="订阅量"></span>
-				<span class="subscript-value value"></span>
-				<span class="downloaded-icon icon" title="pull量"></span>
-				<span class="downloaded-value value"></span>
+				<span class="star">
+					<span class="icon"  title="star量">
+						<span class="icon-image gray_star"></span
+						><span class="icon-text">Star</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="subscript">
+					<span class="icon" title="订购量">
+						<span class="icon-image"></span
+						><span class="icon-text">订购</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="downloaded">
+					<span class="icon" title="pull量"></span
+					><span class="value"></span>
+				</span>
+				<div id="authority-dialog">
+					<div class="up">
+						<span class="icon">&nbsp;</span
+						><span class="text">余额权限不足</span>
+					</div>
+					<div class="down">
+						<span>请发邮件至</span
+						><span class="email"></span
+						><span>申请订阅权限。</span>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div id="dataitem-body">
@@ -192,19 +215,130 @@
 			$(".modal-open").css("padding-right","15px");
 			$('#myModal').modal('toggle');
 		});
-		function stopPropagation(e) {
-			if (e.stopPropagation)
-				e.stopPropagation();
-			else
-				e.cancelBubble = true;
-		}
 		$(document).bind('click',function(e){
-			if(e.target.id != "show-message") {
-				$('#show-message').css('display','none');
+			if(e.target.id != "show-message" && e.target.id != "authority-dialog") {
+				$('#show-message').hide();
+				$("#authority-dialog").hide();
 			}
 		});
 		$('#dataitem-tag .tag-body .tag-5 .btn').click(function(e){
-			stopPropagation(e);
+			stopEventStrans(e);
+		});
+		$("#dataitem-head-right .star .icon").click(function(e) {
+			stopEventStrans(e);
+			if(!login) {
+				var off = $(this).parent().offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}else {
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var authorization = login ? {Authorization:"Token "+$.cookie("token")}:"";
+				//查看是否点过赞
+				var starred = false;
+				$.ajax({
+					url: ngUrl+"/star/"+repname+"/"+itemname,
+					type: "GET",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					headers:authorization,
+					success:function(json){
+						if(json.code == 0){
+							starred = json.data.starred
+						}
+					},
+					error:function(json){
+						alert(JSON.stringify(JSON.parse(json.responseText)));
+					}
+				});
+				if(starred) {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=0",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars-1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("red_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("gray_star");
+							}
+						},
+						error:function(json){
+							alert(JSON.stringify(JSON.parse(json.responseText)));
+						}
+					});
+				}else {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=1",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars+1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+							}
+						},
+						error:function(json){
+							alert(JSON.stringify(JSON.parse(json.responseText)));
+						}
+					});
+				}
+			}
+		});
+		$("#dataitem-head-right .subscript .icon").click(function(e) {
+			stopEventStrans(e);
+			if(!login) {
+				var off = $(this).parent().offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}else {
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var create_user;
+				var subscripted;
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							subscripted = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				$("#authority-dialog .down .email").text(create_user);
+				if(subscripted == "private") {
+					$("#authority-dialog").show();
+					return;
+				}
+			}
+		});
+		$("#authority-dialog").click(function(e) {
+			stopEventStrans(e);
 		});
 	});
 
@@ -230,6 +364,7 @@
 	function ajaxRe(index){
 		var repname = getParam("repname");
 		var itemname = getParam("itemname");
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 		if(firsttry) {
 			index = 0;
 		}
@@ -252,6 +387,29 @@
 					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#dataitem-head-left .itemname").text(itemname);
 					//设置点赞量、订阅量、下载量
+					if(login) {
+						$.ajax({//初始化点赞
+							url: ngUrl+"/star/"+repname+"/"+itemname,
+							type: "GET",
+							cache:false,
+							data:{},
+							async:false,
+							dataType:'json',
+							headers:header,
+							success:function(json){
+								if(json.code == 0){
+									var starred = json.data.starred;
+									if(starred) {
+										$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+										$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+									}
+								}
+							},
+							error:function(json){
+								alert(JSON.stringify(JSON.parse(json.responseText)));
+							}
+						});
+					}
 					$.ajax({
 						url: ngUrl+"/star_stat/"+repname+"/"+itemname,
 						type: "get",
@@ -261,7 +419,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .star-value").text(json.data.numstars);
+								$("#dataitem-head-right .star .value").text(json.data.numstars);
 							}
 						},
 						error:function(json){
@@ -277,7 +435,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .subscript-value").text(json.data.numsubs);
+								$("#dataitem-head-right .subscript .value").text(json.data.numsubs);
 							}
 						},
 						error:function(json){
@@ -293,7 +451,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .downloaded-value").text(json.data.numpulls);
+								$("#dataitem-head-right .downloaded .value").text(json.data.numpulls);
 							}
 						},
 						error:function(json){
@@ -321,7 +479,6 @@
 						//设置tag下载量
 						var numpulls = -1;
 						var nummypulls = -1;
-						var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 						$.ajax({
 							url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
 							type: "get",
@@ -419,6 +576,14 @@
 			value = itemid.exec(decodeURIComponent(window.location.href))[1];
 		}
 		return value;
+	}
+	function stopEventStrans(e) {
+		e = e || window.event;
+		if (e.stopPropagation) {
+			e.stopPropagation();//IE以外
+		} else {
+			e.cancelBubble = true;//IE
+		}
 	}
 </script>
 </html>

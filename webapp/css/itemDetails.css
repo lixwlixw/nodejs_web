@@ -39,7 +39,7 @@
 	min-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 30px;
-	overflow: hidden;
+	overflow: visible;
 }
 #dataitem-head-left {
 	font-size: 0px;
@@ -73,50 +73,125 @@
 	font-size: 20px;
 	color: #29abe2;
 }
-#dataitem-head-right {
-	width: auto;
-	height: 100%;
-	padding-right: 10px;
-	font-size: 0px;
-	margin-top: 20px;
-	margin-bottom: -5px;
-	margin-bottom: 5px;
+#authority-dialog {
+	width: 420px;
+	height: 110px;
+	border: 5px solid #e5e5e5;
+	background-color: #fff;
+	text-align: center;
+	z-index: 100;
+	position: absolute;
+	left: -130px;
+	top: 25px;
+	padding: 25px 0px;
+	display: none;
 }
-#dataitem-head-right>span {
-	font-size: 12px;
-	color: #666;
-}
-#dataitem-head-right>span,#introduce4 .icons>span {
+#authority-dialog span {
 	display: inline-block;
 }
-#dataitem-head-right .icon{
-	margin-left: 10px;
-	margin-top: 1px;
-	margin-bottom: -1px;
-}
-#dataitem-head-right .value{
-	margin-left: 3px;
-}
-#dataitem-head-right .star-icon, #introduce4 .icons .star-icon {
-	background-image: url("../images/sliceU1.png");
+#authority-dialog .up .icon {
+	background-image: url("../images/emo.png");
 	background-repeat: no-repeat;
-	background-position: -61px -8px;
-	width: 12px;
-	height: 12px;
+	background-position: 0px 0px;
+	width: 22px;
+	height: 22px;
+	margin-right: 5px;
 }
-#dataitem-head-right .subscript-icon, #introduce4 .icons .subscript-icon {
-	background-image: url("../images/sliceU1.png");
+#authority-dialog .up {
+	font-size: 16px;
+	color: #000;
+	font-weight: 900;
+	line-height: 22px;
+	margin-bottom: 10px;
+}
+#authority-dialog .down {
+	font-size: 16px;
+	color: #666;
+	font-weight: 900;
+	line-height: 22px;
+}
+#authority-dialog .down>span {
+	margin-right: 8px;
+}
+#authority-dialog .down .email {
+	color: #29abe2;
+	cursor: pointer;
+}
+#dataitem-head-right {
+	font-size: 12px;
+	padding-right: 10px;
+	margin-top: 15px;
+	position: relative;
+}
+#dataitem-head-right span{
+	display: inline-block;
+}
+#dataitem-head-right .star .icon,#dataitem-head-right .subscript .icon {
+	font-size: 14px;
+	color: #333;
+	cursor: pointer;
+	background-color: #f5f5f5;
+}
+#dataitem-head-right .star .icon:hover,#dataitem-head-right .subscript .icon:hover {
+	background-color: #e5e5e5;
+}
+#dataitem-head-right .star .value,#dataitem-head-right .subscript .value {
+	font-size: 12px;
+	color: #333;
+	background-color: #fff;
+}
+#dataitem-head-right .star>span,#dataitem-head-right .subscript>span {
+	padding: 0px 8px;
+	border: 1px solid #e5e5e5;
+	vertical-align: middle;
+}
+#dataitem-head-right .star .value,#dataitem-head-right .subscript .value{
+	border-left: none;
+}
+#dataitem-head-right>span {
+	height: 26px;
+	line-height: 26px;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+#dataitem-head-right>span .icon .icon-image, #dataitem-head-right .downloaded .icon {
+	margin-right: 3px;
+}
+#dataitem-head-right .star .icon .gray_star{
+	background-image: url("../images/itemdetail_icon.png");
 	background-repeat: no-repeat;
-	background-position: -92px -8px;
-	width: 12px;
-	height: 12px;
+	background-position: 0px 0px;
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	margin-bottom: -2px;
 }
-#dataitem-head-right .downloaded-icon, #introduce4 .icons .downloaded-icon {
+.red_star {
+	background-image: url("../images/red_star.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#dataitem-head-right .subscript .icon .icon-image{
+	background-image: url("../images/itemdetail_icon.png");
+	background-repeat: no-repeat;
+	background-position: -45px 0px;
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+#dataitem-head-right .downloaded .icon{
 	background-image: url("../images/sliceU1.png");
 	background-repeat: no-repeat;
 	background-position: -125px -8px;
 	width: 12px;
 	height: 12px;
+	margin-top: 2px;
+	margin-bottom: -2px;
 }
 #dataitem-tag .tag-head {
 	font-size: 0px;
@@ -152,7 +227,7 @@
 	line-height: 40px;
 	padding-left: 20px;
 }
-#dataitem-tag #show-message {
+#show-message {
 	width: 180px;
 	height: 70px;
 	border: 5px solid #e5e5e5;
