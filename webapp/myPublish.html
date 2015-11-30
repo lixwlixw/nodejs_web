@@ -56,7 +56,7 @@
 				data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
 				data["repaccesstype"] = $.trim($("#addRep .property .value select").val());
 				if($(this).attr("repevent") == "add") {
-					if(repname.search(/^[a-zA-Z0-9-]+$/) < 0) {
+					if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
 						alert('"Repository 名称"格式错误！');
 						return;
 					}else if(repname.length > 52){
@@ -424,7 +424,7 @@
 								<span class="title">Repository 名称</span>
 								<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
 							<div class="value">
-								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"-"'>
+								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
 							</div>
 						</div>
 						<div class="repcomment">
