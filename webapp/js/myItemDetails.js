@@ -14,7 +14,7 @@ $(function(){
     var itemname = getParam("itemname");
     $('.renameitem').html(repname);
     $('.renameitem').attr("href","myPublish.html?repname="+repname);
-    $('.itemnameitem').html("/"+itemname);
+    $('.itemnameitem').html("&nbsp;/&nbsp;"+itemname);
 	$(document).on('click','.togglebox',function(){
 		 var body = $(this).closest(".record").children("div[class=body]:first");
 				body.slideToggle("fast");
@@ -278,10 +278,10 @@ $(function(){
     function metadatabox(){
         $('.con-main').empty();
          var str =  '<div class="metadatabox">'+
-            '<div class="metadatatop">样例 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" target="_bank"></a></div></div>'+
-            '<div class="metadata-con markdown">'+marked(sample)+'</div>'+
-            '<div class="metadatatop">元数据 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" target="_bank"></a></div></div>'+
-            '<div class="metadata-con markdown">'+marked(meta)+'</div>'+
+            '<div class="metadatatop">样例 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" target="_bank"></a></div></div>'+
+            '<div class="metadata-con markdown-body">'+marked(meta)+'</div>'+
+            '<div class="metadatatop">元数据 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" target="_bank"></a></div></div>'+
+            '<div class="metadata-con markdown-body">'+marked(sample)+'</div>'+
             '</div>';
         $('.con-main').append(str);
     }

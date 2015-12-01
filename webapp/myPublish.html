@@ -42,10 +42,11 @@
 			//addRep
 			$("#publish-head .add-icon").click(function() {
 				$("#addRep .submit input").attr("repevent", "add");
-				$("#addRep .head span").text("新增Repository");
+				$("#addRep .head .title").text("新增Repository");
 				$("#addRep .repname .value input").removeAttr("disabled");
 				$("#addRep .repname .value input").val("");
 				$("#addRep .repcomment .value textarea").val("");
+				$("#addRep .repname .key .promt").show();
 				$('#addRep').modal('toggle');
 			});
 			$("#addRep .submit input").click(function() {
@@ -55,7 +56,7 @@
 				data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
 				data["repaccesstype"] = $.trim($("#addRep .property .value select").val());
 				if($(this).attr("repevent") == "add") {
-					if(repname.search(/^[a-zA-Z0-9-]+$/) < 0) {
+					if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
 						alert('"Repository 名称"格式错误！');
 						return;
 					}else if(repname.length > 52){
@@ -79,6 +80,14 @@
 					dataType:'json',
 					data:JSON.stringify(data),
 					headers:{ Authorization:"Token "+$.cookie("token") },
+					beforeSend:function(){
+						$('#addRep .submit input').attr('disabled','disabled');
+						$('#addRep .submit input').val("正在保存中");
+					},
+					complete:function(){
+						$('#addRep .submit input').removeAttr('disabled');
+						$('#addRep .submit input').val("提交");
+					},
 					success:function(json){
 						if(json.code == 0){
 							location.reload();
@@ -188,7 +197,7 @@
 			$("#publish-body .repolist .describe").click(function () {
 				var thos = $(this);
 				//获取仓库名
-				var repname = $(this).find(".head .head-text a:first").text();
+				var repname = $(this).find(".head .head-text").text();
 				//请求item详情
 				var rep = getRep(reps, repname);
 				//没有item就不请求，直接返回，也不折叠items列表
@@ -243,13 +252,25 @@
 								var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
 								var titletime = item.optime.substring(0,item.optime.indexOf("."));
 								row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
-								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"公有"));
+								row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"开放"));
 								row.append($("<span></span>").addClass("col4").text(item.tags));
 							}
 							var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
 							var icons = $("<span></span>").appendTo(dtail);
-							icons.append($("<span></span>").addClass("icon1"));
+//							icons.append($("<span></span>").addClass("icon1"));
 							icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
+							if(rep.dataitems.length == 0) {
+								tablelist.children().hide();
+								var noitem = $("<div id='noitem'></div>").css({width:"100%", height:"50px",lineHeight:"50px", textAlign:"center", color:"gray", fontSize:"14px"})
+									.text("Items量为0！")
+									.appendTo(tablelist);
+							}else {
+								tablelist.children().show();
+								if($("noitem").length > 0){
+									$("noitem").remove();
+								}
+
+							}
 						}
 						//动画
 						var o = thos.next();
@@ -275,8 +296,8 @@
 					var describe = $("<div></div>").addClass("describe").appendTo(reporecord);
 					//创建head并追加到describe
 					var head = $("<div></div>").addClass("head").appendTo(describe);
-					head.append($("<span></span>").addClass("head-text").append($("<a></a>").attr("href", "repDetails.html?repname="+rep.repname).text(rep.repname)));
-					head.append($("<span></span>").addClass("head-icon1"));
+					head.append($("<span></span>").addClass("head-text").text(rep.repname));
+//					head.append($("<span></span>").addClass("head-icon1"));
 					head.append($("<span></span>").addClass("head-icon2"));
 					//创建body，并追加到describe
 					var body = $("<div></div>").addClass("body").text(rep.comment).appendTo(describe);
@@ -289,7 +310,7 @@
 					var titletime = rep.optime.substring(0,rep.optime.indexOf("."));
 					left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
 					left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
-					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"公有"));
+					left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"开放"));
 					left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
 					left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
 					left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
@@ -314,16 +335,13 @@
 					opacity:"0.7"
 				}).appendTo($("#publish-body .repolist"));
 			}
-			//阻止事件传递
-			$(".reporecord .head .head-text a:first").click(function(e) {
-				stopEventStrans(e);
-			});
 			//修改rep
 			$(".reporecord .head .head-icon2").click(function(e) {
 				$("#addRep .submit input").attr("repevent", "edit");
-				$("#addRep .head span").text("修改Repository");
+				$("#addRep .head .title").text("修改Repository");
 				$("#addRep .repname .value input").attr("disabled", "disabled");
-				var repname = $(this).parent().find("a:first").text();
+				$("#addRep .repname .key .promt").hide();
+				var repname = $(this).parent().find(".head-text:first").text();
 				$("#addRep .repname .value input").val(repname);
 				$.ajax({
 					url: ngUrl+"/repositories/"+repname,
@@ -398,13 +416,15 @@
 				<div class="modal-content">
 					<div class="modal-body" style="padding: 30px 30px 45px 30px">
 						<div class="head">
-							<span>新增Repository</span>
+							<span class="title">新增Repository</span>
 							<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 						</div>
 						<div class="repname">
-							<div class="key">Repository 名称</div>
+							<div class="key">
+								<span class="title">Repository 名称</span>
+								<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
 							<div class="value">
-								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"-"'>
+								<input type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
 							</div>
 						</div>
 						<div class="repcomment">
@@ -418,7 +438,7 @@
 							<div class="value">
 								<select>
 									<option value="private">私&nbsp;&nbsp;有</option>
-									<option value="public">公&nbsp;&nbsp;有</option>
+									<option value="public">开&nbsp;&nbsp;放</option>
 								</select>
 							</div>
 						</div>

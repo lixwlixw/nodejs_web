@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/pagination.css">
 	<link rel="stylesheet" href="css/itemDetails.css">
-	<link rel="stylesheet" href="css/markd">
+	<link rel="stylesheet" href="css/editormd.css">
 
 </head>
 
@@ -110,12 +110,24 @@
 				<span class="itemname"></span>
 			</div>
 			<div id="dataitem-head-right" style="text-align: right;float: right;">
-				<span class="star-icon icon" title="star量"></span>
-				<span class="star-value value"></span>
-				<span class="subscript-icon icon" title="订阅量"></span>
-				<span class="subscript-value value"></span>
-				<span class="downloaded-icon icon" title="pull量"></span>
-				<span class="downloaded-value value"></span>
+				<span class="star">
+					<span class="icon"  title="star量">
+						<span class="icon-image gray_star"></span
+						><span class="icon-text">Star</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="subscript">
+					<span class="icon" title="订购量">
+						<span class="icon-image"></span
+						><span class="icon-text">订购</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="downloaded">
+					<span class="icon" title="pull量"></span
+					><span class="value"></span>
+				</span>
 			</div>
 		</div>
 		<div id="dataitem-body">
@@ -137,15 +149,26 @@
 				<div class="exemple-head">
 					<span class="text">样例</span>
 				</div>
-				<div class="exemple-body"></div>
+				<div class="exemple-body markdown-body"></div>
 			</div>
 			<div id="dataitem-metadata">
 				<div class="metadata-head">
 					<span class="text">元数据</span>
 				</div>
-				<div class="metadata-body"></div>
+				<div class="metadata-body markdown-body"></div>
 			</div>
 		</div>
+	</div>
+</div>
+<div id="authority-dialog">
+	<div class="up">
+		<span class="icon">&nbsp;</span
+		><span class="text">余额权限不足</span>
+	</div>
+	<div class="down">
+		<span>请发邮件至</span
+		><span class="email"></span
+		><span>申请订阅权限。</span>
 	</div>
 </div>
 <footer></footer>
@@ -161,6 +184,7 @@
 <script src="js/jquery.zclip.js"></script>
 <script src="js/jquery.pagination.js"></script>
 <script src='js/marked.js'></script>
+<script src='js/clipboard.min.js'></script>
 <script>
 	var login = false;
 	var firsttry = true;
@@ -173,7 +197,7 @@
 		$(".be-loader").fadeOut("slow");
 	});
 	$(window).load(function(){
-		$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
+		/*$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
 			path:'js/ZeroClipboard.swf',
 			copy:function() {
 				return $(this).parent().children(".plaintext:first").val();
@@ -181,7 +205,7 @@
 			afterCopy:function() {
 				alert("复制成功");
 			},
-		});
+		});*/
 		$("#dataitem-tag .tag-body .tag-5 .btn").click(function() {
 			var off = $(this).offset();
 			var dailog = $("#show-message");
@@ -192,19 +216,161 @@
 			$(".modal-open").css("padding-right","15px");
 			$('#myModal').modal('toggle');
 		});
-		function stopPropagation(e) {
-			if (e.stopPropagation)
-				e.stopPropagation();
-			else
-				e.cancelBubble = true;
-		}
 		$(document).bind('click',function(e){
-			if(e.target.id != "show-message") {
-				$('#show-message').css('display','none');
+			if(e.target.id != "show-message" && e.target.id != "authority-dialog") {
+				$('#show-message').hide();
+				$("#authority-dialog").hide();
 			}
 		});
 		$('#dataitem-tag .tag-body .tag-5 .btn').click(function(e){
-			stopPropagation(e);
+			stopEventStrans(e);
+		});
+		$("#dataitem-head-right .star .icon").click(function(e) {
+			stopEventStrans(e);
+			if(!login) {
+				var off = $(this).closest("#dataitem-head-right").offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}else {
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var authorization = login ? {Authorization:"Token "+$.cookie("token")}:"";
+				//查看是否公开
+				var access;
+				var create_user;
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							access = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				if(access !=  "public") {
+					$("#authority-dialog .down .email").text(create_user);
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				}
+				//查看是否点过赞
+				var starred = false;
+				$.ajax({
+					url: ngUrl+"/star/"+repname+"/"+itemname,
+					type: "GET",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					headers:authorization,
+					success:function(json){
+						if(json.code == 0){
+							starred = json.data.starred
+						}
+					},
+					error:function(json){
+						alert(JSON.stringify(JSON.parse(json.responseText)));
+					}
+				});
+				if(starred) {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=0",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars-1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("red_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("gray_star");
+							}
+						},
+						error:function(json){
+							alert(JSON.stringify(JSON.parse(json.responseText)));
+						}
+					});
+				}else {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=1",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars+1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+							}
+						},
+						error:function(json){
+							alert(JSON.stringify(JSON.parse(json.responseText)));
+						}
+					});
+				}
+			}
+		});
+		$("#dataitem-head-right .subscript .icon").click(function(e) {
+			stopEventStrans(e);
+			if(!login) {
+				var off = $(this).closest("#dataitem-head-right").offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}else {
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var create_user;
+				var subscripted;
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							subscripted = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				if(subscripted == "private") {
+					$("#authority-dialog .down .email").text(create_user);
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				}
+			}
+		});
+		$("#authority-dialog").click(function(e) {
+			stopEventStrans(e);
 		});
 	});
 
@@ -230,6 +396,7 @@
 	function ajaxRe(index){
 		var repname = getParam("repname");
 		var itemname = getParam("itemname");
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 		if(firsttry) {
 			index = 0;
 		}
@@ -252,6 +419,29 @@
 					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#dataitem-head-left .itemname").text(itemname);
 					//设置点赞量、订阅量、下载量
+					if(login) {
+						$.ajax({//初始化点赞
+							url: ngUrl+"/star/"+repname+"/"+itemname,
+							type: "GET",
+							cache:false,
+							data:{},
+							async:false,
+							dataType:'json',
+							headers:header,
+							success:function(json){
+								if(json.code == 0){
+									var starred = json.data.starred;
+									if(starred) {
+										$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+										$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+									}
+								}
+							},
+							error:function(json){
+								alert(JSON.stringify(JSON.parse(json.responseText)));
+							}
+						});
+					}
 					$.ajax({
 						url: ngUrl+"/star_stat/"+repname+"/"+itemname,
 						type: "get",
@@ -261,7 +451,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .star-value").text(json.data.numstars);
+								$("#dataitem-head-right .star .value").text(json.data.numstars);
 							}
 						},
 						error:function(json){
@@ -277,7 +467,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .subscript-value").text(json.data.numsubs);
+								$("#dataitem-head-right .subscript .value").text(json.data.numsubs);
 							}
 						},
 						error:function(json){
@@ -293,7 +483,7 @@
 						dataType:'json',
 						success:function(json){
 							if(json.code == 0){
-								$("#dataitem-head-right .downloaded-value").text(json.data.numpulls);
+								$("#dataitem-head-right .downloaded .value").text(json.data.numpulls);
 							}
 						},
 						error:function(json){
@@ -310,18 +500,25 @@
 						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
 						var tagtime=tag.optime;
 						var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
-						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
+						var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
 						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("value", "/"+repname+"/"+itemname+":"+tag.tag));
-//						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
+						var clipbtn = $("<input>").addClass("btn").attr("type", "button").attr("data-clipboard-action","copy").attr("data-clipboard-target", "#clipval_"+i).attr("value", "复制");
+						var clipboard = new Clipboard(clipbtn.get(0));
+						clipboard.on('success', function(e) {
+							alert("复制成功!");
+						});
+						clipboard.on('error', function(e) {
+							alert("暂不支持此浏览器,请手动复制或更换浏览器!");
+						});
+						td4.append(clipbtn);
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
 						var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
 						//设置tag下载量
 						var numpulls = -1;
 						var nummypulls = -1;
-						var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 						$.ajax({
 							url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
 							type: "get",
@@ -353,7 +550,7 @@
 
 								$("#show-message .login").hide();
 								$("#show-message .tag").remove();
-								$("<span><!--<a href=''>-->请下载客户端<!--</a>--></span>").addClass("tag").appendTo($("#show-message"));
+								$("<span><!--<a href=''>-->请下载Client端<!--</a>--></span>").addClass("tag").appendTo($("#show-message"));
 							});
 						}
 					}
@@ -366,7 +563,7 @@
 					$("#introduce1 .introduce1-body").text(json.data.comment);
 					//设置时间
 					var time=json.data.optime;
-					var atime = time.substring(0, time.indexOf("."));
+					var atime = time.substring(0, time.indexOf(".") > -1 ? time.indexOf(".") : time.indexOf("|"));
 					var btime = time.substring(time.indexOf("|")+1,time.length);
 					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime);
 					//设置标签
@@ -419,6 +616,14 @@
 			value = itemid.exec(decodeURIComponent(window.location.href))[1];
 		}
 		return value;
+	}
+	function stopEventStrans(e) {
+		e = e || window.event;
+		if (e.stopPropagation) {
+			e.stopPropagation();//IE以外
+		} else {
+			e.cancelBubble = true;//IE
+		}
 	}
 </script>
 </html>
