@@ -237,6 +237,34 @@
 				var repname = getParam("repname");
 				var itemname = getParam("itemname");
 				var authorization = login ? {Authorization:"Token "+$.cookie("token")}:"";
+				//查看是否公开
+				var access;
+				var create_user;
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							access = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				if(access !=  "public") {
+					$("#authority-dialog .down .email").text(create_user);
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				}
 				//查看是否点过赞
 				var starred = false;
 				$.ajax({
@@ -331,12 +359,8 @@
 						alert(json.msg);
 					}
 				});
-				$("#authority-dialog .down .email").text(create_user);
-				var off = $(this).parent().offset();
-				$("#authority-dialog")
-					.css({'top':off.top+30,'left':off.left})
-					.show();
 				if(subscripted == "private") {
+					$("#authority-dialog .down .email").text(create_user);
 					var off = $(this).closest("#dataitem-head-right").offset();
 					$("#authority-dialog")
 						.css({'top':off.top+30,'left':off.left-100})

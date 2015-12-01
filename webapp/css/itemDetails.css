@@ -124,7 +124,6 @@
 	position: relative;
 }
 #dataitem-head-right span{
-	height: 100%;
 	display: inline-block;
 }
 #dataitem-head-right .star .icon,#dataitem-head-right .subscript .icon {
