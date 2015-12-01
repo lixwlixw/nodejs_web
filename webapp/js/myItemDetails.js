@@ -287,7 +287,7 @@ $(function(){
     }
 
         $("#editItem .itemtag .key .addbtn .btnicon").click(function() {
-                createItemTag();
+                createItemTag("","",true);
         });
         $(".itemListName-icon").click(function() {
                 $.ajax({
