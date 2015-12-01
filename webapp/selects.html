@@ -132,6 +132,9 @@
 	});
 
 	$(document).ready(function(){
+		
+		$("#headerInput").attr("placeholder","查找更多数据");
+		
 		$.ajax({
 			url: ngUrl+"/select_labels",
     		type: "get",

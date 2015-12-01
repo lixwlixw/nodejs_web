@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/loader.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/search.css">
+<link rel="stylesheet" href="css/pagination.css"/>
 </head>
 
 <style>
@@ -21,6 +22,25 @@
 	}
 	.navbar-nav > li > a:focus{
 		background:none;
+	}
+	.pagination a,.pagination span{
+		display: inline;
+		float: none;
+	}
+	.pagination a, .pagination span{
+		padding:0.5em 1em;
+	}
+	.pagination a{
+		border:1px solid #e5e5e5;
+		color: #666;
+		border-radius: 3px;
+	}
+	.pagination span.current{
+		border-radius: 3px;
+		background: #29abe2;
+	}
+	.pagination{
+		float: right;
 	}
 </style>
 
@@ -58,14 +78,16 @@
 	<!-- 内容页 -->
 	<div class="container" style='padding:0px;margin-top:50px;'>
 	
-			<div class="col-md-12 col-sm-12" id="lComs">
+			<div class="col-md-12 col-sm-12" id="lComs" style="padding: 20px 0px">
 							
 				<div id="terminal-content-head"><b>为您找到相关结果</b><b id="ttnum" style="color: #0077aa;"></b>个</div>
 	
 				<div id="terminal-content-body"></div>
 				
-			</div>		
-		
+				<div class="pages"></div>	
+				
+			</div>
+						
 	</div>
 		
 	<!-- 尾部 -->
@@ -84,19 +106,14 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src="js/jquery.pagination.js"></script>
 <script>
+
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
 	$("#loginTem").load("common/login.html");
 
-/* 	if($.cookie("login_value")!=null){
-		$(window).load(function(){
-			$(".be-loader").fadeOut("slow");
-		});
-	}else{
-		$('#myModal').modal('toggle');	
-	} */
 	
 	var rtext='';
     var itemid = /\?.*rtext=([^&]*).*$/;
@@ -110,45 +127,52 @@
 	}
 
 	
-	$(window).load(function(){
+	$(window).load(function(){		
 		$(".be-loader").fadeOut("slow");
 	});
-	
-	
-	
-/*  	$.ajax({
-		url: ngUrl+"/search",
-		type: "get",
-		cache:false,
-	   	async:false,
-	   	data:{"text":"ddddd"},
-		dataType:'json',
-		success:function(json){    			
-			console.log("测试数据："+json);  			
-		}	
-	});  */  
-	
-	
-	
-	
+
 	
 </script>
 
 <script>
 	var repos=[];
-	
+	var totals=0;
 	$(window).load(function(){
 		$(".be-loader").fadeOut("slow");
 	});
 
-	$(document).ready(function(){	
+	$(document).ready(function(){
+		
+		getrepname(1);
 		ajaxRe();
+	    $(".pages").pagination(totals, {
+	        items_per_page: 5,
+	        num_display_entries: 1,
+	        num_edge_entries: 5 ,
+	        prev_text:"上一页",
+	        next_text:"下一页",
+	        ellipse_text:"...",
+//	      num_edge_entries:1,
+	        link_to:"javascript:void(0)",
+	        callback:fenS,
+	        load_first_page:false
+	    });
 	});
 	
+	function rel(str){
+		var s="";
+		if(str.indexOf(rtext)!=-1){
+			s=str.replace(rtext, "<span style=background-color:#fffe8f;>"+rtext+"</span>"); 
+		}else{
+			s=str;
+		}
+		return s;
+	}
 	
-	function ajaxRe(){
-		$.ajax({
-			url: ngUrl+"/search",
+    function getrepname(pages) {
+
+        $.ajax({
+			url: ngUrl+"/search?size=5&page="+pages,
     		type: "get",
     		cache:false,
     		data:data,
@@ -157,7 +181,7 @@
     		success:function(json){  	    			
     			if(json.data.length!=0){
     				var pages=json.data.results.length;
-    				var totals=json.data.total;
+    				totals=json.data.total;
     				$("#ttnum").text(totals);
     				for(var i=0;i<pages;i++){
     					repos.push([json.data.results[i].repname,json.data.results[i].itemname]);			
@@ -170,6 +194,25 @@
     			alert("程序出错，请稍后重试");
     		}
     	});
+    }
+    
+    
+    
+
+    
+    function fenS(new_page_index, pagination_container){
+
+    		$("#terminal-content-body").empty();
+        	repos=[];
+        	getrepname(new_page_index+1);
+        	ajaxRe();
+	
+    }
+    
+	
+	
+	function ajaxRe(){
+		
 		
 		//返回该DataItem的订阅量
         var dataitemd = [];
@@ -279,17 +322,17 @@
 		    					error:function(json){
 		    						alert("程序出错，请稍后重试");
 		    					}
-		    				});
+		    				});		    					
 		    				
 	    					$("#terminal-content-body").append(""+
 			    					"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
 										"<div class='repo-head'>"+
-											"<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
+											"<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+rel(repos[i][0])+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+rel(repos[i][1])+"</a></div>"+
 										//	"<div class='tab-head-icon'></div>"+
 											"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
 										"</div>"+
 										"<div class='repo-body'>"+
-											"<div id='repo-text'>"+json.data.comment+"</div>"+
+											"<div id='repo-text'>"+rel(json.data.comment)+"</div>"+
 											"<div class='repo-body-tail'>"+
 												"<div class='repo-body-tail-left'>"+
 													"<div class='updatetime-icon' title='更新时间'></div>"+
