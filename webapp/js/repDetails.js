@@ -245,7 +245,7 @@
                                 + '<td class="tag-1 rightsimg">'
                                 + '<span class="time-icon" title="更新时间"></span>'
                                 + '<span class="star-value" title="'+apendjson.jdTime+'">' + apendjson.showTime + '</span>'
-                                + '<span class="browse-icon" title="item量"></span>'
+                                + '<span class="browse-icon" title="tag量"></span>'
                                 + '<span class="subscript-value">' + apendjson.tagss + '</span>'
                                 + '</td>'
                                 + '<td class="tag-2 filletspan">'
