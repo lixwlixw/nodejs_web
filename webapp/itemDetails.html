@@ -476,7 +476,7 @@
 						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
 						var tagtime=tag.optime;
 						var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
-						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
+						var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
 						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
 						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
@@ -539,7 +539,7 @@
 					$("#introduce1 .introduce1-body").text(json.data.comment);
 					//设置时间
 					var time=json.data.optime;
-					var atime = time.substring(0, time.indexOf("."));
+					var atime = time.substring(0, time.indexOf(".") > -1 ? time.indexOf(".") : time.indexOf("|"));
 					var btime = time.substring(time.indexOf("|")+1,time.length);
 					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime);
 					//设置标签
