@@ -184,6 +184,7 @@
 <script src="js/jquery.zclip.js"></script>
 <script src="js/jquery.pagination.js"></script>
 <script src='js/marked.js'></script>
+<script src='js/clipboard.min.js'></script>
 <script>
 	var login = false;
 	var firsttry = true;
@@ -196,7 +197,7 @@
 		$(".be-loader").fadeOut("slow");
 	});
 	$(window).load(function(){
-		$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
+		/*$("#dataitem-tag .tag-body .tag-4 .btn").zclip({
 			path:'js/ZeroClipboard.swf',
 			copy:function() {
 				return $(this).parent().children(".plaintext:first").val();
@@ -204,7 +205,7 @@
 			afterCopy:function() {
 				alert("复制成功");
 			},
-		});
+		});*/
 		$("#dataitem-tag .tag-body .tag-5 .btn").click(function() {
 			var off = $(this).offset();
 			var dailog = $("#show-message");
@@ -478,8 +479,16 @@
 						var btagtime = tagtime.substring(0, tagtime.indexOf("."));
 						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
 						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
-//						td4.append($("<input>").addClass("btn").attr("type", "button").attr("value", "复制"));
+						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
+						var clipbtn = $("<input>").addClass("btn").attr("type", "button").attr("data-clipboard-action","copy").attr("data-clipboard-target", "#clipval_"+i).attr("value", "复制");
+						var clipboard = new Clipboard(clipbtn.get(0));
+						clipboard.on('success', function(e) {
+							alert("复制成功!");
+						});
+						clipboard.on('error', function(e) {
+							alert("暂不支持此浏览器,请手动复制或更换浏览器!");
+						});
+						td4.append(clipbtn);
 						var td5 = $("<td></td>").addClass("tag-5").append($("<input>").addClass("btn").attr("type", "button").attr("value", "Pull"));
 						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
 						var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
