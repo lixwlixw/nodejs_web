@@ -39,7 +39,7 @@
 	min-height: 50px;
 	background-color: #f7fafc;
 	margin-bottom: 30px;
-	overflow: visible;
+	overflow: hidden;
 }
 #dataitem-head-left {
 	font-size: 0px;
@@ -81,8 +81,6 @@
 	text-align: center;
 	z-index: 100;
 	position: absolute;
-	left: -130px;
-	top: 25px;
 	padding: 25px 0px;
 	display: none;
 }
@@ -120,10 +118,12 @@
 #dataitem-head-right {
 	font-size: 12px;
 	padding-right: 10px;
-	margin-top: 15px;
+	margin-top: 12px;
+	margin-bottom: 10px;
 	position: relative;
 }
 #dataitem-head-right span{
+	height: 100%;
 	display: inline-block;
 }
 #dataitem-head-right .star .icon,#dataitem-head-right .subscript .icon {
@@ -190,8 +190,8 @@
 	background-position: -125px -8px;
 	width: 12px;
 	height: 12px;
-	margin-top: 2px;
-	margin-bottom: -2px;
+	margin-top: -5px;
+	margin-bottom: 5px;
 }
 #dataitem-tag .tag-head {
 	font-size: 0px;

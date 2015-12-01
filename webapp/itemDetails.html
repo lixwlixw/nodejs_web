@@ -128,17 +128,6 @@
 					<span class="icon" title="pull量"></span
 					><span class="value"></span>
 				</span>
-				<div id="authority-dialog">
-					<div class="up">
-						<span class="icon">&nbsp;</span
-						><span class="text">余额权限不足</span>
-					</div>
-					<div class="down">
-						<span>请发邮件至</span
-						><span class="email"></span
-						><span>申请订阅权限。</span>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div id="dataitem-body">
@@ -169,6 +158,17 @@
 				<div class="metadata-body markdown-body"></div>
 			</div>
 		</div>
+	</div>
+</div>
+<div id="authority-dialog">
+	<div class="up">
+		<span class="icon">&nbsp;</span
+		><span class="text">余额权限不足</span>
+	</div>
+	<div class="down">
+		<span>请发邮件至</span
+		><span class="email"></span
+		><span>申请订阅权限。</span>
 	</div>
 </div>
 <footer></footer>
@@ -227,7 +227,7 @@
 		$("#dataitem-head-right .star .icon").click(function(e) {
 			stopEventStrans(e);
 			if(!login) {
-				var off = $(this).parent().offset();
+				var off = $(this).closest("#dataitem-head-right").offset();
 				$("#show-message")
 					.css({position: "absolute",'top':off.top+30,'left':off.left})
 					.show();
@@ -303,7 +303,7 @@
 		$("#dataitem-head-right .subscript .icon").click(function(e) {
 			stopEventStrans(e);
 			if(!login) {
-				var off = $(this).parent().offset();
+				var off = $(this).closest("#dataitem-head-right").offset();
 				$("#show-message")
 					.css({position: "absolute",'top':off.top+30,'left':off.left})
 					.show();
@@ -331,8 +331,15 @@
 					}
 				});
 				$("#authority-dialog .down .email").text(create_user);
+				var off = $(this).parent().offset();
+				$("#authority-dialog")
+					.css({'top':off.top+30,'left':off.left})
+					.show();
 				if(subscripted == "private") {
-					$("#authority-dialog").show();
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
 					return;
 				}
 			}
