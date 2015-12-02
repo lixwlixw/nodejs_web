@@ -10,7 +10,6 @@
 		
 		.selectBody:hover{
 			border-left: 5px solid #29abe2;
-			cursor: pointer;
 		}
 		
 		.repo-head-right a:hover{
