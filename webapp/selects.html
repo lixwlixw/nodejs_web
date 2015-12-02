@@ -10,18 +10,47 @@
 <link rel="stylesheet" href="css/loader.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/selects.css">
-
+<link rel="stylesheet" href="./css/pagination.css"/>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="./js/jquery.pagination.js"></script>
+	<script src="js/ngUrl.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/base64.js"></script>
+	<script src="js/md5.js"></script>
+	<script src="js/selects.js"></script>
 </head>
 
 <style>
 	.nav > li > a:hover{
-		background-color:rgba(31,154,218,0.7); 
-	}	
+		background-color:rgba(31,154,218,0.7);
+	}
 	.navbar-toggle .icon-bar {
 	    background-color: #fff;
 	}
 	.navbar-nav > li > a:focus{
 		background:none;
+	}
+	.pagination a, .pagination span{
+		padding:0.5em 1em;
+	}
+	.pagination a{
+		border:1px solid #e5e5e5;
+		color: #666;
+		border-radius: 3px;
+	}
+	.pagination span.current{
+		border-radius: 3px;
+		background: #29abe2;
+	}
+	.pagination{
+		width: 100%;
+		text-align: right;
+	}
+	.pagination a,.pagination span{
+		display: inline;
+		float: none;
 	}
 </style>
 
@@ -50,11 +79,11 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 头部导航 -->
 	<header></header>
-	
+
 	<!-- 内容页 -->
 	<div id="viewCon" class="container" style='padding:0px;margin-top:50px;background-color: #f5f5f5;'>
 
@@ -63,8 +92,8 @@
 					<ul id="navigator-ul">
 					</ul>
 			</div>
-			
-			<div class="col-md-10 col-sm-10" id="lComs" style="background-color: #f5f5f5;">			
+
+			<div class="col-md-10 col-sm-10" id="lComs" style="background-color: #f5f5f5;">
 				<!-- 适配 -->
 				<div id="navigator10" class="col-md-10 col-sm-10 navigator-background" ><!--TODO-->
 					<div id="navigator-name"><b>精选导航</b></div>
@@ -72,471 +101,27 @@
 					</ul>
 				</div>
 				<div id="terminal-content-head"><b id="allJ" style="font-size: 20px;color: #333;">全部精选</b></div>
-				<div id="terminal-content-body"></div>	
-			</div>		
-		
+				<div id="terminal-content-body"></div>
+				<div class="pages"></div>
+			</div>
+
 	</div>
-	
-	
-	
+
+
+
 	<!-- 尾部 -->
 	<footer></footer>
-	
+
 	<div id="loginTem"></div>
-	
+
 
 
 </body>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/ngUrl.js"></script>
-<script src="js/login.js"></script>
-<script src="js/base64.js"></script>
-<script src="js/md5.js"></script>
 <script>
-
-	function getParam(key) {
-		var value='';
-		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-		if (itemid.test(decodeURIComponent(window.location.href))) {
-			value = itemid.exec(decodeURIComponent(window.location.href))[1];
-		}
-		return value;
-	}
-
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
 	$("#loginTem").load("common/login.html");
-	
-	
-/* 	$(".selectBody").hover(function(){
-        alert("123");
-    },function(){
-        alert("234")  
-    }) */
-    
-/*     $(document).on('mouseenter','.selectBody',function(){
-    	alert("123")
-    }); */
-    
-	
-	var repos=[];
-	
-	$(window).load(function(){
-		$(".be-loader").fadeOut("slow");
-		$("#navigator").css("height",$("#lComs").height());
-	    $("#viewCon").css("min-height",document.body.clientHeight);
-	});
-
-	$(document).ready(function(){
-		
-		$("#headerInput").attr("placeholder","查找更多数据");
-		
-		$.ajax({
-			url: ngUrl+"/select_labels",
-    		type: "get",
-    		cache:false,
-    	   	async:false,
-    		dataType:'json',
-    		success:function(json){  
-    			if(json.data.length!=0){
-    				var pages=json.data.length;
-    				for(var i=0;i<pages;i++){
-    					$("#navigator-ul").append("<li><img src='images/nav_icon.png' style='margin-left:20px;margin-right:15px;'>"+json.data[i].labelname+"</img></li>");	
-    					$("#navigator-ul10").append("<li>"+json.data[i].labelname+"</li>");
-    				}
-    			}else{
-    				
-    			}
-				console.log("测试数据："+json.data.length);  			
-    		},
-    		error:function(json){
-    			alert("程序出错，请稍后重试");
-    		}
-    	});
-		
-		ajaxRe(1);
-		
-		
-		
-		$("body").on("click","#navigator-ul li",function(){
-			$("#terminal-content-body").empty();
-			$("#terminal-content-body").append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
-			repos.length = 0;//数据清空
-
-			$(this).siblings().css("background-color","#f9f9f9").css("color","#666");
-			$(this).siblings().removeClass("overs");
-			if($(this).hasClass("overs")){
-				$(this).removeClass("overs");
-				$(this).css("background-color","#f9f9f9").css("color","#666");
-				$("#allJ").text("全部精选");
-				ajaxRe(0);
-			}else{
-				$(this).addClass("overs");
-				$(this).css("background-color","#fff").css("color","#0077aa");
-				$("#allJ").text($(this).text()+"精选");
-				$.ajax({
-					url: ngUrl+"/selects?select_labels="+$(this).text(),
-		    		type: "get",
-		    		cache:false,
-		    	   	async:false,
-		    		dataType:'json',
-		    		success:function(json){  	    			
-		    			if(json.data.length!=0){
-		    				var pages=json.data.length;
-		    				for(var i=0;i<pages;i++){
-		    					repos.push([json.data[i].repname,json.data[i].itemname]);			
-		    				}
-		    			}else{
-		    				console.log("报错");  			
-		    			}	    		
-		    		},
-		    		error:function(json){
-		    			alert("程序出错，请稍后重试");
-		    		}
-		    	});
-				
-				//返回该DataItem的订阅量
-		        var dataitemd = [];
-		        for(var i= 0;i<repos.length;i++) {
-		            $.ajax({
-		                url: ngUrl + "/subscription_stat/" +repos[i][0],
-		                cache: false,
-		                async: false,
-		                success: function (msg) {
-		                    dataitemd.push(msg.data.numsubs);
-		                }
-		            });
-		        }
-		        //返回该DataItem的pull量
-		        var dataitemdpullNum = [];
-		        for(var i= 0;i<repos.length;i++) {
-		            $.ajax({
-		                url: ngUrl + "/transaction_stat/" +repos[i][0]+repos[i][1],
-		                cache: false,
-		                async: false,
-		                success: function (msg) {
-		                    dataitemdpullNum.push(msg.data.numpulls);
-		                }
-		            });
-		        }
-		        
-		      //返回该DataItem的star量
-		        var dataitemdstarNum = [];
-		        for(var i= 0;i<repos.length;i++) {
-		            $.ajax({
-		                url: ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],
-		                cache: false,
-		                async: false,
-		                success: function (msg) {
-		                	dataitemdstarNum.push(msg.data.numstars);
-		                }
-		            });
-		        }
-		        
-				
-				for(var i=0;i<repos.length;i++){
-					$.ajax({
-						url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
-			    		type: "get",
-			    		cache:false,
-			    	   	async:false,
-			    		dataType:'json',
-			    		success:function(json){ 
-			    			$("#loading").empty();
-		    					var vvclass="";
-		    					var label=json.data.label.sys.supply_style;
-		    					var labelV="";
-			    				if(label=="single"||label=="api"){
-			    					vvclass="api";
-			    					labelV="API";
-			    				}
-			    				if(label=="batch"){
-			    					vvclass="period";
-			    					labelV="批量数据";
-			    				}
-			    				if(label=="flow"){
-			    					vvclass="flot-data";
-			    					labelV="流式数据";
-			    				}
-			    				
-			    				var times=json.data.optime;
-			    				var jdTime=times.substring(0, times.indexOf("."));
-			    				var xdTime="";
-			    				var showTime="";
-			    				var nums=times.indexOf("|");
-			    				if(nums!="-1"){
-			    					showTime=times.substring(times.indexOf("|")+1,times.length);
-			    				}else{
-			    					showTime=times.substring(0, times.indexOf("."));
-			    				} 
-			    				
-			    				var realname="";
-			    				//该用户昵称
-			    				$.ajax({
-			    					url: ngUrl+"/users/"+json.data.create_user,
-			    					type: "get",
-			    					cache:false,
-			    					data:{},
-			    					async:false,
-			    					dataType:'json',
-			    					success:function(json){
-			    						if(json.code == 0){
-			    							realname=json.data.userName;
-			    						}else {
-			    							console.log("报错");
-			    						}
-			    					},
-			    					error:function(json){
-			    						alert("程序出错，请稍后重试");
-			    					}
-			    				});
-			    						    				
-			    				
-		    					$("#terminal-content-body").append(""+
-		    							"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
-											"<div class='repo-head'>"+
-												"<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
-											//	"<div class='tab-head-icon'></div>"+
-												"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
-											"</div>"+
-											"<div class='repo-body'>"+
-												"<div id='repo-text'>"+json.data.comment+"</div>"+
-												"<div class='repo-body-tail'>"+
-													"<div class='repo-body-tail-left'>"+
-														"<div class='updatetime-icon' title='更新时间'></div>"+
-														"<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
-														"<div class='tag-icon' title='tag数量'></div>"+
-														"<div class='tag-value'>"+json.data.tags+"</div>"+
-													"</div>"+
-													"<div class='repo-body-tail-mid'>"+
-														"<div class="+vvclass+">"+labelV+"</div>"+
-				    								"</div>"+
-													"<div class='repo-body-tail-right'>"+
-														"<div class='shwr'>"+
-															"<div class='star-icon' title='star量'></div>"+
-															"<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
-															"<div class='subscript-icon' title='订阅量'></div>"+
-		    				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
-		    				                                "<div class='downloaded-icon' title='pull量'></div>"+
-		    				                                "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
-				    				                        "</div>"+
-													"</div>"+
-												"</div>"+
-											"</div>"+
-										"</div>"
-				    				);	    		
-			    		},
-			    		error:function(json){
-			    			alert("程序出错，请稍后重试");
-			    		}
-		    		}); 
-				}
-				
-				
-				
-				
-			}
-			
-			if($("#lComs").height()>document.body.clientHeight){
-				$("#navigator").css("height","auto").css("min-height",$("#lComs").height());
-			}else{
-				$("#navigator").css("height","auto").css("min-height",document.body.clientHeight);
-			}
-
-			
-		});
-		
-		
-	});
-	
-	
-	function ajaxRe(num){
-		var urlt="";
-		if(num==1){
-			var type=getParam("type");
-			if(type!=""){
-				urlt=ngUrl+"/selects?select_labels="+type;
-				$("#allJ").text(type+"精选");
-			}else{
-				urlt=ngUrl+"/selects?select_labels";
-			}
-		}
-		if(num==0){
-			urlt=ngUrl+"/selects?select_labels";
-		}
-
-		
-		
-		
-		$.ajax({
-			url: urlt,
-    		type: "get",
-    		cache:false,
-    	   	async:false,
-    		dataType:'json',
-    		success:function(json){  
-    			if(json.data.length!=0){
-    				var pages=json.data.length;
-    				for(var i=0;i<pages;i++){
-    					repos.push([json.data[i].repname,json.data[i].itemname]);			
-    				}
-    			}else{
-    				console.log("报错");  			
-    			}	    		
-    		},
-    		error:function(json){
-    			alert("程序出错了，请稍后重试");
-    		}
-    	});
-		
-		//返回该DataItem的订阅量
-        var dataitemd = [];
-        for(var i= 0;i<repos.length;i++) {
-            $.ajax({
-                url: ngUrl + "/subscription_stat/" +repos[i][0],
-                cache: false,
-                async: false,
-                success: function (msg) {
-                    dataitemd.push(msg.data.numsubs);
-                }
-            });
-        }
-        //返回该DataItem的pull量
-        var dataitemdpullNum = [];
-        for(var i= 0;i<repos.length;i++) {
-            $.ajax({
-                url: ngUrl + "/transaction_stat/" +repos[i][0]+repos[i][1],
-                cache: false,
-                async: false,
-                success: function (msg) {
-                    dataitemdpullNum.push(msg.data.numpulls);
-                }
-            });
-        }
-        
-	      //返回该DataItem的star量
-        var dataitemdstarNum = [];
-        for(var i= 0;i<repos.length;i++) {
-            $.ajax({
-                url: ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],
-                cache: false,
-                async: false,
-                success: function (msg) {
-                	dataitemdstarNum.push(msg.data.numstars);
-                }
-            });
-        }
-        
-		for(var i=0;i<repos.length;i++){
-			$.ajax({
-				url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
-	    		type: "get",
-	    		cache:false,
-	    	   	async:false,
-	    		dataType:'json',
-	    		success:function(json){ 
-	    			$("#loading").empty();
-    					var vvclass="";
-    					var label=json.data.label.sys.supply_style;
-    					var labelV="";
-    					if(label=="single"||label=="api"){
-	    					vvclass="api";
-	    					labelV="API";
-	    				}
-	    				if(label=="batch"){
-	    					vvclass="period";
-	    					labelV="批量数据";
-	    				}
-	    				if(label=="flow"){
-	    					vvclass="flot-data";
-	    					labelV="流式数据";
-	    				}
-	    				
-	    				var times=json.data.optime;
-	    				var jdTime=times.substring(0, times.indexOf("."));
-	    				var xdTime="";
-	    				var showTime="";
-	    				var nums=times.indexOf("|");
-	    				if(nums!="-1"){
-	    					showTime=times.substring(times.indexOf("|")+1,times.length);
-	    				}else{
-	    					showTime=times.substring(0, times.indexOf("."));
-	    				} 
-	    				
-	    		        var realname="";
-	    				//该用户昵称
-	    				$.ajax({
-	    					url: ngUrl+"/users/"+json.data.create_user,
-	    					type: "get",
-	    					cache:false,
-	    					data:{},
-	    					async:false,
-	    					dataType:'json',
-	    					success:function(json){
-	    						if(json.code == 0){
-	    							realname=json.data.userName;
-	    						}else {
-	    							console.log("报错");
-	    						}
-	    					},
-	    					error:function(json){
-	    						alert("程序出错，请稍后重试");
-	    					}
-	    				});
-	    				
-    					$("#terminal-content-body").append(""+
-		    					"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
-									"<div class='repo-head'>"+
-										"<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
-									//	"<div class='tab-head-icon'></div>"+
-										"<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+	
-									"</div>"+
-									"<div class='repo-body'>"+
-										"<div id='repo-text'>"+json.data.comment+"</div>"+
-										"<div class='repo-body-tail'>"+
-											"<div class='repo-body-tail-left'>"+
-												"<div class='updatetime-icon' title='更新时间'></div>"+
-												"<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
-												"<div class='tag-icon' title='tag数量'></div>"+
-												"<div class='tag-value'>"+json.data.tags+"</div>"+
-											"</div>"+
-											"<div class='repo-body-tail-mid'>"+
-												"<div class="+vvclass+">"+labelV+"</div>"+
-		    								"</div>"+
-											"<div class='repo-body-tail-right'>"+
-												"<div class='shwr'>"+
-												"<div class='star-icon' title='star量'></div>"+
-												"<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
-												"<div class='subscript-icon' title='订阅量'></div>"+
-				                                "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
-				                                "<div class='downloaded-icon' title='pull量'></div>"+
-				                                "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
-		    				                        "</div>"+
-											"</div>"+
-										"</div>"+
-									"</div>"+
-								"</div>"
-		    				);	    		
-	    		},
-	    		error:function(json){
-	    			alert("程序出错，请稍后重试");
-	    		}
-    		}); 
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>
 </html>
