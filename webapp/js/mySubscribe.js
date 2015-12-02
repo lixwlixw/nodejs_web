@@ -80,7 +80,7 @@ $(function(){
                				}
                	 			var str = '<div class="sublist_con">'+
                   				'<div class="row subtitle">'+
-                  				'<div class="col-md-4 subtitlel"><a href="myItemDetails.html?repname='+repname+'&itemname='+itemname+'">'+repname+'/'+itemname+'</a></div>'+
+                  				'<div class="col-md-4 subtitlel"><a href="itemDetails.html?repname='+repname+'&itemname='+itemname+'">'+repname+'/'+itemname+'</a></div>'+
                   				'<div class="col-md-4 subtitlec"><span class="centericon" title="订阅时间"></span>'+subtime+'</div>'+
                   				'<div class="'+colors+'"><span title="pull量" class="'+rbg+'"></span>pull:'+pullnum+'</div>'+
                   				'</div>'+
