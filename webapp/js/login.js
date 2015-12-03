@@ -2,6 +2,25 @@
  * Created by Administrator on 2015/11/13.
  */
 $(function(){
+//	$(document).ready(function(){
+//		$(document).keydown(function(event){
+//			if(event.keyCode==13){
+//			$("#signs").click();
+//			}
+//		}); 
+//	
+//	})
+//
+	$(document).on('click','#sign-in',function(){	
+				 $(document).keydown(function(event){
+					if(event.keyCode==13){
+					$("#signs").click();
+					}
+				});	 
+	});
+	
+
+
 	$(document).on('click','#signs',function(){
         var exampleInputEmail1 = $('#exampleInputEmail1').val();
         var exampleInputPassword1 = $('#exampleInputPassword1').val();
@@ -43,8 +62,7 @@ $(function(){
 		$.cookie("token",null,{path:"/"}); 
 		location.href=window.location.href;
  	});
-	
-	
+
 });
 
 
