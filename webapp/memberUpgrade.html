@@ -208,6 +208,42 @@
 			$(".window3").slideDown(100);
 		});
 
+		$.ajax({
+			url:ngUrl+"/vip/"+$.cookie("tname"),
+				type:"get",
+				cache:false,
+				async:false,
+				headers:{Authorization:"Token "+$.cookie("token")},
+				datatype:'json',
+				success:function(d){
+					var UT=d.data.userType;
+					if (UT==0)
+					{
+						
+					}
+					else if (UT==1)
+					{
+						$(".btn3").hide();	
+					}
+					else if (UT==2)
+					{
+						$(".btn3").hide();
+						$(".btn2").hide();		
+					}
+					else if (UT==3)
+					{
+						$(".btn3").hide();
+						$(".btn2").hide();
+						$(".btn1").hide();
+					}
+					
+				},
+				error:function(){
+
+				}
+	
+			});
+	
 	});
 
 	$(document).bind("click",function(e){
