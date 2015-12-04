@@ -129,6 +129,94 @@
 					><span class="value"></span>
 				</span>
 			</div>
+			<div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">数据订购合约</h4>
+						</div>
+						<div class="subcontent">
+							<div class="modal-body">
+								<div class="sub0">
+									<div class="requirera">
+										<span class="ptext">数据需求方（甲方）：</span>
+										<input class="itext" type="text">
+									</div>
+									<div class="requirerb">
+										<span class="ptext">数据需求方（乙方）：</span>
+										<input class="itext" type="text">
+									</div>
+								</div>
+								<div class="sub1">
+									<div class="shead">一、服务内容</div>
+									<div class="sbody">
+										乙方向甲方提供名为“repo名称/item名称”的数据服务，乙方保证所提供数据的内容与“repo名称”描述，“Ietm名称”描述、样例数据、元数据申明的一致，并保障数据质量。
+									</div>
+								</div>
+								<div class="sub2">
+									<div class="shead">二、双方权利与义务</div>
+									<div class="sbody">
+										<div>1、若由于乙方原因导致用户订购的数据内容无法完整获取，则乙方全额退回本次订购的全部款项。</div>
+										<div>2、若乙方提供的数据与申明不符，甲方可向DataHub平台申请，将本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效。</div>
+										<div>3、乙方拥有发布于DataHub平台的“repo名称/item名称”的数据版权。</div>
+									</div>
+								</div>
+								<div class="sub3">
+									<div class="shead">三、双方权利与义务</div>
+									<div class="sbody">
+										<div class="charge-head">本次数据服务费用标准如下：</div>
+										<div class="charge-body">
+										</div>
+									</div>
+								</div>
+								<div class="sub4">
+									<div class="shead">四、甲方向乙方支付费用的方式</div>
+									<div class="sbody">
+										<div>1、甲方同意所选择的数据服务内容及价格，向DataHub平台申请订购。</div>
+										<div>2、DataHub平台冻结本次订购资金成功后，生成订购关系。</div>
+										<div>3、具体数据服务履行完毕后，30天内，若甲方对数据服务的质量和内容无异议，则本次订购产生的费用正式转到乙方账户。若对数据服务的质量和内容有异议，则可向平台方进行申诉。若经过平台方鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效，本次订购费用返还给甲方。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效，本次订购费用正式转到乙方账户。</div>
+									</div>
+								</div>
+								<div class="subdate">
+									<span class="dtitle">签约日期：</span>
+									<span class="dvalue">2015年12月1日</span>
+								</div>
+								<div class="subbtns">
+									<input class="cancel" type="button" value="取消">
+									<input class="submit" type="button" value="签约">
+								</div>
+							</div>
+						</div>
+						<div class="subprocess" style="display: none">
+							<span>正在签约,</span>
+							<span class="midle">60S</span>
+							<span>内反馈结果,请稍等~</span>
+						</div>
+						<div class="subafterprocess">
+							<div class="successed"  style="display: none">
+								<div class="head">
+						<span class="icon"></span
+							><span class="text">签约成功！</span>
+								</div>
+								<div class="body">
+									您现在可以用Client端Pull数据啦~
+								</div>
+							</div>
+							<div class="failed"  style="display: none">
+								<div class="head">
+						<span class="icon"></span
+							><span class="text">账户余额不足，签约失败！</span>
+								</div>
+								<div class="body">
+									<span class="statictext">请发送充值需求邮件至</span>
+									<span class="email">datahub@asiainfo.com</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="dataitem-body">
 			<div id="dataitem-tag">
@@ -316,6 +404,10 @@
 		});
 		$("#dataitem-head-right .subscript .icon").click(function(e) {
 			stopEventStrans(e);
+			var create_user;
+			var subscripted;
+			var supplyStyle;
+			var prices;
 			if(!login) {
 				var off = $(this).closest("#dataitem-head-right").offset();
 				$("#show-message")
@@ -325,8 +417,7 @@
 			}else {
 				var repname = getParam("repname");
 				var itemname = getParam("itemname");
-				var create_user;
-				var subscripted;
+				var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 				$.ajax({
 					url: ngUrl+"/repositories/"+repname+"/"+itemname,
 					type: "get",
@@ -338,6 +429,8 @@
 						if(json.code == 0){
 							subscripted = json.data.itemaccesstype;
 							create_user = json.data.create_user;
+							prices = json.data.price;
+							supplyStyle = json.data.label.supply_style;
 						}
 					},
 					error:function(json){
@@ -352,7 +445,188 @@
 						.show();
 					return;
 				}
+				//查看是否订购过
+				var subscripted = true;
+				$.ajax({
+					url: ngUrl+"/subscription/"+repname+"/"+itemname,
+					type: "GET",
+					cache:false,
+					async:false,
+					dataType:'json',
+					headers:header,
+					success:function(json){
+						if(json.code == 0){
+							subscripted = json.data.subscribed;
+						}
+					},
+					error:function(json){
+						alert(JSON.stringify(JSON.parse(json.responseText)));
+					}
+				});
+				if(subscripted) {//已经订购过取消订购
+					$.ajax({
+						url: ngUrl+"/subscription/"+repname+"/"+itemname,
+						type: "DELETE",
+						cache:false,
+						async:false,
+						dataType:'json',
+						headers:header,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+								$("#dataitem-head-right .subscript .value").text(stars-1);
+							}
+						},
+						error:function(json){
+							alert(JSON.stringify(JSON.parse(json.responseText)));
+						}
+					});
+					return;
+				}
+				//------------------------订购合同------------------------
+				//设置甲方乙方
+				var usera = $.cookie("tname");//获取当前用户，甲方
+				var userb = create_user;//获取item用户，乙方
+				$("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
+				$("#subscriptDialog .modal-body .sub0 .requirerb .itext").val(userb);
+				//创建价格列表
+				var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
+				chargeBody.html("");
+				if(prices == undefined || prices == 0) {
+					var price;
+					var unit;
+					if(supplyStyle == "flow") {
+						time = 1;
+						unit = "天";
+					}else {
+						time = 50;
+						unit = "次";
+					}
+
+					var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+					charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+					charegeitem.append($("<span class='cvalue'></span>").
+						append($("<span class='moneyu'></span>").text("¥ ")).
+						append($("<span class='moneyv'></span>").text(0)).
+						append($("<span class='moneyl'>/&nbsp;</span>")).
+						append($("<span class='moneyv2'></span>").text(time)).
+						append($("<span class='moneyu2'></span>").attr("value", supplyStyle == "flow" ? "d":"").text(unit)));
+
+					charegeitem.append($("<span class='cdtitle'></span>").text("有效期"));
+					charegeitem.append($("<span class='cdvalue'></span>").
+						append($("<span class='vexpire'></span>").text(1)).
+						append($("<span class='uexpire'></span>").text(" 天")));
+				}else {
+					var unit;
+					var unitName;
+					if(supplyStyle == "flow") {
+						unit = {"m":"分钟","h":"小时","d":"天"};
+						unitName = "time";
+					}else {
+						unit = "次";
+						unitName = "times";
+					}
+					for(var i=0; i<prices.length; i++) {
+						var price = prices[i];
+						var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+						var radio = $("<input name='subcharge' type='radio'>");
+						if(i == 0) {//默认选择第一条
+							radio.attr("checked", "checked");
+						}
+						charegeitem.append($("<span class='cbtn'></span>").append(radio));
+						charegeitem.append($("<span class='cvalue'></span>").
+							append($("<span class='moneyu'></span>").text("¥ ")).
+							append($("<span class='moneyv'></span>").text(price.money)).
+							append($("<span class='moneyl'>/&nbsp;</span>")).
+							append($("<span class='moneyv2'></span>").text(price[unitName])).
+							append($("<span class='moneyu2'></span>").attr("value", supplyStyle == "flow" ? price.unit:"").text(supplyStyle == "flow" ? unit[price.unit] : unit)));
+
+						charegeitem.append($("<span class='cdtitle'></span>").text("有效期"));
+						charegeitem.append($("<span class='cdvalue'></span>").
+							append($("<span class='vexpire'></span>").text(price.expire)).
+							append($("<span class='uexpire'></span>").text(" 天")));
+					}
+				}
+				//TODO 设置订购合同日期，目前写死
+				var timer;
+				$('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
+						$("#subscriptDialog .subprocess .midle").text("60S");
+						$("#subscriptDialog .modal-dialog").css({width:"758px"});
+						$("#subscriptDialog .modal-header").show();
+						$("#subscriptDialog .subcontent").show();
+						$("#subscriptDialog .subprocess").hide();
+						$("#subscriptDialog .subafterprocess .successed").hide();
+						$("#subscriptDialog .subafterprocess .failed").hide();
+					}
+				);
+				$('#subscriptDialog').modal('toggle');
+
+
 			}
+		});
+		$("#subscriptDialog .modal-body .subbtns .submit").click(function() {
+			//TODO 没有提交的数据：甲方、乙方、合同订购日期
+//					var usera = $.cookie("tname");
+//					var userb = create_user;
+//					var date = $("#subscriptDialog .modal-body .subdate .dvalue").text();
+			var repname = getParam("repname");
+			var itemname = getParam("itemname");
+			var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+
+			//process
+			$("#subscriptDialog .modal-header").hide();
+			$("#subscriptDialog .subcontent").hide();
+			$("#subscriptDialog .subprocess").show();
+			$("#subscriptDialog .modal-dialog").css({width:"540px"});
+			var i = 59;
+			timer = setInterval(function() {
+				$("#subscriptDialog .subprocess .midle").text(i+"S");
+				i--;
+				if(i == 0){
+					clearInterval(timer);
+					$("#subscriptDialog .modal-header").show();
+					$("#subscriptDialog .subprocess").hide();
+					$("#subscriptDialog .subafterprocess .failed").show();
+				}
+			},1000);
+			var data = {"price":{}};
+			var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
+			data.price["money"] = charge.find(".moneyv:first").text();
+			data.price["time"] = charge.find(".moneyv:first").text();
+			data.price["unit"] = charge.find(".moneyu2:first").attr("value");
+			data.price["expire"] = charge.find(".vexpire:first").text();
+			//订购
+			$.ajax({
+				url: ngUrl+"/subscription/"+repname+"/"+itemname,
+				type: "POST",
+				cache:false,
+				data:JSON.stringify(data),
+				async:false,
+				dataType:'json',
+				headers:header,
+				success:function(json){
+					if(json.code == 0){
+						setTimeout(function() {
+							clearInterval(timer);
+							$("#subscriptDialog .modal-header").show();
+							$("#subscriptDialog .subprocess").hide();
+							$("#subscriptDialog .subafterprocess .successed").show();
+							$("#subscriptDialog .subafterprocess .failed").hide();
+							var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+							$("#dataitem-head-right .subscript .value").text(stars+1);
+						}, 1000)
+					}else {
+						clearInterval(timer);
+						$("#subscriptDialog .modal-header").show();
+						$("#subscriptDialog .subprocess").hide();
+						$("#subscriptDialog .subafterprocess .successed").hide();
+						$("#subscriptDialog .subafterprocess .failed").show();
+					}
+				},
+				error:function(json){
+					alert(JSON.stringify(JSON.parse(json.responseText)));
+				}
+			});
 		});
 		$("#authority-dialog").click(function(e) {
 			stopEventStrans(e);

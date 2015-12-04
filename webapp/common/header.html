@@ -6,7 +6,28 @@
 	.nav .open > a, .nav .open > a:focus, .nav .open > a:hover{
 		background-color:rgba(31,154,218,0.7); 
 	}
-	
+	#col-right{
+		display:none;
+	}
+
+	 @media (max-width: 768px) {
+		#col-left{
+			display:none;
+		}
+		#col-right{
+			display:inline;
+	}
+
+ 
+  }
+	#headerInput{
+		background-image:url('/images/lens.png');
+		background-repeat:no-repeat;
+		background-position: 98% 48%;
+		display:inline-block;	
+		width:40px;height:40px;
+	}
+
 	
 </style>
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
@@ -20,14 +41,24 @@
               </button>
               <a class="navbar-brand" style="color: #fff;font-size: 2em" href="/">DataHub</a>
           </div> 
+		  <div  id="col-left" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
+			<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:248px;height:28px;border: 0 none;">
+		  </div>
+
+	
               
         <div id='iLoginb'>    
           <div class="navbar-collapse collapse navbar-right" >
               <!-- 搜索 -->
-           	<div class="col-sm-5" style="margin-top: 10px;">
-  				<input id="headerInput" type="text" class="form-control" placeholder="查找更多数据" style="width:100%;height:32px;border: 0 none;">
-			</div>
+<!--            	<div class="col-sm-5" style="margin-top: 10px;"> -->
+<!--   				<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:100%;height:32px;border: 0 none;"> -->
+<!-- 			</div> -->
               <ul class="nav navbar-nav">
+				  <li>
+						<div  id="col-right" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
+						<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:248px;height:28px;border: 0 none;">
+						</div>
+				  </li>
                   <li class="active">
                   	<a style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
                   </li>
@@ -38,16 +69,17 @@
                   	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<img src="images/i.png" />
                   	</a>
-                  </li>                      
+                  </li> 
+				
+				  
+
               </ul>
           </div>
          </div> 
          <div id='iLoginf'>    
           <div class="navbar-collapse collapse navbar-right" >
               <!-- 搜索 -->
-           	<div class="col-sm-4" style="margin-top: 10px;">
-  				<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:100%;height:32px;border: 0 none;">
-			</div>
+           
               <ul class="nav navbar-nav">
                   <li class="active">
                   	<a style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>

@@ -510,6 +510,157 @@
 	font-size: 16px;
 	color: #666;
 }
+
+#subscriptDialog .modal-dialog {
+	width: 758px;
+
+}
+#subscriptDialog .modal-dialog .modal-content{
+	padding: 0px 10px;
+	background-color: #f6f9fd;
+}
+
+#subscriptDialog .modal-body {
+	padding: 30px 30px 10px 30px;
+}
+#subscriptDialog .modal-body>div {
+	margin-bottom: 30px;
+}
+#subscriptDialog .modal-body .sub0 {
+	font-size: 16px;
+	color: #000;
+}
+#subscriptDialog .modal-body .sub0 .itext {
+	font-weight: 900;
+	border: none;
+	outline:none;
+	border-bottom: 1px solid #e5e5e5;
+	width: 510px;
+	background-color: #f6f9fd;
+}
+#subscriptDialog .modal-body .sub0 .requirera {
+	margin-bottom: 20px;
+}
+#subscriptDialog .modal-body .shead {
+	font-size: 16px;
+	font-weight: 900;
+	color: #000;
+	margin-bottom: 20px;
+}
+#subscriptDialog .modal-body .sbody {
+	font-size: 14px;
+	color: #333;
+	line-height: 24px;
+	padding-left: 30px;
+}
+#subscriptDialog .modal-body .sub2 .sbody>div,#subscriptDialog .modal-body .sub4 .sbody>div {
+	margin-bottom: 10px;
+}
+#subscriptDialog .modal-body .sub3 .charge-head {
+	margin-bottom: 10px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body {
+	font-size: 14px;
+	color: #333;
+	padding: 15px 15px 0px 15px;
+	background-color: #f5f5f5;
+	border: 1px dotted #e5e5e5;
+	line-height: normal;
+}
+#subscriptDialog .modal-body .sub3 .charge-body>div {
+	margin-bottom: 15px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body .cbtn, #subscriptDialog .modal-body .sub3 .charge-body .cdtitle {
+	margin-right: 5px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body .cvalue {
+	margin-right: 10px;
+}
+#subscriptDialog .modal-body .subdate {
+	text-align: right;
+	font-weight: 900;
+}
+#subscriptDialog .modal-body .subbtns {
+	text-align: center;
+}
+#subscriptDialog .modal-body .subbtns input {
+	width: 160px;
+	height: 40px;
+	border: none;
+	font-size: 16px;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: none;
+}
+#subscriptDialog .modal-body .subbtns .cancel {
+	background-color: #999999;
+}
+#subscriptDialog .modal-body .subbtns .cancel:hover {
+	background-color: #666666;
+}
+#subscriptDialog .modal-body .subbtns .submit {
+	background-color: #29abe2;
+}
+#subscriptDialog .modal-body .subbtns .submit:hover {
+	background-color: #1998ce;
+}
+#subscriptDialog .subprocess {
+	font-size: 18px;
+	color: #333;
+	font-weight: 900;
+	text-align: center;
+	height: 113px;
+	line-height: 113px;
+}
+#subscriptDialog .subprocess .midle {
+	color: #29abe2;
+}
+#subscriptDialog .subafterprocess span {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+#subscriptDialog .subafterprocess>div {
+	text-align: center;
+	height: 148px;
+	padding: 25px 0px 45px 0px;
+	font-size: 18px;
+	font-weight: 900;
+	color: #333;
+}
+#subscriptDialog .subafterprocess>div .head {
+	margin-bottom: 15px;
+}
+#subscriptDialog .subafterprocess>div .head .icon {
+	margin-right: 10px;
+}
+#subscriptDialog .subafterprocess .successed .head {
+	color: #1db506;
+}
+#subscriptDialog .subafterprocess .failed .head {
+	color: #ec6467;
+}
+#subscriptDialog .subafterprocess .failed .body .email {
+	color: #29abe2;
+}
+#subscriptDialog .subafterprocess .successed .head .icon {
+	background-image: url("../images/buy_icon.png");
+	background-repeat: no-repeat;
+	background-position: -44px 0px;
+	width: 26px;
+	height: 26px;
+}
+#subscriptDialog .subafterprocess .failed .head .icon {
+	background-image: url("../images/buy_icon.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 26px;
+	height: 26px;
+}
+
+
 #dataitem-exemple, #dataitem-metadata {
 	word-break: break-all;
 }
