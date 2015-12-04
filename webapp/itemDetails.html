@@ -247,16 +247,85 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div id="authority-dialog">
-	<div class="up">
+	<div id="authority-dialog">
+		<div class="up">
 		<span class="icon">&nbsp;</span
-		><span class="text">余额权限不足</span>
-	</div>
-	<div class="down">
+			><span class="text">余额权限不足</span>
+		</div>
+		<div class="down">
 		<span>请发邮件至</span
-		><span class="email"></span
-		><span>申请订阅权限。</span>
+			><span class="email"></span
+			><span>申请订阅权限。</span>
+		</div>
+	</div>
+</div>
+<div id="mobileItemDetail">
+	<div class="head">
+		<span class="iconl"></span>
+		<span class="name">
+			<span class="repname">Repository Name</span>
+			<span>&nbsp;/&nbsp;</span><br>
+			<span class="itemname">DataItem Name</span>
+		</span>
+		<span class="iconr"></span>
+	</div>
+	<div class="desc">
+		<div class="comment">
+			测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+			测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+		</div>
+		<div class="labels">
+			<span class="orilabel">流式数据</span>
+		</div>
+		<div class="statistics">
+			<div class="left">
+				<span class="time">
+					<span class="icon"></span><span class="val">一小时以前</span>
+				</span><span class="tags">
+					<span class="icon"></span><span class="val">222</span>
+				</span>
+			</div>
+			<div class="right">
+				<span class="star">
+					<span class="icon"></span><span class="val">222</span>
+				</span><span class="sub">
+					<span class="icon"></span><span class="val">333</span>
+				</span><span class="pull">
+					<span class="icon"></span><span class="val">444</span>
+				</span>
+			</div>
+		</div>
+		<div class="owner">
+			<span class="text">
+				<span class="tname">数据拥有方</span>
+				<span class="tval">重庆市数易安信息技术有限公司</span>
+			</span>
+			<span class="iconr"></span>
+		</div>
+		<div class="repository">
+			<span class="text">
+				<span class="tname">所属Repository</span>
+				<span class="tval">Mobile_phone_information</span>
+			</span>
+			<span class="iconr"></span>
+		</div>
+	</div>
+	<div class="data">
+		<div class="taglist">
+			<span class="name">
+				<span class="nicon"></span
+					><span class="nval">333,456</span>
+			</span>
+			<span class="iconr"></span>
+		</div>
+		<div class="sample">
+			<span class="name">样例</span>
+			<span class="iconr"></span>
+		</div>
+		<div class="meta">
+			<span class="name">元数据</span>
+			<span class="iconr"></span>
+		</div>
 	</div>
 </div>
 <footer></footer>
@@ -285,6 +354,7 @@
 		$(".be-loader").fadeOut("slow");
 	});
 	$(window).load(function(){
+		changeTriangleState();
 		$("#dataitem-tag #show-message a").click(function() {
 			$(".modal-open").css("padding-right","15px");
 			$('#myModal').modal('toggle');
@@ -330,14 +400,14 @@
 						alert(json.msg);
 					}
 				});
-				if(access !=  "public") {
+				/* TODO 私有也可以点赞，代码删除 if(access !=  "public") {
 					$("#authority-dialog .down .email").text(create_user);
 					var off = $(this).closest("#dataitem-head-right").offset();
 					$("#authority-dialog")
 						.css({'top':off.top+30,'left':off.left-100})
 						.show();
 					return;
-				}
+				}*/
 				//查看是否点过赞
 				var starred = false;
 				$.ajax({
@@ -443,44 +513,6 @@
 					$("#authority-dialog")
 						.css({'top':off.top+30,'left':off.left-100})
 						.show();
-					return;
-				}
-				//查看是否订购过
-				var subscripted = true;
-				$.ajax({
-					url: ngUrl+"/subscription/"+repname+"/"+itemname,
-					type: "GET",
-					cache:false,
-					async:false,
-					dataType:'json',
-					headers:header,
-					success:function(json){
-						if(json.code == 0){
-							subscripted = json.data.subscribed;
-						}
-					},
-					error:function(json){
-						alert(JSON.stringify(JSON.parse(json.responseText)));
-					}
-				});
-				if(subscripted) {//已经订购过取消订购
-					$.ajax({
-						url: ngUrl+"/subscription/"+repname+"/"+itemname,
-						type: "DELETE",
-						cache:false,
-						async:false,
-						dataType:'json',
-						headers:header,
-						success:function(json){
-							if(json.code == 0){
-								var stars = parseInt($("#dataitem-head-right .subscript .value").text());
-								$("#dataitem-head-right .subscript .value").text(stars-1);
-							}
-						},
-						error:function(json){
-							alert(JSON.stringify(JSON.parse(json.responseText)));
-						}
-					});
 					return;
 				}
 				//------------------------订购合同------------------------
@@ -677,6 +709,11 @@
 					//设置repname
 					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#dataitem-head-left .itemname").text(itemname);
+					$("#mobileItemDetail .head .name .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
+					$("#mobileItemDetail .head .name .itemname a").text(itemname);
+					$("#mobileItemDetail .head").click(function() {
+						location.href = "repDetails.html?repname="+repname;
+					});
 					//设置点赞量、订阅量、下载量
 					if(login) {
 						$.ajax({//初始化点赞
@@ -711,6 +748,7 @@
 						success:function(json){
 							if(json.code == 0){
 								$("#dataitem-head-right .star .value").text(json.data.numstars);
+								$("#mobileItemDetail .statistics .right .star .val").text(json.data.numstars);
 							}
 						},
 						error:function(json){
@@ -727,6 +765,7 @@
 						success:function(json){
 							if(json.code == 0){
 								$("#dataitem-head-right .subscript .value").text(json.data.numsubs);
+								$("#mobileItemDetail .statistics .right .sub .val").text(json.data.numsubs);
 							}
 						},
 						error:function(json){
@@ -743,6 +782,7 @@
 						success:function(json){
 							if(json.code == 0){
 								$("#dataitem-head-right .downloaded .value").text(json.data.numpulls);
+								$("#mobileItemDetail .statistics .right .pull .val").text(json.data.numpulls)
 							}
 						},
 						error:function(json){
@@ -751,6 +791,8 @@
 					});
 					//设置tag数量
 					$("#dataitem-tag .tag-head .text").text(json.data.tags);
+					$("#mobileItemDetail .desc .statistics .left .tags .val").text(json.data.tags);
+					$("#mobileItemDetail .data .taglist .name .nval").text(json.data.tags);
 					//设置tag详情，先清空table
 					$("#dataitem-tag .tag-body table").html("");
 					for(var i=0; i<json.data.taglist.length; i++) {
@@ -824,26 +866,36 @@
 					$("#introduce1 .introduce1-head span:first").attr("title", itemname).text(itemname);
 					//设置comment
 					$("#introduce1 .introduce1-body").text(json.data.comment);
+					$("#mobileItemDetail .desc .comment").text(json.data.comment);
 					//设置时间
 					var time=json.data.optime;
 					var atime = time.substring(0, time.indexOf(".") > -1 ? time.indexOf(".") : time.indexOf("|"));
 					var btime = time.substring(time.indexOf("|")+1,time.length);
 					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime);
+					$("#mobileItemDetail .desc .statistics .left .time .val").attr("title",atime).text(btime);
 					//设置标签
 					if(json.data.label.sys.supply_style == "flow") {
 						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流式数据");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#fc9b00").text("流式数据");
 					}else if(json.data.label.sys.supply_style == "batch") {
 						$("#introduce2 .introduce2-b .filetype").css("background-color", "#20abe2").text("批量数据");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#20abe2").text("批量数据");
 					}else if(json.data.label.sys.supply_style == "single") {
 						$("#introduce2 .introduce2-b .filetype").css("background-color", "#f06f77").text("API");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#f06f77").text("API");
 					}
 					var ptags = json.data.label.owner;
 					for(var i in ptags) {
 						$("<span></span>").addClass("personaltag").css("background-color", "#6ecbcc").text(ptags[i]).appendTo("#introduce2 .introduce2-b");
+						$("<span></span>").addClass("perlabel").css("background-color", "#6ecbcc").text(ptags[i]).appendTo("#mobileItemDetail .desc .labels");
 					}
 
 					//设置仓库和数据拥有方
 					$("#introduce2 .introduce2-c .rep a").attr("title", repname).text(repname).attr("href", "repDetails.html?repname="+repname);
+					$("#mobileItemDetail .desc .repository .tval").text(repname);
+					$("#mobileItemDetail .desc .repository").click(function() {
+						location.href = "repDetails.html?repname="+repname;
+					});
 					var createuser = json.data.create_user;
 					$.ajax({
 						url: ngUrl+"/users/"+createuser,
@@ -856,6 +908,10 @@
 							if(json.code == 0){
 								var owner = json.data.userName || json.data.nickName;
 								$("#introduce2 .introduce2-c .owner a").attr("title", owner).text(owner).attr("href", "dataOfDetails.html?username="+createuser);
+								$("#mobileItemDetail .desc .owner .tval").text(owner);
+								$("#mobileItemDetail .desc .owner").click(function() {
+									location.href = "dataOfDetails.html?username="+createuser;
+								});
 							}
 						},
 						error:function(json){
@@ -887,6 +943,23 @@
 		} else {
 			e.cancelBubble = true;//IE
 		}
+	}
+	function changeTriangleState() {
+		//点击切换三角符号状态
+		var changeTraingleBtns = [$("#mobileItemDetail .head"), $("#mobileItemDetail .desc .owner"), $("#mobileItemDetail .desc .repository"),
+			$("#mobileItemDetail .data .taglist"), $("#mobileItemDetail .data .sample"), $("#mobileItemDetail .data .meta")];
+		for(var i=0; i<changeTraingleBtns.length; i++) {
+			var btn = changeTraingleBtns[i];
+			btn.mousedown(redTraingle);
+			btn.mouseup(grayTraingle);
+			btn.css("cursor","pointer");
+		}
+	}
+	function redTraingle() {
+		$(this).find(".iconr:first").css({backgroundImage:"url('../images/itemDetails_mobileRedTriangle.png')", backgroundPosition:"-6px -4px"});
+	}
+	function grayTraingle() {
+		$(this).find(".iconr:first").css({backgroundImage:"url('../images/itemDetails_mobileTriangleR.png')", backgroundPosition:"-6px -8px"});
 	}
 </script>
 </html>

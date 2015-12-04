@@ -6,29 +6,56 @@
 	#signs:hover{
 		background-color: #1998ce;
 	}
+	#exampleInputEmail1{
+	width:360px;
+	height:40px;
+	border-radius:5px;
+	font-size:14px;
+	margin-bottom: 30px;
+	}
+	#exampleInputPassword1{
+	width:360px;
+	height:40px;
+	border-radius:5px;
+	font-size:14px;
+	}
+	#back_icon{
+	background-image:url("/images/icon.png");
+	background-position:10% 10%;
+	background-repeat:repeat;
+	display:inline-block;
+	width:18px;
+	height:18px;
+	margin-bottom:-4px;
+	margin-right:10px;
+	}
 </style>
 <!-- 登陆框开始 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="border-bottom:0px;">
+            <div class="modal-content" style="padding:30px;width:422px;height:388px;">
+                <div class="modal-header" style="border-bottom:0px;padding: 0px; ">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">登录</h4>
                 </div>
-                <div class="modal-body" style="margin-bottom: 30px;">
-                	<div id='messageModal' class="alert alert-danger" role="alert" style='display:none'></div>
+                <div class="modal-body" style="padding: 0px;" >
+                	<div style="height: 48px; padding-bottom: 5px; padding-top: 15px;">
+					<p id="messageModal" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>账户名与密码不匹配，请重新输入</p>
+					<p id="messageModa2" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>邮箱格式不正确</p>
+					<p id="messageModa3" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>服务器内部错误</p>
+					</div>
 					  <div class="form-group">
 					    <input type="email" name="email" value="" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
 					  </div>
 					  <div class="form-group">
 					    <input type="password" name="password" value="" class="form-control" id="exampleInputPassword1" placeholder="密码">
 					  </div>
-					  <div class="checkbox">
+					  <div class="checkbox" style="margin:30px 0px 30px 0px;">
 					    <label>
 					      <input type="checkbox"> 记住我
 					    </label>
 					  </div>
-					  <button id='signs' class="btn btn-primary" style='width: 100%;'>登录</button>                            
+					  <button id='signs' class="btn btn-primary" style='width:360px;height:40px;'>登录</button>                            
                 </div>
                 <!-- 
                 <div class="modal-footer" style="border-top:0px;">
