@@ -558,7 +558,7 @@
 
 	
 </script>
-
+<script src="js/terminal.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.cookie.js"></script>
 <script src="js/ngUrl.js"></script>
@@ -567,7 +567,7 @@
 <script src="js/md5.js"></script>
 <script>
 	$(document).ready(function(){
-    	
+		var pcorphone =  browserRedirect();
     	 $('#myModal').on('shown.bs.modal', function (e) {
     		 $("body").css("padding-right","0px");
     	});
@@ -581,17 +581,26 @@
     		 $("#inLoginb").show();
     		 $("#inLoginf").hide();
     	 }
-    	 
    		$(document).on('keydown',"#kw",function (e) {
   			  if (e.keyCode == 13) {
   				  var vals=$(this).val();
-  				  location.href="search.html?rtext="+vals;
+				  if(pcorphone == 'pc'){
+					  location.href="search.html?rtext="+vals;
+				  }
+				  if(pcorphone == 'phone'){
+					  location.href="searchPhone.html?rtext="+vals;
+				  }
   			  }
   		 });
    		
    		$(document).on('click',"#su",function (e) {
 			  var vals=$("#kw").val();
-			  location.href="search.html?rtext="+vals;
+			if(pcorphone == 'pc'){
+				location.href="search.html?rtext="+vals;
+			}
+			if(pcorphone == 'phone'){
+				location.href="searchPhone.html?rtext="+vals;
+			}
 		 });
    		
    		
