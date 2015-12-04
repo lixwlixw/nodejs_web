@@ -1,0 +1,64 @@
+.boxwrop{
+
+    padding-bottom: 50px;
+    padding-top:50px;
+}
+.repinfo{
+    padding:20px 0px;
+}
+.repinfoList li{
+    width: 100%;
+    padding-right: 70px;
+    padding:20px 0px;
+    padding-left:40px;
+    position: relative;
+}
+#terminal-content-body div.lsitli{
+    width: 100%;
+    padding-right: 70px;
+    padding:20px 0px;
+    position: relative;
+    float: left;
+}
+.listTop{
+    line-height: 32px;
+    font-size: 26px;
+    color: #0077aa;
+    width: 75%;
+    word-wrap:break-word;
+    /*overflow: hidden;*/
+}
+.listbt{
+    line-height: 32px;
+    font-size: 20px;
+    color: #989898;
+    width: 90%;
+    word-wrap:break-word;
+}
+.listicon{
+    width: 25px;
+    height: 39px;
+    background: url("../images/phonepic1.png") no-repeat right center;
+    position: absolute;
+    top:34%;
+    right: 6%;
+}
+.listicon a{
+    width: 25px;
+    height: 39px;
+    display: block;
+}
+.repinfo{
+    font-size: 24px;
+    color: #000;
+    padding-left: 40px;
+}
+.listTop a:hover{
+    color: #337ab7;
+}
+.searchNum{
+    color: #0077aa;
+}
+.borderb{
+    border-bottom: 1px solid #ccc;
+}
