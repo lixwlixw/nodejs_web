@@ -707,7 +707,9 @@
 						return;
 					}
 					//设置repname
-					$("#dataitem-head-left .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
+					var shebei = browserRedirect();
+					var url = shebei == "phone" ? "repDetailsPhone.html?repname="+repname :"repDetails.html?repname="+repname;
+					$("#dataitem-head-left .repname a").text(repname).attr("href", shebei);
 					$("#dataitem-head-left .itemname").text(itemname);
 					$("#mobileItemDetail .head .name .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
 					$("#mobileItemDetail .head .name .itemname a").text(itemname);
@@ -960,6 +962,25 @@
 	}
 	function grayTraingle() {
 		$(this).find(".iconr:first").css({backgroundImage:"url('../images/itemDetails_mobileTriangleR.png')", backgroundPosition:"-6px -8px"});
+	}
+	function browserRedirect() {
+		var pcorphone;
+		var sUserAgent = navigator.userAgent.toLowerCase();
+		var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+		var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+		var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+		var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+		var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+		var bIsAndroid = sUserAgent.match(/android/i) == "android";
+		var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+		var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+		if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+			pcorphone = 'phone';
+			return pcorphone;
+		} else {
+			pcorphone = 'pc';
+			return pcorphone;
+		}
 	}
 </script>
 </html>
