@@ -16,7 +16,18 @@ $(function(){
 					if(event.keyCode==13){
 					$("#signs").click();
 					}
-				});	 
+				});	
+				$("#exampleInputEmail1").blur(function(){
+					var reg = /^w+((-w+)|(.w+))*@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+)*.[A-Za-z0-9]+$/;
+			　　	if (!reg.test($("#email").val())) {
+					$("#messageModa2").css("display","block");
+					$("#messageModal").css("display","none");
+					$("#messageModa3").css("display","none");
+					$("#messageModa2").fadeOut(4000);
+　					}
+				
+				});
+				
 	});
 	
 
@@ -47,10 +58,18 @@ $(function(){
     		},
     		error:function (XMLHttpRequest, textStatus, errorThrown){
     			if(XMLHttpRequest.status==500){
-    				$("#messageModal").text("服务器内部错误").show();
+    				$("#messageModa3").css("display","block");
+					$("#messageModa2").css("display","none");
+					$("#messageModal").css("display","none");
+					$("#messageModa3").fadeOut(5000);
     			}
     			if(XMLHttpRequest.status==401||XMLHttpRequest.status==504||XMLHttpRequest.status==403){
-    				$("#messageModal").text("认证失败，请重试").show();
+    				$("#messageModa2").css("display","none");
+					$("#messageModa3").css("display","none");
+					$("#messageModal").css("display","block");
+					$("#messageModal").fadeOut(4000);
+					
+					
     			}
     		}
     	});        
@@ -62,6 +81,9 @@ $(function(){
 		$.cookie("token",null,{path:"/"}); 
 		location.href=window.location.href;
  	});
+	
+	
+
 
 });
 
