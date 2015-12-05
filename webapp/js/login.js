@@ -79,7 +79,17 @@ $(function(){
 	$(document).on('click','#logout',function(){
 		$.cookie("tname",null,{path:"/"});
 		$.cookie("token",null,{path:"/"}); 
-		location.href=window.location.href;
+		
+		var href=location.href;
+		var htmlnum=href.indexOf(".html");
+		var strHref=href.substring(href.lastIndexOf("/")+1,htmlnum);
+		if(strHref=="selects"||strHref=="search"||strHref=="itemDetails"||strHref=="repDetails"||strHref=="dataOfDetails"){
+			location.href=window.location.href
+		}else{
+			location.href="/";
+		}
+		
+		//location.href=window.location.href;
  	});
 	
 	
