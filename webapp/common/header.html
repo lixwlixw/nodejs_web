@@ -126,41 +126,33 @@
          
       </div>
   </div>
-
+<script src="../js/lib/terminal.js"></script>
 <script>
-	//$('#iLogins').css("display","none");
-	
 
-	
-	
-	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
-		 $('#iLoginb').hide();
-			$("#iLoginf").show();
-		 $("#innames").text($.cookie("tname"));
-	 }else{
-		 $('#iLoginb').show();
-			$("#iLoginf").hide();
-	 }
 
-	$("#sign-in").click(function(){
-		$(".modal-open").css("padding-right","15px");
-		$('#myModal').modal('toggle');		
-	});
+if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
+	$('#iLoginb').hide();
+	$("#iLoginf").show();
+	$("#innames").text($.cookie("tname"));
+}else{
+	$('#iLoginb').show();
+	$("#iLoginf").hide();
+}
 
-	
-	
-</script>
-<script src="js/lib/terminal.js"></script>
-<script>
+$("#sign-in").click(function(){
+	$(".modal-open").css("padding-right","15px");
+	$('#myModal').modal('toggle');
+});
+
 var pcorphone =  browserRedirect();
-$(function(){
+
 	if(pcorphone == 'pc'){
 		$('.selectbtn').attr('href','selects.html')
 	}
 	if(pcorphone == 'phone'){
 		$('.selectbtn').attr('href','selectsPhone.html')
 	}
-})
+
 
 
 $(document).on('keydown',"#headerInput",function (e) {

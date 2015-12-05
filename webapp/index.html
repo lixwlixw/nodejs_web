@@ -114,7 +114,7 @@
                 </div>
                 <div class="navbar-collapse collapse navbar-right" >
                     <ul id="inLoginb" class="nav navbar-nav">
-                        <li class="active"><a href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li> 
+                        <li class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>
                         <!--    
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>   
                         -->   
@@ -126,7 +126,7 @@
 
                     </ul>
                     <ul id="inLoginf" class="nav navbar-nav">
-                        <li class="active"><a href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li> 
+                        <li class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>
                         <!--                     
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>
                         -->
@@ -566,7 +566,12 @@
     	 $('#myModal').on('shown.bs.modal', function (e) {
     		 $("body").css("padding-right","0px");
     	});
-    	 
+		if(pcorphone == 'pc'){
+			$('.selectbtn').attr('href','selects.html')
+		}
+		if(pcorphone == 'phone'){
+			$('.selectbtn').attr('href','selectsPhone.html')
+		}
     	 
     	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
     		 $("#inLoginb").hide();
