@@ -60,7 +60,7 @@
 						</div>
 				  </li>
                   <li class="active">
-                  	<a style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
+                  	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
                   </li>
                   <li>
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
@@ -82,7 +82,7 @@
            
               <ul class="nav navbar-nav">
                   <li class="active">
-                  	<a style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
+                  	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html" >数据精选</a>
                   </li>
                  <li>
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
@@ -153,6 +153,16 @@
 <script src="js/terminal.js"></script> 
 <script>
 var pcorphone =  browserRedirect();
+$(function(){
+	if(pcorphone == 'pc'){
+		$('.selectbtn').attr('href','selects.html')
+	}
+	if(pcorphone == 'phone'){
+		$('.selectbtn').attr('href','selectsPhone.html')
+	}
+})
+
+
 $(document).on('keydown',"#headerInput",function (e) {
   if (e.keyCode == 13) {
 	  var vals=$(this).val();
