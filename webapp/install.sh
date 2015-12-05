@@ -19,7 +19,7 @@ daemonid=$1
 
 url='http://hub.dataos.io'
 
-deb_package='datahub_0.5-1_amd64.deb'
+deb_package='datahub_0.6.0-1_amd64.deb'
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -64,7 +64,7 @@ check_datahub() {
 	then
 	    echo "datahub daemon is running, you don't need to reinstall it. Otherwise stop it first."
 	    #if command_exists service; then
-	    #	$sh_c "service daomonit stop"
+	    #	$sh_c "service datahub stop"
 	    #fi
 	fi
 	 
@@ -106,7 +106,9 @@ fi
 start_datahub() {
 
 	echo " * Start datahub daemon..."
-	$sh_c "datahub --daemon --token $daemonid"
+    $sh_c "datahub stop"
+    sleep 1
+	$sh_c "datahub --daemon --token=$daemonid"
 
 	if command_exists /usr/bin/datahub; then
 		
@@ -156,7 +158,7 @@ case "$lsb_dist" in
 			$sh_c "dpkg -i /tmp/${deb_package}"
             $sh_c "rm -rf /tmp/${deb_package}"
 			
-			start_datahub
+			start_datahub 
 
 		)
 		exit 0
