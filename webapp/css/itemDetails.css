@@ -669,6 +669,7 @@
 /*-----------------手机端样式---------------------*/
 #mobileItemDetail {
 	max-width: 750px;
+	min-height: 100%;
 	background-color: #f2fafe;
 	margin-top: 50px;
 	margin-bottom: 50px;
@@ -683,6 +684,10 @@
 	line-height: 38px;
 	overflow: hidden;
 	border-bottom: 1px solid #d2d2d2;
+	background-color: #fff;
+}
+#mobileItemDetail > .content {
+	background-color: #f2fafe;
 }
 #mobileItemDetail .head .name{
 	color: #0077aa;
@@ -713,6 +718,7 @@
 #mobileItemDetail .desc {
 	padding: 30px 0px 0px 40px;
 	margin-bottom: 40px;
+	background-color: #fff;
 }
 #mobileItemDetail .desc .comment {
 	margin-right: 40px;
@@ -836,6 +842,9 @@
 }
 #mobileItemDetail .desc .owner .text .tval a,#mobileItemDetail .desc .repository .text .tval a{
 	color: #000000;
+}
+#mobileItemDetail .data {
+	background-color: #fff;
 }
 #mobileItemDetail .data>div{
 	padding: 30px 40px;
