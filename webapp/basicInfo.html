@@ -60,29 +60,121 @@
 	<div  class="container main">
 	
 	<div class="topBox">
-		<div class="alertBox">
-			<div class="alert alert-success"id="alert-success" style="display:none" role="alert">恭喜您，提交成功！</div>
-			<div class="alert alert-danger"id="alert-fail" style="display:none" role="alert">您的提交有误,请先登录！</div>
-		</div>
-		
-		<div class="outBox">
-			<div class="title">
-				<p class="pm">基本信息</p>
-			</div>
-			<div class="inBox">
-				<p class="lead lead2">名称</p>
-				<input id="basicName" type="text" class="form-control form-control-self"  placeholder="10个字以内" maxlength="10">
-				<label class="nameNumber-control"></label>
-				<p class="lead lead2" >简介</p>
-				<textarea id="textComment" class="form-control form-control-self" rows="6" placeholder="200字以内"maxlength="200"></textarea>
-				<label class="commentNumber-control"></label>
-				<!--<p class="lead lead2">标签</p>
-				<input type="text" class="form-control form-control-self"   placeholder="用；分割不同标签" >-->
-				<br/>
-				<button type="button" class="btn-info" id="button01">提交</button>
-			</div>
-
+		<div style="float:left;margin-top:30px;width:950px;">
+		<div id="" class="top_title">
+			<p>账户信息</p>
 			
+		</div>
+		<div id="" class="top_main">
+			<div class="form-group" style="margin-bottom: 15px">
+				<label for="exampleInputEmail1">注册邮箱</label>
+				<input type="email" class="form-control " id="exampleInputEmail1" placeholder="注册邮箱"
+				style="margin-bottom: 0px;width:480px;">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputTime">注册时间</label>
+				<input type="text" class="form-control" id="exampleInputTime" placeholder="注册时间">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputMember">会员级别</label>
+				<input type="text" class="form-control" id="exampleInputMember" placeholder="会员级别">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputTime">截止时间</label>
+				<input type="text" class="form-control" id="exampleStopTime" placeholder="截止时间">
+			</div>
+		</div>
+		</div>
+			
+	</div>
+	<div class="midBox">
+		<div style="float:left;margin-top:30px;width:950px;">
+		<div id="" class="mid_title">
+			<p>基本信息</p>
+		</div>
+		<div id="" class="mid_main">
+			<div class="form-group" style="margin-bottom: 15px">
+				<label for="exampleInputEmail1">名称</label>
+				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
+				style="margin-bottom: 0px;width:480px;">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputTime">简介</label>
+				<textarea id="textComment" class="form-control form-control-self" rows="6" placeholder="基本情况介绍，100字以内"maxlength="100" style="width:480px;"></textarea>
+			</div>
+			
+			 <button type="submit" id="button01" class="btn btn-default">提交</button>
+		</div>
+		</div>
+			
+	</div>
+	<div class="underBox">
+		<div style="float:left;margin-top:30px;width:950px;">
+				<div id="" class="under_title">
+					<p>资源状态</p>
+				</div>
+				
+				<div  class="under_main">
+					<div  class="p_progress">
+						<p>Pull量：<span>2000次每天</span></p>
+						<div class="progress">
+						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+							<span class="sr-only">40% Complete (success)</span>
+						  </div>
+						</div>
+					</div>
+					<div class="circle_group">
+						
+						<div class="circle">
+							<div class="pie_left">
+								<div class="left"></div>
+							</div>
+							<div class="pie_right">
+								<div class="right"></div>
+							</div>
+							<div class="mask">
+								<div >
+									<span>已用</span>
+									<span>12</span>
+								</div>		
+							</div>
+							<p>开放Repository：<span>50个</span></p>
+						</div>
+
+						<div class="circle1">
+							<div class="pie_left1">
+								<div class="left1"></div>
+							</div>
+							<div class="pie_right1">
+								<div class="right1"></div>
+							</div>
+							<div class="mask1">
+								<div >
+									<span>已用</span>
+									<span>5</span>
+								</div>		
+							</div>
+							<p>私有Repository：<span>20个</span></p>
+						</div>
+
+						<div class="circle2">
+							<div class="pie_left2">
+								<div class="left2"></div>
+							</div>
+							<div class="pie_right2">
+								<div class="right2"></div>
+							</div>
+							<div class="mask2">
+								<div >
+									<span>已用</span>
+									<span>48M</span>
+								</div>		
+							</div>
+							<p>托管空间：<span>200M</span></p>
+						</div>
+					</div>		
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -104,41 +196,11 @@
 <script src="js/md5.js"></script>
 
 <script>
-
-
 $(document).ready(function(){
-	$(window).load(function(){
-
-		$("#basicName").keyup(function(){
-			
-			
-			if ($("#basicName").val().length==10)
-			{
-				$(".nameNumber-control").text("请控制在10个字以内！");
-				/*$("#basicName").val($("#textComment").val().substr(0,10));*/
-				
-				
-			}
-			else
-			{
-				$(".nameNumber-control").text(" ");
-			}
-		
-		})
-		$("#textComment").keyup(function(){
-			if ($("#textComment").val().length==200)
-			{
-				$(".commentNumber-control").text("请控制在200个字以内！");
-//				/*$("#textComment").val().length=$("#textComment").val().substr(0,200);*/
-			}	
-			else
-			{
-				$(".commentNumber-control").text(" ");
-			}
-		
-		})
-
 /*console.log(JSON.stringify($.cookie("token")));*/
+		
+		$('#exampleInputTime').attr('disabled', 'true');
+		$('#exampleStopTime').attr('disabled', 'true');
 		$.ajax({
 			url:ngUrl+"/users/"+$.cookie("tname"),
 			type:"get",
@@ -146,32 +208,56 @@ $(document).ready(function(){
 			async:false,
 			headers:{Authorization:"Token "+$.cookie("token")},
 			datatype:'json',
-			success:function(data){			
-				var nickName=data.data.nickName;
-				var comment=data.data.comment;
-				$("#basicName").val(nickName);	
-				$("#textComment").val(comment);
-				
-				
+				success:function(data){
+					var nickName=data.data.nickName;
+					var comment=data.data.comment;
+					$("#exampleInputName").val(nickName);	
+					$("#textComment").val(comment);
 				},
-			error:function(){
-			
-			
-			}
+				error:function(){
+
+				}
 		});
-	});
-	
+
+		$.ajax({
+			url:ngUrl+"/vip/"+$.cookie("tname"),
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+				success:function(data){
+					var email=$.cookie("tname");
+					$("#exampleInputEmail1").val(email);
+					if (data.data.userType==0)
+					{
+						$("#exampleInputMember").val("注册用户");
+					}	
+					else if (data.data.userType==1)
+					{
+						$("#exampleInputMember").val("认证会员");
+					}	
+					else if (data.data.userType==2)
+					{
+						$("#exampleInputMember").val("金卡会员");
+					}	
+					else if (data.data.userType==3)
+					{
+						$("#exampleInputMember").val("钻石会员");
+					}	
+				},
+				error:function(){
+
+				}
+		});
 });
 
+
 $(document).ready(function(){
-		
-	
 	$("#button01").click(function(){
 		var mydata = {};
-		mydata["nickname"] = $("#basicName").val();
+		mydata["nickname"] = $("#exampleInputName").val();
 		mydata["comments"] = $("#textComment").val();
-		
-	
 		$.ajax({
 		url:ngUrl+"/users/"+$.cookie("tname"),
 		type:"PUT",
@@ -192,20 +278,13 @@ $(document).ready(function(){
 
 		success:function(data){
 				
-			if(data.code==0){
-					$("#alert-success").css("display","inline");
-					$("#alert-success").append();
-					$("#alert-success").fadeOut(3000);
+			if(data.code==0){	
+				alert("提交成功！");
 				}
-					
-			
 			},
 			error:function(data){
-
 			if(data.code!=0){
-				$("#alert-fail").css("display","inline");
-					$("#alert-fail").append();
-					$("#alert-fail").fadeOut(3000);
+				alert("提交失败！");
 				}
 			}
 		});
@@ -213,7 +292,6 @@ $(document).ready(function(){
 	});
 		
 });
-
 </script>
 	
 

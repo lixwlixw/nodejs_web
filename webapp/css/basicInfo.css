@@ -1,100 +1,463 @@
+*{
+/*	margin:0;*/
+/*	padding:0;*/
+}
+
+body{
+	background-color:#f5f5f5;
+}
 .main{
-	margin:0;
-	font-family:"微软雅黑";
-	border:0px none;
-	background:#f6f9fd;
-	width:100%;
-	height:100%;
-	margin:0 auto;
+	padding-bottom:500px;
 }
+/*账户信息开始*/
 .topBox{
-margin-top:40px;
+	width:950px;
+	margin:50px auto 30px auto;
+
 }
-.alertBox{
-	height:50px;
-	width:100%; 
-	padding:11px 0px 10px 0px;
-	border:0px solid #FF6600; 
-	text-align:center;
-	
-}
-.title{
-	height:50px;
-	width:542px;
-	margin:0px auto;
-;
-}
-.pm{
-	
-	font-size:16pt; 
-	font-family:"微软雅黑";
-	font-weight:bold;
+/*.topBox:after{*/
+/*	content:".";    */
+/*	display:block;    */
+/*	height:0;    */
+/*	visibility:hidden;    */
+/*	clear:both; */
+/*}*/
+.top_title{
 	float:left;
-	clear:both;
-}
-.nameNumber-control{
-	margin-left:30px;
-	color:red;
-	font-weight:normal;
-}
-.commentNumber-control{
-	margin-left:30px;
-	color:red;
-	font-weight:normal;
-}
-
-.outBox{
-	margin-top:35px;
-	margin-bottom:50px;
-	border:0px solid ;
-
-}
-.inBox{
-	width:542px;
-	height:400px;
-	margin-top:20px;
-	padding-top:10px;
-	background:white;
-	margin:0px auto;
-	
-}
-.form-control-self{
-	margin:10px 30px 0px 30px;
-	width:470px;
-}
-.btn-info{
-	margin:20px 30px 0px 30px;
-	width:470px;height:40px;
+	width:38px;
+	height:100px;
+	background-color:#29abe2;
+	text-align:center;
 	border-radius:5px;
-	border:0 none;
-	background:#29aae1;	
-	font-size:11pt;
-	letter-spacing:5px;
-}
+	padding-top:5px;
 
-.lead{
-	margin:10px 30px 0px 30px;
-	font-family:"微软雅黑";
-	font-size:12pt;
-	color:#29abe2
 }
-
-#alert-success{
-		width:100%; 
-		height:50px;
-		border:0px;
-		float:left;
-		font-size:12pt;
+.top_title p{
+	width:1em;
+	margin:auto;
+	color:#fff;
+	font-size:16px;
 	
 }
-#alert-fail{
-		width:100%; 
-		height:50px;
-		border:0px;
-		float:left;
-		font-size:12pt;
+.top_main{
+	float:right;
+	width:910px;
+	padding:30px 0px 15px 30px;
+	background-color:#fff;
+	
 }
- 
-		
-	 
-		
+
+.form-group input{
+	background-color:#f5f5f5;
+}
+
+.top_main .form-group input{
+	width:480px;
+	height:40px;
+}
+.form-group label{
+	font-size:14px;
+	color:#29abe2;
+	margin-bottom:10px;
+}
+/*midbox开始*/
+.midBox{
+	width:950px;
+	margin:30px auto 30px auto;
+/*	clear:both;*/
+
+}
+.mid_title{
+	float:left;
+	width:38px;
+	height:100px;
+	background-color:#f06f77;
+	text-align:center;
+	border-radius:5px;
+	padding-top:5px;
+}
+.mid_title p{
+	width:1em;
+	margin:auto;
+	color:#fff;
+	font-size:16px;
+	
+}
+.mid_main{
+	float:right;
+	width:910px;
+	padding:30px 0px 30px 30px;
+	background-color:#fff;
+}
+.mid_main button{
+	width:100px;
+	height:40px;
+	font-size:16px;
+	color:#fff;
+	background-color:#29abe2;
+}
+.mid_main button:hover{
+	background-color:#1998ce;
+	width:100px;
+	height:40px;
+	font-size:16px;
+	color:#fff;
+}
+
+.mid_main button:focus{
+	width:100px;
+	height:40px;
+	font-size:16px;
+	color:#fff;
+	background-color:#29abe2;
+}
+
+.form-group input{
+	background-color:#f5f5f5;
+}
+.form-group textarea{
+	background-color:#f5f5f5;
+}
+
+.mid_main .form-group input{
+	width:480px;
+	height:40px;
+}
+.form-group label{
+	font-size:14px;
+	color:#29abe2;
+	margin-bottom:10px;
+}
+
+/*underbox开始*/
+.underBox{
+	margin:0px auto;
+	width:950px;
+	background-color:#fff;
+	
+}
+.under_title{
+	float:left;
+	width:38px;
+	height:100px;
+	background-color:#fc9b00;
+	text-align:center;
+	border-radius:5px;
+	padding-top:5px;
+}
+.under_title p{
+	width:1em;
+	margin:auto;
+	color:#fff;
+	font-size:16px;
+	
+}
+.under_main{
+	width:910px;
+	padding:30px 0px 15px 30px;
+	background-color:#fff;
+	float:right;
+	position: relative;
+
+}
+.p_progress{
+	margin-top:30px;
+}
+			.p_progress:after{
+				content:".";
+				display:block;
+				height:0;
+				visibility:hidden;
+				clear:both;
+			}
+.under_main p{
+font-size:16px;
+color:#333;
+font-weight:bold;
+display:inline-block;
+float:left;
+margin:4.5px 10px 0px 0px;
+}
+.under_main>p>span{
+	font-size:16px;
+	color:#0077aa;
+	font-weight:bold;
+	display:inline-block;
+	float:left;
+	
+}
+.under_main .progress{
+	width:600px;
+	float:left;
+	height:30px;
+	background-color:#f5f5f5;
+	
+}
+.progress>div{
+	background-color:#ccc;
+}
+
+/*圆环图形开始*/
+
+.circle_group{
+	background-color:#fff;
+	position: absolute;
+	width:910px;
+	padding-top:30px;
+	height:330px;
+	left:0px;
+}
+.circle {
+	
+    width: 200px;
+    height: 200px;  
+    position: absolute;
+    border-radius: 50%;
+    background-color:#f5f5f5;
+	border:0;
+	margin-left:30px;
+
+}
+
+.pie_left, .pie_right {
+    width: 200px; 
+    height: 200px;
+    position: absolute;
+	border-radius:50%;
+    top:0;left:0;
+	background:#ccc;
+}
+
+.right {
+    display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(1deg);
+}
+.left{
+	display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.pie_right, .right {
+    clip:rect(0,auto,auto,100px);
+}
+.pie_left, .left {
+    clip:rect(0,100px,auto,0);
+}
+.mask {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    left: 25px;
+    top: 25px;
+    background: #fff;
+    position: absolute;
+    text-align: center;
+    line-height: 150px;
+    font-size: 16px;
+}
+.mask span:nth-child(1){
+	position: relative;
+
+}
+.mask span:nth-child(2){
+	color:#0077aa;
+	position: absolute;
+	display:inline-block;
+	margin:16px 2px 3px -24px;
+	font-size:16px;
+	font-weight:bold;
+}
+.circle P{
+	position: absolute;
+	margin-top:220px;
+	margin-left:20px;
+}
+
+.circle P span{
+	color:#0077aa;
+}
+/*第二个圆环*/
+
+.circle1 {
+	
+    width: 200px;
+    height: 200px;  
+    position: absolute;
+    border-radius: 50%;
+    background-color:#f5f5f5;
+	border:0;
+	margin-top:30px;
+	margin-left:310px;
+
+}
+
+.pie_left1, .pie_right1 {
+    width: 200px; 
+    height: 200px;
+    position: absolute;
+	border-radius:50%;
+    top:0;left:0;
+	background:#ccc;
+}
+
+.right1 {
+    display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(1deg);
+}
+.left1{
+	display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-40deg);
+}
+
+.pie_right1, .right1 {
+    clip:rect(0,auto,auto,100px);
+}
+.pie_left1, .left1 {
+    clip:rect(0,100px,auto,0);
+}
+.mask1 {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    left: 25px;
+    top: 25px;
+    background: #fff;
+    position: absolute;
+    text-align: center;
+    line-height: 150px;
+    font-size: 16px;
+}
+.mask1 span:nth-child(1){
+	position: relative;	
+}
+.mask1 span:nth-child(2){
+	color:#0077aa;
+	position: absolute;
+	display:inline-block;
+	margin:16px 2px 3px -19px;
+	font-size:16px;
+	font-weight:bold;
+
+}
+.circle1 P{
+	position: absolute;
+	margin-top:220px;
+	margin-left:20px;
+}
+.circle1 P span{
+	color:#0077aa;
+}
+
+/*第三个圆环*/
+
+.circle2 {
+	
+    width: 200px;
+    height: 200px;  
+    position: absolute;
+    border-radius: 50%;
+    background-color:#f5f5f5;
+	border:0;
+	margin-top:30px;
+	margin-right:120px;
+
+}
+
+.pie_left2, .pie_right2 {
+    width: 200px; 
+    height: 200px;
+    position: absolute;
+	border-radius:50%;
+    top:0;left:0;
+	background:#ccc;
+}
+
+.right2 {
+    display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(1deg);
+}
+.left2{
+	display: block;
+    width:200px; 
+    height:200px;
+    background:#f5f5f5;
+    border-radius:50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-60deg);
+}
+
+.pie_right2, .right2 {
+    clip:rect(0,auto,auto,100px);
+}
+.pie_left2, .left2 {
+    clip:rect(0,100px,auto,0);
+}
+.mask2 {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    left: 25px;
+    top: 25px;
+    background: #fff;
+    position: absolute;
+    text-align: center;
+    line-height: 150px;
+    font-size: 16px;
+}
+.mask2 span:nth-child(1){
+	position: relative;	
+}
+.mask2 span:nth-child(2){
+	color:#0077aa;
+	position: absolute;
+	display:inline-block;
+	margin:16px 2px 3px -32px;
+	font-size:16px;
+	font-weight:bold;
+
+}
+.circle2 P{
+	position: absolute;
+	margin-top:220px;
+	margin-left:30px;
+}
+.circle2 P span{
+	color:#0077aa;
+}
