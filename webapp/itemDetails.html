@@ -536,6 +536,38 @@
 				//设置甲方乙方
 				var usera = $.cookie("tname");//获取当前用户，甲方
 				var userb = create_user;//获取item用户，乙方
+				$.ajax({
+					url: ngUrl+"/users/"+usera,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							usera = json.data.userName;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
+				$.ajax({
+					url: ngUrl+"/users/"+userb,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							userb = json.data.userName;
+						}
+					},
+					error:function(json){
+						alert(json.msg);
+					}
+				});
 				$("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
 				$("#subscriptDialog .modal-body .sub0 .requirerb .itext").val(userb);
 				//创建价格列表
