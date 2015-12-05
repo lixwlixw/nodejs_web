@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/selectsPhone.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="./js/selectsPhone.js"></script>
+    <style>
+
+
+    </style>
+</head>
+<body>
+<div class="be-loader" style="display: block; ">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 头部导航 -->
+<header></header>
+    <div class="topbox">
+    <div style="width: 100%; overflow: hidden;padding-top:50px;">
+        <div class="imgwrop">
+            <div class="selectimgwrop select1"></div>
+            <p>终端专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select2"></div>
+            <p>互联网专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select3"></div>
+            <p>征信专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select4"></div>
+            <p>运营商专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select5"></div>
+            <p>公共数据专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select6"></div>
+            <p>工商专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select7"></div>
+            <p>银联专题</p>
+        </div>
+        <div class="imgwrop">
+            <div class="selectimgwrop select8"></div>
+            <p>地图专题</p>
+        </div>
+    </div>
+    </div>
+    <div class="partitionline"></div>
+    <div class="boxwrop">
+        <div class="repinfo borderb">全部精选</div>
+        <ul class="repinfoList">
+            <!--<li class="borderb">-->
+                <!--<div class="listTop"><a href="#">Film_and_televisiondsadsadasdadsdsa</a></div>-->
+                <!--<div class="listbt">数据拥有方：<span class="itemcur">亚信</span></div>-->
+                <!--<div class="listicon"><a href="#"></a></div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <!-- 尾部 -->
+    <footer></footer>
+
+    <div id="loginTem"></div>
+
+</body>
+</html>
+<script>
+    $(document).on('touchstart','.listicon',function(){
+        $(this).css('background-image','url("images/phonepic2.png")');
+    });
+    $(document).on('touchend','.listicon',function(){
+        $(this).css('background-image','url("images/phonepic1.png")');
+    });
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+</script>

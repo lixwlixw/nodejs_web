@@ -1,0 +1,112 @@
+.selectimgwrop{
+    width: 100%;
+    height: 75px;
+
+}
+.select1{
+    background:url("../images/selectphone1.png") no-repeat top center;
+    background-size: contain;
+}
+.select2{
+    background:url("../images/selectphone2.png") no-repeat top center;
+    background-size: contain;
+}
+.select3{
+    background:url("../images/selectphone3.png") no-repeat top center;
+    background-size: contain;
+}
+.select4{
+    background:url("../images/selectphone4.png") no-repeat top center;
+    background-size: contain;
+}
+.select5{
+    background:url("../images/selectphone5.png") no-repeat top center;
+    background-size: contain;
+}
+.select6{
+    background:url("../images/selectphone6.png") no-repeat top center;
+    background-size: contain;
+}
+.select7{
+    background:url("../images/selectphone7.png") no-repeat top center;
+    background-size: contain;
+}
+.select8{
+    background:url("../images/selectphone8.png") no-repeat top center;
+    background-size: contain;
+}
+.imgwrop{
+    width: 25%;
+    height: auto;
+    float: left;
+    padding:0 3px;
+    padding-top:20px;
+}
+.imgwrop p{
+    font-size: 0.6em;
+    text-align: center;
+}
+.partitionline{
+    width: 100%;
+    height: 40px;
+    background: #f3fefa;
+}
+.topbox{
+    padding:20px 10px;
+   padding-top:5px;
+}
+.borderb{
+    border-bottom: 1px solid #ccc;
+}
+.boxwrop{
+    padding-left:40px;
+    padding-bottom: 50px;
+}
+.repinfo{
+    padding:20px 0px;
+    padding-left:47px;
+    background:url("../images/selectphone9.png") no-repeat left center;
+}
+.repinfoList{
+}
+.repinfoList li{
+    width: 100%;
+    padding-right: 70px;
+    padding:20px 0px;
+    position: relative;
+}
+.listTop{
+    line-height: 32px;
+    font-size: 26px;
+    color: #0077aa;
+    width: 75%;
+    word-wrap:break-word;
+    /*overflow: hidden;*/
+}
+.listbt{
+    line-height: 32px;
+    font-size: 20px;
+    color: #989898;
+    width: 90%;
+    word-wrap:break-word;
+}
+.listicon{
+    width: 25px;
+    height: 39px;
+    background: url("../images/phonepic1.png") no-repeat right center;
+    position: absolute;
+    top:34%;
+    right: 6%;
+}
+.listicon a{
+    width: 25px;
+    height: 39px;
+    display: block;
+}
+.repinfo{
+    font-size: 24px;
+    color: #000;
+}
+.listTop a:hover{
+    color: #337ab7;
+}

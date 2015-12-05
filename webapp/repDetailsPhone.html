@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="./js/repDetailsPhone.js"></script>
+    <style type="text/css">
+        a:hover{
+            color:#23527e;
+        }
+
+        .borderb{
+            border-bottom: 1px solid #ccc;
+        }
+        .boxwrop{
+
+            padding-bottom: 50px;
+        }
+        .repNamebg {
+            background: rgba(0, 0, 0, 0) url("images/sliceU1.png") no-repeat scroll -338px center;
+            float: left;
+            height: 50px;
+            margin-left: 10px;
+            margin-right: 7px;
+            width: 20px;
+            display: inline-block;
+        }
+        .reptitle{
+            margin-top:50px;
+        }
+        .repname{
+            line-height: 50px;
+            margin-left:10px;
+            color: #29abe2;
+            font-size: 30px;
+            display: inline-block;
+        }
+        .repcomment{
+            padding:20px 0px 20px 0px;
+            color: #333;
+            font-size:22px;
+            line-height: 40px;
+        }
+        .repnums{
+            width: 100%;
+            height: 90px;
+            line-height: 90px;
+            font-size:20px;
+            color: #666;
+        }
+        .time-icon {
+            background-image: url("images/slice.png");
+            background-position: 1px 8px;
+            background-repeat: no-repeat;
+            padding:10px;
+        }
+        .lefticon{
+           width: 40%;
+            float: left;
+        }
+        .righticon{
+            width: 60%;
+            float: left;
+            text-align: right;
+            padding-right: 40px;
+        }
+        .star-icon {
+            background-image: url("images/slice.png");
+            background-position: -60px 8px;
+            background-repeat: no-repeat;
+            padding:10px;
+        }
+        .subscript-icon {
+            background-image: url("images/slice.png");
+            background-repeat: no-repeat;
+            padding:10px;
+            background-position: -92px 8px;
+        }
+        .downloaded-icon {
+            background-image: url("images/slice.png");
+            background-repeat: no-repeat;
+            padding:10px;
+            background-position: -124px 8px;
+        }
+        .repcreate_user{
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+        .repcreate_user div{
+            height: 90px;
+            line-height: 90px;
+        }
+        .repcreate_user div.cur_link{
+            width: 25px;
+            height: 39px;
+            background: url("images/phonepic1.png") no-repeat right center;
+            position: absolute;
+            top:30%;
+            right: 6%;
+        }
+        .repcreate_user div.cur_link a{
+            width: 25px;
+            height: 39px;
+            display: block;
+        }
+
+        .curname{
+            width: 30%;
+            overflow: hidden;
+            float: left;
+            font-size: 22px;
+            color: #666;
+        }
+        .cur_user{
+            width: 60%;
+            overflow: hidden;
+            float: left;
+            font-size: 22px;
+
+        }
+        .cur_user a{
+            color: #000;
+        }
+        .cur_user a:hover{
+            color: #000;
+        }
+        .repinfo{
+            padding:20px 0px;
+        }
+        .repinfoList{
+        }
+        .repinfoList li{
+            width: 100%;
+            padding-right: 70px;
+            padding:20px 0px;
+            margin-left:40px;
+            position: relative;
+        }
+        .listTop{
+            line-height: 32px;
+            font-size: 26px;
+            color: #0077aa;
+            width: 75%;
+            word-wrap:break-word;
+        }
+        .listbt{
+            line-height: 32px;
+            font-size: 20px;
+            color: #989898;
+            width: 90%;
+            word-wrap:break-word;
+        }
+        .listicon{
+            width: 25px;
+            height: 39px;
+            background: url("images/phonepic1.png") no-repeat right center;
+            position: absolute;
+            top:34%;
+            right: 6%;
+        }
+        .listicon a{
+            width: 25px;
+            height: 39px;
+            display: block;
+        }
+        .repinfo{
+            margin-left:40px;
+            font-size: 24px;
+            color: #000;
+        }
+        .partitionline{
+            width: 100%;
+            height: 40px;
+            background: #f3fefa;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部导航 -->
+<header></header>
+<div class="boxwrop borderb" style="padding-left: 40px;">
+    <div class="reptitle borderb">
+        <div class="repNamebg"></div>
+        <div class="repname"></div>
+    </div>
+    <div class="repcomment borderb"></div>
+    <div class="repnums borderb">
+        <div class="lefticon">
+            <span title="更新时间" class="time-icon"></span>
+            <span  class="showtime"></span>
+        </div>
+        <div class="righticon">
+            <span class="star-icon" title="star量"></span>
+            <span class="star-value">0</span>
+            <span class="subscript-icon" title="订阅量"></span>
+            <span class="subscript-value">0</span>
+            <span class="downloaded-icon" title="pull量"></span>
+            <span class="downloaded-value">0</span>
+        </div>
+    </div>
+    <div class="repcreate_user">
+        <div class="curname">数据拥有方</div>
+        <div class="cur_user"><a id="cur_user" href="#"></a></div>
+        <div class="cur_link"><a href="#"></a></div>
+    </div>
+</div>
+<div class="partitionline"></div>
+
+<div class="boxwrop">
+    <div class="repinfo borderb">rep信息</div>
+    <ul class="repinfoList">
+        <!--<li class="borderb">-->
+            <!--<div class="listTop"><a href="#">Film_and_television</a></div>-->
+            <!--<div class="listbt">数据拥有方：<span class="itemcur">亚信</span></div>-->
+            <!--<div class="listicon"><a href="#"></a></div>-->
+        <!--</li>-->
+    </ul>
+</div>
+
+<!-- 尾部 -->
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+</html>
+<script>
+    $(document).on('touchstart','.borderb',function(){
+        $(this).css('background-color','#e8e8e8');
+    });
+    $(document).on('touchend','.borderb',function(){
+        $(this).css('background-color','#fff');
+    });
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+</script>
