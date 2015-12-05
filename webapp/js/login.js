@@ -20,7 +20,6 @@ $(function(){
 				$("#exampleInputEmail1").blur(function(){
 					var reg =/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
 			　　	if (!reg.test($("#exampleInputEmail1").val())) {
-					alert("100");
 					$("#messageModa2").css("display","block");
 					$("#messageModal").css("display","none");
 					$("#messageModa3").css("display","none");
