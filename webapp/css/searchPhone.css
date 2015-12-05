@@ -1,5 +1,5 @@
 .boxwrop{
-
+    padding-left: 6%;
     padding-bottom: 50px;
     padding-top:50px;
 }
@@ -9,8 +9,7 @@
 .repinfoList li{
     width: 100%;
     padding-right: 70px;
-    padding:20px 0px;
-    padding-left:40px;
+    padding:15px 0px;
     position: relative;
 }
 #terminal-content-body div.lsitli{
@@ -21,37 +20,37 @@
     float: left;
 }
 .listTop{
-    line-height: 32px;
-    font-size: 26px;
+    line-height: 20px;
+    font-size: 1.2em;
     color: #0077aa;
     width: 75%;
     word-wrap:break-word;
     /*overflow: hidden;*/
 }
 .listbt{
-    line-height: 32px;
-    font-size: 20px;
+    line-height: 25px;
+    font-size: 1em;
     color: #989898;
     width: 90%;
     word-wrap:break-word;
 }
 .listicon{
-    width: 25px;
-    height: 39px;
+    width: 20px;
+    height: 30px;
     background: url("../images/phonepic1.png") no-repeat right center;
+    background-size: contain;
     position: absolute;
     top:34%;
     right: 6%;
 }
 .listicon a{
-    width: 25px;
-    height: 39px;
-    display: block;
+    /*width: 25px;*/
+    /*height: 39px;*/
+    /*display: block;*/
 }
 .repinfo{
-    font-size: 24px;
+    font-size: 1.2em;
     color: #000;
-    padding-left: 40px;
 }
 .listTop a:hover{
     color: #337ab7;
@@ -60,5 +59,5 @@
     color: #0077aa;
 }
 .borderb{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e6e6e6;
 }

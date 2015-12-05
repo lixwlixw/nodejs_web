@@ -44,7 +44,7 @@ $(function(){
     if (itemid.test(decodeURIComponent(window.location.href))) {
         repname = itemid.exec(decodeURIComponent(window.location.href))[1];
     }
-    $('.repname').html(repname);
+    $('.repname').html('Internetfsdfsdfdsfsfsdfwefefwefdsfsdfewtgregregregfwefdsdsfsdxvcvbcbvcbvcbvcbvcbvcbcsdfsaf2435wefwefew');
     //得到rep详情
     var pages = 1;
     var itemdatas = [];

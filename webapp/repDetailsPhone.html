@@ -20,17 +20,16 @@
         }
 
         .borderb{
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #e6e6e6;
         }
         .boxwrop{
-
-            padding-bottom: 50px;
+            padding-left:6%;
+            /*padding-bottom: 50px;*/
         }
         .repNamebg {
-            background: rgba(0, 0, 0, 0) url("images/sliceU1.png") no-repeat scroll -338px center;
+            background: url("images/sliceU1.png") no-repeat scroll -338px center;
             float: left;
             height: 50px;
-            margin-left: 10px;
             margin-right: 7px;
             width: 20px;
             display: inline-block;
@@ -42,25 +41,26 @@
             line-height: 50px;
             margin-left:10px;
             color: #29abe2;
-            font-size: 30px;
-            display: inline-block;
+            font-size: 1.2em;
+            padding-right: 6%;
+            display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
         }
         .repcomment{
-            padding:20px 0px 20px 0px;
+            padding:15px 0px ;
             color: #333;
-            font-size:22px;
-            line-height: 40px;
+            font-size:1em;
+            line-height: 25px;
         }
         .repnums{
             width: 100%;
-            height: 90px;
-            line-height: 90px;
-            font-size:20px;
+            padding:15px 0px;
+            font-size:1em;
             color: #666;
+            overflow: hidden;
         }
         .time-icon {
             background-image: url("images/slice.png");
-            background-position: 1px 8px;
+            background-position: 1px 5px;
             background-repeat: no-repeat;
             padding:10px;
         }
@@ -76,7 +76,7 @@
         }
         .star-icon {
             background-image: url("images/slice.png");
-            background-position: -60px 8px;
+            background-position: -60px 5px;
             background-repeat: no-repeat;
             padding:10px;
         }
@@ -84,34 +84,36 @@
             background-image: url("images/slice.png");
             background-repeat: no-repeat;
             padding:10px;
-            background-position: -92px 8px;
+            background-position: -92px 5px;
         }
         .downloaded-icon {
             background-image: url("images/slice.png");
             background-repeat: no-repeat;
             padding:10px;
-            background-position: -124px 8px;
+            background-position: -124px 5px;
         }
         .repcreate_user{
             width: 100%;
-            height: 90px;
+            padding:15px 0px;
             position: relative;
+            overflow: hidden;
         }
         .repcreate_user div{
-            height: 90px;
-            line-height: 90px;
+            /*height: 90px;*/
+            /*line-height: 90px;*/
         }
         .repcreate_user div.cur_link{
-            width: 25px;
-            height: 39px;
-            background: url("images/phonepic1.png") no-repeat right center;
+            width: 20px;
+            height: 30px;
+            background: url("../images/phonepic1.png") no-repeat right center;
+            background-size: contain;
             position: absolute;
-            top:30%;
+            top:32%;
             right: 6%;
         }
         .repcreate_user div.cur_link a{
-            width: 25px;
-            height: 39px;
+            width: 20px;
+            height: 30px;
             display: block;
         }
 
@@ -119,14 +121,14 @@
             width: 30%;
             overflow: hidden;
             float: left;
-            font-size: 22px;
+            font-size: 1em;
             color: #666;
         }
         .cur_user{
             width: 60%;
             overflow: hidden;
             float: left;
-            font-size: 22px;
+            font-size: 1em;
 
         }
         .cur_user a{
@@ -136,35 +138,35 @@
             color: #000;
         }
         .repinfo{
-            padding:20px 0px;
+            padding:15px 0px;
         }
         .repinfoList{
         }
         .repinfoList li{
             width: 100%;
             padding-right: 70px;
-            padding:20px 0px;
-            margin-left:40px;
+            padding:15px 0px;
             position: relative;
         }
         .listTop{
-            line-height: 32px;
-            font-size: 26px;
+            line-height: 20px;
+            font-size: 1.2em;
             color: #0077aa;
             width: 75%;
             word-wrap:break-word;
         }
         .listbt{
-            line-height: 32px;
-            font-size: 20px;
+            line-height: 25px;
+            font-size: 1em;
             color: #989898;
             width: 90%;
             word-wrap:break-word;
         }
         .listicon{
-            width: 25px;
-            height: 39px;
-            background: url("images/phonepic1.png") no-repeat right center;
+            width: 20px;
+            height: 30px;
+            background: url("../images/phonepic1.png") no-repeat right center;
+            background-size: contain;
             position: absolute;
             top:34%;
             right: 6%;
@@ -175,21 +177,23 @@
             display: block;
         }
         .repinfo{
-            margin-left:40px;
-            font-size: 24px;
+            font-size: 1.2em;
             color: #000;
         }
         .partitionline{
             width: 100%;
-            height: 40px;
+            height: 30px;
             background: #f3fefa;
+        }
+        .repcomment{
+            padding-right: 6%;
         }
     </style>
 </head>
 <body>
 <!-- 头部导航 -->
 <header></header>
-<div class="boxwrop borderb" style="padding-left: 40px;">
+<div class="boxwrop borderb">
     <div class="reptitle borderb">
         <div class="repNamebg"></div>
         <div class="repname"></div>
@@ -217,7 +221,7 @@
 </div>
 <div class="partitionline"></div>
 
-<div class="boxwrop">
+<div class="boxwrop" style="padding-bottom: 50px;">
     <div class="repinfo borderb">rep信息</div>
     <ul class="repinfoList">
         <!--<li class="borderb">-->

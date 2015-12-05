@@ -32,45 +32,53 @@ var paegeitems2;
 $(document).ready(function(){
     var pages = 1;
     var thisvalue = '';
-    //$.ajax({
-    //    url: ngUrl+"/select_labels",
-    //    type: "get",
-    //    cache:false,
-    //    async:false,
-    //    dataType:'json',
-    //    success:function(json){
-    //        if(json.data.length!=0){
-    //            var pages=json.data.length;
-    //            for(var i=0;i<pages;i++){
-    //                $("#navigator-ul").append("<li><img src='images/nav_icon.png' style='margin-left:20px;margin-right:15px;'>"+json.data[i].labelname+"</img></li>");
-    //                $("#navigator-ul10").append("<li>"+json.data[i].labelname+"</li>");
-    //            }
-    //            $("#navigator-ul li").eq(0).css({ color: "#0077aa", background: "#fff" });
-    //        }else{
-    //
-    //        }
-    //        console.log("测试数据："+json.data.length);
-    //    },
-    //    error:function(json){
-    //        alert("程序出错，请稍后重试");
-    //    }
-    //});
+    $.ajax({
+        url: ngUrl+"/select_labels",
+        type: "get",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json){
+            var bgarr = [];
+            if(json.data.length!=0){
+                var fornum=json.data.length;
+                bgarr = json.data;
+                var moreimg = {"labelname":"更多","icon":"selectphone-more"}
+                if(bgarr.length>8){
+                    bgarr.splice(8, 0, moreimg);
+                }
+                for(var i=1;i<fornum;i++){
+                    var str =  '<div class="imgwrop">'+
+                                "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[i].icon+".png\")'>"+
+                                '</div>'+
+                                '<p>'+json.data[i].labelname +'</p>'+
+                                '</div>';
+                    $('#topNav').append(str);
+                    $('#topNav>div:gt(7)').hide();
+                }
+            }else{
+
+            }
+            console.log("测试数据："+json.data.length);
+        },
+        error:function(json){
+            alert("程序出错，请稍后重试");
+        }
+    });
     appendList(1);
 
     //左侧导航点击切换;
     $(".topbox").on("click",".imgwrop",function(){
-        $(".repinfoList").empty();
-        repos = [];//数据清空
-        //if($(this).hasClass("overs")){
-        //    $(this).removeClass("overs");
-        //    $(this).css("background-color","#f9f9f9").css("color","#666");
-        //    $("#allJ").text("全部精选");
-        //    appendList(1);
-        //}else{
-            //点击全部精选
              thisvalue = $(this).children('p').text();
-             $('.repinfo').html(thisvalue);
+            if(thisvalue == '更多'){
+                $('#topNav>div:gt(7)').show();
+            }else{
+                $(".repinfoList").empty();
+                repos = [];//数据清空
+                $('.repinfo').html(thisvalue);
                 appendList2(1,thisvalue);
+            }
+
         //}
     });
     ////////////////////////////
@@ -147,6 +155,7 @@ $(document).ready(function(){
 //  填充html代码；
     function addhtml(){
         $('#terminal-content-body').empty();
+
         for(var i= 0;i<repos.length;i++) {
             //////////////  填充
             $.ajax({
@@ -195,6 +204,7 @@ $(document).ready(function(){
     window.onscroll = function(){
         //alert(thisvalue)
         if(getScrollTop() + getWindowHeight() == getScrollHeight()){
+            //$('.btboxinfo').show(600);
             if(thisvalue == ''&& repos.length>0){
                 pages++;
                 appendList(pages);
