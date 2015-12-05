@@ -47,7 +47,7 @@ $(document).ready(function(){
                 if(bgarr.length>8){
                     bgarr.splice(8, 0, moreimg);
                 }
-                for(var i=1;i<fornum;i++){
+                for(var i=1;i<=fornum;i++){
                     var str =  '<div class="imgwrop">'+
                                 "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[i].icon+".png\")'>"+
                                 '</div>'+
