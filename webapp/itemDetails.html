@@ -329,11 +329,20 @@
 			</div>
 		</div>
 	</div>
-	<div class="sampleDetail">
-		<div classs="head">样例</div>
+	<div class="taglistDetail" style="display: none">
+		<div class="name">
+			<span class="icon"></span><span class="tags">223</span>
+		</div>
 		<div class="body"></div>
 	</div>
-	<div class="metaDetail"></div>
+	<div class="sampleDetail" style="display: none">
+		<div class="name">样例</div>
+		<div class="body markdown-body"></div>
+	</div>
+	<div class="metaDetail" style="display: none">
+		<div class="name">元数据</div>
+		<div class="body markdown-body"></div>
+	</div>
 
 </div>
 <footer></footer>
@@ -604,6 +613,9 @@
 
 			}
 		});
+		$("#subscriptDialog .modal-body .subbtns .cancel").click(function() {
+			$('#subscriptDialog').modal('toggle');
+		});
 		$("#subscriptDialog .modal-body .subbtns .submit").click(function() {
 			//TODO 没有提交的数据：甲方、乙方、合同订购日期
 //					var usera = $.cookie("tname");
@@ -670,6 +682,38 @@
 		});
 		$("#authority-dialog").click(function(e) {
 			stopEventStrans(e);
+		});
+		$("#mobileItemDetail >.content .data .sample").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .sampleDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .sampleDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .sampleDetail").hide();
+		});
+		$("#mobileItemDetail >.content .data .meta").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .metaDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .metaDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .metaDetail").hide();
+		});
+		$("#mobileItemDetail >.content .data .taglist").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .taglistDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .taglistDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .taglistDetail").hide();
+		});
+		$("#mobileItemDetail .taglistDetail .body .tagrecored").hover(function(){
+			$(this).find(".state:first").show();
+		},function() {
+			$(this).find(".state:first").hide();
 		});
 	});
 
@@ -803,75 +847,16 @@
 					$("#dataitem-tag .tag-head .text").text(json.data.tags);
 					$("#mobileItemDetail .desc .statistics .left .tags .val").text(json.data.tags);
 					$("#mobileItemDetail .data .taglist .name .nval").text(json.data.tags);
-					//设置tag详情，先清空table
-					$("#dataitem-tag .tag-body table").html("");
-					for(var i=0; i<json.data.taglist.length; i++) {
-						var tag = json.data.taglist[i];
-						var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
-						var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
-						var tagtime=tag.optime;
-						var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
-						var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
-						var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
-						var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
-						td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
-						var clipbtn = $("<input>").addClass("btn").attr("type", "button").attr("data-clipboard-action","copy").attr("data-clipboard-target", "#clipval_"+i).attr("value", "复制");
-						var clipboard = new Clipboard(clipbtn.get(0));
-						clipboard.on('success', function(e) {
-							alert("复制成功!");
-						});
-						clipboard.on('error', function(e) {
-							alert("暂不支持此浏览器,请手动复制或更换浏览器!");
-						});
-						td4.append(clipbtn);
-						var td5btn = $("<input>").addClass("btn").attr("type", "button").attr("value", "Pull");
-						td5btn.click(function(e) {
-							var off = $(this).offset();
-							var dailog = $("#show-message");
-							dailog.css({position: "absolute",'top':off.top+25,'left':off.left-110}).show();
-							stopEventStrans(e);
-						});
-						var td5 = $("<td></td>").addClass("tag-5").append(td5btn);
-						var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
-						var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
-						//设置tag下载量
-						var numpulls = -1;
-						var nummypulls = -1;
-						$.ajax({
-							url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
-							type: "get",
-							cache:false,
-							data:{},
-							async:false,
-							dataType:'json',
-							headers:header,
-							success:function(json){
-								if(json.code == 0){
-									numpulls = json.data.numpulls;
-									nummypulls = json.data.nummypulls;
-								}
-							},
-							error:function(json){
-								alert(json.msg);
-							}
-						});
-						var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
-						var tr = $("<tr></tr>").append(td1).append(td3).append(td4).append(td5);
-						$("#dataitem-tag .tag-body table").append(tr);
-						if(json.data.label.sys.supply_style == "batch") {
-							td2.insertAfter(td1);
-						}
-						//已登录
-						if(login) {
-							$("<td></td>").addClass("numPulls").insertBefore(td4).text("pull:"+nummypulls);
-							$("#show-message .login").hide();
-							$("#show-message .tag").remove();
-							$("<span><a href='clientDownload.html'>请获取Client端</a></span>").addClass("tag").appendTo($("#show-message"));
-						}
-					}
+					$("#mobileItemDetail .taglistDetail .name .tags").text(json.data.tags);
+
+					//创建taglists列表
+					createTaglist(json.data.taglist, repname, itemname,json);
+					createPhoneTaglist(json.data.taglist, repname, itemname,json);
 					//设置样例和元数据
 					$("#dataitem-exemple .exemple-body").html(marked(json.data.Sample));
+					$("#mobileItemDetail .sampleDetail .body").html(marked(json.data.Sample));
 					$("#dataitem-metadata .metadata-body").html(marked(json.data.Meta));
+					$("#mobileItemDetail .metaDetail .body").html(marked(json.data.Meta));
 					//设置introduce1的itemname
 					$("#introduce1 .introduce1-head span:first").attr("title", itemname).text(itemname);
 					//设置comment
@@ -937,6 +922,135 @@
 			}
 		});
 		$("body,html").animate({scrollTop:0},0);
+	}
+	function createTaglist(tags, repname, itemname, json) {
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+		//设置tag详情，先清空table
+		$("#dataitem-tag .tag-body table").html("");
+		for(var i=0; i<tags.length; i++) {
+			var tag = tags[i];
+			var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
+			var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
+			var tagtime=tag.optime;
+			var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
+			var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
+			var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
+			var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
+			td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
+			var clipbtn = $("<input>").addClass("btn").attr("type", "button").attr("data-clipboard-action","copy").attr("data-clipboard-target", "#clipval_"+i).attr("value", "复制");
+			var clipboard = new Clipboard(clipbtn.get(0));
+			clipboard.on('success', function(e) {
+				alert("复制成功!");
+			});
+			clipboard.on('error', function(e) {
+				alert("暂不支持此浏览器,请手动复制或更换浏览器!");
+			});
+			td4.append(clipbtn);
+			var td5btn = $("<input>").addClass("btn").attr("type", "button").attr("value", "Pull");
+			td5btn.click(function(e) {
+				var off = $(this).offset();
+				var dailog = $("#show-message");
+				dailog.css({position: "absolute",'top':off.top+25,'left':off.left-110}).show();
+				stopEventStrans(e);
+			});
+			var td5 = $("<td></td>").addClass("tag-5").append(td5btn);
+			var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
+			var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
+			//设置tag下载量
+			var numpulls = -1;
+			var nummypulls = -1;
+			$.ajax({
+				url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
+				type: "get",
+				cache:false,
+				data:{},
+				async:false,
+				dataType:'json',
+				headers:header,
+				success:function(json){
+					if(json.code == 0){
+						numpulls = json.data.numpulls;
+						nummypulls = json.data.nummypulls;
+					}
+				},
+				error:function(json){
+					alert(json.msg);
+				}
+			});
+			var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
+			var tr = $("<tr></tr>").append(td1).append(td3).append(td4).append(td5);
+			$("#dataitem-tag .tag-body table").append(tr);
+			if(json.data.label.sys.supply_style == "batch") {
+				td2.insertAfter(td1);
+			}
+			//已登录
+			if(login) {
+				$("<td></td>").addClass("numPulls").insertBefore(td4).text("pull:"+nummypulls);
+				$("#show-message .login").hide();
+				$("#show-message .tag").remove();
+				$("<span><a href='clientDownload.html'>请获取Client端</a></span>").addClass("tag").appendTo($("#show-message"));
+			}
+		}
+	}
+	function createPhoneTaglist(tags, repname, itemname, json) {
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+		//设置tag详情，先清空table
+		var taglist = $("#mobileItemDetail .taglistDetail .body").html("");
+		for(var i=0; i<tags.length; i++) {
+			var tag = tags[i];
+			var tagrecored =  $("<div class='tagrecored'></div>").appendTo(taglist);
+			$('<div class="state" style="display: none"></div>').appendTo(tagrecored);
+			var content = $('<div class="content" style="display: block"></div>').appendTo(tagrecored);
+			var tagname = $('<div class="tagname"></div>').appendTo(content);
+			tagname.append($('<div class="left"></div>')).text(tag.tag);
+			//设置tag下载量
+			var numpulls = -1;
+			var nummypulls = -1;
+			$.ajax({
+				url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
+				type: "get",
+				cache:false,
+				data:{},
+				async:false,
+				dataType:'json',
+				headers:header,
+				success:function(json){
+					if(json.code == 0){
+						numpulls = json.data.numpulls;
+						nummypulls = json.data.nummypulls;
+					}
+				},
+				error:function(json){
+					alert(json.msg);
+				}
+			});
+			tagname.append($('<div class="right"></div>').append($('<span class="icon"></span>')).append($('<span class="text"></span>').text(numpulls)));
+			$('<div class="comment"></div>').text(tag.comment).attr("title",btagtime).appendTo(content);
+
+			var tagtime=tag.optime;
+			var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
+			var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
+			$('<div class="optime"></div>').text(atagtime).attr("title", btagtime).appendTo(content);
+
+			var pullurl = $('<div class="pullurl"></div>').appendTo(content);
+			pullurl.append($('<input class="itext" type="text" readonly="readonly">').attr("value", repname+"/"+itemname+":"+tag.tag));
+			var pullbtn = $('<input class="btn" type="button" value="Pull">').css("position", "relative");
+			pullurl.append(pullbtn);
+
+			pullbtn.click(function(e) {
+				alert("请获取Client端");
+				var off = $(this).offset();
+				var dailog = $("#show-message");
+				dailog.css({position: "absolute",'top':off.top-500,'left':off.left}).show();
+				stopEventStrans(e);
+			});
+			//已登录
+			if(login) {
+				$("#show-message .login").hide();
+				$("#show-message .tag").remove();
+				$("<span><a href='clientDownload.html'>请获取Client端</a></span>").addClass("tag").appendTo($("#show-message"));
+			}
+		}
 	}
 	function getParam(key) {
 		var value='';

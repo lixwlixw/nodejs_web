@@ -672,6 +672,7 @@
 	background-color: #f2fafe;
 	margin-top: 50px;
 	margin-bottom: 50px;
+	padding-top: 0.05px;
 }
 #mobileItemDetail > div {
 	background-color: #ffffff;
@@ -867,6 +868,113 @@
 #mobileItemDetail .data .sample,#mobileItemDetail .data .meta{
 	font-size: 24px;
 	color: #666666;
+}
+#mobileItemDetail .sampleDetail,#mobileItemDetail .metaDetail,#mobileItemDetail .taglistDetail {
+	margin: 40px 40px 0px 40px;
+}
+#mobileItemDetail .sampleDetail .name,#mobileItemDetail .metaDetail .name{
+	padding: 15px 36px;
+	height: 70px;
+	background-color: #c0c0c0;
+	font-size: 26px;
+	color: #fff;
+	cursor: pointer;
+}
+#mobileItemDetail .sampleDetail .body,#mobileItemDetail .metaDetail .body {
+	padding: 36px;
+	font-size: 20px;
+	line-height: 30px;
+	min-height: 120px;
+	color: #666666;
+}
+#mobileItemDetail .taglistDetail .name {
+	padding: 15px 36px;
+	background-color: #0077aa;
+	font-size: 26px;
+	color: #fff;
+	cursor: pointer;
+}
+#mobileItemDetail .taglistDetail .name span {
+	display: inline-block;
+}
+#mobileItemDetail .taglistDetail .name .icon {
+	background-image: url("../images/itemDetails_mobileTags.png");
+	background-repeat: no-repeat;
+	background-position: -1px 0px;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored{
+	font-size: 22px;
+	color: #333;
+	height: 290px;
+	border-bottom: 1px solid #e5e5e5;
+	overflow: hidden;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .state {
+	background-color: #29abe2;
+	height: 100%;
+	width: 10px;
+	float: left;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content {
+	width: 100%;
+	margin-left: 36px;
+	padding-right: 72px;
+	padding-top: 36px;
+
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content> div {
+	margin-bottom: 30px;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .tagname {
+	overflow: hidden;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .tagname .left {
+	float: left;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .tagname .right {
+	float: right;
+	font-size: 20px;
+	color: #2a2a2a;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .tagname .right span {
+	display: inline-block;
+	vertical-align: middle;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .tagname .right .icon {
+	background-image: url("../images/itemDetails_mobileSub.png");
+	background-repeat: no-repeat;
+	background-position: -2px -5px;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .pullurl .itext {
+	width: 70%;
+	height: 36px;
+	font-size: 22px;
+	line-height: 36px;
+	padding: 5px 0px 5px 5px;
+	border: 1px solid #e5e5e5;
+	background-color: #f7fafc;
+	outline: none;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .pullurl {
+	overflow: hidden;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .pullurl .btn {
+	width: 80px;
+	height: 40px;
+	padding: 0px 10px;
+	font-size: 26px;
+	color: #7f7f7f;
+	background-color: #d2d2d2;
+	float: right;
+}
+#mobileItemDetail .taglistDetail .body .tagrecored .content .pullurl .btn:hover {
+	background-color: #22bdff;
 }
 @media screen and (max-width: 768px){
 	#dataitem {
