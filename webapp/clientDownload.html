@@ -28,7 +28,7 @@
                         <div class="bmargin fcolor0 bfont">便捷、快速的获取数据</div>
                         <div class="smargin fcolor6">DataHub链接的任意数据，均可通过Client端一键获取</div>
                         <div class="bmargin fcolor0 bfont">一键发布数据</div>
-                        <div class="smargin fcolor6">DataHub支持任意批量数据（如文本文件、HDFS、F3、DB等 ）、API、流数据的发布，支持数据时时在线链接</div>
+                        <div class="smargin fcolor6">DataHub支持任意批量数据（如文本文件、HDFS、S3、DB等 ）、API、流数据的发布，支持数据时时在线链接</div>
                         <div class="bmargin fcolor0 bfont">免费获取公开数据</div>
                         <div class="smargin fcolor6">DataHub上链接的免费数据，均可通过Client端免费获取</div>
                  </div>
@@ -89,8 +89,8 @@
                         <div class="monitorboxTop"></div>
                         <div class="monitorboxCon">
                              <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
-                             <div class="nobg_p">EntryPoint：<span class="havePoint">entrypoint为空</span></div>
-                             <div class="nobg_p">健康状况：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>
+                             <div class="nobg_p">EntryPoint：<span class="havePoint">N/A</span></div>
+                             <div class="nobg_p">连接状态：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>
                         </div>
                  </div>
                  <div class="clientTitle bdbs" style="margin-top:50px;">
@@ -533,7 +533,7 @@
             headers:{Authorization:"Token "+account},
             success: function(msg){
                   if(msg.data == null){
-                    $('.havePoint').html("entrypoint为空"); 
+                    $('.havePoint').html("N/A");
                     $('.statecolor').html('Client端失去连接');
                     $('.stateicon').addClass('stateiconrgred').removeClass('stateiconrgre');
                     $('.statecolor').addClass('statecolorgred').removeClass('statecolorgre');
