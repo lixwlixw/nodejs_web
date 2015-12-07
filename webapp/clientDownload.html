@@ -215,8 +215,7 @@
                                     目前只支持本地目录的数据池创建。daemon会有自己的可配置目录(默认/var/lib/datahub),使用参数dpconn指定据对路径，当没有设置dpconn选项时，会默认创建到daemon的工作目录。
                                 </div>
                                 <div class="bg_p">
-                                    <p>datahub dp create $DPNAME [--type=$dptype]</p>
-                                    <p>[--conn=$dpconn]</p>
+                                    <p>datahub dp create $DPNAME [file://][ABSOLUTE PATH]</p>
                                 </div>
                                 <p class="smargin fcolor0">
                                     输出
@@ -228,9 +227,8 @@
                                     例子
                                 </p>
                                 <div class="bg_p">
-                                    <p>$ datahub dp create dp1 --type=file</p>
-                                    <p>--conn=/home/daemon/dp1</p>
-                                    <p>dp1 created as /home/daemon/dp1</p>
+                                    <p>$ datahub dp create testdp file:///var/lib/datahub/testdp</p>
+                                    <p>dp create success. name:testdp type:file path:/var/lib/datahub/testdp</p>
                                     <p>$</p>
                                 </div>
                         </div>
@@ -242,7 +240,7 @@
                                     删除数据池不会删除目标数据池已保存的数据，该dp有发布的数据项时，不能被删除。删除是在sqlit中标记状态，不真实删除。
                                 </div>
                                 <div class="bg_p">
-                                    <p>datahub dp rm $DPNAME [-f]</p>
+                                    <p>datahub dp rm $DPNAME</p>
                                 </div>
                                 <p class="smargin fcolor0">
                                     输出
@@ -254,8 +252,8 @@
                                     例子
                                 </p>
                                 <div class="bg_p">
-                                    <p>$ datahub dp rm dp1</p>
-                                    <p>ok</p>
+                                    <p>$ datahub dp rm testdp</p>
+                                    <p>Datapool testdp with type:file removed successfully!</p>
                                     <p>$</p>
                                 </div>
                         </div>
@@ -290,7 +288,7 @@
                             </p>
                             <div style="padding-left: 10px">
                             <div class="bg_p">
-                                <p>ddatahub subs $REPO/$ITEM</p>
+                                <p>datahub subs $REPO/$ITEM</p>
                             </div>
                             <p class="smargin fcolor0">
                                 输出
@@ -326,8 +324,11 @@
                                  3.1 拉取某个item的tag
                             </p>
                             <div style="padding-left: 10px">
+                                   <div class="notebox bddashed">
+                                       pull一个tag，需指定$DATAPOOL, 可再指定$DATAPOOL下的子目录$LOCATION，默认下载到$DATAPOOL://$REPO_$ITEM. 可选参数--destname, -d 命名下载的tag
+                                   </div>
                                    <div class="bg_p">
-                                       <p>datahub pull $REPO/$ITEM[:$TAG] $DATAPOOL</p>
+                                       <p>datahub pull $REPO/$ITEM:$TAG $DATAPOOL[://$LOCATION] [--destname，-d]</p>
                                    </div>
                                    <p class="smargin fcolor0">
                                        输出
@@ -339,7 +340,7 @@
                                        例子
                                    </p>
                                    <div class="bg_p">
-                                       <p>$ datahub pull cmcc/beijing:chaoyang dp1</p>
+                                       <p>$ datahub pull cmcc/beijing:chaoyang dp1://cmccbj</p>
                                        <p>OK.</p>
                                        <p>$</p>
                                    </div>
@@ -386,7 +387,7 @@
                         </p>
                         <div style="padding-left: 10px">
                                     <div class="bg_p">
-                                        <p>datahub pub $REPOSITORY/$DATAITEM --datapool=$DATAPOOL --accesstype=public [private]</p>
+                                        <p>datahub pub $REPOSITORY/$DATAITEM $DATAPOOL://$LOCATION --accesstype=public [private]  [--comment, -m]</p>
                                     </div>
                                     <p class="smargin fcolor0">
                                         输出
@@ -398,8 +399,7 @@
                                         例子
                                     </p>
                                     <div class="bg_p">
-                                        <p>$./datahub pub music_1/migu --datapool=mydp</p>
-                                        <p>--accesstype=public</p>
+                                        <p>$./datahub pub music_1/migu mydp://dirmigu --accesstype=public --comment="migu music desc"</p>
                                         <p>Pub success,  OK</p>
                                     </div>
                         </div>
@@ -408,7 +408,7 @@
                         </p>
                         <div style="padding-left: 10px">
                                     <div class="bg_p">
-                                        <p>datahub pub $REPO/$ITEM:$Tag --detail=$path/$file</p>
+                                        <p>datahub pub $REPO/$ITEM:$Tag $TAGDETAIL --comment=" "</p>
                                     </div>
                                     <p class="smargin fcolor0">
                                         输出
@@ -420,20 +420,38 @@
                                         例子
                                     </p>
                                     <div class="bg_p">
-                                        <p>$ datahub pub music_1/migu:migu_user_info</p>
-                                        <p>--detail=./migu_user_info.txt</p>
+                                        <p>$ datahub pub music_1/migu:migu_user_info migu_user_info.txt</p>
                                         <p>Pub success, OK</p>
                                         <p>$</p>
                                     </div>
                         </div>
                  </div>
-                 <div class="nobg_p fonttsize16 fcolor0">6. Help命令</div>
+                 <div class="nobg_p fonttsize16 fcolor0">6. repo命令</div>
+                 <div style="padding-left:18px;">
+                     <p class="nobg_p fcolor0 fontw">
+                         6.1. 查询自己创建的和具有写权限的所有repository
+                     </p>
+                     <div class="bg_p">
+                         <p>datahub repo </p>
+                     </div>
+                     <p class="smargin fcolor0">
+                         输出
+                     </p>
+                     <div class="bg_p">
+                         <p>REPOSITORY</p>
+                         <p>--------------------</p>
+                         <p>Location_information</p>
+                         <p>Internet_stats</p>
+                         <p>Base_station_location</p>
+                     </div>
+                 </div>
+                 <div class="nobg_p fonttsize16 fcolor0">7. Help命令</div>
                  <div class="notebox bddashed" style="margin-left:18px;">
                      Help提供DataHub所有命令的帮助信息。
                  </div>
                  <div style="padding-left:18px;">
                          <p class="nobg_p fcolor0 fontw">
-                                6.1. 列出帮助
+                                7.1. 列出帮助
                         </p>
                         <div style="padding-left: 10px">
                                     <div class="bg_p">
