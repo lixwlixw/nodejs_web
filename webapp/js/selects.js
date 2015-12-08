@@ -26,6 +26,7 @@ $(window).load(function(){
 var paegeitems;
 var paegeitems2;
 $(document).ready(function(){
+    var typevalue = getParam("type");
     var pages = 1;
     $.ajax({
         url: ngUrl+"/select_labels",
@@ -35,12 +36,26 @@ $(document).ready(function(){
         dataType:'json',
         success:function(json){
             if(json.data.length!=0){
+
                 var pages=json.data.length;
                 for(var i=0;i<pages;i++){
                     $("#navigator-ul").append("<li><img src='images/nav_icon.png' style='margin-left:20px;margin-right:15px;'>"+json.data[i].labelname+"</img></li>");
                     $("#navigator-ul10").append("<li>"+json.data[i].labelname+"</li>");
                 }
-                $("#navigator-ul li").eq(0).css({ color: "#0077aa", background: "#fff" });
+                if(typevalue == ''){
+
+                    $("#navigator-ul li").eq(0).css({ color: "#0077aa", background: "#fff" });
+                }else{
+                    var lis = $('#navigator-ul li');
+                    for(var i = 0;i<lis.length;i++){
+                        if(lis[i].textContent == typevalue){
+                            $(lis[i]).css({ color: "#0077aa", background: "#fff" });
+                            return;
+                        }
+                    }
+
+                }
+
             }else{
 
             }

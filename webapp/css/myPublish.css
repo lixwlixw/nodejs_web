@@ -24,6 +24,24 @@ body{
 	margin-top: 2px;
 	margin-bottom: -2px;
 	cursor: pointer;
+	position: relative;
+}
+.fabucon{
+	position: absolute;
+	padding:10px 15px;
+	line-height: 24px;
+	color: #333333;
+	background: #ffffff;
+	left:30px;
+	top:-22px;
+	display: none;
+}
+.fabucon p{
+	white-space:nowrap;
+}
+.fabucon p:hover{
+	color: #0077aa;
+	text-decoration: underline;
 }
 #publish-body .repocount{
 	font-size: 14px;
@@ -253,7 +271,7 @@ body{
 }
 
 
-/*Ìí¼Ó²Ö¿â*/
+/*æ·»åŠ ä»“åº“*/
 #addRep .modal-dialog{
 	width: 520px;
 }
@@ -264,10 +282,24 @@ body{
 	font-size: 20px;
 	color: #333;
 }
-#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key{
+#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key,.managename{
 	font-size: 14px;
 	color: #29abe2;
 	margin-bottom: 10px;
+}
+.namenum{
+	color: #333;
+	margin-left: 5px;
+}
+.editicon{
+	margin-left: 10px;
+	cursor: pointer;
+	padding:3px 10px;
+	background: url("../images/allow_icon.png") no-repeat;
+	background-position: 3px 5px;
+}
+.editicon:hover{
+	background-position: -21px 5px;
 }
 #addRep .repname .value input{
 	width: 458px;
@@ -301,6 +333,9 @@ body{
 	padding-left: 23px;
 	border: 1px solid #666;
 }
+.property{
+	margin-bottom: 20px;
+}
 #addRep .submit input{
 	width: 458px;
 	height: 40px;
@@ -315,6 +350,11 @@ body{
 	background-color: #1998ce;
 }
 
+.shuxing{
+	padding:3px 20px;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+}
 
 @media screen and (max-width: 768px) {
 	#publish-body .repolist .describe .tail {

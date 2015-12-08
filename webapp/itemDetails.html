@@ -264,7 +264,7 @@
 		<div class="head">
 			<span class="iconl"></span>
 		<span class="name">
-			<span class="repname">Repository Name</span>
+			<span class="repname"><a href="#" style="color:#29abe2"></a></span>
 			<span>&nbsp;/&nbsp;</span><br>
 			<span class="itemname">DataItem Name</span>
 		</span>
@@ -795,7 +795,7 @@
 					var url = shebei == "phone" ? "repDetailsPhone.html?repname="+repname :"repDetails.html?repname="+repname;
 					$("#dataitem-head-left .repname a").text(repname).attr("href", url);
 					$("#dataitem-head-left .itemname").text(itemname);
-					$("#mobileItemDetail .head .name .repname a").text(repname).attr("href", "repDetails.html?repname="+repname);
+					$("#mobileItemDetail .head .name .repname a").text(repname).attr("href", url);
 					$("#mobileItemDetail .head .name .itemname a").text(itemname);
 					$("#mobileItemDetail .head").click(function() {
 						location.href = "repDetails.html?repname="+repname;
