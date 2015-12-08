@@ -99,6 +99,7 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src='js/errorDialog.js'></script>
 <script>
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
@@ -128,7 +129,8 @@
     			}		
     		},
     		error:function(json){
-    			alert("程序出错，请稍后重试");
+    			errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
     		}
     	});
 		
@@ -184,7 +186,8 @@
 	    						}
 	    					},
 	    					error:function(json){
-	    						alert("程序出错，请稍后重试");
+	    						errorDialog($.parseJSON(json.responseText).code);
+	    						$('#errorDM').modal('show');
 	    					}
 	    				});
 	    				
@@ -204,7 +207,8 @@
 	    						}
 	    					},
 	    					error:function(json){
-	    						alert("程序出错，请稍后重试");
+	    						errorDialog($.parseJSON(json.responseText).code);
+	    						$('#errorDM').modal('show');
 	    					}
 	    				});
 	    				
@@ -224,7 +228,8 @@
 	    						}
 	    					},
 	    					error:function(json){
-	    						alert("程序出错，请稍后重试");
+	    						errorDialog($.parseJSON(json.responseText).code);
+	    						$('#errorDM').modal('show');
 	    					}
 	    				});
 	    						    				
@@ -262,7 +267,8 @@
 		    				);	    		
 	    		},
 	    		error:function(json){
-	    			alert("程序出错，请稍后重试");
+	    			errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
 	    		}
     		}); 
 		}
@@ -288,7 +294,8 @@
 				}
 			},
 			error:function(json){
-				alert("程序出错，请稍后重试");
+				errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
 			}
 		});
 	}

@@ -151,7 +151,7 @@
 								<div class="sub1">
 									<div class="shead">一、服务内容</div>
 									<div class="sbody">
-										乙方向甲方提供名为“repo名称/item名称”的数据服务，乙方保证所提供数据的内容与“repo名称”描述，“Ietm名称”描述、样例数据、元数据申明的一致，并保障数据质量。
+										乙方向甲方提供名为“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据服务，乙方保证所提供数据的内容与“<span class='repnamePm'></span>”描述，“<span class='itemnamePm'></span>”描述、样例数据、元数据申明的一致，并保障数据质量。
 									</div>
 								</div>
 								<div class="sub2">
@@ -159,11 +159,11 @@
 									<div class="sbody">
 										<div>1、若由于乙方原因导致用户订购的数据内容无法完整获取，则乙方全额退回本次订购的全部款项。</div>
 										<div>2、若乙方提供的数据与申明不符，甲方可向DataHub平台申请，将本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效。</div>
-										<div>3、乙方拥有发布于DataHub平台的“repo名称/item名称”的数据版权。</div>
+										<div>3、乙方拥有发布于DataHub平台的“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据版权。</div>
 									</div>
 								</div>
 								<div class="sub3">
-									<div class="shead">三、双方权利与义务</div>
+									<div class="shead">三、数据提供服务费用标准</div>
 									<div class="sbody">
 										<div class="charge-head">本次数据服务费用标准如下：</div>
 										<div class="charge-body">
@@ -250,7 +250,7 @@
 	<div id="authority-dialog">
 		<div class="up">
 		<span class="icon">&nbsp;</span
-			><span class="text">余额权限不足</span>
+			><span class="text">权限余额不足</span>
 		</div>
 		<div class="down">
 		<span>请发邮件至</span
@@ -532,7 +532,8 @@
 					}
 				});
 				if(subscripted == "private") {
-					$("#authority-dialog .down .email").text(create_user);
+					//$("#authority-dialog .down .email").text(create_user);
+					$("#authority-dialog .down .email").text("datahub@asiainfo.com");
 					var off = $(this).closest("#dataitem-head-right").offset();
 					$("#authority-dialog")
 						.css({'top':off.top+30,'left':off.left-100})
@@ -781,6 +782,8 @@
 	function ajaxRe(index){
 		var repname = getParam("repname");
 		var itemname = getParam("itemname");
+		$(".repnamePm").text(repname);
+		$(".itemnamePm").text(itemname);
 		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
 		if(firsttry) {
 			index = 0;
