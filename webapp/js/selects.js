@@ -269,7 +269,7 @@ $(document).ready(function(){
                     }
 
                     var times=json.data.optime;
-                    var jdTime=times.substring(0, times.indexOf("."));
+                    var jdTime=times.substring(0, times.indexOf("|"));
                     var xdTime="";
                     var showTime="";
                     var nums=times.indexOf("|");
@@ -278,7 +278,6 @@ $(document).ready(function(){
                     }else{
                         showTime=times.substring(0, times.indexOf("."));
                     }
-
                     var realname="";
                     //该用户昵称
                     $.ajax({
@@ -330,7 +329,7 @@ $(document).ready(function(){
                         "<div class='shwr'>"+
                         "<div class='star-icon' title='star量'></div>"+
                         "<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
-                        "<div class='subscript-icon' title='订阅量'></div>"+
+                        "<div class='subscript-icon' title='订购量'></div>"+
                         "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
                         "<div class='downloaded-icon' title='pull量'></div>"+
                         "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
