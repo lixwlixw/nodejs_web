@@ -65,7 +65,18 @@ $(document).ready(function(){
             alert("程序出错，请稍后重试");
         }
     });
-    appendList(1);
+    //var typevalue = getParam("type");
+    //console.log(typevalue)
+    //if(typevalue == ''){
+    //   console.log('1111')
+    //    appendList(1);
+    //}
+    //if(typevalue != ''){
+    //    console.log('22222')
+    //    $('.repinfo').html(typevalue);
+    //    appendList2(1,typevalue);
+    //}
+
 
     //左侧导航点击切换;
     $(".topbox").on("click",".imgwrop",function(){

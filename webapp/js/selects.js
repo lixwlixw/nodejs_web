@@ -36,7 +36,6 @@ $(document).ready(function(){
         dataType:'json',
         success:function(json){
             if(json.data.length!=0){
-
                 var pages=json.data.length;
                 for(var i=0;i<pages;i++){
                     $("#navigator-ul").append("<li><img src='images/nav_icon.png' style='margin-left:20px;margin-right:15px;'>"+json.data[i].labelname+"</img></li>");
