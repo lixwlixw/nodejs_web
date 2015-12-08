@@ -389,7 +389,7 @@
 				<h2 style='color:#29aae1;font-size:25px; font-weight: bold;'>行业精选专题</h2>
 			</div>
 			<div class="row" style='margin:0px;'>
-					<a style="color:#29aae1;display: block;" href="selects.html?type=终端专题">
+					<a id="terminalhref" style="color:#29aae1;display: block;" href="selects.html?type=终端专题">
 						<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
 		           			<img src="images/jing3.png" />
 		           			<div class="feature-labeljing">
@@ -397,7 +397,7 @@
 		           			</div>
 		           		</div>
 	           		</a>
-	           		<a style="color:#29aae1;display: block;" href="selects.html?type=互联网专题">
+	           		<a id="internethref" style="color:#29aae1;display: block;" href="selects.html?type=互联网专题">
 					<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
 	           			<img src="images/jing2.png" />
 	           			<div class="feature-labeljing">
@@ -405,7 +405,7 @@
 	           			</div>
 	           		</div>
 	           		</a>
-	           		<a style="color:#29aae1;display: block;" href="selects.html?type=征信专题">
+	           		<a id="investigationhref" style="color:#29aae1;display: block;" href="selects.html?type=征信专题">
 	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdc jingNum"> 
 	           			<img src="images/jing4.png" />
 	           			<div class="feature-labeljing">
@@ -413,7 +413,7 @@
 	           			</div>
 	           		</div>
 	           		</a>
-	           		<a style="color:#29aae1;display: block;" href="selects.html?type=运营商专题">
+	           		<a id="operatorhref" style="color:#29aae1;display: block;" href="selects.html?type=运营商专题">
 	           		<div class="col-md-3 col-sm-6 float-shadow float-shadow-bdf jingNum"> 
 	           			<img src="images/jing1.png" />
 	           			<div class="feature-labeljing">
@@ -567,10 +567,18 @@
     		 $("body").css("padding-right","0px");
     	});
 		if(pcorphone == 'pc'){
-			$('.selectbtn').attr('href','selects.html')
+			$('.selectbtn').attr('href','selects.html');
+			$('#terminalhref').attr('href','selects.html?type=终端专题');
+			$('#internethref').attr('href','selects.html?type=互联网专题');
+			$('#investigationhref').attr('href','selects.html?type=征信专题');
+			$('#operatorhref').attr('href','selects.html?type=运营商专题');
 		}
 		if(pcorphone == 'phone'){
-			$('.selectbtn').attr('href','selectsPhone.html')
+			$('.selectbtn').attr('href','selectsPhone.html');
+			$('#terminalhref').attr('href','selectsPhone.html?type=终端专题');
+			$('#internethref').attr('href','selectsPhone.html?type=互联网专题');
+			$('#investigationhref').attr('href','selectsPhone.html?type=征信专题');
+			$('#operatorhref').attr('href','selectsPhone.html?type=运营商专题');
 		}
     	 
     	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
