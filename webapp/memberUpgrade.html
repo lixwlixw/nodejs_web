@@ -217,20 +217,21 @@
 				datatype:'json',
 				success:function(d){
 					var UT=d.data.userType;
-					if (UT==0)
+					if (UT==1)
 					{
 						
 					}
-					else if (UT==1)
-					{
-						$(".btn3").hide();	
-					}
-					else if (UT==2)
+					else if (UT==3)
 					{
 						$(".btn3").hide();
-						$(".btn2").hide();		
 					}
-					else if (UT==3)
+					else if (UT==4)
+					{
+						$(".btn3").hide();
+						$(".btn2").hide();
+
+					}
+					else if (UT==5)
 					{
 						$(".btn3").hide();
 						$(".btn2").hide();
