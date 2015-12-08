@@ -177,6 +177,7 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src='js/errorDialog.js'></script>
 <script>
 
 	$("a").focus(function(){this.blur()});
@@ -239,7 +240,9 @@
 					}
 					
 				},
-				error:function(){
+				error:function(json){
+					errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
 
 				}
 	

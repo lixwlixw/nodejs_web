@@ -111,6 +111,25 @@ body{
 	color:#fff;
 	background-color:#29abe2;
 }
+#update_icon{
+	background-image: url("/images/allow_icon.png");
+	background-repeat: no-repeat;
+	background-position:-6% 90%;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+}
+#update_icon:hover{
+	background-image: url("/images/allow_icon.png");
+	background-repeat: no-repeat;
+	background-position:120% 90%;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+
+}
 
 .form-group input{
 	background-color:#f5f5f5;
