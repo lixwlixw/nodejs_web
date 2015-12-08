@@ -165,7 +165,7 @@ $(function(){
     var itemshowtime;
     function tagbox(pages){
         $('.con-main').empty();
-        	getAjax(ngUrl+'/repositories/'+repname+"/"+itemname+'?size=6&page='+pages,function(msg){
+        	getAjax(ngUrl+'/repositories/'+repname+"/"+itemname+'?size=20&page='+pages,function(msg){
             tagallnum = msg.data.tags;
             taglist = msg.data.taglist;
             var supply_style = msg.data.label.sys.supply_style;
@@ -222,7 +222,7 @@ $(function(){
     //tag信息分页
     $(".pages").pagination(paegetags, {
             maxentries:paegetags,
-            items_per_page: 6,
+            items_per_page: 20,
             num_display_entries: 1,
             num_edge_entries: 5 ,
             prev_text:"上一页",
