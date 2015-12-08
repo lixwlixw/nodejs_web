@@ -43,6 +43,8 @@
           </div> 
 		  <div  id="col-left" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
 			<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:248px;height:28px;border: 0 none;">
+			<div class="hSearchBtn" style="cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;">
+			</div>
 		  </div>
 
 	
@@ -84,6 +86,11 @@
                   <li class="active">
                   	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html" >数据精选</a>
                   </li>
+                  <li>
+						<div  id="col-right" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
+						<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:248px;height:28px;border: 0 none;">
+						</div>
+				  </li>
                  <li>
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
                   		<img src="images/fl4.png" />
@@ -91,7 +98,7 @@
                   </li>
 
                   <li>
-                  	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
+                  	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<img src="images/fl1.png" />
                   	</a>
                   </li>                       
@@ -126,25 +133,29 @@
          
       </div>
   </div>
+  
+<script>
+	if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
+		$('#iLoginb').hide();
+		$("#iLoginf").show();
+		$("#innames").text($.cookie("tname"));
+	}else{
+		$('#iLoginb').show();
+		$("#iLoginf").hide();
+	}
+	
+	$("#sign-in").click(function(){
+		$(".modal-open").css("padding-right","15px");
+		$('#myModal').modal('toggle');
+	});
+	
+</script>
+  
 <script src="../js/lib/terminal.js"></script>
+
 <script>
 
-
-if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
-	$('#iLoginb').hide();
-	$("#iLoginf").show();
-	$("#innames").text($.cookie("tname"));
-}else{
-	$('#iLoginb').show();
-	$("#iLoginf").hide();
-}
-
-$("#sign-in").click(function(){
-	$(".modal-open").css("padding-right","15px");
-	$('#myModal').modal('toggle');
-});
-
-var pcorphone =  browserRedirect();
+	var pcorphone =  browserRedirect();
 
 	if(pcorphone == 'pc'){
 		$('.selectbtn').attr('href','selects.html')
@@ -155,25 +166,36 @@ var pcorphone =  browserRedirect();
 
 
 
-$(document).on('keydown',"#headerInput",function (e) {
-  if (e.keyCode == 13) {
-	  var vals=$(this).val();
-	  if(pcorphone == 'pc'){
-		  location.href="search.html?rtext="+vals;
+	$(document).on('keydown',"#headerInput",function (e) {
+	  if (e.keyCode == 13) {
+		  var vals=$(this).val();
+		  if(pcorphone == 'pc'){
+			  location.href="search.html?rtext="+vals;
+		  }
+		  if(pcorphone == 'phone'){
+			  location.href="searchPhone.html?rtext="+vals;
+		  }
 	  }
-	  if(pcorphone == 'phone'){
-		  location.href="searchPhone.html?rtext="+vals;
-	  }
-  }
 	});
 	
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?8d1c4d8ec0ca2cd1bd8684e439437124";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+	$(document).on('click',".hSearchBtn",function (e) {
+		  var vals=$("#headerInput").val();
+		  if(pcorphone == 'pc'){
+			  location.href="search.html?rtext="+vals;
+		  }
+		  if(pcorphone == 'phone'){
+			  location.href="searchPhone.html?rtext="+vals;
+		  }
+	});
+	
+	
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?8d1c4d8ec0ca2cd1bd8684e439437124";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
 	
 	
 </script>

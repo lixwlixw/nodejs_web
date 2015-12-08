@@ -359,6 +359,7 @@
 <script src="js/jquery.pagination.js"></script>
 <script src='js/marked.js'></script>
 <script src='js/clipboard.min.js'></script>
+<script src='js/errorDialog.js'></script>
 <script>
 	var login = false;
 	var firsttry = true;
@@ -414,7 +415,9 @@
 						}
 					},
 					error:function(json){
-						alert(json.msg);
+						//alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				/* TODO 私有也可以点赞，代码删除 if(access !=  "public") {
@@ -441,7 +444,8 @@
 						}
 					},
 					error:function(json){
-						alert(JSON.stringify(JSON.parse(json.responseText)));
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				if(starred) {
@@ -462,7 +466,8 @@
 							}
 						},
 						error:function(json){
-							alert(JSON.stringify(JSON.parse(json.responseText)));
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 				}else {
@@ -483,7 +488,8 @@
 							}
 						},
 						error:function(json){
-							alert(JSON.stringify(JSON.parse(json.responseText)));
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 				}
@@ -521,7 +527,8 @@
 						}
 					},
 					error:function(json){
-						alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				if(subscripted == "private") {
@@ -549,7 +556,8 @@
 						}
 					},
 					error:function(json){
-						alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				$.ajax({
@@ -565,7 +573,8 @@
 						}
 					},
 					error:function(json){
-						alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				$("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
@@ -708,7 +717,8 @@
 					}
 				},
 				error:function(json){
-					alert(JSON.stringify(JSON.parse(json.responseText)));
+					errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
 				}
 			});
 		});
@@ -820,7 +830,8 @@
 								}
 							},
 							error:function(json){
-								alert(JSON.stringify(JSON.parse(json.responseText)));
+								errorDialog($.parseJSON(json.responseText).code);
+								$('#errorDM').modal('show');
 							}
 						});
 					}
@@ -838,7 +849,8 @@
 							}
 						},
 						error:function(json){
-							alert(json.msg);
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 					$.ajax({
@@ -855,7 +867,8 @@
 							}
 						},
 						error:function(json){
-							alert(json.msg);
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 					$.ajax({
@@ -872,7 +885,8 @@
 							}
 						},
 						error:function(json){
-							alert(json.msg);
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 					//设置tag数量
@@ -942,7 +956,8 @@
 							}
 						},
 						error:function(json){
-							alert(json.msg);
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 				}else {
@@ -950,7 +965,9 @@
 				}
 			},
 			error:function(json){
-				alert(json.msg);
+			//	alert(JSON.stringify(JSON.parse(json.responseText)));
+				errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
 			}
 		});
 		$("body,html").animate({scrollTop:0},0);
@@ -1006,7 +1023,8 @@
 					}
 				},
 				error:function(json){
-					alert(json.msg);
+					errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
 				}
 			});
 			var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
@@ -1053,7 +1071,8 @@
 					}
 				},
 				error:function(json){
-					alert(json.msg);
+					errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
 				}
 			});
 			tagname.append($('<div class="right"></div>').append($('<span class="icon"></span>')).append($('<span class="text"></span>').text(numpulls)));
