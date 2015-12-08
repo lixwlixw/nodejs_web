@@ -30,7 +30,7 @@ $(document).ready(function(){
     getrepname(1);
     ajaxRe();
     $(".pages").pagination(totals, {
-        items_per_page: 5,
+        items_per_page: 10,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -55,7 +55,7 @@ function rel(str){
 
 function getrepname(pages) {
     $.ajax({
-        url: ngUrl+"/search?size=5&page="+pages,
+        url: ngUrl+"/search?size=10&page="+pages,
         type: "get",
         cache:false,
         data:data,
