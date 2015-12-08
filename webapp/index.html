@@ -534,20 +534,9 @@
 	demo3.start(); 
 	
 	$(document).ready(function(){
-		$(".slick-tab").children().click(function(){
-			$(this).siblings().children().removeClass().addClass("bfff");
-			$(this).children().removeClass().addClass("baaa");
-		});
-		
-		jQuery("#changeH").slide({mainCell:"#lunCom",nextCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
-		
-		
-		$("#sign-in").click(function(){
-			$(".modal-open").css("padding-right","15px");
-			$('#myModal').modal('toggle');		
-		});
-		
-		
+
+
+
 	});
 	
 
@@ -563,6 +552,25 @@
 <script>
 	$(document).ready(function(){
 		var pcorphone =  browserRedirect();
+		$(".slick-tab").children().click(function(){
+			$(this).siblings().children().removeClass().addClass("bfff");
+			$(this).children().removeClass().addClass("baaa");
+		});
+
+		jQuery("#changeH").slide({mainCell:"#lunCom",nextCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
+
+
+		$("#sign-in").click(function(){
+			if(pcorphone == 'pc') {
+				$(".modal-open").css("padding-right", "15px");
+				$('#myModal').modal('toggle');
+			}
+			if(pcorphone == 'phone'){
+				location.href="login_media.html";
+			}
+		});
+
+
     	 $('#myModal').on('shown.bs.modal', function (e) {
     		 $("body").css("padding-right","0px");
     	});

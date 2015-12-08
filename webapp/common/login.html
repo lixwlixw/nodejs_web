@@ -19,7 +19,7 @@
 	border-radius:5px;
 	font-size:14px;
 	}
-	#back_icon{
+	.back_icon{
 	background-image:url("/images/icon.png");
 	background-position:10% 10%;
 	background-repeat:repeat;
@@ -29,6 +29,7 @@
 	margin-bottom:-4px;
 	margin-right:10px;
 	}
+
 </style>
 <!-- 登陆框开始 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -40,9 +41,9 @@
                 </div>
                 <div class="modal-body" style="padding: 0px;" >
                 	<div style="height: 48px; padding-bottom: 5px; padding-top: 15px;">
-					<p id="messageModal" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>账户名与密码不匹配，请重新输入</p>
-					<p id="messageModa2" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>邮箱格式不正确</p>
-					<p id="messageModa3" style="color:#ea0c1d;font-size:14px;display:none;"><span id="back_icon"></span>服务器内部错误</p>
+					<p id="messageModal" style="color:#ea0c1d;font-size:14px;display:none;"><span class="back_icon"></span>账户名与密码不匹配，请重新输入</p>
+					<p id="messageModa2" style="color:#ea0c1d;font-size:14px;display:none;"><span class="back_icon"></span>邮箱格式不正确</p>
+					<p id="messageModa3" style="color:#ea0c1d;font-size:14px;display:none;"><span class="back_icon"></span>服务器内部错误</p>
 					</div>
 					  <div class="form-group">
 					    <input type="email" name="email" value="" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
