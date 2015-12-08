@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/loader.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/selects.css">
-<link rel="stylesheet" href="css/basicInfo.css"style="text/css" />
+<link rel="stylesheet" href="css/basicInfo.css">
 
 </head>
 
@@ -61,11 +61,11 @@
 	
 	<div class="topBox">
 		<div style="float:left;margin-top:30px;width:950px;">
-		<div id="" class="top_title">
+		<div  class="top_title">
 			<p>账户信息</p>
 			
 		</div>
-		<div id="" class="top_main">
+		<div  class="top_main">
 			<div class="form-group" style="margin-bottom: 15px">
 				<label for="exampleInputEmail1">注册邮箱</label>
 				<input type="email" class="form-control " id="exampleInputEmail1" placeholder="注册邮箱"
@@ -89,18 +89,21 @@
 	</div>
 	<div class="midBox">
 		<div style="float:left;margin-top:30px;width:950px;">
-		<div id="" class="mid_title">
+		<div  class="mid_title">
 			<p>基本信息</p>
 		</div>
-		<div id="" class="mid_main">
-			<div class="form-group" style="margin-bottom: 15px">
+		<div  class="mid_main">
+			<div id="update_icon">
+				<span class="span_icon"></span>
+			</div>
+			<div class="form-group">
 				<label for="exampleInputEmail1">名称</label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
-				style="margin-bottom: 0px;width:480px;">
+                       disabled=""  style="margin-bottom: 0px;width:480px;>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputTime">简介</label>
-				<textarea id="textComment" class="form-control form-control-self" rows="6" placeholder="基本情况介绍，100字以内"maxlength="100" style="width:480px;"></textarea>
+				<textarea id="textComment" class="form-control form-control-self" disabled=""  rows="6" placeholder="基本情况介绍，100字以内"maxlength="100" style="width:480px;"></textarea>
 			</div>
 			
 			 <button type="submit" id="button01" class="btn btn-default">提交</button>
@@ -110,7 +113,7 @@
 	</div>
 	<div class="underBox">
 		<div style="float:left;margin-top:30px;width:950px;">
-				<div id="" class="under_title">
+				<div class="under_title">
 					<p>资源状态</p>
 				</div>
 				
@@ -194,7 +197,7 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
-<script src='js/errorDialog.js'></script>
+
 <script>
 $(document).ready(function(){
 /*console.log(JSON.stringify($.cookie("token")));*/
@@ -211,13 +214,31 @@ $(document).ready(function(){
 				success:function(data){
 					var nickName=data.data.nickName;
 					var comment=data.data.comment;
-					$("#exampleInputName").val(nickName);	
-					$("#textComment").val(comment);
+
+                    if (nickName.length>0||comment.length>0)
+                    {
+                        $("#exampleInputName").val(nickName);
+                        $("#textComment").val(comment);
+                        $("#exampleInputName").attr("disabled","disabled");
+                        $("#textComment").attr("disabled","disabled");
+                        $("#button01").css("display","none");
+                    }
+                    if (nickName.length==0||comment.length==0)
+                    {
+                        $("#exampleInputName").val(nickName);
+                        $("#textComment").val(comment);
+                    }
 				},
 				error:function(){
 
 				}
 		});
+        $("#update_icon").click(function(){
+            $("#button01").css("display","block");
+            $("#exampleInputName").attr("disabled",false);
+            $("#textComment").attr("disabled",false);
+
+        });
 
 		$.ajax({
 			url:ngUrl+"/vip/"+$.cookie("tname"),
@@ -229,19 +250,19 @@ $(document).ready(function(){
 				success:function(data){
 					var email=$.cookie("tname");
 					$("#exampleInputEmail1").val(email);
-					if (data.data.userType==0)
+					if (data.data.userType==1)
 					{
 						$("#exampleInputMember").val("注册用户");
 					}	
-					else if (data.data.userType==1)
+					else if (data.data.userType==3)
 					{
 						$("#exampleInputMember").val("认证会员");
 					}	
-					else if (data.data.userType==2)
+					else if (data.data.userType==4)
 					{
 						$("#exampleInputMember").val("金卡会员");
 					}	
-					else if (data.data.userType==3)
+					else if (data.data.userType==5)
 					{
 						$("#exampleInputMember").val("钻石会员");
 					}	
@@ -280,6 +301,9 @@ $(document).ready(function(){
 				
 			if(data.code==0){	
 				alert("提交成功！");
+                $("#exampleInputName").attr("disabled","disabled");
+                $("#textComment").attr("disabled","disabled");
+                $("#button01").css("display","none");
 				}
 			},
 			error:function(data){
