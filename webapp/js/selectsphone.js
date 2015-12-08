@@ -62,7 +62,8 @@ $(document).ready(function(){
             console.log("测试数据："+json.data.length);
         },
         error:function(json){
-            alert("程序出错，请稍后重试");
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
         }
     });
     //var typevalue = getParam("type");
@@ -114,7 +115,8 @@ $(document).ready(function(){
                 }
             },
             error:function(json){
-                alert("程序出错，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -149,7 +151,8 @@ $(document).ready(function(){
                 }
             },
             error:function(json){
-                alert("程序出错了，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -194,7 +197,8 @@ $(document).ready(function(){
                             }
                         },
                         error:function(json){
-                            alert("程序出错，请稍后重试");
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                     });
                     var str =   '<li class="borderb">'+
@@ -205,7 +209,8 @@ $(document).ready(function(){
                     $(".repinfoList").append(str);
                 },
                 error:function(json){
-                    alert("程序出错，请稍后重试");
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
                 }
             });
 

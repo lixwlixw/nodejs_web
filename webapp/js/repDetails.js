@@ -151,6 +151,13 @@
                       var labeldatas = judgeLabel(labels);
                       var times = msg.data.optime;
                       var jsonTime = getTimes(times);
+                      var labelstr = '';
+                      if(msg.data.label != null && msg.data.label != ''){
+                          var ptags = msg.data.label.owner;
+                          for(var j in ptags) {
+                              labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                          }
+                      }
                         apendjson.repname = repname;
                         apendjson.datas = datas;
                         apendjson.create_user = msg.data.create_user;
@@ -164,7 +171,7 @@
                         apendjson.dataitemd = dataitemd;
                         apendjson.dataitemdpullNum = dataitemdpullNum;
                         apendjson.dataitemstarNum = dataitemstarNum;
-                        apendBigbox(apendjson,i);
+                        apendBigbox(apendjson,i,labelstr);
                   }
               });
           }
@@ -207,6 +214,13 @@
                         var labeldatas = judgeLabel(labels);
                         var times = msg.data.optime;           
                         var jsonTime = getTimes(times);
+                        var labelstr = '';
+                        if(msg.data.label != null && msg.data.label != ''){
+                            var ptags = msg.data.label.owner;
+                            for(var j in ptags) {
+                                labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                            }
+                        }
                         apendjson.repname = 'repname';
                         apendjson.datas = datas;
                         apendjson.create_user = msg.data.create_user;
@@ -220,7 +234,7 @@
                         apendjson.dataitemd = dataitemd;
                         apendjson.dataitemdpullNum = dataitemdpullNum;
                         apendjson.dataitemstarNum = dataitemstarNum;
-                        apendBigbox(apendjson,i);
+                        apendBigbox(apendjson,i,labelstr);
                     }
                 });
             }
@@ -229,7 +243,7 @@
     });
    
   
-   function apendBigbox(apendjson,i){
+   function apendBigbox(apendjson,i,labelstr){
                        htmls =
                                 '<div id="dataitem-tag" class="itemList">'
                                 + '<div class="tag-body">'
@@ -249,7 +263,7 @@
                                 + '<span class="subscript-value">' + apendjson.tagss + '</span>'
                                 + '</td>'
                                 + '<td class="tag-2 filletspan">'
-                                + '<span class='+ apendjson.vvclass +'>' + apendjson.labelV + '</span>'
+                                + '<span class='+ apendjson.vvclass +'>' + apendjson.labelV + '</span>'+labelstr
                                 + '</td>'
                                 + '<td class="tag-3 rightsimg nofloat" >'
                                 + '<span class="subscript-value">'+apendjson.dataitemdpullNum[i]+'</span>'

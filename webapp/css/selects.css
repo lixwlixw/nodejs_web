@@ -176,6 +176,19 @@
 			padding: 0px 10px;
 			line-height: 20px;
 		}
+		#terminal-content-body .repo-body-tail-mid span.personaltag{
+			background-color: #6ecbcc;
+			border-radius: 2px;
+			color: #fff;
+			display: inline-block;
+			font-size: 12px;
+			height: 20px;
+			line-height: 20px;
+			margin-right: 1px;
+			padding: 0 10px;
+			float: left;
+			margin-left:1px;
+		}
 		#terminal-content-body .repo-body-tail-right {
 			width: 33%;
 			text-align: right;
@@ -445,7 +458,7 @@
 	#navigator-ul10 li:nth-child(5){
 		background-color: #6ecbcc;
 	}
-	
+
 	
 	
 	

@@ -74,7 +74,8 @@ function getrepname(pages) {
             }
         },
         error:function(json){
-            alert("程序出错，请稍后重试");
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
         }
     });
 }
@@ -163,18 +164,6 @@ function ajaxRe(){
                         labelV="流式数据";
                     }
 
-                    /* var times=json.data.optime;
-                     var jdTime="";
-                     var xdTime="";
-                     var showTime="";
-                     var nums=times.indexOf("|");
-                     if(nums!="-1"){
-                     jdTime=times.substring(0,nums+1);
-                     xdTime=times.substring(nums+1,times.length);
-                     showTime=xdTime;
-                     }else{
-                     showTime=times;
-                     } */
                     var times=json.data.optime;
                     var jdTime=times.substring(0, times.indexOf("."));
                     var xdTime="";
@@ -203,10 +192,17 @@ function ajaxRe(){
                             }
                         },
                         error:function(json){
-                            alert("程序出错，请稍后重试");
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                     });
-
+                    if(json.data.label != null && json.data.label != ''){
+                        var ptags = json.data.label.owner;
+                        var labelstr = '';
+                        for(var j in ptags) {
+                            labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                        }
+                    }
                     $("#terminal-content-body").append(""+
                         "<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
                         "<div class='repo-head'>"+
@@ -224,7 +220,7 @@ function ajaxRe(){
                         "<div class='tag-value'>"+json.data.tags+"</div>"+
                         "</div>"+
                         "<div class='repo-body-tail-mid'>"+
-                        "<div class="+vvclass+">"+labelV+"</div>"+
+                        "<div class="+vvclass+">"+labelV+"</div>"+labelstr+
                         "</div>"+
                         "<div class='repo-body-tail-right'>"+
                         "<div class='shwr'>"+
@@ -242,7 +238,8 @@ function ajaxRe(){
                     );
                 },
                 error:function(json){
-                    alert("程序出错，请稍后重试");
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
                 }
             });
         }

@@ -61,7 +61,8 @@ $(document).ready(function(){
             console.log("测试数据："+json.data.length);
         },
         error:function(json){
-            alert("程序出错，请稍后重试");
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
         }
     });
     appendList(0);
@@ -150,7 +151,8 @@ $(document).ready(function(){
                 }
             },
             error:function(json){
-                alert("程序出错，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -185,7 +187,8 @@ $(document).ready(function(){
                 }
             },
             error:function(json){
-                alert("程序出错了，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -247,6 +250,7 @@ $(document).ready(function(){
                 async:false,
                 dataType:'json',
                 success:function(json){
+
                     $("#loading").empty();
                     var vvclass="";
                     var label=json.data.label.sys.supply_style;
@@ -292,10 +296,17 @@ $(document).ready(function(){
                             }
                         },
                         error:function(json){
-                            alert("程序出错，请稍后重试");
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                     });
-
+                    if(json.data.label != null && json.data.label != ''){
+                        var ptags = json.data.label.owner;
+                        var labelstr = '';
+                        for(var j in ptags) {
+                            labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                        }
+                    }
                     $("#terminal-content-body").append(""+
                         "<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
                         "<div class='repo-head'>"+
@@ -313,7 +324,7 @@ $(document).ready(function(){
                         "<div class='tag-value'>"+json.data.tags+"</div>"+
                         "</div>"+
                         "<div class='repo-body-tail-mid'>"+
-                        "<div class="+vvclass+">"+labelV+"</div>"+
+                        "<div class="+vvclass+">"+labelV+"</div>"+labelstr+
                         "</div>"+
                         "<div class='repo-body-tail-right'>"+
                         "<div class='shwr'>"+
@@ -329,9 +340,11 @@ $(document).ready(function(){
                         "</div>"+
                         "</div>"
                     );
+
                 },
                 error:function(json){
-                    alert("程序出错，请稍后重试");
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
                 }
             });
 

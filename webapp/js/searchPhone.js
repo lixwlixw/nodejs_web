@@ -40,7 +40,8 @@ $(function(){
                 }
             },
             error:function(json){
-                alert("程序出错，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -60,7 +61,8 @@ $(function(){
                 create_user = json.data.create_user;
             },
             error:function(json){
-                alert("程序出错，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
         return create_user
@@ -82,7 +84,8 @@ $(function(){
                 }
             },
             error:function(json){
-                alert("程序出错，请稍后重试");
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
         return realname
