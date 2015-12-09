@@ -598,12 +598,14 @@
 }
 #subscriptDialog .modal-body .subbtns .cancel {
 	background-color: #999999;
+	margin-right: 10px;
 }
 #subscriptDialog .modal-body .subbtns .cancel:hover {
 	background-color: #666666;
 }
 #subscriptDialog .modal-body .subbtns .submit {
 	background-color: #29abe2;
+	margin-left:10px;
 }
 #subscriptDialog .modal-body .subbtns .submit:hover {
 	background-color: #1998ce;
