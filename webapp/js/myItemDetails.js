@@ -162,8 +162,10 @@ $(function(){
     var meta ;
     var sample;
     var paegetags;
+
     var itemshowtime;
     function tagbox(pages){
+        var ispagetags = 0;
         $('.con-main').empty();
         	getAjax(ngUrl+'/repositories/'+repname+"/"+itemname+'?size=20&page='+pages,function(msg){
             tagallnum = msg.data.tags;
@@ -183,6 +185,12 @@ $(function(){
                 sample = '';
             }
             paegetags = msg.data.tags;
+
+             if(paegetags == 0){
+                 ispagetags = "该Item下还没有发布任何Tags";
+             }else{
+                 ispagetags = paegetags+"Tag";
+             }
            var jsonTime = getTimes(msg.data.optime);
            var itemaccesstype = msg.data.itemaccesstype;
            	if(itemaccesstype == 'public'){
@@ -198,7 +206,7 @@ $(function(){
         var str = ' <div class="tagbox"> '+
             '<div class="head">'+
             '<span class="icon"></span>'+
-            '<span class="date">'+paegetags+'Tag</span>'+
+            '<span class="date">'+ispagetags+'</span>'+
             '</div>'+
             '<div class="body">'+
             '<table>';
@@ -318,8 +326,7 @@ $(function(){
                                 }
                         },
                         error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
+                                alert(json.msg);
                         }
                 });
                 $('#editItem').modal('toggle');
@@ -376,15 +383,13 @@ $(function(){
                                                         }
                                                 },
                                                 error:function(json){
-                                                    errorDialog($.parseJSON(json.responseText).code);
-                                                    $('#errorDM').modal('show');
+                                                        alert(json.msg);
                                                 }
                                         });
                                 }
                         },
                         error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
+                                alert(json.msg);
                         }
                 });
 

@@ -304,7 +304,13 @@ $(function() {
     function writeDom() {
         $('.repolist').empty();
         //写仓库数量
-        $("#publish-body .repocount span").text(reps.length);
+        var repsallnums ;
+        if(reps.length == 0){
+            repsallnums = "您目前还没有发不过任何Repo,来试试我们的客户端吧";
+        }else{
+            repsallnums = reps.length
+        }
+        $("#publish-body .repocount span").text(repsallnums);
         //写rep列表
         for(var i in reps) {
             var rep = reps[i];
