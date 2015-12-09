@@ -221,7 +221,7 @@
                                 labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
                             }
                         }
-                        apendjson.repname = 'repname';
+                        apendjson.repname = repname;
                         apendjson.datas = datas;
                         apendjson.create_user = msg.data.create_user;
                         apendjson.itemloginName = itemloginName;
