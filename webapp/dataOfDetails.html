@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="./css/pagination.css"/>
 </head>
 
 <style>
@@ -21,6 +22,26 @@
 	}
 	.navbar-nav > li > a:focus{
 		background:none;
+	}
+	.pagination {
+		text-align: right;
+		width: 100%;
+	}
+	.pagination span.current {
+		background: #29abe2 none repeat scroll 0 0;
+		border-radius: 3px;
+	}
+	.pagination a, .pagination span {
+		padding: 0.5em 1em;
+	}
+	.pagination a, .pagination span {
+		display: inline;
+		float: none;
+	}
+	.pagination a {
+		border: 1px solid #e5e5e5;
+		border-radius: 3px;
+		color: #666;
 	}
 	@media (max-width:768px) {
 				#terminal-content-body{				
@@ -86,7 +107,8 @@
 	<div class="container" style="padding: 0px;">
 		<div class="col-md-12 col-sm-12" id="lComs" style="padding: 0px;">			
 			<div id="terminal-content-head"></div>
-			<div id="terminal-content-body"></div>	
+			<div id="terminal-content-body"></div>
+			<div class="pages"></div>
 		</div>
 	</div>
 	<footer></footer>
@@ -99,7 +121,9 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src="./js/jquery.pagination.js"></script>
 <script src='js/errorDialog.js'></script>
+<script src="js/dataOfDetails.js"></script>
 <script>
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
@@ -108,204 +132,6 @@
 	$(window).load(function(){
 		$(".be-loader").fadeOut("slow");
 	});
-	var repos=[];
-	$(document).ready(function(){
-		ajaxRe();
-		
-		$.ajax({
-			url: ngUrl+"/repositories?username="+getParam("username"),
-    		type: "get",
-    		cache:false,
-    	   	async:false,
-    		dataType:'json',
-    		success:function(json){  
-    			if(json.data.length!=0){
-    				var pages=json.data.length;
-    				for(var i=0;i<pages;i++){
-    					repos.push([json.data[i].repname]);			
-    				}
-    			}else{
-    				console.log("报错");
-    			}		
-    		},
-    		error:function(json){
-    			errorDialog($.parseJSON(json.responseText).code);
-				$('#errorDM').modal('show');
-    		}
-    	});
-		
 
-		
-		for(var i=0;i<repos.length;i++){
-			$.ajax({
-				url: ngUrl+"/repositories/"+repos[i],
-	    		type: "get",
-	    		cache:false,
-	    	   	async:false,
-	    		dataType:'json',
-	    		success:function(json){ 
-	    			$("#loading").empty();
-	    				
-	    				/* var times=json.data.optime;
-	    				var jdTime="";
-	    				var xdTime="";
-	    				var showTime="";
-	    				var nums=times.indexOf("|");
-	    				if(nums!="-1"){
-	    					jdTime=times.substring(0,nums+1);
-	    					xdTime=times.substring(nums+1,times.length);
-	    					showTime=xdTime;
-	    				}else{
-	    					showTime=times;
-	    				} */
-	    				
-	    			var times=json.data.optime;
-    				var jdTime=times.substring(0, times.indexOf("."));
-    				var xdTime="";
-    				var showTime="";
-    				var nums=times.indexOf("|");
-    				if(nums!="-1"){
-    					showTime=times.substring(times.indexOf("|")+1,times.length);
-    				}else{
-    					showTime=times.substring(0, times.indexOf("."));
-    				} 
-	    				
-	    				var subnum="";
-	    				$.ajax({
-	    					url: ngUrl+"/subscription_stat/"+repos[i],
-	    					type: "get",
-	    					cache:false,
-	    					data:{},
-	    					async:false,
-	    					dataType:'json',
-	    					success:function(json){
-	    						if(json.code == 0){
-	    							subnum=json.data.numsubs;
-	    						}else {
-	    							console.log("报错");
-	    						}
-	    					},
-	    					error:function(json){
-	    						errorDialog($.parseJSON(json.responseText).code);
-	    						$('#errorDM').modal('show');
-	    					}
-	    				});
-	    				
-	    				var transnum="";
-	    				$.ajax({
-	    					url: ngUrl+"/transaction_stat/"+repos[i],
-	    					type: "get",
-	    					cache:false,
-	    					data:{},
-	    					async:false,
-	    					dataType:'json',
-	    					success:function(json){
-	    						if(json.code == 0){
-	    							transnum=json.data.numpulls;
-	    						}else {
-	    							console.log("报错");
-	    						}
-	    					},
-	    					error:function(json){
-	    						errorDialog($.parseJSON(json.responseText).code);
-	    						$('#errorDM').modal('show');
-	    					}
-	    				});
-	    				
-	    				var starsnum="";
-	    				$.ajax({
-	    					url: ngUrl+"/star_stat/"+repos[i],
-	    					type: "get",
-	    					cache:false,
-	    					data:{},
-	    					async:false,
-	    					dataType:'json',
-	    					success:function(json){
-	    						if(json.code == 0){
-	    							starsnum=json.data.numstars;
-	    						}else {
-	    							console.log("报错");
-	    						}
-	    					},
-	    					error:function(json){
-	    						errorDialog($.parseJSON(json.responseText).code);
-	    						$('#errorDM').modal('show');
-	    					}
-	    				});
-	    						    				
-	    				
-    					$("#terminal-content-body").append(""+
-		    					"<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
-									"<div class='repo-head'>"+
-										"<div class='tab-head-div'><a style='color:#0077aa' href='repDetails.html?repname="+repos[i]+"'>"+repos[i]+"</a></div>"+
-									//	"<div class='tab-head-icon'></div>"+
-									"</div>"+
-									"<div class='repo-body'>"+
-										"<div id='repo-text'>"+json.data.comment+"</div>"+
-										"<div class='repo-body-tail'>"+
-											"<div class='repo-body-tail-left'>"+
-												"<div class='updatetime-icon' title='更新时间'></div>"+
-												"<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
-												"<div class='tag-iconItem' title='item数量'></div>"+
-												"<div class='tag-value'>"+json.data.items+"</div>"+
-											"</div>"+
-											"<div class='repo-body-tail-mid'>&nbsp;&nbsp;&nbsp;"+
-		    								"</div>"+
-											"<div class='repo-body-tail-right'>"+
-												"<div class='shwr'>"+
-													"<div class='star-icon' title='star量'></div>"+
-													"<div class='star-value'>"+starsnum+"</div>"+
-													"<div class='subscript-icon' title='订阅量'></div>"+
-					                                "<div class='subscript-value'>"+subnum+"</div>"+
-					                                "<div class='downloaded-icon' title='pull量'></div>"+
-					                                "<div class='downloaded-value'>"+transnum+"</div>"+
-		    				                    "</div>"+
-											"</div>"+
-										"</div>"+
-									"</div>"+
-								"</div>"
-		    				);	    		
-	    		},
-	    		error:function(json){
-	    			errorDialog($.parseJSON(json.responseText).code);
-					$('#errorDM').modal('show');
-	    		}
-    		}); 
-		}
-		
-	});
-
-
-	function ajaxRe(){
-		var username = getParam("username");
-		$.ajax({
-			url: ngUrl+"/users/"+username,
-			type: "get",
-			cache:false,
-			data:{},
-			async:false,
-			dataType:'json',
-			success:function(json){
-				if(json.code == 0){
-					$("#userName").text(json.data.userName);
-					$("#userCom").text(json.data.comment);
-				}else {
-					console.log("报错");
-				}
-			},
-			error:function(json){
-				errorDialog($.parseJSON(json.responseText).code);
-				$('#errorDM').modal('show');
-			}
-		});
-	}
-	function getParam(key) {
-		var value='';
-		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-		if (itemid.test(decodeURIComponent(window.location.href))) {
-			value = itemid.exec(decodeURIComponent(window.location.href))[1];
-		}
-		return value;
-	}
 </script>
 </html>
