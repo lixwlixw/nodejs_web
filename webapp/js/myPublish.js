@@ -58,7 +58,8 @@ $(function() {
                 }
             },
             error:function(json){
-                alert(json.msg);
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
         $('#addRep').modal('toggle');
@@ -78,7 +79,8 @@ $(function() {
             }
         },
         error:function(json){
-            alert(json.msg);
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
         }
     });
     var reps ;
@@ -100,7 +102,8 @@ $(function() {
                 }
             },
             error:function(json){
-                alert(json.msg);
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
     }
@@ -141,7 +144,8 @@ $(function() {
                    }
                },
                error:function(json){
-                   alert(json.msg);
+                   errorDialog($.parseJSON(json.responseText).code);
+                   $('#errorDM').modal('show');
                }
            });
            //获取star量
@@ -158,7 +162,8 @@ $(function() {
                    }
                },
                error:function(json){
-                   alert(json.msg);
+                   errorDialog($.parseJSON(json.responseText).code);
+                   $('#errorDM').modal('show');
                }
            });
            //获取订阅量
@@ -175,7 +180,8 @@ $(function() {
                    }
                },
                error:function(json){
-                   alert(json.msg);
+                   errorDialog($.parseJSON(json.responseText).code);
+                   $('#errorDM').modal('show');
                }
            });
            //获取下载量
@@ -192,7 +198,8 @@ $(function() {
                    }
                },
                error:function(json){
-                   alert(json.msg);
+                   errorDialog($.parseJSON(json.responseText).code);
+                   $('#errorDM').modal('show');
                }
            });
        }
@@ -241,7 +248,8 @@ $(function() {
                             }
                         },
                         error: function (json) {
-                            alert(json.msg);
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                     });
                     rep.dataitems[j]["name"] = item;
@@ -371,7 +379,8 @@ $(function() {
                 }
             },
             error:function(json){
-                alert(json.msg);
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
         });
         $('#addRep').modal('toggle');
