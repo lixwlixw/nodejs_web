@@ -58,7 +58,7 @@
 				callback: pageCallBack,// 为翻页回调函数。
 				prev_text: " 上一页",
 				next_text: "下一页 ",
-				items_per_page: 6, //每页的数据个数
+				items_per_page: 20, //每页的数据个数
 				num_display_entries: 1, //两侧首尾分页条目数
 				num_edge_entries: 3, //连续分页主体部分分页条目数
 				current_page: 0,   //当前页码
@@ -70,7 +70,7 @@
 			function pageCallBack(index) {
 				index = index == undefined? 0 : index;
 				$.ajax({
-					url: ngUrl+"/repositories/"+rep.repname+"?size=6&page="+(index+1),
+					url: ngUrl+"/repositories/"+rep.repname+"?size=20&page="+(index+1),
 					type: "get",
 					cache:false,
 					data:{items:1},
