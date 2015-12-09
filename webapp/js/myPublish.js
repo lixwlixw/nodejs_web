@@ -124,9 +124,7 @@ $(function() {
 
     //请求每个rep的详情
    function getrepcomment(){
-
        for(var i in reps) {
-           console.log(reps[i].repname)
            var rep = reps[i];
            $.ajax({
                url: ngUrl+"/repositories/"+rep.repname+"?items=1",
@@ -327,7 +325,7 @@ $(function() {
             var left = $("<span></span>").addClass("left").appendTo(tail);
             left.append($("<span></span>").addClass("left1-icon icon").attr("title", "更新时间"));
             var showtime = rep.optime.substring(rep.optime.indexOf("|")+1,rep.optime.length);
-            var titletime = rep.optime.substring(0,rep.optime.indexOf("."));
+            var titletime = rep.optime.substring(0,rep.optime.indexOf("|"));
             left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
             left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
             left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"开放"));
