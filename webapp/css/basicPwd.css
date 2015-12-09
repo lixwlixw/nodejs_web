@@ -86,9 +86,11 @@ margin:0px 0px 0px 0px;
 	}
 	#btn01{
 		background:#999;
+		color: #FFFFFF;
 	}
 	#btn01:hover{
 		background:#666;
+		/*color: #FFFFFF;*/
 	}
 	#btn02{
 		background:#29abe2;
