@@ -34,6 +34,7 @@
 	<script src="js/login.js"></script>
 	<script src="js/base64.js"></script>
 	<script src="js/md5.js"></script>
+	<script src='js/errorDialog.js'></script>
 	<script src="js/jquery.pagination.js"></script>
 	<script>
 
@@ -86,7 +87,8 @@
 						}
 					},
 					error:function(json){
-						alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
 					}
 				});
 				if(firstCall) {
@@ -113,7 +115,8 @@
 							}
 						},
 						error: function (json) {
-							alert(json.msg);
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
 						}
 					});
 					rep.dataitems[j]["name"] = item;

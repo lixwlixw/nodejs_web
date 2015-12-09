@@ -318,7 +318,8 @@ $(function(){
                                 }
                         },
                         error:function(json){
-                                alert(json.msg);
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                 });
                 $('#editItem').modal('toggle');
@@ -375,13 +376,15 @@ $(function(){
                                                         }
                                                 },
                                                 error:function(json){
-                                                        alert(json.msg);
+                                                    errorDialog($.parseJSON(json.responseText).code);
+                                                    $('#errorDM').modal('show');
                                                 }
                                         });
                                 }
                         },
                         error:function(json){
-                                alert(json.msg);
+                            errorDialog($.parseJSON(json.responseText).code);
+                            $('#errorDM').modal('show');
                         }
                 });
 
