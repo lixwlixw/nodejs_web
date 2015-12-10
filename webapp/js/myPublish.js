@@ -279,7 +279,7 @@ $(function() {
                     if(rep.dataitems.length == 0) {
                         tablelist.children().hide();
                         var noitem = $("<div id='noitem'></div>").css({width:"100%", height:"50px",lineHeight:"50px", textAlign:"center", color:"gray", fontSize:"14px"})
-                            .text("Items量为0！")
+                            .html('Repository下暂时没有发布DataItem，请下载<a href="clientDownload.html">Client</a>端新增DataItem')
                             .appendTo(tablelist);
                     }else {
                         tablelist.children().show();

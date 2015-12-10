@@ -62,6 +62,13 @@ body{
 	top:-22px;
 	display: none;
 }
+#noitem a{
+	color:#ff1c1c;
+}
+#noitem a:hover{
+	color: #ff1c1c;
+	text-decoration: underline;
+}
 .fabucon p{
 	white-space:nowrap;
 }
