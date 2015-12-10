@@ -46,6 +46,12 @@ body{
 	cursor: pointer;
 	position: relative;
 }
+.norepnum{
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+	display: none;
+}
 .fabucon{
 	position: absolute;
 	padding:10px 15px;
