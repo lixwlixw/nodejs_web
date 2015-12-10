@@ -286,9 +286,9 @@ $(function(){
     function metadatabox(){
         $('.con-main').empty();
          var str =  '<div class="metadatabox">'+
-            '<div class="metadatatop">样例 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" target="_bank"></a></div></div>'+
+            '<div class="metadatatop">样例 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" ></a></div></div>'+
             '<div class="metadata-con markdown-body">'+marked(sample)+'</div>'+
-            '<div class="metadatatop">元数据 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" target="_bank"></a></div></div>'+
+            '<div class="metadatatop">元数据 <div class="metadata-icon"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" ></a></div></div>'+
             '<div class="metadata-con markdown-body">'+marked(meta)+'</div>'+
             '</div>';
         $('.con-main').append(str);

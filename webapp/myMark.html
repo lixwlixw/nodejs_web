@@ -160,7 +160,8 @@
 	    	   	headers:{Authorization:"Token "+$.cookie("token")},
 	    		dataType:'json',
 	    		success:function(json){  
-	    			$('#alerts').modal('toggle');					
+	    			$('#alerts').modal('toggle');
+					window.location.href="myItemDetails.html?repname="+repname+"&itemname="+itemname;
 	    		}
 				,error:function(json){
 					errorDialog($.parseJSON(json.responseText).code);
