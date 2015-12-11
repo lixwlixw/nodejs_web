@@ -9,7 +9,7 @@ function getParam(key) {
 function getAjax(url,fun){
     $.ajax({
         type: "get",
-        // async: false,
+         async: false,
         url: url,
         success: function(msg){
             fun(msg);
