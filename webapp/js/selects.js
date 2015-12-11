@@ -78,7 +78,21 @@ $(document).ready(function(){
             $(this).removeClass("overs");
             $(this).css("background-color","#f9f9f9").css("color","#666");
             $("#allJ").text("全部精选");
-            appendList(0);
+            thisvalue = $(this).text();
+            appendList2(0);
+            $(".pages").pagination(paegeitems2, {
+                maxentries:paegeitems2,
+                items_per_page:10,
+                num_display_entries: 1,
+                num_edge_entries: 5 ,
+                prev_text:"上一页",
+                next_text:"下一页",
+                ellipse_text:"...",
+//  num_edge_entries:1,
+                link_to:"javascript:void(0)",
+                callback:appendList2,
+                load_first_page:false
+            });
         }else{
             //点击全部精选
             if($(this).text()=='全部精选'){
@@ -133,6 +147,7 @@ $(document).ready(function(){
     ////////////////////////////
     //  点击分类按分类发送请求
     function hanvelables(pages){
+        alert(thisvalue)
         repos = [];
         var url = '';
         if(thisvalue == '全部精选'){
