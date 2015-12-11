@@ -9,7 +9,7 @@ function getParam(key) {
 function getAjax(url,fun){
     $.ajax({
         type: "get",
-        async: false,
+        // async: false,
         url: url,
         success: function(msg){
             fun(msg);
@@ -19,7 +19,6 @@ function getAjax(url,fun){
 
 var repos=[];
 $(window).load(function(){
-    $(".be-loader").fadeOut("slow");
     $("#navigator").css("height",$("#lComs").height());
     $("#viewCon").css("min-height",document.body.clientHeight);
 });
@@ -27,12 +26,13 @@ var paegeitems;
 var paegeitems2;
 $(document).ready(function(){
     var typevalue = getParam("type");
+    var thisvalue = '';
     var pages = 1;
     $.ajax({
         url: ngUrl+"/select_labels",
         type: "get",
         cache:false,
-        async:false,
+        //async:false,
         dataType:'json',
         success:function(json){
             if(json.data.length!=0){
@@ -58,7 +58,6 @@ $(document).ready(function(){
             }else{
 
             }
-            console.log("测试数据："+json.data.length);
         },
         error:function(json){
             errorDialog($.parseJSON(json.responseText).code);
@@ -86,7 +85,7 @@ $(document).ready(function(){
                 $(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
                 $("#allJ").text($(this).text()+"精选");
-                appendList(1);
+                appendList(0);
                 $(".pages").pagination(paegeitems, {
                     maxentries:paegeitems,
                     items_per_page:10,
@@ -105,8 +104,8 @@ $(document).ready(function(){
                 $(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
                 $("#allJ").text($(this).text()+"精选");
-                var thisvalue = $(this).text();
-                appendList2(0,thisvalue);
+                thisvalue = $(this).text();
+                appendList2(0);
                 $(".pages").pagination(paegeitems2, {
                     maxentries:paegeitems2,
                     items_per_page:10,
@@ -132,7 +131,8 @@ $(document).ready(function(){
     });
     ////////////////////////////
     //  点击分类按分类发送请求
-    function hanvelables(pages,thisvalue){
+    function hanvelables(pages){
+        repos = [];
         $.ajax({
             url: ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages,
             type: "get",
@@ -142,10 +142,12 @@ $(document).ready(function(){
             success:function(json){
                 if(json.data.select.length!=0){
                     paegeitems2 = json.data.total;
-                    var pages=json.data.select.length;
-                    for(var i=0;i<pages;i++){
+                    var fornums=json.data.select.length;
+                    for(var i=0;i<fornums;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
+
+                    addhtml(repos);
                 }else{
                     console.log("报错");
                 }
@@ -176,11 +178,12 @@ $(document).ready(function(){
             dataType:'json',
             success:function(json){
                 if(json.data.select.length!=0){
-                    var pages=json.data.select.length;
+                    var fornums=json.data.select.length;
                     paegeitems = json.data.total;
-                    for(var i=0;i<pages;i++){
+                    for(var i=0;i<fornums;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
+                    addhtml(repos);
 
                 }else{
                     console.log("报错");
@@ -209,48 +212,39 @@ $(document).ready(function(){
 
 //  加载全部数据
     function appendList(new_page_index){
-
         ajaxRe(new_page_index+1);
-
-        addhtml();
-
     }
     //按左侧导航分类发送请求加载数据；
-    function appendList2(new_page_index,thisvalue){
-
-        hanvelables(new_page_index+1,thisvalue)
-
-        addhtml();
-
+    function appendList2(new_page_index){
+        hanvelables(new_page_index+1)
     }
 //  填充html代码；
-    function addhtml(){
+    function addhtml(reposss){
         //返回该DataItem的订阅量
-        var dataitemd = [];
+        var dataitemd = '';
         //返回该DataItem的pull量
-        var dataitemdpullNum = [];
+        var dataitemdpullNum = '';
         //返回该DataItem的star量
-        var dataitemdstarNum = [];
+        var dataitemdstarNum = '';
         $('#terminal-content-body').empty();
-        for(var i= 0;i<repos.length;i++) {
-            getAjax(ngUrl + "/subscription_stat/" +repos[i][0],function (msg) {
-                dataitemd.push(msg.data.numsubs);
+        for(var i= 0;i<reposss.length;i++) {
+            getAjax(ngUrl + "/subscription_stat/" +reposss[i][0],function (msg) {
+                dataitemd = msg.data.numsubs;
             });
-            getAjax(ngUrl + "/transaction_stat/" +repos[i][0]+"/"+repos[i][1],function (msg) {
-                dataitemdpullNum.push(msg.data.numpulls);
+            getAjax(ngUrl + "/transaction_stat/" +reposss[i][0]+"/"+repos[i][1],function (msg) {
+                dataitemdpullNum = msg.data.numpulls;
             });
-            getAjax(ngUrl + "/star_stat/" +repos[i][0]+"/"+repos[i][1],function (msg) {
-                dataitemdstarNum.push(msg.data.numstars);
+            getAjax(ngUrl + "/star_stat/" +reposss[i][0]+"/"+repos[i][1],function (msg) {
+                dataitemdstarNum = msg.data.numstars;
             });
             //////////////  填充
             $.ajax({
-                url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+                url: ngUrl+"/repositories/"+reposss[i][0]+"/"+reposss[i][1]+"?abstract=1",
                 type: "get",
                 cache:false,
                 async:false,
                 dataType:'json',
                 success:function(json){
-
                     $("#loading").empty();
                     var vvclass="";
                     var label=json.data.label.sys.supply_style;
@@ -309,7 +303,7 @@ $(document).ready(function(){
                     $("#terminal-content-body").append(""+
                         "<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
                         "<div class='repo-head'>"+
-                        "<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+repos[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+repos[i][1]+"</a></div>"+
+                        "<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+reposss[i][0]+"&itemname="+reposss[i][1]+"'>"+reposss[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+reposss[i][1]+"</a></div>"+
                             //	"<div class='tab-head-icon'></div>"+
                         "<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+
                         "</div>"+
@@ -328,17 +322,18 @@ $(document).ready(function(){
                         "<div class='repo-body-tail-right'>"+
                         "<div class='shwr'>"+
                         "<div class='star-icon' title='star量'></div>"+
-                        "<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
+                        "<div class='star-value'>"+dataitemdstarNum+"</div>"+
                         "<div class='subscript-icon' title='订购量'></div>"+
-                        "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
+                        "<div class='subscript-value'>"+dataitemd+"</div>"+
                         "<div class='downloaded-icon' title='pull量'></div>"+
-                        "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
+                        "<div class='downloaded-value'>"+dataitemdpullNum+"</div>"+
                         "</div>"+
                         "</div>"+
                         "</div>"+
                         "</div>"+
                         "</div>"
                     );
+                    
 
                 },
                 error:function(json){
@@ -346,8 +341,9 @@ $(document).ready(function(){
                     $('#errorDM').modal('show');
                 }
             });
-
+             $(".be-loader").hide();
         }
+
     }
 
 
@@ -355,9 +351,8 @@ $(document).ready(function(){
 
 
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
