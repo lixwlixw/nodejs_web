@@ -85,9 +85,10 @@ $(document).ready(function(){
                 $(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
                 $("#allJ").text($(this).text()+"精选");
-                appendList(0);
-                $(".pages").pagination(paegeitems, {
-                    maxentries:paegeitems,
+                thisvalue = $(this).text();
+                appendList2(0);
+                $(".pages").pagination(paegeitems2, {
+                    maxentries:paegeitems2,
                     items_per_page:10,
                     num_display_entries: 1,
                     num_edge_entries: 5 ,
@@ -96,7 +97,7 @@ $(document).ready(function(){
                     ellipse_text:"...",
 //  num_edge_entries:1,
                     link_to:"javascript:void(0)",
-                    callback:appendList,
+                    callback:appendList2,
                     load_first_page:false
                 });
             }else{
@@ -133,8 +134,14 @@ $(document).ready(function(){
     //  点击分类按分类发送请求
     function hanvelables(pages){
         repos = [];
+        var url = '';
+        if(thisvalue == '全部精选'){
+            url = ngUrl+"/selects?select_labels&size=10&page="+pages;
+        }else{
+            url = ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages;
+        }
         $.ajax({
-            url: ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages,
+            url: url,
             type: "get",
             cache:false,
             async:false,
