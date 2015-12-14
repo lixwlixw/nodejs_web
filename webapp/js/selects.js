@@ -9,7 +9,7 @@ function getParam(key) {
 function getAjax(url,fun){
     $.ajax({
         type: "get",
-         async: false,
+        // async: false,
         url: url,
         success: function(msg){
             fun(msg);
@@ -22,8 +22,8 @@ $(window).load(function(){
     $("#navigator").css("height",$("#lComs").height());
     $("#viewCon").css("min-height",document.body.clientHeight);
 });
-var paegeitems;
-var paegeitems2;
+// var paegeitems;
+// var paegeitems2;
 $(document).ready(function(){
     var typevalue = getParam("type");
     var thisvalue = '';
@@ -74,45 +74,13 @@ $(document).ready(function(){
         $(".pages").empty();
         $(this).siblings().css("background-color","#f9f9f9").css("color","#666");
         $(this).siblings().removeClass("overs");
-        //if($(this).hasClass("overs")){
-        //    //$(this).removeClass("overs");
-        //    $(this).css("background-color","#fff").css("color","#0077aa");
-        //    $("#allJ").text("全部精选");
-        //    thisvalue = $(this).text();
-        //    appendList2(0);
-        //    $(".pages").pagination(paegeitems2, {
-        //        maxentries:paegeitems2,
-        //        items_per_page:10,
-        //        num_display_entries: 1,
-        //        num_edge_entries: 5 ,
-        //        prev_text:"上一页",
-        //        next_text:"下一页",
-        //        ellipse_text:"...",
-        //        link_to:"javascript:void(0)",
-        //        callback:appendList2,
-        //        load_first_page:false
-        //    });
-        //}else{
-            //点击全部精选
             if($(this).text()=='全部精选'){
                 //$(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
                 $("#allJ").text($(this).text()+"精选");
                 thisvalue = $(this).text();
                 appendList2(0);
-                $(".pages").pagination(paegeitems2, {
-                    maxentries:paegeitems2,
-                    items_per_page:10,
-                    num_display_entries: 1,
-                    num_edge_entries: 5 ,
-                    prev_text:"上一页",
-                    next_text:"下一页",
-                    ellipse_text:"...",
-//  num_edge_entries:1,
-                    link_to:"javascript:void(0)",
-                    callback:appendList2,
-                    load_first_page:false
-                });
+                // toNextpage(appendList2)
             }else{
                 // 点击其他table
                 $(this).addClass("overs");
@@ -120,22 +88,9 @@ $(document).ready(function(){
                 $("#allJ").text($(this).text()+"精选");
                 thisvalue = $(this).text();
                 appendList2(0);
-                $(".pages").pagination(paegeitems2, {
-                    maxentries:paegeitems2,
-                    items_per_page:10,
-                    num_display_entries: 1,
-                    num_edge_entries: 5 ,
-                    prev_text:"上一页",
-                    next_text:"下一页",
-                    ellipse_text:"...",
-//  num_edge_entries:1,
-                    link_to:"javascript:void(0)",
-                    callback:appendList2,
-                    load_first_page:false
-                });
+                // toNextpage(appendList2);
             }
 
-        //}
 
         if($("#lComs").height()>document.body.clientHeight){
             $("#navigator").css("height","auto").css("min-height",$("#lComs").height());
@@ -157,17 +112,18 @@ $(document).ready(function(){
             url: url,
             type: "get",
             cache:false,
-            async:false,
+            // async:false,
             dataType:'json',
             success:function(json){
                 if(json.data.select.length!=0){
-                    paegeitems2 = json.data.total;
+                    var lastpagesall = json.data.total;
                     var fornums=json.data.select.length;
                     for(var i=0;i<fornums;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
 
                     addhtml(repos);
+                    toNextpage(appendList2,lastpagesall)
                 }else{
                     console.log("报错");
                 }
@@ -199,11 +155,12 @@ $(document).ready(function(){
             success:function(json){
                 if(json.data.select.length!=0){
                     var fornums=json.data.select.length;
-                    paegeitems = json.data.total;
+                    var paegeitemsfirst = json.data.total;
                     for(var i=0;i<fornums;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
                     addhtml(repos);
+                    toNextpage(appendList,paegeitemsfirst)
 
                 }else{
                     console.log("报错");
@@ -215,8 +172,8 @@ $(document).ready(function(){
             }
         });
     }
-// 分页//页面加载时的分页；
-      $(".pages").pagination(paegeitems, {
+    function toNextpage(fun,paegeitems){
+         $(".pages").pagination(paegeitems, {
           maxentries:paegeitems,
           items_per_page:10,
           num_display_entries: 1,
@@ -224,12 +181,14 @@ $(document).ready(function(){
           prev_text:"上一页",
           next_text:"下一页",
           ellipse_text:"...",
-//  num_edge_entries:1,
           link_to:"javascript:void(0)",
-          callback:appendList,
+          callback:fun,
           load_first_page:false
       });
-
+    }
+// 分页//页面加载时的分页；
+     
+    
 //  加载全部数据
     function appendList(new_page_index){
         ajaxRe(new_page_index+1);
@@ -248,21 +207,34 @@ $(document).ready(function(){
         var dataitemdstarNum = '';
         $('#terminal-content-body').empty();
         for(var i= 0;i<reposss.length;i++) {
-            getAjax(ngUrl + "/subscription_stat/" +reposss[i][0],function (msg) {
+            addconfun.call(this,reposss[i])
+             $(".be-loader").hide();
+        }
+
+    }
+
+    function addconfun (param){
+        //返回该DataItem的订阅量
+        var dataitemd = '';
+        //返回该DataItem的pull量
+        var dataitemdpullNum = '';
+        //返回该DataItem的star量
+        var dataitemdstarNum = '';
+         getAjax(ngUrl + "/subscription_stat/" +param[0],function (msg) {
                 dataitemd = msg.data.numsubs;
             });
-            getAjax(ngUrl + "/transaction_stat/" +reposss[i][0]+"/"+repos[i][1],function (msg) {
+            getAjax(ngUrl + "/transaction_stat/" +param[0]+"/"+param[1],function (msg) {
                 dataitemdpullNum = msg.data.numpulls;
             });
-            getAjax(ngUrl + "/star_stat/" +reposss[i][0]+"/"+repos[i][1],function (msg) {
+            getAjax(ngUrl + "/star_stat/" +param[0]+"/"+param[1],function (msg) {
                 dataitemdstarNum = msg.data.numstars;
             });
             //////////////  填充
-            $.ajax({
-                url: ngUrl+"/repositories/"+reposss[i][0]+"/"+reposss[i][1]+"?abstract=1",
+         $.ajax({
+                url: ngUrl+"/repositories/"+param[0]+"/"+param[1]+"?abstract=1",
                 type: "get",
                 cache:false,
-                async:false,
+                // async:false,
                 dataType:'json',
                 success:function(json){
                     $("#loading").empty();
@@ -299,21 +271,16 @@ $(document).ready(function(){
                         type: "get",
                         cache:false,
                         data:{},
-                        async:false,
+                        async:true,
                         dataType:'json',
-                        success:function(json){
-                            if(json.code == 0){
-                                realname=json.data.userName;
+                        success:function(jsonuser){
+                            if(jsonuser.code == 0){
+                                realname=jsonuser.data.userName;
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
-                        }
-                    });
-                    if(json.data.label != null && json.data.label != ''){
+
+                            if(json.data.label != null && json.data.label != ''){
                         var ptags = json.data.label.owner;
                         var labelstr = '';
                         for(var j in ptags) {
@@ -323,8 +290,8 @@ $(document).ready(function(){
                     $("#terminal-content-body").append(""+
                         "<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
                         "<div class='repo-head'>"+
-                        "<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+reposss[i][0]+"&itemname="+reposss[i][1]+"'>"+reposss[i][0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+reposss[i][1]+"</a></div>"+
-                            //	"<div class='tab-head-icon'></div>"+
+                        "<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+param[0]+"&itemname="+param[1]+"'>"+param[0]+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+param[1]+"</a></div>"+
+                            //  "<div class='tab-head-icon'></div>"+
                         "<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+
                         "</div>"+
                         "<div class='repo-body'>"+
@@ -353,6 +320,13 @@ $(document).ready(function(){
                         "</div>"+
                         "</div>"
                     );
+                        },
+                        error:function(jsonuser){
+                            errorDialog($.parseJSON(jsonuser.responseText).code);
+                            $('#errorDM').modal('show');
+                        }
+                    });
+                    
                     
 
                 },
@@ -361,9 +335,6 @@ $(document).ready(function(){
                     $('#errorDM').modal('show');
                 }
             });
-             $(".be-loader").hide();
-        }
-
     }
 
 

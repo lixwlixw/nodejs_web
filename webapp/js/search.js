@@ -139,7 +139,7 @@ function ajaxRe(){
     if(repos.length!=0){
         for(var i=0;i<repos.length;i++){
             $.ajax({
-                url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+                url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1]+"?abstract=1",
                 type: "get",
                 cache:false,
                 async:false,

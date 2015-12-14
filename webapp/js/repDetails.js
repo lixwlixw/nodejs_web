@@ -142,7 +142,7 @@
               apendjson = {};
               var itemloginName = '';
               $.ajax({
-                  url: ngUrl + "/repositories/" + repname + "/"+datas[i],
+                  url: ngUrl + "/repositories/" + repname + "/"+datas[i]+"?abstract=1",
                   cache: false,
                   async:false,
                   success: function (msg) {

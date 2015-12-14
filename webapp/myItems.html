@@ -71,7 +71,7 @@
 			function pageCallBack(index) {
 				index = index == undefined? 0 : index;
 				$.ajax({
-					url: ngUrl+"/repositories/"+rep.repname+"?size=20&page="+(index+1),
+					url: ngUrl+"/repositories/"+rep.repname+"?size=20&page="+(index+1)+'&items=1',
 					type: "get",
 					cache:false,
 					data:{items:1},
