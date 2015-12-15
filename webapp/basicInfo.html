@@ -29,28 +29,28 @@
 <body>
 
 
-	<div class="be-loader" style="display: block;">
-	   	<div class="spinner">
-			<div class="spinner-container container1">
-				<div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			</div>
-		  	<div class="spinner-container container2">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-		  	</div>
-		  	<div class="spinner-container container3">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			</div>
-		</div>
-	</div>
+<div class="be-loader" style="display: block;">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
 	
 	
 	<!-- 头部导航 -->
@@ -92,6 +92,10 @@
 		<div  class="mid_title">
 			<p>基本信息</p>
 		</div>
+        <div id="mid_alert" >
+                <p id="success">修改成功！</p>
+                <p id="error">提交失败！</p>
+        </div>
 		<div  class="mid_main">
 			<div id="update_icon">
 				<span class="span_icon"></span>
@@ -99,13 +103,13 @@
 			<div class="form-group">
 				<label for="exampleInputEmail1">名称</label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
-                       disabled=""  style="margin-bottom: 0px;width:480px;>
+                         style="margin-bottom: 0;width:480px;">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputTime">简介</label>
 				<textarea id="textComment" class="form-control form-control-self" disabled=""  rows="6" placeholder="基本情况介绍，100字以内"maxlength="100" style="width:480px;"></textarea>
 			</div>
-			
+
 			 <button type="submit" id="button01" class="btn btn-default">提交</button>
 		</div>
 		</div>
@@ -119,15 +123,15 @@
 				
 				<div  class="under_main">
 					<div  class="p_progress">
-						<p>Pull量：<span>2000次每天</span></p>
+						<p>Pull量：<span>2000次/天</span></p>
 						<div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+						  <div id="pullNum" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
 							<span class="sr-only">40% Complete (success)</span>
 						  </div>
 						</div>
 					</div>
 					<div class="circle_group">
-						
+
 						<div class="circle">
 							<div class="pie_left">
 								<div class="left"></div>
@@ -137,11 +141,11 @@
 							</div>
 							<div class="mask">
 								<div >
-									<span>已用</span>
-									<span>12</span>
-								</div>		
+									<p>已用</p>
+									<p id="usePublic"></p>
+								</div>
 							</div>
-							<p>开放Repository：<span>50个</span></p>
+							<p>开放Repository：<span></span></p>
 						</div>
 
 						<div class="circle1">
@@ -153,11 +157,11 @@
 							</div>
 							<div class="mask1">
 								<div >
-									<span>已用</span>
-									<span>5</span>
-								</div>		
+									<p>已用</p>
+									<p id="usePrivate"></p>
+								</div>
 							</div>
-							<p>私有Repository：<span>20个</span></p>
+							<p>私有Repository：<span></span></p>
 						</div>
 
 						<div class="circle2">
@@ -168,14 +172,14 @@
 								<div class="right2"></div>
 							</div>
 							<div class="mask2">
-								<div >
-									<span>已用</span>
-									<span>48M</span>
-								</div>		
+
+									<p>已用</p>
+									<p id="deposit"></p>
+
 							</div>
-							<p>托管空间：<span>200M</span></p>
+							<p>托管空间：<span></span></p>
 						</div>
-					</div>		
+					</div>
 				</div>
 			</div>
 		</div>
@@ -233,7 +237,6 @@ $(document).ready(function(){
 				error:function(){
 					errorDialog($.parseJSON(json.responseText).code);
 					$('#errorDM').modal('show');
-
 				}
 		});
         $("#update_icon").click(function(){
@@ -305,15 +308,20 @@ $(document).ready(function(){
 		success:function(data){
 				
 			if(data.code==0){	
-				alert("提交成功！");
+
                 $("#exampleInputName").attr("disabled","disabled");
                 $("#textComment").attr("disabled","disabled");
                 $("#button01").css("display","none");
+                $("#success").css("display","block");
+                $("#error").css("display","none");
+                $("#success").fadeOut(4000);
 				}
 			},
 			error:function(data){
 			if(data.code!=0){
-				alert("提交失败！");
+                $("#error").css("display","block");
+                $("#success").css("display","none");
+                $("#error").fadeOut(4000);
 				}
 			}
 		});
@@ -337,7 +345,142 @@ $(document).ready(function(){
 		$(".be-loader").fadeOut("slow");
 	});
 
-	$(document).ready(function(){
+</script>
+<script>
 
-	});
+//pull量
+	$(document).ready(function(){
+		$.ajax({
+			url:ngUrl+"/quota/"+$.cookie("tname")+"/pullnum",
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+			success:function(data){
+				var pullNumA=data.data.use;
+				var pullNumB=(pullNumA/2000).toFixed(4);
+				var pullNumC=pullNumB.slice(2,4)+"."+pullNumB.slice(4,6)+"%";
+				$("#pullNum").css("width","pullNumC");
+			},
+			error:function(){
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+			}
+		})
+
+/*		$.ajax({
+			url:ngUrl+"/vip/"+$.cookie("tname"),
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+			success:function(data){
+				$(".circle p span").text(data.data.repoPub+"个");
+				$(".circle1 p span").text(data.data.repoPri+"个");
+				$(".circle2 p span").text(data.data.deposit);
+			},
+			error:function(){
+			}
+		})*/
+//repo配额
+		$.ajax({
+			url:ngUrl+"/quota/"+$.cookie("tname")+"/repository",
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+			success:function(data){
+                var usePublic=parseFloat(data.data.usePublic);
+                var usePrivate=parseFloat(data.data.usePrivate);
+                var quotaPublic=parseFloat(data.data.quotaPublic);
+                var quotaPrivate=parseFloat(data.data.quotaPrivate);
+
+				$("#usePublic").text(usePublic);
+				$("#usePrivate").text(usePrivate);
+				$(".circle p span").text(quotaPublic+"个");
+				$(".circle1 p span").text(quotaPrivate+"个");
+//第一个圆环
+                var uqc=parseFloat(usePublic/quotaPublic);
+                if(uqc==0){
+                    $(".left").css("transform", "rotate()");
+                    $(".right").css("transform", "rotate()");
+                }
+                if (uqc <= 0.5&&uqc>0) {
+                    var leftNum = uqc * 360;
+                    $(".left").css("transform", "rotate(-"+leftNum+"deg)");
+                }
+                if (uqc > 0.5) {
+                    var rightNum = (uqc - 0.5) * 360;
+                    $(".left").css("transform", "rotate(-180deg)");
+                    $(".right").css("transform", "rotate(-" + rightNum + "deg)");
+                }
+//第二个圆环
+                if(quotaPrivate==0)
+                {
+                    $(".left1").css("transform", "rotate(deg)");
+                    $(".right1").css("transform", "rotate(deg)");
+                }
+                if(quotaPrivate!=0)
+                {
+                    var uqe=usePrivate/quotaPrivate;
+                    if (uqe <= 0.5) {
+                        var leftNum2 = uqe * 360;
+                        $(".left1").css("transform", "rotate(-" + leftNum2 + "deg)");
+
+                    }
+                    if (uqe > 0.5) {
+                        var rightNum2 = (uqe - 0.5) * 360;
+                        $(".left1").css("transform", "rotate(-180deg)");
+                        $(".right1").css("transform", "rotate(-" + rightNum2 + "deg)");
+                    }
+                }
+			},
+			error:function(){
+			}
+		})
+//托管空间
+		$.ajax({
+			url:ngUrl+"/quota/"+$.cookie("tname")+"/deposit",
+			type:"get",
+			cache:false,
+			async:false,
+			headers:{Authorization:"Token "+$.cookie("token")},
+			datatype:'json',
+			success:function(data) {
+                var use = data.data.use;//使用配额
+                var quota = data.data.quota;//托管配额
+                var use = use.substring(0, (use.length - 1));
+                var quota = quota.substring(0, (quota.length - 1));
+                uq = (use / quota).toFixed(2);
+                $("#deposit").text(use);
+                $(".circle2 p span").text(quota);
+                if(uq==0)
+                {
+                    $(".left2").css("transform", "rotate(deg)");
+                    $(".right2").css("transform", "rotate(deg)");
+                }
+                if (0<uq <= 0.5) {
+                    var leftNum = uq * 360;
+                    $(".left2").css("transform", "rotate(-" + leftNum + "deg)");
+                }
+                if (uq > 0.5) {
+                    var rightNum = (uq - 0.5) * 360;
+                    $(".left2").css("transform", "rotate(-180deg)");
+                    $(".right2").css("transform", "rotate(-" + rightNum + "deg)");
+                }
+            },
+				error:function(){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+
+				}
+
+
+	    });
+
+    });
+
 </script>
