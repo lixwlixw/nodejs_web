@@ -77,7 +77,7 @@ $(document).ready(function(){
             if($(this).text()=='全部精选'){
                 //$(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
-                $("#allJ").text($(this).text()+"精选");
+                $("#allJ").text($(this).text());
                 thisvalue = $(this).text();
                 appendList2(0);
                 // toNextpage(appendList2)
@@ -222,12 +222,15 @@ $(document).ready(function(){
         var dataitemdstarNum = '';
          getAjax(ngUrl + "/subscription_stat/" +param[0],function (msg) {
                 dataitemd = msg.data.numsubs;
+                $(".star-value").text(dataitemd);
             });
             getAjax(ngUrl + "/transaction_stat/" +param[0]+"/"+param[1],function (msg) {
                 dataitemdpullNum = msg.data.numpulls;
+                $(".downloaded-value").text(dataitemdpullNum);
             });
             getAjax(ngUrl + "/star_stat/" +param[0]+"/"+param[1],function (msg) {
                 dataitemdstarNum = msg.data.numstars;
+                $(".star-value").text(dataitemdstarNum);
             });
             //////////////  填充
          $.ajax({
