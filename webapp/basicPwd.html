@@ -91,7 +91,10 @@
 						<button type="button" class="btn btn-default btn0" id="btn02">确认</button>
 					  </div>
 				</div>
-			</div>	
+			</div>
+			<div id="successBox">
+				<p><span class="success_icon"></span>恭喜您，修改密码成功</p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -146,7 +149,6 @@
 	$(document).ready(function(){
 		$("#btn01").click(function(){
 			$(".form-control-00").val("");
-		
 		});
 		$("#paspasswd").blur(function(){
 			if(($("#passwd").val())!=($("#paspasswd").val())){
@@ -184,10 +186,13 @@
 				data:JSON.stringify(myPwd),
 				success:function(data){
 					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val()>=8)&&($("#paspasswd").val()>=8)){
-						$("#label_success").css("display","inline");
-						$("#label_success").append();
-						$("#label_success").fadeOut(3000);
-						$(".form-control-00").val("");
+//						$("#label_success").css("display","inline");
+//						$("#label_success").append();
+//						$("#label_success").fadeOut(3000);
+//						$(".form-control-00").val("");
+						$("#successBox").css("display","inline");
+						$(".form-control-00").css("display","none");
+						$(".btn0").css("display","none");
 
 					}
 					else
