@@ -46,6 +46,28 @@ body{
 	cursor: pointer;
 	position: relative;
 }
+#judgment{
+	width: 140px;
+	background-color:#FFFFFF;
+	border: 1px solid #CCCCCC;
+	margin:-40px 0 10px 125px ;
+	position: absolute;
+	display: none;
+}
+#judgment p{
+	line-height: 26px;
+	color:#333;
+	font-size: 14px;
+	padding:0px 15px 0px 15px  ;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+#judgment p:hover{
+	color:#0077aa;
+	text-decoration:underline;
+
+}
 .norepnum{
 	width: 100%;
 	overflow: hidden;
@@ -424,15 +446,16 @@ body{
 	color: #666;
 	margin-bottom: 30px;
 }
-#addRep .property .value select{
+#addRep .property .value p{
 	width: 92px;
 	height: 24px;
 	font-size: 14px;
 	color: #666;
 	margin-bottom: 30px;
 	border-radius: 5px;
-	padding-left: 23px;
+	text-align:center;
 	border: 1px solid #666;
+	letter-spacing: 3px;
 }
 .property{
 	margin-bottom: 20px;

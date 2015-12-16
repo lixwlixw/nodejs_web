@@ -206,9 +206,9 @@ $(function() {
     function gonextpage(nextpages){
         getreps(nextpages+1);
         getrepcomment();
-        writeDom(nextpages+1);
+        writeDom();
     }
-    writeDom("-1");
+    writeDom();
     //折叠筐：显示和隐藏每个rep的item列表
     $(document).on('click','#publish-body .repolist .describe',function () {
         var thos = $(this);
@@ -301,7 +301,7 @@ $(function() {
 
     });
     //把数据写入页面
-    function writeDom(num) {
+    function writeDom() {
         $('.repolist').empty();
         //写仓库数量
         if(reps.length == 0){
@@ -309,9 +309,7 @@ $(function() {
         }else{
             $('.norepnum').hide();
         }
-        if(num==-1){
-        	$("#publish-body .repocount span").text(reps.length);
-        } 
+        $("#publish-body .repocount span").text(reps.length);
         //写rep列表
         for(var i in reps) {
             var rep = reps[i];

@@ -25,12 +25,13 @@
 	<!--js-->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.cookie.js"></script>
+
 	<script src="js/ngUrl.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/base64.js"></script>
 	<script src="js/md5.js"></script>
 	<script src="./js/jquery.pagination.js"></script>
+	<script src="js/jquery.cookie.js"></script>
 	<script src='js/errorDialog.js'></script>
 	<script src="js/myPublish.js"></script>
 	<script>
@@ -91,6 +92,11 @@
 	<div id="publish-head">
 		<span class="name"><b>我的发布</b></span>
 		<span class="add-icon"></span>
+		<div id="judgment">
+			<p id="openRepo">开放Repository</p>
+			<p id="privateRepo">私有Repository</p>
+
+		</div>
 		<div id="addRep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -116,10 +122,11 @@
 						<div class="property">
 							<div class="key">属性</div>
 							<div class="value">
-								<select>
+								<!--<select>
 									<option value="private">私&nbsp;&nbsp;有</option>
 									<option value="public">开&nbsp;&nbsp;放</option>
-								</select>
+								</select>-->
+								<p></p>
 							</div>
 						</div>
 						<div class="submit">
