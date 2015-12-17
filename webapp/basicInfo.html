@@ -226,7 +226,7 @@ $(document).ready(function(){
 //输入框有数据
                     if (nickName.length>0||comment.length>0)
                     {
-						$("#exampleInputName").attr("disabled",false);
+						$("#exampleInputName").attr("disabled",true);
 						$("#textComment").attr("disabled",false);
                         $("#exampleInputName").val(nickName);
                         $("#textComment").val(comment);
@@ -254,7 +254,7 @@ $(document).ready(function(){
 		});
 		$("#update_icon").click(function(){
             $("#button01").css("display","block");
-            $("#exampleInputName").attr("disabled",false);
+//            $("#exampleInputName").attr("disabled",false);//名称设置后不能修改
             $("#textComment").attr("disabled",false);
 			$("#update_icon").css("display","none");
 
