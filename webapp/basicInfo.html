@@ -213,12 +213,6 @@ $(document).ready(function(){
 /*console.log(JSON.stringify($.cookie("token")));*/
 		$('#exampleInputTime').attr('disabled', 'true');
 		$('#exampleStopTime').attr('disabled', 'true');
-	if(textComment.length==0)
-	{
-
-
-	}
-
 		$.ajax({
 			url:ngUrl+"/users/"+$.cookie("tname"),
 			type:"get",
@@ -232,6 +226,8 @@ $(document).ready(function(){
 //输入框有数据
                     if (nickName.length>0||comment.length>0)
                     {
+						$("#exampleInputName").attr("disabled",false);
+						$("#textComment").attr("disabled",false);
                         $("#exampleInputName").val(nickName);
                         $("#textComment").val(comment);
 						$("#update_icon").css("display","none");
