@@ -55,10 +55,19 @@ body{
 	width:480px;
 	height:40px;
 }
-.form-group label{
+.form-group>label{
 	font-size:14px;
 	color:#29abe2;
 	margin-bottom:10px;
+	display: inline;
+
+}
+.form-group>label>span{
+
+	font-size: 12px;
+	color:#333;
+	margin-left: 5px;
+
 }
 /*midbox开始*/
 .midBox{
@@ -102,6 +111,30 @@ body{
 		 padding:0px 10px ;
 		 display: none;
 	 }
+#error_emptyName{
+	background-color: #ffe5e5;
+	color: #ff0000;
+	font-size: 16px;
+	line-height: 28px;
+	padding:0px 10px ;
+	display: none;
+}
+#error_emptyComment{
+	background-color: #ffe5e5;
+	color: #ff0000;
+	font-size: 16px;
+	line-height: 28px;
+	padding:0px 10px ;
+	display: none;
+}
+#error_allEmpty{
+	background-color: #ffe5e5;
+	color: #ff0000;
+	font-size: 16px;
+	line-height: 28px;
+	padding:0px 10px ;
+	display: none;
+}
 .mid_main{
 	float:right;
 	width:910px;
@@ -134,7 +167,7 @@ body{
 	background-image: url("/images/allow_icon.png");
 	background-repeat: no-repeat;
 	background-position:-6% 90%;
-	display: inline-block;
+	display: none;
 	width: 20px;
 	height: 20px;
 
