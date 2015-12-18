@@ -478,12 +478,15 @@ $(function() {
                     if(json.data.repaccesstype=="public")
                     {
                         $("#addRep .property .value p").text("开  放");
+                        $("#ListManagement").css("display","none");
                     }
                     if(json.data.repaccesstype=="private")
                     {
                         $("#addRep .property .value p").text("私  有");
+                        $("#ListManagement").css("display","block");
                     }
                     $("#addRep .repcomment .value textarea").val(json.data.comment);
+                    $("#ListManagement p span:first").empty();
 
                 }
                 $.ajax({
@@ -496,6 +499,7 @@ $(function() {
                     success:function(json){
                        var totalNumber=json.data.length;
                         $("#ListManagement p span:first").append("（"+totalNumber+"）");
+
                     }
 
                 });
