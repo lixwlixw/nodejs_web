@@ -1,24 +1,118 @@
 /**
  * Created by Administrator on 2015/12/9.
  */
+
+
 $(function() {
 
     //addRep
     $("#publish-head .add-icon").click(function() {
-        $("#addRep .submit input").attr("repevent", "add");
-        $("#addRep .head .title").text("新增Repository");
-        $("#addRep .repname .value input").removeAttr("disabled");
-        $("#addRep .repname .value input").val("");
-        $("#addRep .repcomment .value textarea").val("");
-        $("#addRep .repname .key .promt").show();
-        $('#addRep').modal('toggle');
+
+        var display=$("#judgment").css("display");
+        if(display=="none")
+        {
+            $("#judgment").css("display","block");
+        }
+        if(display=="block")
+        {
+            $("#judgment").css("display","none");
+        }
+        $("#judgment_number").css("display","none");
+
     });
+    //修改新增repo开始
+    //开放repo
+    $("#openRepo").click(function(){
+        //判断是否有配额数
+        $.ajax({
+            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
+            type:"get",
+            cache:false,
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(data){
+                var usePublic=data.data.usePublic;
+                var quotaPublic=data.data.quotaPublic;
+                var uq_public=quotaPublic-usePublic;
+
+                if(uq_public>0)
+                {
+                    $("#addRep .submit input").attr("repevent", "add");
+                    $("#addRep .head .title").text("新增Repository");
+                    $("#addRep .repname .value input").removeAttr("disabled");
+                    $("#addRep .repname .value input").val("");
+                    $("#addRep .repcomment .value textarea").val("");
+                    $("#addRep .repname .key .promt").show();
+                    $('#addRep').modal('toggle');
+                    $("#addRep .property .value p").text("开  放");
+                    $("#judgment").css("display","none");
+                }else {
+                    $("#judgment_number").css("display","block");
+                    $("#judgment").css("display","none");
+                 /*   $(document).bind("click",function(e){
+                        var target= e.target;
+                        if((target.className.indexOf("#judgment_number")<0))
+                        {
+                            $("#judgment_number").css("display","none");
+                        }
+                    });*/
+                }
+            }
+
+        });
+    });
+    //新增私有repo
+    $("#privateRepo").click(function(){
+        //判断是否有配额数
+        $.ajax({
+            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
+            type:"get",
+            cache:false,
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(data){
+
+                var usePrivate=data.data.usePrivate;
+                var quotaPrivate=data.data.quotaPrivate;
+                var uq_private=quotaPrivate-usePrivate;
+                if(uq_private>0)
+                {
+                    $("#addRep .submit input").attr("repevent", "add");
+                    $("#addRep .head .title").text("新增Repository");
+                    $("#addRep .repname .value input").removeAttr("disabled");
+                    $("#addRep .repname .value input").val("");
+                    $("#addRep .repcomment .value textarea").val("");
+                    $("#addRep .repname .key .promt").show();
+                    $('#addRep').modal('toggle');
+                    $("#addRep .property .value p").text("私  有");
+                    $("#judgment").css("display","none");
+                }else {
+                    $("#judgment_number").css("display","block").slideDown(2000);
+                    $("#judgment").css("display","none");
+                }
+            }
+
+        });
+/*        $(document).bind("click",function(e){
+            var target= e.target;
+            if((target.className.indexOf("#judgment_number")<0)&&(target.className.indexOf("#privateRepo")<0))
+            {
+                $("#judgment_number").css("display","none");
+            }
+        })*/
+
+
+
+    });
+
     $("#addRep .submit input").click(function() {
         var method = "POST";
         var data = {};
         repname = $.trim($("#addRep .repname .value input").val());
         data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
-        data["repaccesstype"] = $.trim($("#addRep .property .value select").val());
+        data["repaccesstype"] = $.trim($("#addRep .property .value p").val());
         if($(this).attr("repevent") == "add") {
             if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
                 alert('"Repository 名称"格式错误！');
@@ -380,9 +474,32 @@ $(function() {
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 if(json.code == 0){
+                    //转换中英私有和开放
+                    if(json.data.repaccesstype=="public")
+                    {
+                        $("#addRep .property .value p").text("开  放");
+                    }
+                    if(json.data.repaccesstype=="private")
+                    {
+                        $("#addRep .property .value p").text("私  有");
+                    }
                     $("#addRep .repcomment .value textarea").val(json.data.comment);
-                    $("#addRep .property .value select").val(json.data.repaccesstype);
+
                 }
+                $.ajax({
+                    url: ngUrl + "/permission/" + repname,
+                    type: "GET",
+                    cache: false,
+                    async: false,
+                    dataType: 'json',
+                    headers: {Authorization: "Token " + $.cookie("token")},
+                    success:function(json){
+                       var totalNumber=json.data.length;
+                        $("#ListManagement p span:first").append("（"+totalNumber+"）");
+                    }
+
+                });
+
             },
             error:function(json){
                 errorDialog($.parseJSON(json.responseText).code);
@@ -408,3 +525,173 @@ function getRep(reps,repname) {
         }
     }
 }
+$(document).ready(function() {
+
+    var totalPer = [];
+
+    //新增白名单按钮
+    $("#insert").click(function () {
+        var repname=$("#repnameInput").val();
+        var total = "";
+        $("#emailTest").val("");
+        $.ajax({
+            url: ngUrl + "/permission/"+repname,
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                //	alert(json.length);
+                console.log(json.data.length);
+
+                if (json.code == 0) {
+
+                    var len = json.data.length;
+                    total = len;
+                    for (var i = 0; i < len; i++) {
+                        var username = json.data[i].username;
+                        totalPer.push(username);
+                    }
+
+                    for (var i = 0; i < 3; i++) {
+                        var username = totalPer[i];
+                        if (username != undefined) {
+                            $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                        }
+                    }
+
+                }
+            },
+            error: function (json) {
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+
+        $(".pagesPer").pagination(total, {
+            items_per_page: 3,
+            num_display_entries: 1,
+            num_edge_entries: 5,
+            prev_text: "上一页",
+            next_text: "下一页",
+            ellipse_text: "...",
+            link_to: "javascript:void(0)",
+            callback: nextpageadd,
+            load_first_page: false
+        });
+
+        $('#myModalTest').modal('toggle');
+    });
+
+    //新增白名单
+    $("#inList").click(function () {
+        var emailTest = $("#emailTest").val();
+        var repname1=$("#repnameInput").val();
+        if (emailTest != "") {
+            $.ajax({
+                url: ngUrl + "/permission/"+repname1,
+                type: "PUT",
+                cache: false,
+                //  data:{username:emailTest},
+                data: JSON.stringify({"username": emailTest}),
+                async: false,
+                dataType: 'json',
+                headers: {Authorization: "Token " + $.cookie("token")},
+                success: function (json) {
+                    if (json.code == 0) {
+                        $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + emailTest + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                        $("#emailTest").val("");
+                        $("#mess").addClass("successMess").css("visibility", "visible").text("添加白名单成功");
+                    }
+                },
+                error: function (json) {
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+        } else {
+            $("#mess").addClass("errorMess").css("visibility", "visible").text("名称不能为空");
+        }
+
+
+    });
+    $(document).on('click', '.deleteTest', function () {
+        var username = $(this).parent().siblings().text();
+        var repname2=$("#repnameInput").val();
+        $(this).parent().parent().remove();
+        $.ajax({
+            url: ngUrl + "/permission/"+repname2+"?username=" + username,
+            type: "DELETE",
+            cache: false,
+            //data:JSON.stringify({"username":username}),
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if (json.code == 0) {
+
+                }
+            },
+            error: function (json) {
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+    });
+
+
+    function nextpageadd(nextpages) {
+        var nextpages = nextpages + 1;
+        var num = 3;
+        $("#modalRep_list").empty();
+        for (var i = 1; i < 4; i++) {
+            var username = totalPer[i * nextpages];
+            if (username != undefined) {
+                $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+            }
+
+        }
+    }
+
+    $("#delCurrent").click(function () {
+        $('input:checkbox[name=users]:checked').each(function (i) {
+            var users = $(this).parent().text();
+            var repname3=$("#repnameInput").val();
+            $(this).parent().parent().remove();
+            $.ajax({
+                url: ngUrl + "/permission/"+repname3+"?username="+users,
+                type: "DELETE",
+                cache: false,
+                async: false,
+                dataType: 'json',
+                headers: {Authorization: "Token " + $.cookie("token")},
+                success: function (json) {
+                    if (json.code == 0) {
+
+                    }
+                },
+                error: function (json) {
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+        });
+    })
+
+    $("#delAll").click(function () {
+        var indexof = totalPer.indexOf("7@1.com");
+    })
+
+    $("#seList").click(function () {
+        var username = $("#emailTest").val();
+        var indexof = totalPer.indexOf(username);
+        if (indexof > 0) {
+            $("#modalRep_list").empty();
+            $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+        } else {
+            $("#mess").addClass("errorMess").css("visibility", "visible").text("没有此用户");
+        }
+    });
+
+});
