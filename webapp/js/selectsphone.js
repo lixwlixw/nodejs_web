@@ -36,7 +36,7 @@ $(document).ready(function(){
         url: ngUrl+"/select_labels",
         type: "get",
         cache:false,
-        async:false,
+        // async:false,
         dataType:'json',
         success:function(json){
             var bgarr = [];
@@ -66,17 +66,6 @@ $(document).ready(function(){
             $('#errorDM').modal('show');
         }
     });
-    //var typevalue = getParam("type");
-    //console.log(typevalue)
-    //if(typevalue == ''){
-    //   console.log('1111')
-    //    appendList(1);
-    //}
-    //if(typevalue != ''){
-    //    console.log('22222')
-    //    $('.repinfo').html(typevalue);
-    //    appendList2(1,typevalue);
-    //}
 
 
     //左侧导航点击切换;
@@ -90,8 +79,6 @@ $(document).ready(function(){
                 $('.repinfo').html(thisvalue);
                 appendList2(1,thisvalue);
             }
-
-        //}
     });
     ////////////////////////////
     //  点击分类按分类发送请求
@@ -101,7 +88,7 @@ $(document).ready(function(){
             url: ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages,
             type: "get",
             cache:false,
-            async:false,
+            // async:false,
             dataType:'json',
             success:function(json){
                 if(json.data.select.length!=0){
@@ -110,6 +97,7 @@ $(document).ready(function(){
                     for(var i=0;i<selectlength;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
+                    addhtml(repos)
                 }else{
                     console.log("报错");
                 }
@@ -136,7 +124,7 @@ $(document).ready(function(){
             url: urlt,
             type: "get",
             cache:false,
-            async:false,
+            // async:false,
             dataType:'json',
             success:function(json){
                 if(json.data.select.length!=0){
@@ -145,6 +133,7 @@ $(document).ready(function(){
                     for(var i=0;i<selectlength;i++){
                         repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                     }
+                    addhtml(repos)
 
                 }else{
                     console.log("报错");
@@ -159,24 +148,29 @@ $(document).ready(function(){
 //  加载全部数据
     function appendList(pages){
         ajaxRe(pages);
-        addhtml();
+        // addhtml();
     }
     //按左侧导航分类发送请求加载数据；
     function appendList2(pages,thisvalue){
         hanvelables(pages,thisvalue)
-        addhtml();
+        // addhtml();
     }
 //  填充html代码；
-    function addhtml(){
+    function addhtml(repos){
         $('#terminal-content-body').empty();
 
         for(var i= 0;i<repos.length;i++) {
             //////////////  填充
-            $.ajax({
-                url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1],
+             addhtmlcon.call(this,reposss[i]);
+
+        }
+    }
+    function addhtmlcon(param){
+        $.ajax({
+                url: ngUrl+"/repositories/"+param[0]+"/"+param[1],
                 type: "get",
                 cache:false,
-                async:false,
+                // async:false,
                 dataType:'json',
                 success:function(json){
                     $("#loading").empty();
@@ -187,24 +181,24 @@ $(document).ready(function(){
                         type: "get",
                         cache:false,
                         data:{},
-                        async:false,
+                        // async:false,
                         dataType:'json',
-                        success:function(json){
+                        success:function(jsonrealname){
                             if(json.code == 0){
-                                realname=json.data.userName;
+                                realname=jsonrealname.data.userName;
                             }else {
                                 console.log("报错");
                             }
                         },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
+                        error:function(jsonrealname){
+                            errorDialog($.parseJSON(jsonrealname.responseText).code);
                             $('#errorDM').modal('show');
                         }
                     });
                     var str =   '<li class="borderb">'+
-                                '<div class="listTop"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
+                                '<div class="listTop"><a href="itemDetails.html?repname='+param[0]+'&itemname='+param[1]+'">'+param[0]+'/'+ param[1]+'</a></div>'+
                                 '<div class="listbt">数据拥有方：<span class="itemcur">'+realname+'</span></div>'+
-                                '<div class="listicon"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
+                                '<div class="listicon"><a href="itemDetails.html?repname='+param[0]+'&itemname='+param[1]+'"></a></div>'+
                                 '</li>'
                     $(".repinfoList").append(str);
                 },
@@ -213,8 +207,6 @@ $(document).ready(function(){
                     $('#errorDM').modal('show');
                 }
             });
-
-        }
     }
     // 继续加载
     window.onscroll = function(){

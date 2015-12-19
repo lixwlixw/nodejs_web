@@ -137,6 +137,11 @@ function ajaxRe(){
     }
 
     if(repos.length!=0){
+        var headerToken={};
+        //登陆后
+        if($.cookie("token")!=null&&$.cookie("token")!="null"){
+            headerToken={Authorization:"Token "+$.cookie("token")};
+        }
         for(var i=0;i<repos.length;i++){
             $.ajax({
                 url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1]+"?abstract=1",
@@ -145,6 +150,7 @@ function ajaxRe(){
                 async:false,
                 data:data,
                 dataType:'json',
+                headers:headerToken,
                 success:function(json){
                     $("#loading").empty();
                     var vvclass="";

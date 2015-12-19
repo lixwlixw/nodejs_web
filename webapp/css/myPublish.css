@@ -68,6 +68,47 @@ body{
 	text-decoration:underline;
 
 }
+#judgment_number{
+	border: 5px solid #e5e5e5;
+	position: absolute;
+	width: 290px;
+	height: 108px;
+	padding:25px 0px;
+	background-color: #ffffff;
+	display: none;
+
+}
+#p1{
+	font-size: 16px;
+	color:#000;
+	text-align: center;
+	line-height: 23px;
+}
+#p1>span{
+	background-image: url("../images/emo.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 23px;
+	height: 23px;
+	display: inline-block;
+	margin-bottom: -6px;
+	margin-right: 8px;
+}
+#p2{
+	font-size: 16px;
+	color:#666;
+	text-align: center;
+
+
+}
+#p2 span{
+	color:#29abe2;
+}
+#p2 span:hover{
+	text-decoration:underline;
+}
+
+
 .norepnum{
 	width: 100%;
 	overflow: hidden;
@@ -457,6 +498,24 @@ body{
 	border: 1px solid #666;
 	letter-spacing: 3px;
 }
+#ListManagement p{
+	color:#29abe2;
+	letter-spacing: 0.2em;
+	margin-bottom: 25px;
+	line-height: 20px;
+}
+#ListManagement p span:first-child{
+	color:#000000;
+}
+#ListManagement p span:last-child{
+	background-image: url("/images/allow_icon.png");
+	background-repeat: no-repeat;
+	background-position:-29% 71%;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-bottom:-3px;
+}
 .property{
 	margin-bottom: 20px;
 }
@@ -529,4 +588,46 @@ body{
 		display: block;
 		float: none;
 	}
+
+
+}
+/*白名单*/
+#delCurrent, #delAll{
+    color: #0077aa;
+    font-size: 14px;
+}
+
+#delCurrent:hover, #delAll:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#modalRep a{
+    font-size: 12px;
+    color:#333;
+    margin-right: 10px;
+}
+
+#modalRep a:hover{
+    font-size: 12px;
+    color:#333;
+    text-decoration: underline;
+}
+
+.successMess{
+    text-align:center;
+    background-color: #e8f7e6;
+    font-size: 14px;
+    color: #1bd506;
+    width:200px;
+    margin-bottom:15px;
+}
+
+.errorMess{
+    text-align:center;
+    background-color: #ffd1d1;
+    font-size: 14px;
+    color: #ff0000;
+    width:200px;
+    margin-bottom:15px;
 }
