@@ -594,44 +594,84 @@ $(document).ready(function() {
     $("#inList").click(function () {
         var username = $("#emailTest").val();
         var repname1=$("#repnameInput").val();
-        if (username != "") {
-            var username=$("#emailTest").val();
-            var indexof=totalPer.indexOf(username);
-            if(indexof<0){
-                //$(".modal-body").empty();
-                //$(".modal-body").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                $.ajax({
-                    url: ngUrl + "/permission/"+repname1,
-                    type: "PUT",
-                    cache: false,
-                    //  data:{username:emailTest},
-                    data: JSON.stringify({"username": username}),
-                    async: false,
-                    dataType: 'json',
-                    headers: {Authorization: "Token " + $.cookie("token")},
-                    success: function (json) {
-                        if (json.code == 0) {
-                            $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                            $("#emailTest").val("");
-                            $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("添加白名单成功");
+            if (username != "") {
+                var username = $("#emailTest").val();
+                var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!reg.test(username) ){
 
+                    $("#mess").addClass("errorMess").css("visibility", "visible").text("邮箱格式不正确");
+
+                }
+                else {
+                var b=true;
+                $.ajax({
+                    url: ngUrl + "/users/"+username ,
+                    type: "get",
+                    cache: false,
+                    async: false,
+                    headers: {Authorization: "Token " + $.cookie("token")},
+                    datatype: 'json',
+                    success:function(json){
+                        if(json.code!=0){
+                            b=false;
                         }
-                    },
-                    error: function (json) {
-                        errorDialog($.parseJSON(json.responseText).code);
-                        $('#errorDM').modal('show');
+
                     }
                 });
+                if(b){
+                    var username=$("#emailTest").val();
+                    var indexof=totalPer.indexOf(username);
+                    if(indexof<0){
+                        //$(".modal-body").empty();
+                        //$(".modal-body").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                        $.ajax({
+                            url: ngUrl + "/permission/"+repname1,
+                            type: "PUT",
+                            cache: false,
+                            //  data:{username:emailTest},
+                            data: JSON.stringify({"username": username}),
+                            async: false,
+                            dataType: 'json',
+                            headers: {Authorization: "Token " + $.cookie("token")},
+                            success: function (json) {
+                                if (json.code == 0) {
+                                    $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                                    $("#emailTest").val("");
+                                    $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("添加白名单成功");
 
-            }else{
-                $("#mess").addClass("errorMess").css("visibility","visible").text("已有此用户");
+                                }
+                            },
+                            error: function (json) {
+                                errorDialog($.parseJSON(json.responseText).code);
+                                $('#errorDM').modal('show');
+                            }
+                        });
+
+                    }else{
+                        $("#mess").addClass("errorMess").css("visibility","visible").text("已有此用户");
+                    }
+            } else {
+
+                    $("#mess").addClass("errorMess").css("visibility", "visible").text("名称未注册");
             }
-        } else {
-            $("#mess").addClass("errorMess").css("visibility", "visible").text("名称不能为空");
+        }
+            }
+            else{
+                $("#mess").addClass("errorMess").css("visibility", "visible").text("名称不能为空");
+        }
+        });
+    function nextpageadd(nextpages) {
+        var nextpages = nextpages + 1;
+        var num = 3;
+        $("#modalRep_list").empty();
+        for (var i = 1; i < 4; i++) {
+            var username = totalPer[i * nextpages];
+            if (username != undefined) {
+                $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+            }
 
         }
-
-
+    }
     });
     $(document).on('click', '.deleteTest', function () {
         var username = $(this).parent().siblings().text();
@@ -658,18 +698,7 @@ $(document).ready(function() {
     });
 
 
-    function nextpageadd(nextpages) {
-        var nextpages = nextpages + 1;
-        var num = 3;
-        $("#modalRep_list").empty();
-        for (var i = 1; i < 4; i++) {
-            var username = totalPer[i * nextpages];
-            if (username != undefined) {
-                $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-            }
 
-        }
-    }
 
     $("#delCurrent").click(function () {
         $('input:checkbox[name=users]:checked').each(function (i) {
@@ -711,5 +740,3 @@ $(document).ready(function() {
 
         }
     });
-
-});
