@@ -50,11 +50,8 @@
                                     </div>
                                     <div class="itempro">
                                         <div class="key">属性</div>
-                                        <div class="value">
-                                            <select>
-                                                <option value="private">私&nbsp;&nbsp;有</option>
-                                                <option value="public">开&nbsp;&nbsp;放</option>
-                                            </select>
+                                        <div class="value" style="height: 30px;">
+                                            <span></span>
                                         </div>
                                     </div>
                                     <div class="itemtag">
@@ -67,6 +64,21 @@
                                         </div>
                                         <div class="value"></div>
                                     </div>
+                                    <div class="itemtagmoney">
+                                        <div class="keymoney">
+                                            <div class="divmoney">
+                                                <div class="tagnamemoney">价格</div>
+                                                <span class="btniconmoney"></span>
+                                            </div>
+
+                                            <div class="addbtnmoney">
+                                                <span class="btntextmoney">数据需求方pull Item下的tag需要支付的费用，不填价格默认数据免费，最多添加6个</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="valuemoney"></div>
+                                    </div>
+                                    <div class="xiugaiwrop">白名单管理<span>(0)</span><span class="xiugainame"></span></div>
                                     <div class="submit">
                                         <input type="button" value="提交">
                                     </div>
@@ -74,6 +86,45 @@
                             </div>
                         </div>
                     </div>
+                    <!-- sdffffffffffffffffffffff -->
+                        <div id="editBox" class="modal fade" tabindex="5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div style="padding: 30px 30px 45px 30px" class="modal-body">
+                                            <div class="head">
+                                                <span class="title" style="font-size: 20px;">白名单管理</span>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div style="height:24px;">
+                                            <div style="visibility: visible;" class="container errorMess" id="mess"></div>
+                                            </div>
+                                            <div class="addcontent">
+                                                <input type="text" id="addvalue"/><span class="addnamebtn">添加到白名单</span><span class="selectbtn">在列表中查找</span>
+                                            </div>
+                                            <hr/>
+                                            <div class="guanlilist">
+                                                <span class="dellist">[删除]</span><span class="emptylist">[清空白名单]</span>
+                                            </div>
+                                            <ul class="namelist">
+                                               <!--  <li>
+                                                    <input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">1111</span><span class="namelistdel">[删除]</span>
+                                                </li>
+                                                <li>
+                                                    <input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">2222</span><span class="namelistdel">[删除]</span>
+                                                </li>
+                                                <li>
+                                                    <input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">3333</span><span class="namelistdel">[删除]</span>
+                                                </li>
+                                                <li>
+                                                    <input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">4444</span><span class="namelistdel">[删除]</span>
+                                                </li> -->
+                                            </ul>
+                                            <div class="pages"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- ssssssssssssssssssssssss -->
                     <table style="width:100%;">
                         <tr>
                             <td style="padding-bottom:0px;" colspan="3" class="tag-1 itemListName">
