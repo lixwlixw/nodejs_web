@@ -147,8 +147,17 @@
     float: left;
     font-size: 15px;
     background: #fbfcfe;
-
-
+}
+#editItem .xiugainame{
+    background: rgba(0, 0, 0, 0) url("../images/allow_icon.png") no-repeat scroll 3px 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 3px 10px;
+}
+#editItem .xiugaiwrop{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
 }
 .leftnav li.cur span{
     width: 35px;
@@ -451,7 +460,32 @@
     background-color: #fff;
     font-size: 14px;
     color: #666;
-    margin-bottom: 30px;
+}
+#editItem .itempro .value span{
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 12px;
+    padding:3px 15px;
+}
+.delitemlabelicon{
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/item_close.png") ;
+    float: left;
+    margin-left:10px;
+    margin-top:3px;
+    cursor: pointer;
+}
+.delitemlabelicon:hover{
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/item_close.png") ;
+    background-position: -26px 0px;
+    float: left;
+    margin-left:10px;
+    margin-top:3px;
+    cursor: pointer;
 }
 #editItem .itemcomment .value textarea{
     width: 458px;
@@ -483,7 +517,7 @@
 }
 #editItem .itemtag .key .addbtn > span{
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
 }
 #editItem .itemtag .key {
     overflow: hidden;
@@ -520,6 +554,77 @@
     margin-left: 5px;
     cursor: pointer;
 }
+.itemtagmoney .keymoney{
+    border-bottom: 1px solid #c5c5c5;
+    overflow: hidden;
+    padding-bottom: 5px;
+    font-size: 14px;
+    color: #29abe2;
+}
+.itemtagmoney .keymoney .tagnamemoney{
+    float: left;
+}
+#editItem .itemtagmoney .keymoney .addbtnmoney{
+    color: #666;
+    display: inline-block;
+    font-size: 12px;
+}
+#editItem .itemtagmoney .keymoney .divmoney > span{
+    display: inline-block;
+    font-size: 12px;
+}
+#editItem .itemtagmoney .keymoney .divmoney .btniconmoney{
+    background-image: url("../images/myPublish.png");
+    background-position: -91px -28px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 18px;
+    margin-bottom: -4px;
+    margin-left: 5px;
+    width: 18px;
+}
+
+#editItem .itemtagmoney .valuemoney .persontag{
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding-right: 3px;
+    width: 100%;
+    margin-top:10px;
+}
+#editItem .itemtagmoney .valuemoney .persontag .tagtime, #editItem .itemtagmoney .valuemoney .persontag .tagmoney,#editItem .itemtagmoney .valuemoney .persontag .tagexpire{
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 12px;
+    height: 22px;
+    text-align: center;
+    width: 108px;
+}
+#editItem .itemtagmoney .valuemoney .persontag input, #editItem .itemtagmoney .valuemoney .persontag div{
+    float: left;
+}
+
+#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon{
+    background-image: url("../images/item_close.png");
+    cursor: pointer;
+    float: left;
+    height: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+    width: 16px;
+}
+#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon:hover {
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/item_close.png") ;
+    background-position: -26px 0px;
+    float: left;
+    margin-left:10px;
+    margin-top:3px;
+    cursor: pointer;
+}
+
+
 
 #editItem .itemtag .value {
     overflow: hidden;
@@ -581,15 +686,117 @@
 #editItem .submit input:hover {
     background-color: #1998ce;
 }
+#editItem .submit{
+    padding-top:30px;
+}
 
 
+#editBox .modal-dialog{
+    width: 600px;
+    background: #fff;
+ border-radius: 5px;
+}
+#editBox .modal-dialog .modal-content .modal-body{
+    min-height: 550px;
+}
+#addRep .head{
+    margin-bottom: 30px;
+}
+#addRep .head span  {
+    font-size: 20px;
+    color: #333;
+}
+#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key,.managename{
+    font-size: 14px;
+    color: #29abe2;
+    margin-bottom: 10px;
+}
+.namenum{
+    color: #333;
+    margin-left: 5px;
+}
+
+.addcontent{
+    width: 100%;
+    height: 30px;
+    margin-top:40px;
+}
+#addvalue{
+    width: 295px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #c7c7c7;
+    border-radius: 4px;
+}
+.addcontent span{
+    width: 110px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+    display: inline-block;
+    background: #0077aa;
+    border-radius: 4px;
+    margin-left:10px;
+    cursor: pointer;
+}
+.addcontent h1{
+    width: 100%;
+    height: 1px;
+    background: #e5e5e5;
+}
+
+.guanlilist{
+    width: 100%;
+    height: 20px;
+}
+.guanlilist span{
+    color: #0077aa;
+    cursor: pointer;
+}
+.guanlilist span:hover{
+    text-decoration: underline;
+}
+.guanlilist span.emptylist{
+    margin-left:10px;
+}
+.namelist{
+    width: 100%;
+    overflow: hidden;
+}
+.namelist li{
+    width: 100% ;
+    height: 30px;
+    line-height: 30px;
+    background: #e5e5e5;
+    padding: 0px 10px;
+    margin-top:10px;
+    color: #333;
+}
+.namelistdel{
+    float: right;
+}
+.namelistcon{
+    margin-left: 6px;
+}
 
 
-
-
-
-
-
-
+.successMess{
+        text-align:center;
+        background-color: #e8f7e6;
+        font-size: 14px;
+        color: #1bd506;
+        width:200px;
+        margin-bottom:15px;
+    }
+    
+    .errorMess{
+        text-align:center;
+        background-color: #ffd1d1;
+        font-size: 14px;
+        color: #ff0000;
+        width:200px;
+        margin-bottom:15px;
+    }
 
 

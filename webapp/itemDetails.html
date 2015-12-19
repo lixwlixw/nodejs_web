@@ -364,6 +364,8 @@
 	var login = false;
 	var firsttry = true;
 	var tags = 0;
+	var subscriptionid="";
+	var subcreateTimes="";
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
@@ -501,13 +503,15 @@
 			var subscripted;
 			var supplyStyle;
 			var prices;
+			var subType=true;
 			if(!login) {
 				var off = $(this).closest("#dataitem-head-right").offset();
 				$("#show-message")
 					.css({position: "absolute",'top':off.top+30,'left':off.left})
 					.show();
 				return;
-			}else {
+			}
+			else{
 				var repname = getParam("repname");
 				var itemname = getParam("itemname");
 				var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
@@ -531,8 +535,42 @@
 						$('#errorDM').modal('show');
 					}
 				});
-				if(subscripted == "private") {
+				//alert(prices[0].uuid)
+				//获取subscriptionid+time
+
+ 				$.ajax({
+					url: ngUrl+"/subscription/"+repname+"/"+itemname,
+					type: "post",
+					cache:false,
+					data:{},
+					async:false,
+					headers:{Authorization:"Token "+$.cookie("token")},
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							subscriptionid=json.data.subscriptionid;
+							subcreateTimes=json.data.signtime.substring(0,10);
+			 				$(".dvalue").text(subcreateTimes);
+						}
+					},
+					error:function(json){
+						subType=false;
+						//errorDialog($.parseJSON(json.responseText).code);
+						//$('#errorDM').modal('show');
+					}
+				}); 
+
+/* 				if(subscripted == "private") {
 					//$("#authority-dialog .down .email").text(create_user);
+					$("#authority-dialog .down .email").text("datahub@asiainfo.com");
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				} */
+				if(prices == undefined || prices == 0||subType==false)
+				{
 					$("#authority-dialog .down .email").text("datahub@asiainfo.com");
 					var off = $(this).closest("#dataitem-head-right").offset();
 					$("#authority-dialog")
@@ -626,7 +664,7 @@
 						}
 						charegeitem.append($("<span class='cbtn'></span>").append(radio));
 						charegeitem.append($("<span class='cvalue'></span>").
-							append($("<span class='moneyu'></span>").text("¥ ")).
+							append($("<span class='moneyu' mark="+price.uuid+"></span>").text("¥ ")).
 							append($("<span class='moneyv'></span>").text(price.money)).
 							append($("<span class='moneyl'>/&nbsp;</span>")).
 							append($("<span class='moneyv2'></span>").text(price[unitName])).
@@ -685,16 +723,18 @@
 			},1000);
 			var data = {"price":{}};
 			var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
-			data.price["money"] = charge.find(".moneyv:first").text();
+/* 			data.price["money"] = charge.find(".moneyv:first").text();
 			data.price["time"] = charge.find(".moneyv:first").text();
 			data.price["unit"] = charge.find(".moneyu2:first").attr("value");
-			data.price["expire"] = charge.find(".vexpire:first").text();
+			data.price["expire"] = charge.find(".vexpire:first").text(); */
+			var planid = charge.find(".moneyu:first").attr("mark").toString();
 			//订购
 			$.ajax({
 				url: ngUrl+"/subscription/"+repname+"/"+itemname,
-				type: "POST",
+				type: "PUT",
 				cache:false,
-				data:JSON.stringify(data),
+			//	data:JSON.stringify(data),
+				data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
 				async:false,
 				dataType:'json',
 				headers:header,
