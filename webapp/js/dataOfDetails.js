@@ -7,11 +7,17 @@ $(document).ready(function(){
     var nextpages=1;
     /////////返回用户下的所有rep//////////
     var allrepnum = 0;
+    var headerToken={};
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url: ngUrl+"/repositories?username="+getParam("username")+'&size=-1',
         type: "get",
         cache:false,
         async:false,
+        headers:headerToken,
         dataType:'json',
         success:function(json){
             if(json.data.length!=0){
@@ -27,12 +33,18 @@ $(document).ready(function(){
     });
 
     function getpagecon(nextpages){
+        var headerToken={};
+        //登陆后
+        if($.cookie("token")!=null&&$.cookie("token")!="null"){
+            headerToken={Authorization:"Token "+$.cookie("token")};
+        }
         var repos=[];
         $.ajax({
             url: ngUrl+"/repositories?username="+getParam("username")+"&size=10&page="+nextpages,
             type: "get",
             cache:false,
             async:false,
+            headers:headerToken,
             dataType:'json',
             success:function(json){
                 repos=[];
@@ -69,6 +81,11 @@ $(document).ready(function(){
         getpagecon(nextpages+1)
     }
     function addhtml(repos){
+        var headerToken={};
+        //登陆后
+        if($.cookie("token")!=null&&$.cookie("token")!="null"){
+            headerToken={Authorization:"Token "+$.cookie("token")};
+        }
         $("#terminal-content-body").empty();
         for(var i=0;i<repos.length;i++){
             $.ajax({
@@ -76,6 +93,7 @@ $(document).ready(function(){
                 type: "get",
                 cache:false,
                 async:false,
+                headers:headerToken,
                 dataType:'json',
                 success:function(json){
                     $("#loading").empty();

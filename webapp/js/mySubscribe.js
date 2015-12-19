@@ -33,7 +33,7 @@ $(function(){
      	var isgo = true;
      	$.ajax({
             type: "get",
-            url:ngUrl+"/subscriptions",
+            url:ngUrl+"/subscriptions/pull",
             cache:false,
             async:false,
             headers:{Authorization: "Token "+account},

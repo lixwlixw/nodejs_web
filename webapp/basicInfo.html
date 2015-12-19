@@ -95,13 +95,18 @@
         <div id="mid_alert" >
                 <p id="success">修改成功！</p>
                 <p id="error">提交失败！</p>
+				<p id="error_emptyName">名称不能为空</p>
+				<p id="error_emptyComment">简介不能为空</p>
+				<p id="error_allEmpty">名称和简介不能为空</p>
+			<!--做到这-->
         </div>
 		<div  class="mid_main">
+
 			<div id="update_icon">
 				<span class="span_icon"></span>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">名称</label>
+				<label for="exampleInputName">名称<span>设置后不能修改</span></label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
                          style="margin-bottom: 0;width:480px;">
 			</div>
@@ -206,7 +211,6 @@
 <script>
 $(document).ready(function(){
 /*console.log(JSON.stringify($.cookie("token")));*/
-		
 		$('#exampleInputTime').attr('disabled', 'true');
 		$('#exampleStopTime').attr('disabled', 'true');
 		$.ajax({
@@ -219,19 +223,28 @@ $(document).ready(function(){
 				success:function(data){
 					var nickName=data.data.nickName;
 					var comment=data.data.comment;
-
+//输入框有数据
                     if (nickName.length>0||comment.length>0)
                     {
+						$("#exampleInputName").attr("disabled",true);
+						$("#textComment").attr("disabled",false);
                         $("#exampleInputName").val(nickName);
                         $("#textComment").val(comment);
-                        $("#exampleInputName").attr("disabled","disabled");
-                        $("#textComment").attr("disabled","disabled");
-                        $("#button01").css("display","none");
+						$("#update_icon").css("display","none");
+//                        $("#exampleInputName").attr("disabled","disabled");
+//                        $("#textComment").attr("disabled","disabled");
+//                        $("#button01").css("display","none");
                     }
+					//输入框无数据
                     if (nickName.length==0||comment.length==0)
                     {
                         $("#exampleInputName").val(nickName);
                         $("#textComment").val(comment);
+						$("#button01").css("display","block");
+						$("#exampleInputName").attr("disabled",false);
+						$("#textComment").attr("disabled",false);
+						$("#update_icon").css("display","none");
+
                     }
 				},
 				error:function(){
@@ -239,10 +252,12 @@ $(document).ready(function(){
 					$('#errorDM').modal('show');
 				}
 		});
-        $("#update_icon").click(function(){
+		$("#update_icon").click(function(){
             $("#button01").css("display","block");
-            $("#exampleInputName").attr("disabled",false);
+//            $("#exampleInputName").attr("disabled",false);//名称设置后不能修改
             $("#textComment").attr("disabled",false);
+			$("#update_icon").css("display","none");
+
 
         });
 
@@ -287,45 +302,72 @@ $(document).ready(function(){
 		var mydata = {};
 		mydata["nickname"] = $("#exampleInputName").val();
 		mydata["comments"] = $("#textComment").val();
-		$.ajax({
-		url:ngUrl+"/users/"+$.cookie("tname"),
-		type:"PUT",
-		cache:false,
-		async:false,
-		beforeSend:function(){
-  		  	$('#button01').attr('disabled','disabled');
-			$('#button01').text('正在保存中');
-  		},
-		complete:function(){
-			$('#button01').removeAttr('disabled');
-			$('#button01').text('提交');
-		},
+		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0))
+		{
+			$("#error_allEmpty").css("display","block");
+			$("#error_emptyName").css("display","none");
+			$("#error_emptyComment").css("display","none");
+			$("#error_allEmpty").fadeOut(3500);
+		}
+		else if($("#textComment").val().length==0)
+		{
+			$("#error_emptyComment").css("display","block");
+			$("#error_emptyName").css("display","none");
+			$("#error_allEmpty").css("display","none");
+			$("#error_emptyComment").fadeOut(3500);
+		}
+		else if($("#exampleInputName").val().length==0)
+		{
+			$("#error_emptyName").css("display","block");
+			$("#error_emptyComment").css("display","none");
+			$("#error_allEmpty").css("display","none");
+			$("#error_emptyName").fadeOut(3500);
+		}
+		else{
+			$.ajax({
+				url:ngUrl+"/users/"+$.cookie("tname"),
+				type:"PUT",
+				cache:false,
+				async:false,
+				beforeSend:function(){
+					$('#button01').attr('disabled','disabled');
+					$('#button01').text('正在保存中');
+				},
+				complete:function(){
+					$('#button01').removeAttr('disabled');
+					$('#button01').text('提交');
+				},
 
-		headers:{Authorization:"Token "+$.cookie("token")},
-		datatype:'json',
-		data: JSON.stringify(mydata),
+				headers:{Authorization:"Token "+$.cookie("token")},
+				datatype:'json',
+				data: JSON.stringify(mydata),
 
-		success:function(data){
-				
-			if(data.code==0){	
+				success:function(data){
+					if(data.code==0){
 
-                $("#exampleInputName").attr("disabled","disabled");
-                $("#textComment").attr("disabled","disabled");
-                $("#button01").css("display","none");
-                $("#success").css("display","block");
-                $("#error").css("display","none");
-                $("#success").fadeOut(4000);
+							$("#exampleInputName").attr("disabled","disabled");
+							$("#textComment").attr("disabled","disabled");
+							$("#button01").css("display","none");
+							$("#update_icon").css("display","inline-block");
+							$("#success").css("display","block");
+							$("#error").css("display","none");
+							$("#error_emptyName").css("display","none");
+							$("#error_emptyComment").css("display","none");
+							$("#error_allEmpty").css("display","none");
+							$("#success").fadeOut(4000);
+
+
+					}
+				},
+				error:function(data){
+					if(data.code!=0){
+						$("#error").css("display","block");
+						$("#success").css("display","none");
+						$("#error").fadeOut(4000);
+					}
 				}
-			},
-			error:function(data){
-			if(data.code!=0){
-                $("#error").css("display","block");
-                $("#success").css("display","none");
-                $("#error").fadeOut(4000);
-				}
-			}
-		});
-			
+			});
+		}
 	});
 		
 });
@@ -450,13 +492,13 @@ $(document).ready(function(){
 			headers:{Authorization:"Token "+$.cookie("token")},
 			datatype:'json',
 			success:function(data) {
-                var use = data.data.use;//使用配额
-                var quota = data.data.quota;//托管配额
-                var use = use.substring(0, (use.length - 1));
-                var quota = quota.substring(0, (quota.length - 1));
+                var use1 = data.data.use;//使用配额
+                var quota1 = data.data.quota;//托管配额
+                var use = use1.substring(0, (use1.length - 1));
+                var quota = quota1.substring(0, (quota1.length - 1));
                 uq = (use / quota).toFixed(2);
-                $("#deposit").text(use);
-                $(".circle2 p span").text(quota);
+                $("#deposit").text(use1);
+                $(".circle2 p span").text(quota1);
                 if(uq==0)
                 {
                     $(".left2").css("transform", "rotate(deg)");
