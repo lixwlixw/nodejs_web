@@ -70,10 +70,16 @@
     //得到repname；
     function getrepname(pages) {
             datas = [];
+            var headerToken={};
+        //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
             $.ajax({
                 url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
                 cache: false,
                 async: false,
+                headers:headerToken,
                 success: function (msg) {
                     $('.repcomment').html(msg.data.comment);
                     preloginname = msg.data.create_user;
@@ -138,6 +144,11 @@
         
       function funitemList(label){
            fornum = datas.length;
+          var headerToken={};
+          //登陆后
+          if($.cookie("token")!=null&&$.cookie("token")!="null"){
+              headerToken={Authorization:"Token "+$.cookie("token")};
+          }
           for(var i=0;i<fornum;i++) {
               apendjson = {};
               var itemloginName = '';
@@ -145,6 +156,7 @@
                   url: ngUrl + "/repositories/" + repname + "/"+datas[i]+"?abstract=1",
                   cache: false,
                   async:false,
+                  headers:headerToken,
                   success: function (msg) {
                      itemloginName = getscreateName(msg.data.create_user);
                       var labels = msg.data.label.sys.supply_style;
@@ -197,6 +209,11 @@
             getrepname(new_page_index+1);
             fornum = datas.length;
             apendjson = {};
+            var headerToken={};
+            //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
             getitemDeteails();
             $('.bigBox').empty();
              // alert(ngUrl + "/repositories/" + repname + "/"+datas[1]);
@@ -207,6 +224,7 @@
                     url: ngUrl + "/repositories/" + repname + "/"+datas[i],
                     cache: false,
                     async:false,
+                    headers:headerToken,
                     success: function (msg) {
                         itemloginName = getscreateName(msg.data.create_user);
                         var vvclass = "";

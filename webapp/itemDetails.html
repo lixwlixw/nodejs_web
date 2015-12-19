@@ -403,12 +403,18 @@
 				//查看是否公开
 				var access;
 				var create_user;
+				var headerToken={};
+				//登陆后
+				if($.cookie("token")!=null&&$.cookie("token")!="null"){
+					headerToken={Authorization:"Token "+$.cookie("token")};
+				}
 				$.ajax({
 					url: ngUrl+"/repositories/"+repname+"/"+itemname,
 					type: "get",
 					cache:false,
 					data:{},
 					async:false,
+					headers:headerToken,
 					dataType:'json',
 					success:function(json){
 						if(json.code == 0){
@@ -512,6 +518,11 @@
 				return;
 			}
 			else{
+				var headerToken={};
+				//登陆后
+				if($.cookie("token")!=null&&$.cookie("token")!="null"){
+					headerToken={Authorization:"Token "+$.cookie("token")};
+				}
 				var repname = getParam("repname");
 				var itemname = getParam("itemname");
 				var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
@@ -521,6 +532,7 @@
 					cache:false,
 					data:{},
 					async:false,
+					repoheaders:headerToken,
 					dataType:'json',
 					success:function(json){
 						if(json.code == 0){
@@ -820,6 +832,11 @@
 
 
 	function ajaxRe(index){
+		var headerToken={};
+		//登陆后
+		if($.cookie("token")!=null&&$.cookie("token")!="null"){
+			headerToken={Authorization:"Token "+$.cookie("token")};
+		}
 		var repname = getParam("repname");
 		var itemname = getParam("itemname");
 		$(".repnamePm").text(repname);
@@ -834,6 +851,7 @@
 			cache:false,
 			data:{},
 			async:false,
+			headers:headerToken,
 			dataType:'json',
 			success:function(json){
 				if(json.code == 0){
