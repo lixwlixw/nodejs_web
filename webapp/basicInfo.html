@@ -492,13 +492,13 @@ $(document).ready(function(){
 			headers:{Authorization:"Token "+$.cookie("token")},
 			datatype:'json',
 			success:function(data) {
-                var use = data.data.use;//使用配额
-                var quota = data.data.quota;//托管配额
-                var use = use.substring(0, (use.length - 1));
-                var quota = quota.substring(0, (quota.length - 1));
+                var use1 = data.data.use;//使用配额
+                var quota1 = data.data.quota;//托管配额
+                var use = use1.substring(0, (use1.length - 1));
+                var quota = quota1.substring(0, (quota1.length - 1));
                 uq = (use / quota).toFixed(2);
-                $("#deposit").text(use);
-                $(".circle2 p span").text(quota);
+                $("#deposit").text(use1);
+                $(".circle2 p span").text(quota1);
                 if(uq==0)
                 {
                     $(".left2").css("transform", "rotate(deg)");
