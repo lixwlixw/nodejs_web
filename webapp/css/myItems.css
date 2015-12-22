@@ -48,6 +48,7 @@ body {
 #myItems-body .tablelist {
 	border: 1px solid #e5e5e5;
 	background-color: #fff;
+	margin-bottom:50px;
 }
 #myItems-body .tablelist .dhead {
 	padding: 27px 55px 16px 55px;
@@ -96,7 +97,7 @@ body {
 	margin-top: 20px;
 }
 
-/*·ÖÒ³ÑùÊ½*/
+/*ï¿½ï¿½Ò³ï¿½ï¿½Ê½*/
 .pagination a, .pagination span{
 	padding:0.5em 1em;
 	display: inline;
