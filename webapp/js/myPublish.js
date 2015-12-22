@@ -178,6 +178,7 @@ $(function() {
             $('#errorDM').modal('show');
         }
     });
+
     var reps ;
     //请求所有rep
     var nextpages = 1;
@@ -405,7 +406,8 @@ $(function() {
             $('.norepnum').hide();
         }
         if(num==-1){
-            $("#publish-body .repocount span").text(reps.length);
+           // $("#publish-body .repocount span").text(reps.length);
+        	$("#publish-body .repocount span").text(allrepnums);
         }
 
         //写rep列表
@@ -530,6 +532,8 @@ function getRep(reps,repname) {
         }
     }
 }
+
+
 $(document).ready(function() {
 
     var totalPer = [];
@@ -549,7 +553,7 @@ $(document).ready(function() {
             headers: {Authorization: "Token " + $.cookie("token")},
             success: function (json) {
                 //	alert(json.length);
-                console.log(json.data.length);
+              //  console.log(json.data.length);
 
                 if (json.code == 0) {
 
