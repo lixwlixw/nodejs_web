@@ -591,6 +591,8 @@ $(function(){
         var thisobjid = "00"+thisindex
         if(thisobjid == '001'){
             window.scrollTo(0,0)
+        }else if(thisobjid == '002'){
+            window.scrollTo(0,450)
         }else{
             clicksettop(thisobjid);
         }
@@ -632,8 +634,6 @@ $(function(){
     function clicksettop(objid){
         var sheight = document.documentElement.clientHeight;
         var soffsetTop = document.getElementById(objid).offsetTop;
-        console.log(sheight);
-        console.log(soffsetTop);
         if(sheight<soffsetTop){
             window.scrollTo(0,soffsetTop-50)
         }
