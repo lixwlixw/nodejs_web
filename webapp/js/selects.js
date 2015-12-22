@@ -301,6 +301,13 @@ $(document).ready(function(){
                     }else{
                         showTime=times.substring(0, times.indexOf("."));
                     }
+                    if(json.data.label != null && json.data.label != ''){
+                        var ptags = json.data.label.owner;
+                        var labelstr = '';
+                        for(var j in ptags) {
+                            labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                        }
+                    }
 
                     var realname="";
                     //该用户昵称
@@ -341,7 +348,7 @@ $(document).ready(function(){
                         "<div class='tag-value'>"+json.data.tags+"</div>"+
                         "</div>"+
                         "<div class='repo-body-tail-mid'>"+
-                        "<div class="+vvclass+">"+labelV+"</div>"+
+                        "<div class="+vvclass+">"+labelV+"</div>"+labelstr+
                         "</div>"+
                         "<div class='repo-body-tail-right'>"+
                         "<div class='shwr'>"+

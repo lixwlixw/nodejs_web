@@ -185,6 +185,14 @@ $(function(){
                 } else {
                     meta = '';
                 }
+                if(msg.data.label != null && msg.data.label != ''){
+                    var ptags = msg.data.label.owner;
+                    var labelstr = '';
+                    for(var j in ptags) {
+                        labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
+                    }
+                }
+                $(".filletspan").append(labelstr);
                 if (msg.data.Sample != null) {
                     sample = msg.data.Sample;
                 } else {
@@ -526,8 +534,6 @@ var lilist = $('.namelist li');
 $('.selectbtn').click(function(){
     var username = $.trim($('#addvalue').val());
 })
-
-
         $("#editItem .submit input").click(function() {
             var itemtagDiv = $("#editItem .itemtag .value");
             var labels = itemtagDiv.children(".persontag");
