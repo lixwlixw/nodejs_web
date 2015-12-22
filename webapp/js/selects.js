@@ -259,10 +259,10 @@ $(document).ready(function(){
             getAjax(ngUrl + "/subscription_stat/" +repos[i][0],function (msg) {
                 dataitemd.push(msg.data.numsubs);
             });
-            getAjax(ngUrl + "/transaction_stat/" +repos[i][0]+repos[i][1],function (msg) {
+            getAjax(ngUrl + "/transaction_stat/" +repos[i][0]+'/'+repos[i][1],function (msg) {
                 dataitemdpullNum.push(msg.data.numpulls);
             });
-            getAjax(ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],function (msg) {
+            getAjax(ngUrl + "/star_stat/" +repos[i][0]+'/'+repos[i][1],function (msg) {
                 dataitemdstarNum.push(msg.data.numstars);
             });
             //////////////  填充
