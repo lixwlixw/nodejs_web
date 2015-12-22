@@ -106,12 +106,13 @@
 		var type=getParam("type");
 		
 		//alert(repname+"-----"+itemname+"-----"+type);
-		
+		headerToken={Authorization:"Token "+$.cookie("token")};
 		$.ajax({
 			url: ngUrl+"/repositories/"+repname+"/"+itemname,
 			type: "get",
 			cache:false,
 		   	async:false,
+		   	headers:headerToken,
 			dataType:'json',
 			success:function(json){
 				if(type=="meta"){
@@ -150,7 +151,6 @@
 			if(type=="sample"){
 				datas=JSON.stringify({"sample":testEditor.getMarkdown()})
 			}
-	    	
 			$.ajax({
 				url: ngUrl+"/repositories/"+repname+"/"+itemname,
 	    		type: "put",
