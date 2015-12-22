@@ -97,7 +97,7 @@ $(document).ready(function(){
             if($(this).text()=='全部精选'){
                 $(this).addClass("overs");
                 $(this).css("background-color","#fff").css("color","#0077aa");
-                $("#allJ").text($(this).text()+"精选");
+                $("#allJ").text($(this).text());
                  thisvalue = $(this).text();
                 appendList2(0);
                 $(".pages").pagination(paegeitems2, {
