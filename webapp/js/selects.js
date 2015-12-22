@@ -6,10 +6,16 @@ function getParam(key) {
     }
     return value;
 }
+var headerToken={};
+//登陆后
+if($.cookie("token")!=null&&$.cookie("token")!="null"){
+    headerToken={Authorization:"Token "+$.cookie("token")};
+}
 function getAjax(url,fun){
     $.ajax({
         type: "get",
         async: false,
+        headers:headerToken,
         url: url,
         success: function(msg){
             fun(msg);
@@ -25,7 +31,13 @@ $(window).load(function(){
 });
 var paegeitems;
 var paegeitems2;
+
 $(document).ready(function(){
+    var headerToken={};
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var typevalue = getParam("type");
     var thisvalue = '';
     var pages = 1;
@@ -141,12 +153,14 @@ $(document).ready(function(){
         }else{
             url = ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages;
         }
+
         $.ajax({
             url: url,
             type: "get",
             cache:false,
             async:false,
             dataType:'json',
+            headers:headerToken,
             success:function(json){
                 if(json.data.select.length!=0){
                     paegeitems2 = json.data.total;
@@ -182,6 +196,7 @@ $(document).ready(function(){
             cache:false,
             async:false,
             dataType:'json',
+            headers:headerToken,
             success:function(json){
                 if(json.data.select.length!=0){
                     var pages=json.data.select.length;
@@ -251,12 +266,6 @@ $(document).ready(function(){
                 dataitemdstarNum.push(msg.data.numstars);
             });
             //////////////  填充
-            var headerToken={};
-            //登陆后
-            if($.cookie("token")!=null&&$.cookie("token")!="null"){
-                headerToken={Authorization:"Token "+$.cookie("token")};
-            }
-
             $.ajax({
                 url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1]+"?abstract=1",
                 type: "get",

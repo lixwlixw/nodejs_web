@@ -45,34 +45,38 @@ $(function(){
                 $('#pull-body').empty();
                 var str = '<div class="pullbox">';
                 for(var i= 0 ;i<msg.data.length;i++){
-                    str+='<div class="record"><div class="head ">'+
-                        '<span class="icon togglebox"></span>'+
-                        '<span class="date">'+msg.data[i].date+'</span>'+
-                        '</div>'+
-                        '<div class="body">'+
-                        '<table>';
-                    for(var j=0;j<msg.data[i].pulls.length;j++){
-                        var repname = msg.data[i].pulls[j].repname;
-                        var itemname = msg.data[i].pulls[j].itemname;
-                        var judgeLabel;
-                        getAjax(ngUrl+'/repositories/'+repname+'/'+itemname,function(json){
-                            var labels = json.data.label.sys.supply_style;
-                            judgeLabel = judgeLabel(labels);
-                        })
-                        var times = msg.data[i].pulls[j].pulltime
-                        times = times.substr(11,8);
-                        str+=
-                            '<tr>'+
-                            '<td class="first">'+times+'</td>'+
-                            '<td>'+msg.data[i].pulls[j].tag+'</td>'+
-                            '<td>'+judgeLabel+'</td>'+
-                            '<td>'+itemname+'</td>'+
-                            '<td class="last">'+repname+'</td>'+
-                            '</tr>';
-                    }
-                    str+= '</table></div></div>';
+                        var pulltimes = msg.data[i].date;
+                         str+='<div class="record"><div class="head ">'+
+                                    '<span class="icon togglebox"></span>'+
+                                    '<span class="date">'+pulltimes+'</span>'+
+                                    '</div>'+
+                                    '<div class="body">'+
+                                    '<table>';
+                        for(var j = 0;j<msg.data[i].pulls.length;j++){
+                                var repname = msg.data[i].pulls[j].repname;
+                                var itemname = msg.data[i].pulls[j].itemname;
+                                var tagname = msg.data[i].pulls[j].tag;
+                                var sypply_style = msg.data[i].pulls[j].sypply_style;
+                                var Labels;
+                                var times = msg.data[i].pulls[j].pulltime
+                                    times = times.substr(11,8);
+                                    Labels = judgeLabel(sypply_style);
+                               
+                             str += 
+                                    
+                                    '<tr>'+
+                                    '<td class="first">'+times+'</td>'+
+                                    '<td>'+tagname+'</td>'+
+                                    '<td>'+Labels.labelV+'</td>'+
+                                    '<td>'+itemname+'</td>'+
+                                    '<td class="last">'+repname+'</td>'+
+                                    '</tr>'
+                                    ;
+
+                        }
+                    
                 }
-                str+= '</div>';
+                str+= '</table></div></div></div>';
                 $('#pull-body').append(str);
             }
         });
