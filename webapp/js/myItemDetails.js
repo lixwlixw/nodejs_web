@@ -165,6 +165,7 @@ $(function(){
 
     var itemshowtime;
     function tagbox(pages){
+        $(".filletspan .personaltag").remove();
         var ispagetags = 0;
         $('.con-main').empty();
         	//getAjax(ngUrl+'/repositories/'+repname+"/"+itemname+'?size=20&page='+pages,function(msg){
@@ -218,10 +219,6 @@ $(function(){
             }
 
         });
-
-
-
-
 
 
         var str = ' <div class="tagbox"> '+
@@ -323,6 +320,16 @@ $(function(){
     });
         $(".itemListName-icon").click(function() {
             $('.valuemoney').empty();
+            $.ajax({
+                type: "get",
+                url:ngUrl+"/permission/"+repname+"/"+itemname,
+                cache:false,
+                headers:{Authorization: "Token "+account},
+                success: function(msg){
+                    var fornum = msg.data.length;
+                    $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
+                }
+            });
                 $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname,
                         type: "GET",
@@ -333,11 +340,11 @@ $(function(){
                         headers:{ Authorization:"Token "+$.cookie("token") },
                         success:function(json){
                                 if(json.code == 0){
-                                     var itemaccesstype = '公开';
+                                     var itemaccesstype = '开放';
                                      if(json.data.itemaccesstype == 'private'){
                                          itemaccesstype = '私有'
                                      }else{
-                                         itemaccesstype = '公开'
+                                         itemaccesstype = '开放'
                                      }
                                         var itemNameInput = $("#editItem .itemname .value input");
                                         var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
@@ -400,23 +407,9 @@ var allusername = [];
 
         })
 
-function nextpageadd(nextpages){
-      var nextpages=nextpages+1;
-        var num=1;
-        $(".namelist").empty();
-        for(var i=1;i<2;i++){
-            var username=allusername[i*nextpages];
-            if(username!=undefined){
-                 var lis = '<li class="lis">'+
-                    '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data[i].username+'</span><span class="namelistdel">[删除]</span>'+
-                              '</li>';
-                    $('.namelist').append(lis)     
-            }
-            
-        }
-}
 
 
+////////查询单个白名单/////////////////////////////////////////////
 
         
         
@@ -530,93 +523,111 @@ var lilist = $('.namelist li');
     };
 
 })
+ function timedMsg()
+ {
+     var t=setTimeout("window.location.reload(true)",500)
+ }
 //////////////////搜索白名单
-$('.selectbtn').click(function(){
-    var username = $.trim($('#addvalue').val());
-})
-        $("#editItem .submit input").click(function() {
-            var itemtagDiv = $("#editItem .itemtag .value");
-            var labels = itemtagDiv.children(".persontag");
-             var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
-            var moneydivs = itemtagDivmoney.children(".persontag");
-                var dataitem = {};
-                var dataarr = [];
-                  for(var i=0; i<moneydivs.length; i++) {
-                     dataarr[i] = {};
-                                                var moneydiv = $(moneydivs[i]);
-                                                var tagtime = parseInt(moneydiv.children(".tagtime:first").val());
-                                                var tagmoney = parseInt(moneydiv.children(".tagmoney:first").val());
-                                                var tagexpire = parseInt(moneydiv.children(".tagexpire:first").val());
-                                                // if(tagtime == "" || tagmoney == "" || tagexpire == "") {
-                                                //         alert("新添加的价格不能为空！");
-                                                //         return;
-                                                // }
-                                                dataarr[i].times = tagtime;
-                                                dataarr[i].money = tagmoney;
-                                                dataarr[i].expire = tagexpire;
+    $('.selectbtn').click(function(){
+        var curusername = $.trim($('#addvalue').val());
+        //$.ajax({
+        //    type:"GET",
+        //    url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
+        //    cache: false,
+        //    async: false,
+        //    headers:{ Authorization:"Token "+$.cookie("token") },
+        //    success: function (datas) {
+        //
+        //    }
+        //});
 
-                                        }
-                dataitem.price = dataarr ; 
-                var objaaa = {"aaa":"AAA"};
-                console.log(dataarr)  ; 
-                dataitem.comment = $.trim($("#editItem .itemcomment .value textarea").val());
-                if(dataitem.comment.length > 200) {
-                        alert('"DataItem 描述"太长！');
-                        return;
-                }
-                //修改item
-                var datalabel = {}; 
-                $.ajax({
-                        url: ngUrl+"/repositories/"+repname+"/"+itemname,
+    })
+
+    ///////////////提交修改
+    $("#editItem .submit input").click(function() {
+        var itemtagDiv = $("#editItem .itemtag .value");
+        var labels = itemtagDiv.children(".persontag");
+        var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
+        var moneydivs = itemtagDivmoney.children(".persontag");
+        var dataitem = {};
+        var dataarr = [];
+        for(var i=0; i<moneydivs.length; i++) {
+            dataarr[i] = {};
+            var moneydiv = $(moneydivs[i]);
+            var tagtime = parseInt(moneydiv.children(".tagtime:first").val());
+            var tagmoney = parseInt(moneydiv.children(".tagmoney:first").val());
+            var tagexpire = parseInt(moneydiv.children(".tagexpire:first").val());
+            // if(tagtime == "" || tagmoney == "" || tagexpire == "") {
+            //         alert("新添加的价格不能为空！");
+            //         return;
+            // }
+            dataarr[i].times = tagtime;
+            dataarr[i].money = tagmoney;
+            dataarr[i].expire = tagexpire;
+
+        }
+        dataitem.price = dataarr ;
+        dataitem.comment = $.trim($("#editItem .itemcomment .value textarea").val());
+        if(dataitem.comment.length > 200) {
+            alert('"DataItem 描述"太长！');
+            return;
+        }
+        //修改item
+        var datalabel = {};
+        $.ajax({
+            url: ngUrl+"/repositories/"+repname+"/"+itemname,
+            type: "PUT",
+            cache:false,
+            async:false,
+            dataType:'json',
+            data:JSON.stringify(dataitem),
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
+                console.log(dataitem)
+                if(json.code == 0){
+                    //修改label
+                    var priceobj = {};
+                    for(var i=0; i<labels.length; i++) {
+                        var label = $(labels[i]);
+                        var labelkey = $.trim(label.children(".tagkey:first").val());
+                        var labelvalue = $.trim(label.children(".tagvalue:first").val());
+                        if(labelkey == "" || labelvalue == "") {
+                            alert("标签名和标签值不能为空！");
+                            return;
+                        }
+                        datalabel["owner."+labelkey] = labelvalue;
+
+                    }
+                    $.ajax({
+                        url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
                         type: "PUT",
                         cache:false,
+                        data:{},
                         async:false,
                         dataType:'json',
-                        data:JSON.stringify(dataitem),
+                        data:datalabel,
                         headers:{ Authorization:"Token "+$.cookie("token") },
                         success:function(json){
-                                if(json.code == 0){
-                                        //修改label
-                                        var priceobj = {};
-                                        for(var i=0; i<labels.length; i++) {
-                                                var label = $(labels[i]);
-                                                var labelkey = $.trim(label.children(".tagkey:first").val());
-                                                var labelvalue = $.trim(label.children(".tagvalue:first").val());
-                                                if(labelkey == "" || labelvalue == "") {
-                                                        alert("标签名和标签值不能为空！");
-                                                        return;
-                                                }
-                                                datalabel["owner."+labelkey] = labelvalue;
+                            if(json.code == 0){
+                                $('#editItem').modal('toggle');
 
-                                        }
-                                        $.ajax({
-                                                url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
-                                                type: "PUT",
-                                                cache:false,
-                                                data:{},
-                                                async:false,
-                                                dataType:'json',
-                                                data:datalabel,
-                                                headers:{ Authorization:"Token "+$.cookie("token") },
-                                                success:function(json){
-                                                        if(json.code == 0){
-                                                                $('#editItem').modal('toggle');
-                                                                // location.reload();
-                                                        }
-                                                },
-                                                error:function(json){
-                                                        alert(json.msg);
-                                                }
-                                        });          
-///
-                                }
+                            }
+                            //window.location.reload(true);
                         },
                         error:function(json){
-                                alert(json.msg);
+                            alert(json.msg);
                         }
-                });
-
+                    });
+///
+                }
+                timedMsg();
+            },
+            error:function(json){
+                alert(json.msg);
+            }
         });
+
+    });
     function createItemTag(tagkey, tagvalue,newlabel) {
         tagkey = tagkey == undefined ? "": tagkey;
         tagvalue = tagvalue == undefined ? "": tagvalue;
