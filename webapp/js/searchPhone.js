@@ -12,15 +12,15 @@ if(rtext!=""){
     data={"text":rtext};
 }
 var repos=[];
+var reposnum = 0;
 var totals=0;
-var pages = 1;
 var fornum = 0;
 $(function(){
-
+    var pages = 1;
     function getrepname(pages) {
         repos = [];
         $.ajax({
-            url: ngUrl+"/search?size=5&page="+pages,
+            url: ngUrl+"/search?size=1&page="+pages,
             type: "get",
             cache:false,
             data:data,
@@ -34,7 +34,7 @@ $(function(){
                     for(var i=0;i<fornum;i++){
                         repos.push([json.data.results[i].repname,json.data.results[i].itemname]);
                     }
-
+                    reposnum = repos.length;
                 }else{
                     console.log("报错");
                 }
@@ -108,8 +108,9 @@ $(function(){
 
     // 继续加载
     window.onscroll = function(){
+        console.log(reposnum)
         if(getScrollTop() + getWindowHeight() == getScrollHeight()){
-            if(repos.length>0){
+            if(reposnum>=1){
                 pages++;
                 getrepname(pages);
                 addhtml();
