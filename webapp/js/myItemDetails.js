@@ -384,7 +384,7 @@ var totals = 0;
 function getpagesF(){
     getpermissions(1);
     $(".baipages").pagination(totals, {
-        items_per_page: 1,
+        items_per_page: 6,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -399,7 +399,7 @@ function getpermissions(pages){
     $('.namelist').empty();
     $.ajax({
         type: "get",
-        url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=1&page='+pages,
+        url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page='+pages,
         cache:false,
         async:false,
         headers:{Authorization: "Token "+account},
@@ -441,13 +441,13 @@ $('.addnamebtn').click(function(event) {
     var username = $.trim($('#addvalue').val());
     var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if(username == ''){
-        $('#mess').html('用户不能为空').show().fadeOut(800)
+        $('#mess').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
          return false;
     }else if(!filter.test(username)){
-          $('#mess').html('邮箱不正确').show().fadeOut(800);
+          $('#mess').html('邮箱不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkname(username) == 2){
-         $('#mess').html('已添加该用户').show().fadeOut(800);
+         $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
     }else{
          
@@ -460,6 +460,7 @@ $('.addnamebtn').click(function(event) {
                 headers:{Authorization: "Token "+account},
                 data:JSON.stringify({"username":username}),  
                 success: function(adduser){
+                    $('#mess').html('成功添加白名单').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                     getpagesF();
                 }
             });
@@ -477,7 +478,7 @@ $('.emptylist').click(function(){
                      if(deluser.code == 0){
                         $('.namelist').empty();
                          $(".baipages").pagination(0, {
-                             items_per_page: 1,
+                             items_per_page: 6,
                              num_display_entries: 1,
                              num_edge_entries: 5 ,
                              prev_text:"上一页",
@@ -557,7 +558,7 @@ var lilist = $('.namelist li');
                        $('.namelist').empty().append(lis);
                        $('.gobackbtnwrop').show();
                        $(".baipages").pagination(0, {
-                           items_per_page: 1,
+                           items_per_page:6,
                            num_display_entries: 1,
                            num_edge_entries: 5 ,
                            prev_text:"上一页",
