@@ -326,7 +326,7 @@ $(function(){
                 cache:false,
                 headers:{Authorization: "Token "+account},
                 success: function(msg){
-                    var fornum = msg.data.length;
+                    var fornum = msg.data.total;
                     $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
                 }
             });
@@ -358,7 +358,7 @@ $(function(){
                                                 var lables = json.data.label.owner;
                                                 $("#editItem .itemtag .value").html("");
                                                 for(var i in lables) {
-                                                    createItemTag(i, lables[i], false);
+                                                    createItemTag(i, lables[i], false,'disabled');
                                                 }
                                         }
                                     var jsonobj = json.data.price;
@@ -380,32 +380,54 @@ $(function(){
                 $('#editItem').modal('toggle');
         });
 ////////修改白名单/////////////////////////////////////////////
-var allusername = [];
-        $('.xiugainame').click(function(){
-             $('.namelist').empty();
-             $.ajax({
-                type: "get",
-                url:ngUrl+"/permission/"+repname+"/"+itemname,
-                cache:false,
-                 async:false,
-                headers:{Authorization: "Token "+account},
-                success: function(msg){
-                   var fornum = msg.data.length;
-                   for(var i = 0;i<fornum;i++){
-                    allusername.push(msg.data[i].username)
-                    var lis = '<li class="lis">'+
-                    '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data[i].username+'</span><span class="namelistdel">[删除]</span>'+
-                              '</li>';
-                    $('.namelist').append(lis)         
-                   }
+var totals = 0;
+function getpagesF(){
+    getpermissions(1);
+    $(".baipages").pagination(totals, {
+        items_per_page: 1,
+        num_display_entries: 1,
+        num_edge_entries: 5 ,
+        prev_text:"上一页",
+        next_text:"下一页",
+        ellipse_text:"...",
+        link_to:"javascript:void(0)",
+        callback:Fens,
+        load_first_page:false
+    });
+}
+function getpermissions(pages){
+    $('.namelist').empty();
+    $.ajax({
+        type: "get",
+        url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=1&page='+pages,
+        cache:false,
+        async:false,
+        headers:{Authorization: "Token "+account},
+        success: function(msg){
+            var fornum = msg.data.permissions.length;
+            totals =  msg.data.total;
+            for(var i = 0;i<fornum;i++)
+            {
+                var lis = '<li class="lis">'+ '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data.permissions[i].username+'</span><span class="namelistdel">[删除]</span>'+
+                '</li>';
+              $('.namelist').append(lis);
+            }
 
-                }
-            });
-     
-           $('#editItem').modal('toggle');
-           $('#editBox').modal('toggle');
 
-        })
+        }
+    });
+
+}
+function Fens(new_page_index){
+    getpermissions(new_page_index+1);
+}
+ $('.xiugainame').click(function(){
+     $('.namelist').empty();
+     getpagesF();
+     $('#editItem').modal('toggle');
+     $('#editBox').modal('toggle');
+
+ })
 
 
 
@@ -424,36 +446,21 @@ $('.addnamebtn').click(function(event) {
     }else if(!filter.test(username)){
           $('#mess').html('邮箱不正确').show().fadeOut(800);
         return false;
-    }else if(checkname(username,allusername) == username){
+    }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').show().fadeOut(800);
             return false;
     }else{
-         $.ajax({
-                type: "get",
-                url:ngUrl+"/users/"+username,
+         
+          $.ajax({
+                type:"put",
+                url:ngUrl+"/permission/"+repname+"/"+itemname,
                 cache:false,
+                dataType:'json',
                 async:false,
-                success: function(msg){
-                    if(msg.code == 0){
-                        $.ajax({
-                              type:"put",
-                              url:ngUrl+"/permission/"+repname+"/"+itemname,
-                              cache:false,
-                              dataType:'json',
-                              async:false,
-                              headers:{Authorization: "Token "+account},
-                              data:JSON.stringify({"username":username}),  
-                              success: function(adduser){
-                                allusername.push(username)
-                                var lis = '<li class="lis">'+
-                    '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+username+'</span><span class="namelistdel">[删除]</span>'+
-                              '</li>';
-                    $('.namelist').append(lis)    
-                              }
-                          });
-                                 
-                    }        
-
+                headers:{Authorization: "Token "+account},
+                data:JSON.stringify({"username":username}),  
+                success: function(adduser){
+                    getpagesF();
                 }
             });
     }
@@ -468,8 +475,18 @@ $('.emptylist').click(function(){
                headers:{Authorization: "Token "+account},
                success: function(deluser){
                      if(deluser.code == 0){
-                        allusername = [];
                         $('.namelist').empty();
+                         $(".baipages").pagination(0, {
+                             items_per_page: 1,
+                             num_display_entries: 1,
+                             num_edge_entries: 5 ,
+                             prev_text:"上一页",
+                             next_text:"下一页",
+                             ellipse_text:"...",
+                             link_to:"javascript:void(0)",
+                             callback:Fens,
+                             load_first_page:false
+                         });
                      }
                }
     });
@@ -487,6 +504,7 @@ var _this = $(this);
                success: function(deluser){
                     if(deluser.code == 0){
                        _this.parent().remove();
+                        getpagesF();
                     }
                }
     });
@@ -516,34 +534,52 @@ var lilist = $('.namelist li');
                    headers:{Authorization: "Token "+account},
                    success: function(deluser){
                          if(deluser.code == 0){
-                            $('.namelist li').eq(j).remove();
+                             getpagesF();
                          }
                    }
         })
     };
 
 })
- function timedMsg()
- {
-     var t=setTimeout("window.location.reload(true)",500)
- }
 //////////////////搜索白名单
     $('.selectbtn').click(function(){
         var curusername = $.trim($('#addvalue').val());
-        //$.ajax({
-        //    type:"GET",
-        //    url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
-        //    cache: false,
-        //    async: false,
-        //    headers:{ Authorization:"Token "+$.cookie("token") },
-        //    success: function (datas) {
-        //
-        //    }
-        //});
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                   if(datas.code == 0){
+                       var lis = '<li class="lis">'+
+                           '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
+                           '</li>';
+                       $('.namelist').empty().append(lis);
+                       $('.gobackbtnwrop').show();
+                       $(".baipages").pagination(0, {
+                           items_per_page: 1,
+                           num_display_entries: 1,
+                           num_edge_entries: 5 ,
+                           prev_text:"上一页",
+                           next_text:"下一页",
+                           ellipse_text:"...",
+                           link_to:"javascript:void(0)",
+                           callback:Fens,
+                           load_first_page:false
+                       });
+                   }
+            }
+        });
 
     })
+//////////////////////////返回按钮
+$('.gobackbtnwrop').click(function(){
+     $('.namelist').empty();
+     getpagesF();
+     $(this).hide();
+})
 
-    ///////////////提交修改
+///////////////提交修改
     $("#editItem .submit input").click(function() {
         var itemtagDiv = $("#editItem .itemtag .value");
         var labels = itemtagDiv.children(".persontag");
@@ -572,6 +608,7 @@ var lilist = $('.namelist li');
             alert('"DataItem 描述"太长！');
             return;
         }
+        $('.itemcon').html(dataitem.comment)
         //修改item
         var datalabel = {};
         $.ajax({
@@ -583,10 +620,11 @@ var lilist = $('.namelist li');
             data:JSON.stringify(dataitem),
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
-                console.log(dataitem)
+                var labelstr = '';
                 if(json.code == 0){
                     //修改label
                     var priceobj = {};
+
                     for(var i=0; i<labels.length; i++) {
                         var label = $(labels[i]);
                         var labelkey = $.trim(label.children(".tagkey:first").val());
@@ -596,8 +634,10 @@ var lilist = $('.namelist li');
                             return;
                         }
                         datalabel["owner."+labelkey] = labelvalue;
-
+                        labelstr+='<span class="personaltag">'+labelkey+'</span>';
                     }
+                    $(".filletspan .personaltag").remove();
+                    $(".filletspan").append(labelstr);
                     $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
                         type: "PUT",
@@ -610,17 +650,13 @@ var lilist = $('.namelist li');
                         success:function(json){
                             if(json.code == 0){
                                 $('#editItem').modal('toggle');
-
                             }
-                            //window.location.reload(true);
                         },
                         error:function(json){
                             alert(json.msg);
                         }
                     });
-///
                 }
-                timedMsg();
             },
             error:function(json){
                 alert(json.msg);
@@ -628,13 +664,19 @@ var lilist = $('.namelist li');
         });
 
     });
-    function createItemTag(tagkey, tagvalue,newlabel) {
+    function createItemTag(tagkey, tagvalue,newlabel,isdisabled) {
         tagkey = tagkey == undefined ? "": tagkey;
         tagvalue = tagvalue == undefined ? "": tagvalue;
         var itemtag = $("#editItem .itemtag .value");
+        var strinput = '';
+        if(isdisabled){
+            strinput = '<input type="text" class="tagkey" disabled="disabled" value="'+tagkey+'"/>';
+        }else{
+            strinput = '<input type="text" class="tagkey" value="'+tagkey+'"/>';
+        }
         if(itemtag.children("div").length < 5) {
             var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).appendTo(itemtag);
-            persontag.append($("<input/>").addClass("tagkey").attr("type", "text").val(tagkey));
+            persontag.append(strinput);
             persontag.append($("<div>=</div>").addClass("tagequal"));
             persontag.append($("<input/>").addClass("tagvalue").attr("type", "text").val(tagvalue));
             persontag.append($("<div class='delitemlabelicon'></div>").click(function() {
@@ -660,6 +702,26 @@ var lilist = $('.namelist li');
             }));
         }
     }
+
+    function checkname(curusername){
+        var iscurname = 1;
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
+            cache: false,
+            async:false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0 && datas.data.permissions.length>0){ 
+                    if(datas.data.permissions[0].username == curusername){
+                        iscurname = 2;
+                    }
+                }
+            }
+        });
+        return iscurname;
+    }
+
 })
 
 
@@ -683,13 +745,5 @@ function createItemTagmoney(tagtime, tagmoney,tagexpire,newlabel) {
                 $(this).parent().remove();
             }
         }));
-    }
-}
-
-function checkname(value,arr){
-    for(var i = 0 ;i<arr.length;i++){
-        if(arr[i] == value){
-            return arr[i]
-        }
     }
 }

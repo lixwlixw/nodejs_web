@@ -809,3 +809,13 @@
     padding: 3px 10px;
     background-color: rgb(110, 203, 204);
 }
+.gobackbtn{
+    color: #0077aa;
+    cursor: pointer;
+}
+.gobackbtn:hover{
+    text-decoration: underline;
+}
+.gobackbtnwrop{
+    display: none;
+}
