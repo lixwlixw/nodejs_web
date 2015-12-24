@@ -640,7 +640,7 @@ function uuuuuuu(){
                 var username = $("#emailTest").val();
                 var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                 if (!reg.test(username) ){
-                    $("#mess").addClass("errorMess").css("visibility", "visible").text("邮箱格式不正确").fadeIn();
+                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
                     $(".errorMess").fadeOut(3000);
                     uuuuuuu();
 
@@ -681,7 +681,7 @@ function uuuuuuu(){
                         success: function (json) {
                             //判断加的是不是自己
                             if($.cookie("tname")==username){
-                                $("#mess").addClass("errorMess").css("visibility", "visible").text("不能添加您自己").fadeIn();
+                                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("不能添加您自己").fadeIn();
                                 $(".errorMess").fadeOut(3000);
                             }else{
 
@@ -715,7 +715,7 @@ function uuuuuuu(){
 
                             }
                             else{
-                                $("#mess").addClass("errorMess").css("visibility", "visible").text("白名单已有此用户").fadeIn();
+                                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("白名单已有此用户").fadeIn();
                                 $(".errorMess").fadeOut(3000);
 
                             }
@@ -729,13 +729,13 @@ function uuuuuuu(){
                     });
             } else {
 
-                    $("#mess").addClass("errorMess").css("visibility", "visible").text("名称未注册").fadeIn();
+                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("名称未注册").fadeIn();
                     $(".errorMess").fadeOut(3000);
             }
         }
             }
             else{
-                $("#mess").addClass("errorMess").css("visibility", "visible").text("名称不能为空").fadeIn();
+                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("名称不能为空").fadeIn();
                 $(".errorMess").fadeOut(3000);
 
 
@@ -770,7 +770,7 @@ function uuuuuuu(){
                 }
                 else
                 {
-                    $("#mess").addClass("errorMess").css("visibility", "visible").text("删除失败").fadeIn();
+                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("删除失败").fadeIn();
                     $(".errorMess").fadeOut(3000);
 
                 }
