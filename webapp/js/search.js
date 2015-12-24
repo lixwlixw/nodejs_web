@@ -45,8 +45,13 @@ $(document).ready(function(){
 
 function rel(str){
     var s="";
-    if(str.indexOf(rtext)!=-1){
-        s=str.replace(rtext, "<span style=background-color:#fffe8f;>"+rtext+"</span>");
+    if(str.toLowerCase().indexOf(rtext)!=-1){
+    	//alert(str.toLowerCase().indexOf(rtext));
+    	//alert(rtext.length);
+    	var start=str.toLowerCase().indexOf(rtext);
+    	var end=start+rtext.length;
+    	var strtext=str.substring(start,end);
+        s=str.replace(strtext, "<span style=background-color:#fffe8f;>"+strtext+"</span>");
     }else{
         s=str;
     }
