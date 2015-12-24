@@ -640,7 +640,7 @@ function uuuuuuu(){
                 var username = $("#emailTest").val();
                 var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                 if (!reg.test(username) ){
-                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
+                    $("#mess").removeClass("successMess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
                     $(".errorMess").fadeOut(3000);
                     uuuuuuu();
 
@@ -809,30 +809,36 @@ $(document).ready(function(){
     });
     //删除部分
     $("#delCurrent").click(function () {
-        $('input:checkbox[name=users]:checked').each(function (i) {
-            var users = $(this).parent().text();
-            var repname=$("#repnameInput").val();
-            $(this).parent().parent().remove();
-            $.ajax({
-                url: ngUrl + "/permission/"+repname+"?username="+users,
-                type: "DELETE",
-                cache: false,
-                async: false,
-                dataType: 'json',
-                headers: {Authorization: "Token " + $.cookie("token")},
-                success: function (json) {
-                    if (json.code == 0) {
-                        $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("删除成功").fadeIn();
-                        $(".successMess").fadeOut(3000);
-                        uuuuuuu();
-                    }
-                },
-                error: function (json) {
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
+            var surl="";
+        var repname=$("#repnameInput").val();
+            $('input:checkbox[name=users]:checked').each(function (i) {
+                var users = $(this).parent().text();
+                if(i==0){
+                    surl="?username="+users;
+                }else{
+                    surl+="&username="+users;
                 }
             });
+        $.ajax({
+            url: ngUrl + "/permission/"+repname+surl,
+            type: "DELETE",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if (json.code == 0) {
+                    $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("删除成功").fadeIn();
+                    $(".successMess").fadeOut(3000);
+                    uuuuuuu();
+                }
+            },
+            error: function (json) {
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
         });
+
     });
     //查询
     $("#seList").click(function () {
