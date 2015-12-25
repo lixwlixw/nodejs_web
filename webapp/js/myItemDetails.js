@@ -164,6 +164,8 @@ $(function(){
     var paegetags;
 
     var itemshowtime;
+    var itemaccesstype;
+    var supply_style;
     function tagbox(pages){
         $(".filletspan .personaltag").remove();
         var ispagetags = 0;
@@ -177,7 +179,7 @@ $(function(){
             success: function(msg) {
                 tagallnum = msg.data.tags;
                 taglist = msg.data.taglist;
-                var supply_style = msg.data.label.sys.supply_style;
+                supply_style = msg.data.label.sys.supply_style;
                 var classjson = judgeLabel(supply_style)
                 $("#supply_style").attr('class', classjson.vvclass);
                 $("#supply_style").html(classjson.labelV);
@@ -207,7 +209,7 @@ $(function(){
                     ispagetags = paegetags + "Tag";
                 }
                 var jsonTime = getTimes(msg.data.optime);
-                var itemaccesstype = msg.data.itemaccesstype;
+                 itemaccesstype = msg.data.itemaccesstype;
                 if (itemaccesstype == 'public') {
                     $('.itemaccesstype').html('公开');
                 } else if (itemaccesstype == 'private') {
@@ -319,6 +321,11 @@ $(function(){
         createItemTagmoney();
     });
         $(".itemListName-icon").click(function() {
+            if(itemaccesstype == 'private'){
+                $('.xiugainame').show();
+            }else{
+                $('.xiugainame').hide();
+            }
             $('.valuemoney').empty();
             $.ajax({
                 type: "get",
@@ -363,13 +370,14 @@ $(function(){
                                         }
                                     var jsonobj = json.data.price;
                                     for(var i = 0;i<jsonobj.length;i++){
-                                        var time = '';
-                                        if(jsonobj[i].times){
-                                            time = jsonobj[i].times
-                                        }else{
-                                             time = jsonobj[i].time
-                                        }
-                                        createItemTagmoney(time, jsonobj[i].money, jsonobj[i].expire,false);
+                                        var islimit = false;
+                                        var limitvalue = ''
+                                       if (jsonobj[i].limit){
+                                           islimit = true;
+                                           limitvalue = jsonobj[i].limit;
+                                       }
+                                        var itemdatatype = supply_style;
+                                        createItemTagmoney(jsonobj[i].units, jsonobj[i].money, jsonobj[i].expire,jsonobj[i].plan_id,false,islimit,itemdatatype,limitvalue);
                                     }                                
                                 }
                         },
@@ -449,6 +457,9 @@ $('.addnamebtn').click(function(event) {
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
+    }else if($.cookie("tname") == username){
+        $('#mess').html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+        return false;
     }else{
          
           $.ajax({
@@ -582,6 +593,9 @@ $('.gobackbtnwrop').click(function(){
 
 ///////////////提交修改
     $("#editItem .submit input").click(function() {
+        var reg = new RegExp("^[0-9]*$");
+        var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
+
         var itemtagDiv = $("#editItem .itemtag .value");
         var labels = itemtagDiv.children(".persontag");
         var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
@@ -591,16 +605,50 @@ $('.gobackbtnwrop').click(function(){
         for(var i=0; i<moneydivs.length; i++) {
             dataarr[i] = {};
             var moneydiv = $(moneydivs[i]);
-            var tagtime = parseInt(moneydiv.children(".tagtime:first").val());
-            var tagmoney = parseInt(moneydiv.children(".tagmoney:first").val());
-            var tagexpire = parseInt(moneydiv.children(".tagexpire:first").val());
-            // if(tagtime == "" || tagmoney == "" || tagexpire == "") {
-            //         alert("新添加的价格不能为空！");
-            //         return;
-            // }
-            dataarr[i].times = tagtime;
-            dataarr[i].money = tagmoney;
-            dataarr[i].expire = tagexpire;
+            var dataid = moneydiv.attr('dataid')
+            var tagtime = moneydiv.children(".tagtime:first").val();
+            var tagmoney = moneydiv.children(".tagmoney:first").val();
+            var tagexpire = moneydiv.children(".tagexpire:first").val();
+            var limitnum = moneydiv.children(".ishiddenbox").children(".limitnum:first").val();
+            if(!reg.test(tagtime) || tagtime ==0 || tagtime == ""){
+                 alert("次数（天数）需为大于0的整数");
+                 return;
+             }
+            if(tagmoney == "" || tagmoney <= 0 || !reg.test(tagmoney)){
+                alert('价格需大于0');
+                return;
+            }
+            if(newmoney.test(tagmoney) == false){
+                alert('价格精确到小数点后2位');
+                return;
+            }
+            if(tagmoney.indexOf('.') == -1){
+                tagmoney = tagmoney+'.00';
+            }
+
+            if(tagexpire == ""){
+                alert('有效期不能为空');
+                return;
+            }
+            if(!reg.test(tagexpire) || tagexpire == 0){
+                alert("有效期需为大于0的整数");
+                return;
+            }
+            if(limitnum){
+                if(!reg.test(limitnum)){
+                    alert("限购次数必须为数字");
+                    return;
+                }
+                if(limitnum <= 0){
+                    alert("限购次数必须大于0");
+                    return;
+                }
+                dataarr[i].limit = parseInt(limitnum);
+            }
+            dataarr[i].units = parseInt(tagtime);
+            dataarr[i].money = parseFloat(tagmoney);
+            dataarr[i].expire = parseInt(tagexpire);
+            dataarr[i].plan_id = dataid;
 
         }
         dataitem.price = dataarr ;
@@ -727,22 +775,49 @@ $('.gobackbtnwrop').click(function(){
 
 
 
-function createItemTagmoney(tagtime, tagmoney,tagexpire,newlabel) {
-
+function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecked,itemdatatype,limitvalue) {
+    var isday = '';
+    if(itemdatatype == 'flow'){
+        isday = '天';
+    }else{
+        isday = '次';
+    }
+    if(limitvalue == '' || limitvalue == null || null== 'limitvalue'){
+        limitvalue = '';
+    }
     var itemtagmoney = $("#editItem .itemtagmoney .valuemoney");
+    var thisstr = '<div class="ishiddenbox"><div class="tagequal">限购&nbsp;每个用户限购多少次</div><input class="limitnum" type="text" value="'+limitvalue+'"/></div>';
     if(itemtagmoney.children("div").length < 6) {
-        var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).appendTo(itemtagmoney);
+        var ishidestr = '<div class="tagequal gohide">限购&nbsp;</div>'
+        var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).attr('dataid',dataid).appendTo(itemtagmoney);
         persontag.append($("<input/>").addClass("tagtime").attr("type", "text").val(tagtime));
-        persontag.append($("<div>次=</div>").addClass("tagequal"));
+        persontag.append($("<div> "+isday +"=</div>").addClass("tagequal"));
         persontag.append($("<input/>").addClass("tagmoney").attr("type", "text").val(tagmoney));
         persontag.append($("<div>元&nbsp;&nbsp;有效期</div>").addClass("tagequal"));
         persontag.append($("<input/>").addClass("tagexpire").attr("type", "text").val(tagexpire));
         persontag.append($("<div>天</div>").addClass("tagequal"));
+        persontag.append($("<input type='checkbox'/>").attr("checked",ischecked).addClass("isnimitid").click(function() {
+            if($(this).attr('checked') == 'checked') {
+                $(this).removeAttr("checked");
+                persontag.children('.ishiddenbox').remove();
+                $(this).after(ishidestr)
+            }else {
+               $(this).attr("checked",'checked');
+                persontag.children('.gohide').remove();
+                $(this).after(thisstr)
+            }
+        }));
+        persontag.append(ishidestr);
+        if(persontag.children('.isnimitid').attr('checked') == "checked") {
+            persontag.children('.gohide').remove();
+            persontag.children('.isnimitid').after(thisstr)
+        }else {
+            persontag.children('.ishiddenbox').remove();
+        }
         persontag.append($("<div class='delitemmoneyicon'></div>").click(function() {
             if(persontag.attr("newlabel") != "true") {
                 $(this).parent().remove();
             }else {
-
                 $(this).parent().remove();
             }
         }));

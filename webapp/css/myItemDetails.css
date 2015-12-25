@@ -437,7 +437,7 @@
 }
 
 #editItem .modal-dialog{
-    width: 520px;
+    width: 600px;
 }
 #editItem .head{
     margin-bottom: 30px;
@@ -452,7 +452,7 @@
     margin-bottom: 10px;
 }
 #editItem .itemname .value input{
-    width: 458px;
+    width: 100%;
     height: 38px;
     padding: 0px 10px;
     border: 1px solid #c7c7c7;
@@ -488,7 +488,7 @@
     cursor: pointer;
 }
 #editItem .itemcomment .value textarea{
-    width: 458px;
+    width: 100%;
     height: 112px;
     padding: 0px 10px;
     border: 1px solid #c7c7c7;
@@ -591,14 +591,15 @@
     width: 100%;
     margin-top:10px;
 }
-#editItem .itemtagmoney .valuemoney .persontag .tagtime, #editItem .itemtagmoney .valuemoney .persontag .tagmoney,#editItem .itemtagmoney .valuemoney .persontag .tagexpire{
+#editItem .itemtagmoney .valuemoney .persontag .limitnum,#editItem .itemtagmoney .valuemoney .persontag .tagtime, #editItem .itemtagmoney .valuemoney .persontag .tagmoney,#editItem .itemtagmoney .valuemoney .persontag .tagexpire{
     border: 1px solid #c7c7c7;
     border-radius: 5px;
     color: #666;
     font-size: 12px;
     height: 22px;
     text-align: center;
-    width: 108px;
+    width: 45px;
+    margin:0px 5px;
 }
 #editItem .itemtagmoney .valuemoney .persontag input, #editItem .itemtagmoney .valuemoney .persontag div{
     float: left;
@@ -631,16 +632,17 @@
 }
 #editItem .itemtag .value .persontag {
     overflow: hidden;
-    width: 152px;
+    width: 260px;
     padding-right: 3px;
     float: left;
     margin-bottom: 10px;
+    padding-left:10px;
 }
 #editItem .itemtag .value .persontag input, #editItem .itemtag .value .persontag div {
     float: left;
 }
 #editItem .itemtag .value .persontag .tagkey,#editItem .itemtag .value .persontag .tagvalue {
-    width: 53px;
+    width: 95px;
     height: 22px;
     border: 1px solid #c7c7c7;
     font-size: 12px;
@@ -648,7 +650,6 @@
     border-radius: 5px;
     text-align: center;
 }
-
 #editItem .itemtag .value .persontag .tagequal {
     margin: 0px 4px;
 }
@@ -674,7 +675,7 @@
     margin-bottom: -4px;
 }
 #editItem .submit input{
-    width: 458px;
+    width: 100%;
     height: 40px;
     background-color: #29abe2;
     color: #fff;
@@ -818,4 +819,7 @@
 }
 .gobackbtnwrop{
     display: none;
+}
+#editItem .itemtagmoney .valuemoney .persontag input.isnimitid{
+    margin:3px 3px 0px ;
 }
