@@ -611,15 +611,18 @@ $('.gobackbtnwrop').click(function(){
             var tagexpire = moneydiv.children(".tagexpire:first").val();
             var limitnum = moneydiv.children(".ishiddenbox").children(".limitnum:first").val();
             if(!reg.test(tagtime) || tagtime ==0 || tagtime == ""){
-                 alert("次数（天数）需为大于0的整数");
+                $('#itemmess').html('次数（天数）需为大于0的整数').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                 //alert("");
                  return;
              }
             if(tagmoney == "" || tagmoney <= 0 || !reg.test(tagmoney)){
-                alert('价格需大于0');
+                $('#itemmess').html('价格需大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                //alert('价格需大于0');
                 return;
             }
             if(newmoney.test(tagmoney) == false){
-                alert('价格精确到小数点后2位');
+                $('#itemmess').html('价格精确到小数点后2位').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                //alert('价格精确到小数点后2位');
                 return;
             }
             if(tagmoney.indexOf('.') == -1){
@@ -627,20 +630,24 @@ $('.gobackbtnwrop').click(function(){
             }
 
             if(tagexpire == ""){
-                alert('有效期不能为空');
+                $('#itemmess').html('有效期不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                //alert('有效期不能为空');
                 return;
             }
             if(!reg.test(tagexpire) || tagexpire == 0){
-                alert("有效期需为大于0的整数");
+                $('#itemmess').html('有效期需为大于0的整数').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                //alert("有效期需为大于0的整数");
                 return;
             }
             if(limitnum){
                 if(!reg.test(limitnum)){
-                    alert("限购次数必须为数字");
+                    $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                    //alert("限购次数必须为数字");
                     return;
                 }
                 if(limitnum <= 0){
-                    alert("限购次数必须大于0");
+                    $('#itemmess').html('限购次数必须大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                    //alert("限购次数必须大于0");
                     return;
                 }
                 dataarr[i].limit = parseInt(limitnum);
