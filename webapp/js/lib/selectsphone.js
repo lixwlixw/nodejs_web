@@ -36,30 +36,60 @@ $(document).ready(function(){
         url: ngUrl+"/select_labels",
         type: "get",
         cache:false,
-        async:false,
         dataType:'json',
         success:function(json){
             var bgarr = [];
             if(json.data.length!=0){
                 var fornum=json.data.length;
-                bgarr = json.data;
-                var moreimg = {"labelname":"更多","icon":"selectphone-more"}
-                if(bgarr.length>8){
-                    bgarr.splice(8, 0, moreimg);
+                 bgarr = json.data;
+                var aa = parseInt(fornum / 8);
+                var bb = fornum % 8 -1;
+                var navpage = 0;
+                for(var i = 0;i<aa;i++){
+                    var lilist = '<li class="li'+ navpage +'"></li>';
+                     $('.topnavlistwrop').append(lilist);
+                    for(var j=1;j<=8;j++){
+                        var thisssss = navpage*8+j;
+                        var str =  '<div class="imgwrop">'+
+                                    "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisssss].icon+".png\")'>"+
+                                    '</div>'+
+                                    '<p>'+json.data[thisssss].labelname +'</p>'+
+                                    '</div>';
+                        $('.li'+navpage).append(str);
+                    }
+                     navpage++;
                 }
-                for(var i=1;i<=fornum;i++){
+                 var lilist = '<li class="li'+ navpage +'"></li>';
+                  $('.topnavlistwrop').append(lilist);
+                for(var j=0;j<bb;j++){
+                    var thisnum = navpage*8+j+1;
                     var str =  '<div class="imgwrop">'+
-                                "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[i].icon+".png\")'>"+
+                                "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisnum].icon+".png\")'>"+
                                 '</div>'+
-                                '<p>'+json.data[i].labelname +'</p>'+
+                                '<p>'+json.data[thisnum].labelname +'</p>'+
                                 '</div>';
-                    $('#topNav').append(str);
-                    $('#topNav>div:gt(7)').hide();
+                    var lilist = '<li class="li'+ navpage +'"></li>';
+                     $('.li'+navpage).append(str);
                 }
-            }else{
-
+                for(var i = 0;i<=navpage;i++){
+                    var spans = "<span></span>";
+                    $('.focus-inner').append(spans);
+                }
+                $("#topNav").touchSlider({
+                    flexible : true,
+                    speed : 200,
+                    paging : $(".focus-con span"),
+                    counter : function (e) {
+                        $(".focus-con span").removeClass("on").eq(e.current-1).addClass("on");
+                    }
+                });
+                $("#topNav").bind("mousedown", function() {
+                    $dragBln = false;
+                })
+                $("#topNav").bind("dragstart", function() {
+                    $dragBln = true;
+                })
             }
-            console.log("测试数据："+json.data.length);
         },
         error:function(json){
             alert("程序出错，请稍后重试");
@@ -93,7 +123,7 @@ $(document).ready(function(){
     function hanvelables(pages,thisvalue){
         repos = [];
         $.ajax({
-            url: ngUrl+"/selects?select_labels="+thisvalue+"&size=10&page="+pages,
+            url: ngUrl+"/selects?select_labels="+thisvalue+"&size=5&page="+pages,
             type: "get",
             cache:false,
             async:false,
@@ -124,7 +154,7 @@ $(document).ready(function(){
             urlt=ngUrl+"/selects?select_labels="+type;
             $("#allJ").text(type+"精选");
         }else{
-            urlt=ngUrl+"/selects?select_labels&size=10&page="+pages;
+            urlt=ngUrl+"/selects?select_labels&size=5&page="+pages;
         }
         $.ajax({
             url: urlt,
@@ -174,6 +204,15 @@ $(document).ready(function(){
                 success:function(json){
                     $("#loading").empty();
                     var realname="";
+                    var datastyle = '';
+                    var itemdatatype = json.data.pricestate
+                    if(itemdatatype == '免费'){
+                        datastyle = 'freedata';
+                    }else if(itemdatatype == '付费'){
+                        datastyle = 'paydata';
+                    }else{
+                        datastyle = 'limitdata';
+                    }
                     //该用户昵称
                     $.ajax({
                         url: ngUrl+"/users/"+json.data.create_user,
@@ -193,10 +232,13 @@ $(document).ready(function(){
                             alert("程序出错，请稍后重试");
                         }
                     });
-                    var str =   '<li class="borderb">'+
+                    var str =   '<li class="replist">'+
+                                '<div class="liconwrop borderb">'+
                                 '<div class="listTop"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
-                                '<div class="listbt">数据拥有方：<span class="itemcur">'+realname+'</span></div>'+
+                                '<div class="listbt">本数据由：<span class="itemcur">'+realname+'</span>&nbsp;提供</div>'+
                                 '<div class="listicon"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
+                                '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'
+                                '</div>'+
                                 '</li>'
                     $(".repinfoList").append(str);
                 },
@@ -207,9 +249,18 @@ $(document).ready(function(){
 
         }
     }
+    ////////////////////////返回顶部
+
+    $('.gotop').click(function(){
+        document.body.scrollTop =0;
+    })
     // 继续加载
     window.onscroll = function(){
-        //alert(thisvalue)
+        if(getScrollTop() > getWindowHeight()/2){
+            $('.gotop').show();
+        }else{
+            $('.gotop').hide();
+        }
         if(getScrollTop() + getWindowHeight() == getScrollHeight()){
             //$('.btboxinfo').show(600);
             if(thisvalue == ''&& repos.length>0){

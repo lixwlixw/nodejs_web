@@ -16,7 +16,11 @@
     <script src="js/md5.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <script src='js/errorDialog.js'></script>
+    <script src="js/jquery.touchSlider.js"></script>
+    <script type="text/javascript" src="js/TouchSlide.1.0.js"></script>
     <script src="js/lib/selectsphone.js"></script>
+
+
     <style>
 
 
@@ -45,45 +49,20 @@
         </div>
     </div>
 </div>
-
-
+<div class="gotop"></div>
 <!-- 头部导航 -->
 <header></header>
     <div class="topbox">
+
     <div id="topNav" style="width: 100%; overflow: hidden;padding-top:50px;">
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select1"></div>-->
-            <!--<p>终端专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select2"></div>-->
-            <!--<p>互联网专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select3"></div>-->
-            <!--<p>征信专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select4"></div>-->
-            <!--<p>运营商专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select5"></div>-->
-            <!--<p>公共数据专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select6"></div>-->
-            <!--<p>工商专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select7"></div>-->
-            <!--<p>银联专题</p>-->
-        <!--</div>-->
-        <!--<div class="imgwrop">-->
-            <!--<div class="selectimgwrop select8"></div>-->
-            <!--<p>地图专题</p>-->
-        <!--</div>-->
+        <ul class="topnavlistwrop">
+            
+        </ul>
+        
     </div>
+     <div class="focus-con">
+         <div class="focus-inner"></div>
+     </div>
     </div>
     <div class="partitionline"></div>
     <div class="boxwrop">
@@ -105,11 +84,11 @@
 </body>
 </html>
 <script>
-    $(document).on('touchstart','.listicon',function(){
-        $(this).css('background-image','url("images/phonepic2.png")');
+    $(document).on('touchstart','.replist',function(){
+        $(this).css('background-color','#e8e8e8');
     });
-    $(document).on('touchend','.listicon',function(){
-        $(this).css('background-image','url("images/phonepic1.png")');
+    $(document).on('touchend','.replist',function(){
+        $(this).css('background-color','#fff');
     });
     $("a").focus(function(){this.blur()});
     $("header").load("common/header.html");

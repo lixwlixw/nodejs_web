@@ -65,21 +65,21 @@
     border-bottom: 1px solid #e6e6e6;
 }
 .boxwrop{
-    padding-left:6%;
     padding-bottom: 50px;
 }
 .repinfo{
     padding:15px 0px;
     padding-left:47px;
+    margin-left:6%;
     background:url("../images/allselect.png") no-repeat left center;
 }
 .repinfoList{
 }
 .repinfoList li{
     width: 100%;
-    padding-right: 70px;
-    padding:15px 0px;
+
     position: relative;
+    padding-left:6%;
 }
 .listTop{
     line-height: 20px;
@@ -132,4 +132,81 @@
 }
 .navbar-toggle .icon-bar {
     background-color: #fff;
+}
+.topnavlistwrop{
+    overflow: hidden;
+    width: 200%;
+    height:215px;
+    position: absolute;
+    left:0px;
+    top:50px;
+}
+.topnavlistwrop li{
+    width: 50%;
+    overflow: hidden;
+    float: left;
+    height: 215px;
+}
+#topNav{
+    position: relative;
+    width: 100% ;
+    height:260px;
+}
+.focus-con{
+    width: 100% ;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+.focus-con span{
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    margin-left:5px;
+    border-radius: 0.5rem;
+    border:1px solid #29abe2;
+}
+.focus-con span.on{
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    margin-left:5px;
+    border-radius: 0.5rem;
+    background: #29abe2;
+    border:1px solid #29abe2;
+}
+.liconwrop{
+    padding:15px 0;
+    padding-right: 70px;
+}
+.pricestate{
+    position: absolute;
+    right: 26%;
+    top: 15px;
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
+    padding:0px 5px;
+}
+.freedata{
+    color: #f49f12;
+    border-color: #f49f12;
+}
+.paydata{
+    color: #f06f9c;
+    border-color: #f06f9c;
+}
+.limitdata{
+    color: #ed4855;
+    border-color: #ed4855;
+}
+.gotop{
+    width: 10%;
+    height: 10%;
+    background:url("../images/gotop.png") no-repeat;
+    background-size: contain;
+    position: fixed;
+    right: 10px;
+    bottom: 60px;
+    display: none;
+    z-index: 100;
 }

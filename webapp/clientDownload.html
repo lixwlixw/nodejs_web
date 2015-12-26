@@ -546,7 +546,7 @@
             type: "get",
             url:ngUrl+"/daemon/id",
             cache:false,
-            async:false,
+//            async:false,
             headers:{Authorization:"Token "+account},
             success: function(msg){
                 $('.havetoken').html(msg.data.daemonid);
@@ -562,7 +562,7 @@
             type: "get",
             url:ngUrl+"/daemon/ep/"+tname,
             cache:false,
-            async:false,
+//            async:false,
             headers:{Authorization:"Token "+account},
             success: function(msg){
                   if(msg.data == null){
