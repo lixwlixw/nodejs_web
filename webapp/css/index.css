@@ -5,7 +5,15 @@
     width: 100%;
     z-index: -1;
 }
-
+#features h1 {
+    color: #28abe3;
+    text-align: center;
+    margin-top:100px;
+    font-size: 30px;
+}
+#header{
+    height: 90%;
+}
 a{
 	color: #545454;
 }
@@ -14,7 +22,9 @@ a:hover{
 	color: #545454;
 }
 
-
+.zgcpic{
+    margin-left: 70px;
+}
 .parallaxImg::before {
     background-size: cover;
     content: "";
@@ -38,7 +48,9 @@ a:hover{
     text-align: center;
     width: 100%;
 }
-
+#fComR{
+    padding-right:69px;
+}
 
 .stopwatch .number {
     color:#0c79bc;
@@ -634,6 +646,9 @@ a:hover{
 }
 
 @media (max-width:420px) {
+    #fComR{
+        padding:0px;
+    }
 	.container{
 		width:auto;
 	}
@@ -646,14 +661,20 @@ a:hover{
 	
 	.parallaxImg::before{
 		background-image: url("../images/banner420.jpg");
-	}
 
+	}
+    #features h1 {
+        color: #28abe3;
+        text-align: center;
+        margin-top:60px;
+        font-size: 30px;
+    }
 	#heatt{
 		font-size: 2em
 	}
 	
 	#lun{
-		width:180px;
+		width:100%;
 	}
 	
 	#lun .col-md-3{
@@ -661,11 +682,11 @@ a:hover{
 	}
 	
 	#btn1{
-		width:100px;
+		width:110px;
 		font-size: 14px;
 	}
 	#btn2{
-		width:100px;
+		width:110px;
 		font-size: 14px;
 	}
 	
@@ -681,88 +702,110 @@ a:hover{
 	
 	.xu1{
 		background-image: URL(../images/ICON_03.png);
+        background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 72px;
-		width:100px;
+		width:80px;
 	}
-	
+	#header{
+        height: 60%;
+    }
 	.xu2{
 		background-image: URL(../images/ICON_06.png);
+        background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 72px;
-		width:100px;
+		width:80px;
 	}
 	
 	.xu3{
 		background-image: URL(../images/ICON_09.png);
+        background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 72px;
-		width:100px;
+		width:80px;
 	}
 	
 	.xu4{
 		background-image: URL(../images/ICON_12.png);
+        background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 72px;
-		width:100px;
+		width:85px;
 	}
 	
 	.xu5{
 		background-image: URL(../images/ICON_19.png);
+        background-size: contain;
 	}
 	.xu6{
 		background-image: URL(../images/ICON_21.png);
+        background-size: contain;
 	}
 	.xu7{
 		background-image: URL(../images/ICON_23.png);
+        background-size: contain;
 	}
 	.xu8{
 		background-image: URL(../images/ICON_26.png);
+        background-size: contain;
 	}
 	.xu9{
 		background-image: URL(../images/ICON_33.png);
+        background-size: contain;
 	}
 	.xu10{
 		background-image: URL(../images/ICON_35.png);
+        background-size: contain;
 	}
 	.xu11{
 		background-image: URL(../images/ICON_38.png);
+        background-size: contain;
 	}
 	.xu12{
 		background-image: URL(../images/ICON_40.png);
+        background-size: contain;
 	}
 	.xu13{
 		background-image: URL(../images/ICON_47.png);
+        background-size: contain;
 	}
 	.xu14{
 		background-image: URL(../images/ICON_50.png);
+        background-size: contain;
 	}
 	.xu15{
 		background-image: URL(../images/ICON_53.png);
+        background-size: contain;
 	}
 	.xu16{
 		background-image: URL(../images/ICON_54.png);
+        background-size: contain;
 	}
 
 	.xu5 ,.xu6, .xu7, .xu8, .xu9 ,.xu10, .xu11, .xu12 ,.xu13,.xu14, .xu15, .xu16{
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 72px;
-		width:100px;
+		width:80px;
 	}
 	
 	#lun div{
 		margin-bottom:0px;
 	}
-	
+
+
 	#xuF,#xuT{
-		width:210px;
+		width:100%;
 	}
-	
+    #xuF div.row,#xuT div.row{
+        margin:0px;
+        padding:0px;
+    }
 	#guanCom{
 		width:300px;
 	}
@@ -790,7 +833,9 @@ a:hover{
 	#jingCom{
 		width:300px;
 	}
-	
+    .feature-labeljing{
+        font-size: 14px;
+    }
 	.jingNum{
 		border: none;
 		background: none;
@@ -798,8 +843,18 @@ a:hover{
 		float: left;
 		margin-bottom:30px;
 		width:300px;
+        padding:0px;
 	}
-	
+    .zgcpic{
+        margin-left: 0px;
+        margin-top:10px;
+    }
+    #weiComs{
+        display: none;
+    }
+    .search-input{
+        font-size: 12px;
+    }
 	#fCom{
 		width:300px
 	}
@@ -831,9 +886,13 @@ a:hover{
 	}
 	
 	.jingNum{
-		width:150px
+		width:75px
 	}
-	
+    .jingNum img{
+        width:75px;
+        height:75px;
+    }
+
 	#fCom{
 		padding:0px;
 	}
@@ -848,7 +907,7 @@ a:hover{
 	}
 	
 	#fUls{
-		width:235px;
+		width:255px;
 	}
 	
 }

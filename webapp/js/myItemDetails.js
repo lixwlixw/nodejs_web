@@ -452,7 +452,10 @@ $('.addnamebtn').click(function(event) {
         $('#mess').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
          return false;
     }else if(!filter.test(username)){
-          $('#mess').html('邮箱不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+          $('#mess').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+        return false;
+    }else if(checkloginusers(username) == 1){
+        $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -776,6 +779,24 @@ $('.gobackbtnwrop').click(function(){
             }
         });
         return iscurname;
+    }
+
+    function checkloginusers(loginusers){
+        var isloginusers = 1;
+        $.ajax({
+            url: ngUrl + "/users/"+loginusers ,
+            type: "get",
+            cache: false,
+            async: false,
+            headers: {Authorization: "Token " + $.cookie("token")},
+            datatype: 'json',
+            success:function(json){
+                if(json.code == 0){
+                    isloginusers = 2;
+                }
+            }
+        });
+        return isloginusers;
     }
 
 })

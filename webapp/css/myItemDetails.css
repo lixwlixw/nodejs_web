@@ -788,6 +788,11 @@
 }
 .namelistdel{
     float: right;
+    cursor: pointer;
+
+}
+.namelistdel:hover{
+    text-decoration: underline;
 }
 .namelistcon{
     margin-left: 6px;
