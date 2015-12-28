@@ -24,7 +24,7 @@ ol, ul {
 body,html{height:100%;}
 
 a:hover{
-	color:#fff;
+	/**color:#fff;**/
 	text-decoration: none;
 }
 

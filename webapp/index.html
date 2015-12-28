@@ -96,33 +96,35 @@
 </div>
 <div id="header" style="position:relative;display:table;table-layout:fixed;width:100%" class="section-header">
 		
-        <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:#000000;background-color:rgba(0,0,0,0.2); '>
+        <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:rgba(41,171,226,0.55); '>
             <div class="container-fluid" style="width:100%;padding: 10px 40px 0px 40px;">
-                <div class="navbar-header">
+                <div class="navbar-header">  
+                <a id="phoneSelect" class="selectbtn" href="selects.html" style='position: absolute;right: 90px;top: 25px;color: #fff;font-size: 1em;'>数据精选</a>          	
                     <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
                         <span class="sr-only">切换导航</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                                          
                     <a href="/" style='color: #fff;font-size: 2.8em' class="navbar-brand">DataHub</a>
                 </div>
-                <div class="navbar-collapse collapse navbar-right" >
-                    <ul id="inLoginb" class="nav navbar-nav">
-                        <li class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>
-                        <!--    
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul id="inLoginb" class="nav navbar-nav" >
+                    	<!--
+                        <li class="active" ><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em;'>数据精选</a></li>                     
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>   
                         -->   
-                        <li><a id='sign-in' href='javaScript:void(0);'><img src="images/login.png"></a></li>
-                        <li><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>
+                        <li style="float: left;"><a id='sign-in' href='javaScript:void(0);'><img src="images/login.png"></a></li>
+                        <li style="float: left;"><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>
                         <!--             
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 14px;margin-left:9px;padding: 0px 5px;margin-right: 10px'>?</a></li>
                          -->                      
 
                     </ul>
                     <ul id="inLoginf" class="nav navbar-nav">
-                        <li class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>
-                        <!--                     
+                    	<!--
+                        <li class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>                                            
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>
                         -->
                         
@@ -132,32 +134,32 @@
                         <li><a id='logout' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>退出</a></li>
                         -->
                         
-                        <li>
+                        <li class="inLoginfLiF">
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
                   		<img src="images/fl4.png" />
                   	</a>
                   </li>
 
-                  <li>
+                  <li class="inLoginfLiF">
                   	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<img src="images/fl1.png" />
                   	</a>
                   </li>                       
-                  <li>
+                  <li class="inLoginfLiF">
                   	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<img src="images/fl2.png" />
                   	</a>
                   </li> 
-
-                  
-                 <li>
+                 
+                 <li class="inLoginfLiF" id="inLoginLiF">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<img src="images/fl3.png" />
                   	</a>
 					  <ul class="dropdown-menu">
-					  	
+					  	<!--
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
 					    <li role="separator" class="divider"></li>
+					    -->
 					    <li><a href="memberUpgrade.html" target="_blank">会员升级</a></li>
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
@@ -633,5 +635,21 @@
 		var s = document.getElementsByTagName("script")[0];
 		s.parentNode.insertBefore(hm, s);
 	})();
+	
+	//GrowingIO分析
+	var _vds = _vds || [];
+	window._vds = _vds;
+	(function(){
+	  _vds.push(['setAccountId', '18ed57dc7073494c929bbf12d4c028ec']);
+	  (function() {
+	    var vds = document.createElement('script');
+	    vds.type='text/javascript';
+	    vds.async = true;
+	    vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(vds, s);
+	  })();
+	})();
+	
 </script>
 </html>

@@ -1,0 +1,166 @@
+﻿
+#navigator-ul li{
+	border-bottom:1px solid #748ab8;
+	color:#29abe2; 
+	font-size:16px;
+	height:60px;
+}
+
+#navigator-ul li:hover{
+	cursor: pointer;
+}
+
+.title{
+	margin-top: 45px;
+	margin-bottom: 30px;
+}
+
+.title p{
+	font-size:27px;
+	color:#666666; 
+	margin-bottom:30px;
+	margin-top:45px;
+}
+.repo {
+	width: 920px;
+	float: left;
+	border-top:1px solid #c8c8c8;
+	border-bottom: 1px solid #c8c8c8;
+	margin-bottom: 60px;
+}
+.repo:hover{
+	background-color:#f4fbfe;
+	border-color: #f4fbfe;
+	cursor: pointer;
+}
+.left{
+	width:590px;
+	float:left;
+}
+
+.subtitle{
+	float: left;
+}
+.description{
+	float:left;
+}
+
+.subtitle a{
+	font-size:20px;
+	color:#43609f;
+	margin-top: 21px;
+	margin-left: 30px;
+	margin-bottom: 20px;
+	float: left;
+	font-weight: bold;
+}
+.subtitle a:hover{
+	color: #395289;
+}
+.description p{
+	font-size: 14px;
+	color: #333333;
+	margin-left: 30px;
+	line-height: 20px;
+	float:left;	
+	width: 590px;
+}
+.subline{
+	float:left; 
+	width:100%; 
+	margin-bottom:20px; 
+	margin-top:20px
+}
+.lable{
+	margin-left: 30px;
+	margin-top: 20px;
+	margin-bottom:20px;
+	
+}
+.lable p{
+	margin-right:5px;
+	height:20px;
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	float: left;
+	border:1px solid #eb6877;
+	border-radius: 3px;
+	font-size: 12px;
+	font-color: #666666;
+}
+
+.icon p{
+	font-size: 12px;
+	color:#666666;
+	margin-right: 50px;
+	margin-right: 60px;
+	margin-top: 20px;
+	float:left;
+}
+
+.supplier {
+	margin-bottom: 22px;
+	margin-left: 30px;
+	font-size: 12px;
+	color:#666666;
+	float:left;
+}
+.supplier a{
+	font-size: 12px;
+	color:#43609f;
+}
+
+.supplier a:hover{
+	color: #395289;
+}
+.right{
+	width:300px;
+	float:left; 
+	height: 225px;
+
+}
+.price p{
+	border:2px solid #f49f12;
+	border-radius: 3px;
+	height: 26px;
+	width: 60px;
+	padding-left:10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	color: #f49f12;
+	font-size: 16px;
+}
+.iconGroup {
+	width:180px;
+	float:left; 
+	border-top: 1px solid #c8c8c8;
+	margin-left: 90px;
+	font-size: 12px;
+	color: #e3e3e3;
+}
+.like{
+	margin-top: 20px;
+	padding-right: 20px;
+	width:50%;
+	float:left;
+}
+
+.cart{
+	margin-top: 20px;
+	padding-right: 20px;
+	width: 50%;
+	float:left;
+}
+
+.download{
+	padding-top: 15px;
+	padding-right: 20px;
+	float:left;
+}
+
+#li1:hover{
+}
