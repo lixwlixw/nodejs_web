@@ -234,9 +234,9 @@ $(document).ready(function(){
                     });
                     var str =   '<li class="replist">'+
                         '<div class="liconwrop borderb">'+
-                        '<div class="listTop"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
+                        '<div class="listTop"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
                         '<div class="listbt">本数据由：<span class="itemcur">'+realname+'</span>&nbsp;提供</div>'+
-                        '<div class="listicon"><a href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
+                        '<div class="listicon"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
                         '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'
                     '</div>'+
                     '</li>'

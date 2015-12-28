@@ -1,0 +1,265 @@
+.boxwrop{
+    padding-left:6%;
+    /*padding-bottom: 50px;*/
+}
+a:hover{
+    color:#23527e;
+}
+
+.borderb{
+    border-bottom: 1px solid #e6e6e6;
+}
+.reptitle{
+    margin-top:50px;
+    overflow: hidden;
+    position: relative;
+}
+.repNamebg {
+    background: url("../images/sliceU1.png") no-repeat scroll -376px 5px;
+    float: left;
+    height: 50px;
+    margin-right: 7px;
+    width: 20px;
+    display: inline-block;
+}
+.repname{
+    line-height: 1.5em;
+    margin-left:10px;
+    color: #29abe2;
+    font-size: 1.2em;
+    padding-right: 6%;
+    width: 85%;
+    float: left;
+    overflow: hidden;
+    padding-top:5px;
+    padding-bottom:10px;
+
+
+}
+.repcomment{
+    padding:15px 0px ;
+    color: #333;
+    font-size:1em;
+    line-height: 25px;
+}
+.repnums{
+    width: 100%;
+    padding:15px 0px;
+    font-size:1em;
+    color: #666;
+    overflow: hidden;
+}
+
+.repcreate_user{
+    width: 100%;
+    padding:15px 0px;
+    position: relative;
+    overflow: hidden;
+}
+.repcreate_user div{
+    /*height: 90px;*/
+    /*line-height: 90px;*/
+}
+.cur_link{
+    width: 20px;
+    height: 30px;
+    background: url("../images/phonepic1.png") no-repeat right center;
+    background-size: contain;
+    position: absolute;
+    top:28%;
+    right: 6%;
+}
+.repcreate_user div.cur_link a{
+    width: 20px;
+    height: 30px;
+    display: block;
+}
+
+.curname{
+    width: 30%;
+    overflow: hidden;
+    float: left;
+    font-size: 1em;
+    color: #666;
+}
+.cur_user{
+    width: 60%;
+    overflow: hidden;
+    float: left;
+    font-size: 1em;
+
+}
+.cur_user a{
+    color: #000;
+}
+.cur_user a:hover{
+
+}
+
+.lefticon{
+    width: 40%;
+    float: left;
+}
+.righticon{
+    width: 60%;
+    float: left;
+    text-align: right;
+    padding-right: 40px;
+}
+.star-icon {
+    background-image: url("../images/star-star.png");
+    background-position: 0px 8px;
+    background-repeat: no-repeat;
+    padding:8px;
+    background-size: contain;
+}
+.subscript-icon {
+    background-image: url("../images/shopping.png");
+    background-repeat: no-repeat;
+    padding:8px;
+    background-position: 0px 8px;
+    background-size: contain;
+}
+.star-value,.subscript-value{
+    padding:0 3px;
+    padding-right: 8px;
+}
+.downloaded-icon{
+    padding:0 3px;
+    margin-right: 5px;
+}
+.downloaded-icon {
+    background-image: url("../images/pullicon.png");
+    background-repeat: no-repeat;
+    padding:8px;
+    background-position: 0px 10px;
+    background-size: contain;
+}
+.currepname,.curitemname{
+    font-weight: bold;
+}
+.pricestate {
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
+    padding: 0 5px;
+    border-color: #f49f12;
+    color: #f49f12;
+    font-size: 0.8em;
+}
+.personaltag {
+    background-color: #6ecbcc;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 1px;
+    margin-right: 1px;
+    padding: 0 10px;
+}
+.flot-data {
+    background-color: #fc9b00;
+    border-radius: 2px;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 1px;
+    padding: 0 10px;
+}
+.time-icon{
+    background-image: url("../images/slice.png");
+    background-position: 1px 5px;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+.tag-icon {
+    background-image: url("../images/sliceU1.png");
+    background-position: -25px 5px;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+.period {
+    background-color: #29abe2;
+    border-radius: 2px;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 1px;
+    padding: 0 10px;
+}
+.api {
+    background-color: #f06f77;
+    border-radius: 2px;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 1px;
+    padding: 0 10px;
+}
+.curlabels{
+    width: 100%;
+    overflow: hidden;
+     color: #fff;
+    line-height: 20px;
+}
+
+.curlabels span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1px;
+    padding:0px 0.5em;
+    color: #fff;
+    font-size: 0.8em;
+    border-radius:0.2em; ;
+}
+.curlabels .orilabel {
+    background-color: #29abe2;
+}
+.curlabels .perlabel {
+    background-color: #6ecbcc;
+}
+.isrep{
+    overflow: hidden;
+    padding: 15px 0;
+    position: relative;
+    width: 100%;
+    color: #666;
+}
+.iscuritemname{
+    margin-left:10%;
+    color:#333;
+}
+.partitionline{
+    width: 100%;
+    height: 30px;
+    background: #f3fefa;
+}
+.curtags,.sampleDetail,.metaDetail{
+    position: relative;
+    overflow: hidden;
+    padding: 15px 0;
+    position: relative;
+    width: 100%;
+}
+.curtags a,.cur_user a,.sampleDetail a,.metaDetail a,.repcreate_user a,.repname a{
+    display: block;
+    color: #666;
+}
+.repname a{
+    display: block;
+    color: #29abe2;
+}
+#cur_user{
+    color: #333;.
+}
+.curtagnum{
+    color: #29abe2;
+}
