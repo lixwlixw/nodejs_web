@@ -52,8 +52,8 @@ $(function(){
   		  		$('#signs').removeAttr('disabled');
   		  	},
     		success:function(json){ 
-    			$.cookie("tname",exampleInputEmail1,{ expires: 30},{path:"/"});
-    			$.cookie("token",json.token,{ expires: 30},{path:"/"});
+    			$.cookie("tname",exampleInputEmail1,{ expires: 1},{path:"/"});
+    			$.cookie("token",json.token,{ expires: 1},{path:"/"});
     			location.href=window.location.href;
     		},
     		error:function (XMLHttpRequest, textStatus, errorThrown){
