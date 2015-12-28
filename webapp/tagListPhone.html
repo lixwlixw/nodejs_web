@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>数据精选_DataHub阳光下的数据流通平台</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/command.css">
+    <link rel="stylesheet" href="./css/tagListPhone.css">
+    <script language="JavaScript" src="./js/jquery.min.js"></script>
+    <script language="JavaScript" src="./js/ngUrl.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ngUrl.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/base64.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src='js/errorDialog.js'></script>
+    <script src="js/tagListPhone.js"></script>
+</head>
+<body>
+<!-- 头部导航 -->
+<header></header>
+<div class="boxwrop">
+    <div class="tagLIstTop">
+        Tags <span class="tagnum">1232</span>
+    </div>
+
+        <ul class="listbox">
+            <!--<li>-->
+                <!--<div class="listTop">-->
+                    <!--<div class="tagName">dadsadasdsad</div>-->
+                    <!--<div class="tagpullnum"><span class="downloaded-icon"></span><span class="pullnum">32342</span></div>-->
+                <!--</div>-->
+                <!--<div class="tagcomment">dsdsds<br/>afasasf</div>-->
+            <!--</li>-->
+        </ul>
+
+
+</div>
+
+
+<!-- 尾部 -->
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+<script>
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+    $(document).on('touchstart','.taglistcon',function(){
+        $(this).css('border-left-color','#43609f ');
+    });
+    $(document).on('touchend','.taglistcon',function(){
+        $(this).css('border-left-color','#fff');
+    });
+</script>
+</html>
