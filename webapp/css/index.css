@@ -605,6 +605,10 @@ a:hover{
 	background:none;
 }
 
+	#phoneSelect{
+		display: none;
+	}
+
 @media (max-width:1200px) {
 .stopwatch .number span {
 	font-size: 3em
@@ -612,6 +616,7 @@ a:hover{
 .container{
 	width: 800px;
 }
+
 }
 
 @media (max-width:785px) {
@@ -640,8 +645,21 @@ a:hover{
 		width:500px;
 	}
 	
+	#phoneSelect{
+		display: block;
+	}
+
+	.inLoginfLiF{
+		float: left;
+	}
 	
+	#inLoginf li{
+		float: left;
+	}
 	
+	#inLoginLiF{
+		width: 100%;
+	}
 
 }
 
