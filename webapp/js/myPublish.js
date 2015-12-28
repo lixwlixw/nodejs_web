@@ -45,7 +45,7 @@ $(function() {
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
                     $('#addRep').modal('toggle');
-                    $("#addRep .property .value p").text("开  放");
+                    $("#addRep .property .value p").text("开放");
                     $("#judgment").css("display","none");
                     $("#ListManagement").css("display","none");
                 }else {
@@ -87,7 +87,7 @@ $(function() {
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
                     $('#addRep').modal('toggle');
-                    $("#addRep .property .value p").text("私  有");
+                    $("#addRep .property .value p").text("私有");
                     $("#judgment").css("display","none");
                 }else {
                     $("#judgment_number").css("display","block").slideDown(2000);
@@ -108,12 +108,17 @@ $(function() {
 
     });
 
-    $("#addRep .submit input").click(function() {
+    $("#addRep .submit input").click(function(){
         var method = "POST";
         var data = {};
         repname = $.trim($("#addRep .repname .value input").val());
         data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
-        data["repaccesstype"] = $.trim($("#addRep .property .value p").val());
+        if($.trim($("#addRep .property .value p").val())=="开放") {
+            data["repaccesstype"] ="public";
+        }
+        else {
+            data["repaccesstype"] ="private";
+        }
         if($(this).attr("repevent") == "add") {
             if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
                 alert('"Repository 名称"格式错误！');
@@ -480,12 +485,12 @@ $(function() {
                     //转换中英私有和开放
                     if(json.data.repaccesstype=="public")
                     {
-                        $("#addRep .property .value p").text("开  放");
+                        $("#addRep .property .value p").text("开放");
                         $("#ListManagement").css("display","none");
                     }
                     if(json.data.repaccesstype=="private")
                     {
-                        $("#addRep .property .value p").text("私  有");
+                        $("#addRep .property .value p").text("私有");
                         $("#ListManagement").css("display","block");
                     }
                     $("#addRep .repcomment .value textarea").val(json.data.comment);
@@ -501,7 +506,7 @@ $(function() {
                     headers: {Authorization: "Token " + $.cookie("token")},
                     success:function(json){
                        var totalNumber=json.data.total;
-                            $("#ListManagement p span:first").append("（"+totalNumber+"）");
+                        $("#ListManagement p span:first").append("（"+totalNumber+"）");
 
                     }
 
