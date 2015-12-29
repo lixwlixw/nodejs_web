@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>基本信息_DataHub阳光下的数据流通平台 </title>
+<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
 <link rel="stylesheet" href="css/loader.css">
@@ -109,6 +111,11 @@
 				<label for="exampleInputName">名称<span>设置后不能修改</span></label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
                          style="margin-bottom: 0;width:480px;">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputName">昵称</label>
+				<input  class="form-control " id="exampleInputName2" placeholder="企业名称/个人名称"
+					   style="margin-bottom: 0;width:480px;">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputTime">简介</label>
@@ -222,13 +229,16 @@ $(document).ready(function(){
 			datatype:'json',
 				success:function(data){
 					var nickName=data.data.nickName;
+					var userName=data.data.userName;
 					var comment=data.data.comment;
 //输入框有数据
-                    if (nickName.length>0||comment.length>0)
+                    if (nickName.length>0||comment.length>0||userName.length>0)
                     {
 						$("#exampleInputName").attr("disabled",true);
+						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
-                        $("#exampleInputName").val(nickName);
+                        $("#exampleInputName").val(userName);
+						$("#exampleInputName2").val(nickName);
                         $("#textComment").val(comment);
 						$("#update_icon").css("display","none");
 //                        $("#exampleInputName").attr("disabled","disabled");
@@ -236,9 +246,10 @@ $(document).ready(function(){
 //                        $("#button01").css("display","none");
                     }
 					//输入框无数据
-                    if (nickName.length==0||comment.length==0)
+                    if (nickName.length==0||comment.length==0||userName.length==0)
                     {
-                        $("#exampleInputName").val(nickName);
+                        $("#exampleInputName").val(userName);
+						$("#exampleInputName2").val(nickName);
                         $("#textComment").val(comment);
 						$("#button01").css("display","block");
 						$("#exampleInputName").attr("disabled",false);
@@ -323,6 +334,13 @@ $(document).ready(function(){
 			$("#error_allEmpty").css("display","none");
 			$("#error_emptyName").fadeOut(3500);
 		}
+		else if($("#exampleInputName2").val().length==0)
+		{
+			$("#error_emptyName").css("display","block");
+			$("#error_emptyComment").css("display","none");
+			$("#error_allEmpty").css("display","none");
+			$("#error_emptyName").fadeOut(3500);
+		}
 		else{
 			$.ajax({
 				url:ngUrl+"/users/"+$.cookie("tname"),
@@ -346,6 +364,7 @@ $(document).ready(function(){
 					if(data.code==0){
 
 							$("#exampleInputName").attr("disabled","disabled");
+							$("#exampleInputName2").attr("disabled","disabled");
 							$("#textComment").attr("disabled","disabled");
 							$("#button01").css("display","none");
 							$("#update_icon").css("display","inline-block");
