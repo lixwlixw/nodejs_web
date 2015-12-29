@@ -164,9 +164,8 @@
         }
         .repinfoList li{
             width: 100%;
-            padding-right: 70px;
-            padding:15px 0px;
             position: relative;
+            padding-left:6%;
         }
         .listTop{
             line-height: 20px;
@@ -199,6 +198,7 @@
         .repinfo{
             font-size: 1.2em;
             color: #000;
+            margin-left:6%;
         }
         .partitionline{
             width: 100%;
@@ -216,7 +216,7 @@
 <body>
 <!-- 头部导航 -->
 <header></header>
-<div class="boxwrop borderb">
+<div class="boxwrop" style="border-bottom: 1px solid #e6e6e6">
     <div class="reptitle borderb">
         <div class="repNamebg"></div>
         <div class="repname"></div>
@@ -244,7 +244,7 @@
 </div>
 <div class="partitionline"></div>
 
-<div class="boxwrop" style="padding-bottom: 50px;">
+<div class="boxwrop" style="padding-bottom: 50px;padding-left: 0px;">
     <div class="repinfo borderb">rep信息</div>
     <ul class="repinfoList">
         <!--<li class="borderb">-->
@@ -261,10 +261,10 @@
 </body>
 </html>
 <script>
-    $(document).on('touchstart','.borderb',function(){
+    $(document).on('touchstart','.liListwrop',function(){
         $(this).css('background-color','#e8e8e8');
     });
-    $(document).on('touchend','.borderb',function(){
+    $(document).on('touchend','.liListwrop',function(){
         $(this).css('background-color','#fff');
     });
     $("a").focus(function(){this.blur()});

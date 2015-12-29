@@ -43,6 +43,7 @@
 		border-radius: 3px;
 		color: #666;
 	}
+	
 	@media (max-width:768px) {
 				#terminal-content-body{				
 					display:none;	
@@ -51,28 +52,54 @@
 					background-color:#f6f9fc  !important;
 				}
 				#userDet{
-				margin:90px 40px 0px 40px;
+				/*margin:90px 40px 0px 40px;*/
 				margin-top:50px !important;
-				padding:0px 0px !important;
+				padding:0px 6% !important;
 				
 					
 				}
+				#thisusername{
+					float: left;
+				}
+		.borderb{
+			border-bottom: 1px solid #e6e6e6;
+		}
+		.vipgrade{
+			width: 25%;
+			height: 24px;
+			float: left;
+			margin-top:8px;
+		}
+		.vipgrade3{
+			background:url("images/0003.png") no-repeat;
+			background-size: contain;
+		}
+		.vipgrade4{
+			background:url("images/0004.png") no-repeat;
+			background-size: contain;
+		}
+		.vipgrade5{
+			background:url("images/0005.png") no-repeat;
+			background-size: contain;
+		}
 				#userName{
-					background:#c0c0c0;
+					/*background:#c0c0c0;*/
 					color:white ;
-					font-size:26px !important;
-					padding:15px 0px 15px 36px;
+					font-size:1.5em !important;
+					padding:15px 0px;
 					margin:0 0 !important;
+					color: #0077aa;
 				}
 				#userCom{
 					color:#666666;
-					font-size:20px;
+					font-size:1.2em;
 					line-height:30px;
 					min-height:120px;
-					padding:36px 36px 36px 36px;
+					padding:4% 0px;
 					margin:0 0 !important;
 					
 				}
+				
 	}
 </style>
 
@@ -100,9 +127,13 @@
 		</div>
 	</div>
 	<header></header>
-	<div id="userDet" class="container" style="margin-top:50px;background-color: #fff;padding: 0px 40px;">
-		<div id="userName" style="float: left;margin-top:22px;margin-bottom: 10px;font-weight: bold;width:100%;font-size:20px;"></div>
-		<div id="userCom" style="float: left;margin-bottom:15px;"></div>
+	<div id="userDet" class="container" style="margin-top:50px;background-color: #fff;padding: 0px 6%;">
+		<div id="userName" class="borderb" style="float: left;margin-top:22px;margin-bottom: 10px;font-weight: bold;width:100%;font-size:2em;">
+			<span id="thisusername"></span><br/>
+			<div id="thisvip" class="vipgrade vipgrade3"></div>
+		</div>
+
+		<div id="userCom" class="borderb" style="float: left;margin-bottom:15px;"></div>
 	</div>
 	<div class="container" style="padding: 0px;">
 		<div class="col-md-12 col-sm-12" id="lComs" style="padding: 0px;">			

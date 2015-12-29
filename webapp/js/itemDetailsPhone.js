@@ -10,6 +10,11 @@ $(function(){
         }
         return value;
     }
+    var headerToken={};
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var repname = getParam("repname");
     var itemname = getParam("itemname");
     var vvclass="";
@@ -18,6 +23,7 @@ $(function(){
         $.ajax({
             type: "get",
             async: false,
+            headers:headerToken,
             url: url,
             success: function(msg){
                 fun(msg);
@@ -72,6 +78,8 @@ $(function(){
         $('#topbox').append(topstr)
     }
     $('#goTagListPhone').attr('href','tagListPhone.html?repname='+repname+'&itemname='+itemname)
+    $('#metahref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Meta')
+    $('#samplehref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Sample')
     /////////////////////////查看item详情;
     $.ajax({
         url: ngUrl+"/repositories/"+repname+"/"+itemname,
@@ -79,6 +87,7 @@ $(function(){
         cache:false,
         data:{},
         async:false,
+        headers:headerToken,
         dataType:'json',
         success:function(datas){
             if(datas.code == 0){

@@ -12,6 +12,36 @@ $(document).ready(function(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
+    var loginname = getParam("username");
+    $.ajax({
+        url: ngUrl+"/vip/"+loginname,
+        type: "get",
+        cache:false,
+        data:{},
+        headers:headerToken,
+        dataType:'json',
+        success:function(json){
+            if(json.code == 0){
+                var vipgrade = json.data.userType;
+                if(vipgrade == 3){
+                    $('#thisvip').attr('class','vipgrade vipgrade3');
+                    $('#thisvip').show();
+                }else if(vipgrade == 4){
+                    $('#thisvip').attr('class','vipgrade vipgrade4');
+                    $('#thisvip').show();
+                }else if(vipgrade == 5){
+                    $('#thisvip').attr('class','vipgrade vipgrade5');
+                    $('#thisvip').show();
+                }else{
+                    $('#thisvip').hide();
+                }
+            }
+        },
+        error:function(json){
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
+        }
+    });
     $.ajax({
         url: ngUrl+"/repositories?username="+getParam("username")+'&size=-1',
         type: "get",
@@ -227,7 +257,7 @@ function ajaxRe(){
         dataType:'json',
         success:function(json){
             if(json.code == 0){
-                $("#userName").text(json.data.userName);
+                $("#thisusername").text(json.data.userName);
                 $("#userCom").text(json.data.comment);
             }else {
                 console.log("报错");
