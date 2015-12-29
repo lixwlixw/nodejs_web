@@ -660,6 +660,10 @@ a:hover{
 	#inLoginLiF{
 		width: 100%;
 	}
+	
+	#selectIndexs{
+		display: none;
+	}
 
 }
 
