@@ -89,6 +89,7 @@ $(function() {
                     $('#addRep').modal('toggle');
                     $("#addRep .property .value p").text("私有");
                     $("#judgment").css("display","none");
+                    $("#ListManagement").css("display","none");
                 }else {
                     $("#judgment_number").css("display","block").slideDown(2000);
                     $("#judgment").css("display","none");
@@ -862,7 +863,7 @@ $(document).ready(function(){
                 if (total != 0) {
                     $("#modalRep_list").empty();
                     $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                    $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' style='color:#0077aa;'>[返回]</a></p></div>");
+                    $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' class='back_icon_a' style='color:#0077aa;'>[返回]</a></p></div>");
                     $(".pagesPer").empty();
                 }
 

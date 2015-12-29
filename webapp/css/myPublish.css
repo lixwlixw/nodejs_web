@@ -631,3 +631,13 @@ body{
     width:200px;
     margin-bottom:15px;
 }
+.deleteTest{
+	margin-right: 10px;
+}
+.deleteTest:hover{
+	text-decoration:underline;
+	color:black;
+}
+.back_icon_a:hover{
+	text-decoration:underline;
+}
