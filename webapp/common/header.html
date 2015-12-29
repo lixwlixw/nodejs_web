@@ -99,6 +99,14 @@
 		#iLoginb li {
 		    float: left;
 		}
+		
+		#selectbtnFpc{
+			display: none;
+		}
+		
+		#selectBtnA{
+			display: none;
+		}
  
   }
 
@@ -144,11 +152,11 @@
 							<div class="hSearchBtn"></div>
 						</div>
 				  </li>
-			
+			  -->
                   <li class="active">
-                  	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
+                  	<a id="selectBtnA" class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
                   </li>
-                  	   -->
+                  	 
                   <li>
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
                   </li>                       
@@ -169,33 +177,44 @@
            
               <ul class="nav navbar-nav">
               	  
-              	  <!-- 
+              	   
                   <li class="active">
-                  	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html" >数据精选</a>
+                  	<a id="selectbtnFpc" class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html" >数据精选</a>
                   </li>
-                   -->
+                   
  
                  <li>
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
+                  		<!--  
                   		<img src="images/fl4.png" />
+                  		-->
+                  		我的发布
                   	</a>
                   </li>
 
                   <li>
                   	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
+                  		<!--  
                   		<img src="images/fl1.png" />
+                  		-->
+                  		我的订购
                   	</a>
                   </li>                       
                   <li>
                   	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!-- 
                   		<img src="images/fl2.png" />
+                  		-->
+                  		我的pull
                   	</a>
                   </li> 
 
                   
                  <li>
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
+                  		<!--
                   		<img src="images/fl3.png" />
+                  		-->个人中心
                   	</a>
 					  <ul class="dropdown-menu">
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
