@@ -71,6 +71,7 @@ $(function(){
             '</div>';
         $('#topbox').append(topstr)
     }
+    $('#goTagListPhone').attr('href','tagListPhone.html?repname='+repname+'&itemname='+itemname)
     /////////////////////////查看item详情;
     $.ajax({
         url: ngUrl+"/repositories/"+repname+"/"+itemname,

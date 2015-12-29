@@ -45,6 +45,8 @@ $(function() {
             async: false,
             url: ngUrl+"/repositories/"+repname+"/"+itemname,
             success: function(msg){
+                var tagsnum = msg.data.tags;
+                $('.tagnum').html(tagsnum);
                 var taglist  = msg.data.taglist;
                 for(var i = 0; i < taglist.length;i++){
                     var tagname = msg.data.taglist[i].tag;
