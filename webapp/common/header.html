@@ -27,6 +27,19 @@
 	.navbar-toggle .icon-bar {
     	background-color: #fff;
 	}
+	
+	#headerInput{
+		background-image:url('/images/lens.png');
+		background-repeat:no-repeat;
+		background-position: 98% 48%;
+		display:inline-block;	
+		width:248px;
+		height:40px;
+	}
+	
+	.hSearchBtn{
+		cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;
+	}
 
 	 @media (max-width: 768px) {
 	 
@@ -73,16 +86,22 @@
 			background-color:rgba(31,154,218,0.7); 
 			color: #fff;
 		}
-
+		
+		#headerInput{
+			width: 150px;
+		}
+		
+		.hSearchBtn{
+			left: 150px;
+    		top: 10px;
+		}
+		
+		#iLoginb li {
+		    float: left;
+		}
  
   }
-	#headerInput{
-		background-image:url('/images/lens.png');
-		background-repeat:no-repeat;
-		background-position: 98% 48%;
-		display:inline-block;	
-		width:248px;height:40px;
-	}
+
 
 	
 </style>
@@ -99,16 +118,14 @@
                
 				<div id="nSearchs">
 					<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="height:28px;border: 0 none;">
-					<div class="hSearchBtn" style="cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;">
-					</div>
+					<div class="hSearchBtn"></div>
 				</div> 
 			
               <a id="nLogos" class="navbar-brand" style="color: #fff;font-size: 2em" href="/">DataHub</a>
           </div> 
 		  <div  id="col-left" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
 			<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="height:28px;border: 0 none;">
-			<div class="hSearchBtn" style="cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;">
-			</div>
+			<div class="hSearchBtn"></div>
 		  </div>
 
 	
@@ -120,16 +137,18 @@
 <!--   				<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:100%;height:32px;border: 0 none;"> -->
 <!-- 			</div> -->
               <ul class="nav navbar-nav">
+              		<!-- 
 				  <li>
 						<div  id="col-right" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
 						<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="width:248px;height:28px;border: 0 none;">
-							<div class="hSearchBtn" style="cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;">
-							</div>
+							<div class="hSearchBtn"></div>
 						</div>
 				  </li>
+			
                   <li class="active">
                   	<a class="selectbtn" style="color: #fff;font-size: 1em" href="selects.html">数据精选</a>
                   </li>
+                  	   -->
                   <li>
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
                   </li>                       
