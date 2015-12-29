@@ -693,6 +693,7 @@
 }
 #mobileItemDetail .head .name{
 	color: #29abe2;
+	font-size: 0.8em;
 }
 #mobileItemDetail .head span {
 	display: inline-block;
