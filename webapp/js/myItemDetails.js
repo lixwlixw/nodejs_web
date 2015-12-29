@@ -322,9 +322,9 @@ $(function(){
     });
         $(".itemListName-icon").click(function() {
             if(itemaccesstype == 'private'){
-                $('.xiugainame').show();
+                $('.xiugaiwrop').show();
             }else{
-                $('.xiugainame').hide();
+                $('.xiugaiwrop').hide();
             }
             $('.valuemoney').empty();
             $.ajax({
