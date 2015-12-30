@@ -159,6 +159,7 @@
 				$("#label_three").css("display", "inline");
 				$("#label_two").css("display", "none");
 				$("#label_one").css("display", "none");
+				$("#label_fail").css("display","none");
 				$("#label_three").fadeOut(4000);
 			}
 		});
@@ -167,6 +168,7 @@
 				$("#label_two").css("display", "inline");
 				$("#label_one").css("display", "none");
 				$("#label_three").css("display", "none");
+				$("#label_fail").css("display","none");
 				$("#label_two").fadeOut(4000);
 			}
 		});
@@ -189,7 +191,7 @@
 				datatype:'json',
 				data:JSON.stringify(myPwd),
 				success:function(data){
-					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val()>=8)&&($("#paspasswd").val()>=8)){
+					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val().length>=8)&&($("#paspasswd").val().length>=8)){
 //						$("#label_success").css("display","inline");
 //						$("#label_success").append();
 //						$("#label_success").fadeOut(3000);
@@ -202,6 +204,10 @@
 					else
 					{
 						$("#label_fail").css("display","inline");
+						$("#label_two").css("display", "none");
+						$("#label_one").css("display", "none");
+						$("#label_three").css("display", "none");
+						$("#successBox").css("display","none");
 						$("#label_fail").append();
 						$("#label_fail").fadeOut(3000);
 					}
