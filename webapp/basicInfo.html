@@ -98,8 +98,10 @@
                 <p id="success">修改成功！</p>
                 <p id="error">提交失败！</p>
 				<p id="error_emptyName">名称不能为空</p>
+				<p id="error_emptyName2">昵称不能为空</p>
+				<p id="error_emptyName3">昵称已经存在</p>
 				<p id="error_emptyComment">简介不能为空</p>
-				<p id="error_allEmpty">名称和简介不能为空</p>
+				<p id="error_allEmpty">输入内容不能为空</p>
 			<!--做到这-->
         </div>
 		<div  class="mid_main">
@@ -114,7 +116,7 @@
 			</div>
 			<div class="form-group">
 				<label for="exampleInputName">昵称</label>
-				<input  class="form-control " id="exampleInputName2" placeholder="企业名称/个人名称"
+				<input  class="form-control " id="exampleInputName2" placeholder="昵称"
 					   style="margin-bottom: 0;width:480px;">
 			</div>
 			<div class="form-group">
@@ -253,6 +255,7 @@ $(document).ready(function(){
                         $("#textComment").val(comment);
 						$("#button01").css("display","block");
 						$("#exampleInputName").attr("disabled",false);
+						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
 						$("#update_icon").css("display","none");
 
@@ -267,6 +270,7 @@ $(document).ready(function(){
             $("#button01").css("display","block");
 //            $("#exampleInputName").attr("disabled",false);//名称设置后不能修改
             $("#textComment").attr("disabled",false);
+			$("#exampleInputName2").attr("disabled",false);
 			$("#update_icon").css("display","none");
 
 
@@ -311,9 +315,10 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#button01").click(function(){
 		var mydata = {};
-		mydata["nickname"] = $("#exampleInputName").val();
+		mydata["username"] = $("#exampleInputName").val();
 		mydata["comments"] = $("#textComment").val();
-		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0))
+		mydata["nickname"] = $("#exampleInputName2").val();
+		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0)&&($("#exampleInputName2").val().length==0))
 		{
 			$("#error_allEmpty").css("display","block");
 			$("#error_emptyName").css("display","none");
@@ -336,10 +341,10 @@ $(document).ready(function(){
 		}
 		else if($("#exampleInputName2").val().length==0)
 		{
-			$("#error_emptyName").css("display","block");
+			$("#error_emptyName2").css("display","block");
 			$("#error_emptyComment").css("display","none");
 			$("#error_allEmpty").css("display","none");
-			$("#error_emptyName").fadeOut(3500);
+			$("#error_emptyName2").fadeOut(3500);
 		}
 		else{
 			$.ajax({
@@ -374,8 +379,11 @@ $(document).ready(function(){
 							$("#error_emptyComment").css("display","none");
 							$("#error_allEmpty").css("display","none");
 							$("#success").fadeOut(4000);
-
-
+					}
+					if (data.code==8002)
+					{
+						$("#error_emptyName3").css("display","block")
+						$("#error_emptyName3").fadeOut(3500);
 					}
 				},
 				error:function(data){
