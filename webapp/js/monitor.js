@@ -20,6 +20,7 @@ $(function(){
     }
     var indexs = 0;
     var thisheight = 0;
+    var  datalistnum = 0;
     function getrecord(){
         if(account != 'null'){
             $.ajax({
@@ -29,8 +30,8 @@ $(function(){
 //            async:false,
                 headers:{Authorization:"Token "+account},
                 success: function(msg){
-
-                    if(msg.data.log.length>0){
+                    datalistnum = msg.data.log;
+                    if(msg.data.log){
                         for(var i = 0;i<msg.data.log.length;i++){
                             var str = '<p class="recordconList">'+msg.data.log[i]+'</p>';
                             $('#conList').prepend(str);
@@ -39,8 +40,9 @@ $(function(){
                             thisheight = $('#conList').height();
                             $(".recordcon").animate({scrollTop:thisheight},30);
                         }
+                        indexs += 50;
                     }
-                    indexs += 50;
+
 
                 }
             });
@@ -87,7 +89,11 @@ $(function(){
     $(".recordcon").scroll(function() {
         nScrollTop = $(this)[0].scrollTop;
         if (nScrollTop == 0){
-            getrecord();
+            alert(datalistnum)
+            if(datalistnum != null || datalistnum == 'undefined'){
+                getrecord();
+            }
+
         }
 
     });
