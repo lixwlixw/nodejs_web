@@ -62,13 +62,13 @@ $(function(){
             success: function(msg){
                 if(msg.data.status == 'offline'){
 //                        $('.havePoint').html("N/A");
-                    $('.statecolor').html('Client¶ËÊ§È¥Á¬½Ó');
+                    $('.statecolor').html('Clientç«¯å¤±å»è¿æ¥');
                     $('.stateicon').addClass('stateiconrgred').removeClass('stateiconrgre');
                     $('.statecolor').addClass('statecolorgred').removeClass('statecolorgre');
                 }
                 if(msg.data.status == 'online') {
 //                        $('.havePoint').html(msg.data.entrypoint);
-                    $('.statecolor').html('Client¶ËÕı³£Á¬½Ó');
+                    $('.statecolor').html('Clientç«¯æ­£å¸¸è¿æ¥');
                     $('.stateicon').addClass('stateiconrgre').removeClass('stateiconrgred');
                     $('.statecolor').addClass('statecolorgre').removeClass('statecolorgred');
 
@@ -83,7 +83,7 @@ $(function(){
     }
 
 
-    var nScrollTop = 0;   //¹ö¶¯µ½µÄµ±Ç°Î»ÖÃ
+    var nScrollTop = 0;   //æ»šåŠ¨åˆ°çš„å½“å‰ä½ç½®
     $(".recordcon").scroll(function() {
         nScrollTop = $(this)[0].scrollTop;
         if (nScrollTop == 0){
