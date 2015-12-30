@@ -89,7 +89,6 @@ $(function(){
     $(".recordcon").scroll(function() {
         nScrollTop = $(this)[0].scrollTop;
         if (nScrollTop == 0){
-            alert(datalistnum)
             if(datalistnum != null || datalistnum == 'undefined'){
                 getrecord();
             }
