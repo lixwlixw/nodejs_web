@@ -233,6 +233,10 @@ $(document).ready(function(){
 					var nickName=data.data.nickName;
 					var userName=data.data.userName;
 					var comment=data.data.comment;
+					var registTime=data.data.registTime;
+					var invalidTime=data.data.invalidTime;
+					$("#exampleInputTime").val(registTime);
+					$("#exampleStopTime").val(invalidTime);
 //输入框有数据
                     if (nickName.length>0||comment.length>0||userName.length>0)
                     {
