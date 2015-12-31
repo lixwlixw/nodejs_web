@@ -186,5 +186,11 @@
     padding: 0.5em 1em;
 }
 
+.tooltip-inner {
+    background-color:#43609f;
+}
+.tooltip.top .tooltip-arrow{
+	border-top-color:#43609f;
+}
 
 
