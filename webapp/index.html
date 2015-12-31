@@ -350,7 +350,7 @@
 						<div class="col-md-3" style='padding:0px;border-left: 1px solid #aaa;border-top: 1px solid #aaa;border-bottom: 1px solid #aaa;height:300px;' id='guanindex'> 
 		           			<img src="images/guanU1.png" />
 		           		</div>
-		           		<a href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
+		           		<a id="guanCom1" href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
 							<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
 								<div class="wobble-bottom guanDiv">
 				           			<img src="images/guan1.png" style='margin-top:30px'/>
@@ -360,7 +360,7 @@
 		           				</div>		
 			           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
+		           		<a id="guanCom2" href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guandx.png"  style='margin-top:30px'/>
@@ -370,7 +370,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business'>
+		           		<a id="guanCom3" href='itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd3 guanNum">
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan3.png"   style='margin-top:30px'/>
@@ -380,7 +380,7 @@
 	           				</div>
 		           		</div> 
 		           		</a>
-		           		<a href='itemDetails.html?repname=Base_station_location&itemname=Base_station_location'>
+		           		<a id="guanCom4" href='itemDetails.html?repname=Base_station_location&itemname=Base_station_location'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd4 guanNum" >
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan4.png"  style='margin-top:30px' />
@@ -390,7 +390,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=UnionPay&itemname=UnionPay'>
+		           		<a id="guanCom5" href='itemDetails.html?repname=UnionPay&itemname=UnionPay'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan6.png"   style='margin-top:30px'/>
@@ -400,7 +400,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=GIS_map&itemname=GIS_map'>
+		           		<a id="guanCom6" href='itemDetails.html?repname=GIS_map&itemname=GIS_map'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan5.png"   style='margin-top:30px'/>
@@ -615,6 +615,12 @@
 			$('#internethref').attr('href','selects.html?type=互联网专题');
 			$('#investigationhref').attr('href','selects.html?type=征信专题');
 			$('#operatorhref').attr('href','selects.html?type=运营商专题');
+			$('#guanCom1').attr('href','itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods');
+			$('#guanCom2').attr('href','itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route');
+			$('#guanCom3').attr('href','itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business');
+			$('#guanCom4').attr('href','itemDetails.html?repname=Base_station_location&itemname=Base_station_location');
+			$('#guanCom5').attr('href','itemDetails.html?repname=UnionPay&itemname=UnionPay');
+			$('#guanCom6').attr('href','itemDetails.html?repname=GIS_map&itemname=GIS_map');
 		}
 		if(pcorphone == 'phone'){
 			$('.selectbtn').attr('href','selectsPhone.html');
@@ -622,6 +628,12 @@
 			$('#internethref').attr('href','selectsPhone.html?type=互联网专题');
 			$('#investigationhref').attr('href','selectsPhone.html?type=征信专题');
 			$('#operatorhref').attr('href','selectsPhone.html?type=运营商专题');
+			$('#guanCom1').attr('href','itemDetailsPhone.html?repname=Internet_stats&itemname=Ecommerce_goods');
+			$('#guanCom2').attr('href','itemDetailsPhone.html?repname=Transportation_of_beijing&itemname=Rail_transit_route');
+			$('#guanCom3').attr('href','itemDetailsPhone.html?repname=Enterprise_business&itemname=Enterprise_business');
+			$('#guanCom4').attr('href','itemDetailsPhone.html?repname=Base_station_location&itemname=Base_station_location');
+			$('#guanCom5').attr('href','itemDetailsPhone.html?repname=UnionPay&itemname=UnionPay');
+			$('#guanCom6').attr('href','itemDetailsPhone.html?repname=GIS_map&itemname=GIS_map');
 		}
     	 
     	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
