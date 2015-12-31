@@ -48,7 +48,7 @@ $(document).ready(function(){
                 for(var i = 0;i<aa;i++){
                     var lilist = '<li class="li'+ navpage +'"></li>';
                     $('.topnavlistwrop').append(lilist);
-                    for(var j=1;j<fornum;j++){
+                    for(var j=1;j<=8;j++){
                         var thisssss = navpage*8+j;
                         var str =  '<div class="imgwrop">'+
                             "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisssss].icon+".png\")'>"+
