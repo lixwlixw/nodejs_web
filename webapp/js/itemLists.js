@@ -199,7 +199,7 @@ function forList(list,type){
             		 $("#terminal-content-body").append(""+
                      		
                          	"<div class='repo'>"+
-         						"<div class='left'>"+
+         						"<div class='data_left'>"+
 
      	    					"<div class='subtitle'>"+ 
      	    						"<a style='color:#0077aa' href='repDetails.html?repname="+list[i]+"'>"+list[i]+"</a>"+ 
@@ -220,7 +220,7 @@ function forList(list,type){
      	    					
      	    				"</div>"+	
 
-         				"<div class='right' style='height:auto;margin-bottom:30px;'>"+	
+         				"<div class='data_right' style='height:auto;margin-bottom:30px;'>"+	
          					"<div class='iconGroup' style='margin-right:0px;float:right;border-top:0px;margin-top:60px;'>"+
          						"<div class='like'>"+
          							"<img src='images/selects/images_39.png' data-toggle='tooltip' datapalecement='top' title='star数量'>"+
