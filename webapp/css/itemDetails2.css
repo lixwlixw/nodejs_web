@@ -232,7 +232,6 @@
 .content{
     float: left;
     width: 100%;
-    display:none;
 }
 /*content*/
 .content:hover{

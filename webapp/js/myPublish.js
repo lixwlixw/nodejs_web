@@ -114,7 +114,7 @@ $(function() {
         var data = {};
         repname = $.trim($("#addRep .repname .value input").val());
         data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
-        if($.trim($("#addRep .property .value p").val())=="开放") {
+        if($("#addRep .property .value p").text()=="开放") {
             data["repaccesstype"] ="public";
         }
         else {
