@@ -8,7 +8,6 @@ $(function () {
 var type=0;
 var size=0;
 
-
 //type类型，size分页数
 function init(type,size){
 	//总数

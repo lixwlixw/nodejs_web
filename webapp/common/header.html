@@ -40,6 +40,10 @@
 	.hSearchBtn{
 		cursor: pointer;height: 28px;left: 238px;position: absolute;top: 0;width: 25px;
 	}
+	
+	#nLogosHeader{
+		display: none;
+	}
 
 	 @media (max-width: 768px) {
 	 
@@ -107,6 +111,10 @@
 		#selectBtnA{
 			display: none;
 		}
+		
+		#nLogosHeader{
+			display:block;
+		}
  
   }
 
@@ -116,6 +124,7 @@
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
       <div class="container" style="padding: 0px">
           <div class="navbar-header">
+          		<a id="nLogosHeader" style="position: absolute;right: 120px;top: 15px;color: #fff;font-size: 1em;" href="/">DataHub</a>
           	  <a id="phoneSelect" class="selectbtn" href="selects.html" style='position: absolute;right: 50px;top: 15px;color: #fff;font-size: 1em;'>数据精选</a>          	
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                   <span class="sr-only">切换导航 </span>
@@ -161,9 +170,12 @@
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
                   </li>                       
                   <li>
-                  	<a style="color: #fff;font-size: 1em" href="javaScript:void(0);">
-                  		<img src="images/i.png" />
-                  	</a>
+                  	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		帮助
+                     </a>
                   </li> 
 				
 				  
@@ -201,15 +213,21 @@
                   	</a>
                   </li>                       
                   <li>
-                  	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!-- 
                   		<img src="images/fl2.png" />
                   		-->
-                  		我的pull
+                  		pull记录
                   	</a>
                   </li> 
-
-                  
+                  <li>
+					<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li>
                  <li>
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
@@ -222,6 +240,7 @@
 					    <li><a href="memberUpgrade.html " target="_blank">会员升级</a></li>
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
+					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>

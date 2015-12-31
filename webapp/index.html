@@ -118,8 +118,22 @@
                         <!--                    
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>   
                         -->   
-                        <li style="float: left;"><a id='sign-in' href='javaScript:void(0);'><img src="images/login.png"></a></li>
-                        <li style="float: left;"><a id='sign-help' href='http://docs.hub.dataos.io:8999/'><img src="images/i.png"></a></li>
+                        <li style="float: left;">
+                        	<a id='sign-in' href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/login.png">
+                        		  -->
+                        		  登录
+                        	</a>
+                        </li>
+                        <li style="float: left;">
+                        	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		帮助
+                        	</a>
+                        </li>
                         <!--             
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 14px;margin-left:9px;padding: 0px 5px;margin-right: 10px'>?</a></li>
                          -->                      
@@ -127,11 +141,7 @@
                     </ul>
                     <ul id="inLoginf" class="nav navbar-nav">
                     	
-                        <li id="selectIndexs" class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li> 
-                                                            
-                        <li><a href="http://docs.hub.dataos.io:8999" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>
-                              
-                        
+                        <li id="selectIndexs" class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
                         <!--
                         <li><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>  
                         <li><a id='innames' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'></a></li>                    
@@ -148,23 +158,32 @@
                   </li>
 
                   <li class="inLoginfLiF">
-                  	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
+                  	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<!-- 
                   		<img src="images/fl1.png" />
                   		-->
-                  		我的订阅
+                  		我的订购
                   	</a>
                   </li>                       
                   <li class="inLoginfLiF">
-                  	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->
-                  		我的pull
+                  		pull记录
+                  	</a>
+                  </li> 
+                  <li class="inLoginfLiF">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
                   	</a>
                   </li> 
                  
-                 <li class="inLoginfLiF" id="inLoginLiF">
+                 <!-- id="inLoginLiF" -->
+                 <li class="inLoginfLiF" id="inLoginLiF" style="width: auto;">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!-- 
                   		<img src="images/fl3.png" />
@@ -172,13 +191,12 @@
                   		个人中心
                   	</a>
 					  <ul class="dropdown-menu">
-					  	<!--
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
 					    <li role="separator" class="divider"></li>
-					    -->
 					    <li><a href="memberUpgrade.html" target="_blank">会员升级</a></li>
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
+					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>
