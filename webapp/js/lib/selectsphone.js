@@ -57,20 +57,26 @@ $(document).ready(function(){
                                     '</div>';
                         $('.li'+navpage).append(str);
                     }
-                     navpage++;
+                    if(aa>=1 && bb>=1){
+                        navpage++;
+                    }
+
                 }
-                 var lilist = '<li class="li'+ navpage +'"></li>';
-                  $('.topnavlistwrop').append(lilist);
-                for(var j=0;j<bb;j++){
-                    var thisnum = navpage*8+j+1;
-                    var str =  '<div class="imgwrop">'+
-                                "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisnum].icon+".png\")'>"+
-                                '</div>'+
-                                '<p>'+json.data[thisnum].labelname +'</p>'+
-                                '</div>';
+                if(bb>0){
                     var lilist = '<li class="li'+ navpage +'"></li>';
-                     $('.li'+navpage).append(str);
+                    $('.topnavlistwrop').append(lilist);
+                    for(var j=0;j<bb;j++){
+                        var thisnum = navpage*8+j+1;
+                        var str =  '<div class="imgwrop">'+
+                            "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisnum].icon+".png\")'>"+
+                            '</div>'+
+                            '<p>'+json.data[thisnum].labelname +'</p>'+
+                            '</div>';
+                        var lilist = '<li class="li'+ navpage +'"></li>';
+                        $('.li'+navpage).append(str);
+                    }
                 }
+
                 for(var i = 0;i<=navpage;i++){
                     var spans = "<span></span>";
                     $('.focus-inner').append(spans);
@@ -210,8 +216,10 @@ $(document).ready(function(){
                         datastyle = 'freedata';
                     }else if(itemdatatype == '付费'){
                         datastyle = 'paydata';
-                    }else{
+                    }else if(itemdatatype == '限量免费'){
                         datastyle = 'limitdata';
+                    }else{
+                        datastyle = '';
                     }
                     //该用户昵称
                     $.ajax({

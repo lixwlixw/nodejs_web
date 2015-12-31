@@ -210,8 +210,10 @@ $(document).ready(function(){
                         datastyle = 'freedata';
                     }else if(itemdatatype == '付费'){
                         datastyle = 'paydata';
-                    }else{
+                    }else if(itemdatatype == '限量免费'){
                         datastyle = 'limitdata';
+                    }else{
+                        datastyle = '';
                     }
                     //该用户昵称
                     $.ajax({
@@ -237,7 +239,7 @@ $(document).ready(function(){
                         '<div class="listTop"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
                         '<div class="listbt">本数据由：<span class="itemcur">'+realname+'</span>&nbsp;提供</div>'+
                         '<div class="listicon"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
-                        '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'+
+                        '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'
                     '</div>'+
                     '</li>'
                     $(".repinfoList").append(str);

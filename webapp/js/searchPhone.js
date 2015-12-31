@@ -66,8 +66,10 @@ $(function(){
                     datastyle = 'freedata';
                 }else if(itemdatatype == '付费'){
                     datastyle = 'paydata';
-                }else{
+                }else if(itemdatatype == '限量免费'){
                     datastyle = 'limitdata';
+                }else{
+                    datastyle = '';
                 }
             },
             error:function(json){
