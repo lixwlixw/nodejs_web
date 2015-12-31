@@ -40,15 +40,15 @@ $(document).ready(function(){
         success:function(json){
             var bgarr = [];
             if(json.data.length!=0){
-                var fornum=json.data.length;
+                var fornum=json.data.length-1;
                 bgarr = json.data;
                 var aa = parseInt(fornum / 8);
-                var bb = fornum % 8 -1;
+                var bb = fornum % 8;
                 var navpage = 0;
                 for(var i = 0;i<aa;i++){
                     var lilist = '<li class="li'+ navpage +'"></li>';
                     $('.topnavlistwrop').append(lilist);
-                    for(var j=1;j<fornum;j++){
+                    for(var j=1;j<=8;j++){
                         var thisssss = navpage*8+j;
                         var str =  '<div class="imgwrop">'+
                             "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisssss].icon+".png\")'>"+
