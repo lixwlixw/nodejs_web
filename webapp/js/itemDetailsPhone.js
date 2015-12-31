@@ -99,7 +99,7 @@ $(function(){
                 var tags = datas.data.tags;
                 $('.curtagnum').html(tags)
                 getAjax(ngUrl+"/users/"+createuser,function(json){
-                    cur_user = json.data.nickName;
+                    cur_user = json.data.userName;
                 })
                 var showtime = time.substring(time.indexOf("|")+1,time.length);
                 var datastyle = '';

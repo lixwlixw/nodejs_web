@@ -149,8 +149,8 @@
 			});	
 		});
 	});*/
-
 	$(document).ready(function(){
+
 		$("#btn01").click(function(){
 			$(".form-control-00").val("");
 		});
@@ -159,6 +159,7 @@
 				$("#label_three").css("display", "inline");
 				$("#label_two").css("display", "none");
 				$("#label_one").css("display", "none");
+				$("#label_fail").css("display","none");
 				$("#label_three").fadeOut(4000);
 			}
 		});
@@ -167,11 +168,43 @@
 				$("#label_two").css("display", "inline");
 				$("#label_one").css("display", "none");
 				$("#label_three").css("display", "none");
+				$("#label_fail").css("display","none");
 				$("#label_two").fadeOut(4000);
 			}
 		});
-
-
+		$("#oldpwd").blur(function(){
+			//验证密码是否正确?pwd=abc
+			var oldpwd=$.md5($("#oldpwd").val());
+			var oldsure="";
+			$.ajax({
+				url:ngUrl+"/users/"+$.cookie("tname")+"/pwd"+"/validate"+"?pwd="+oldpwd,
+				type:"GET",
+				cache:false,
+				async:false,
+				headers:{Authorization:"Token "+$.cookie("token")},
+				datatype:'json',
+				success:function(data){
+					if(data.code==8004)
+					{
+						oldsure=false;
+					}
+					if(data.code==0)
+					{
+						oldsure=true;
+					}
+				},
+				error:function(data){
+				}
+			});
+			//验证密码是否正确结束
+			if(oldsure==false){
+				$("#label_two").css("display", "none");
+				$("#label_one").css("display", "inline");
+				$("#label_three").css("display", "none");
+				$("#label_fail").css("display","none");
+				$("#label_one").fadeOut(4000);
+			}
+		});
 		$("#btn02").click(function(){
 			var myPwd = {};
 			myPwd["passwd"]=$.md5($("#passwd").val());
@@ -189,7 +222,7 @@
 				datatype:'json',
 				data:JSON.stringify(myPwd),
 				success:function(data){
-					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val()>=8)&&($("#paspasswd").val()>=8)){
+					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val().length>=8)&&($("#paspasswd").val().length>=8)){
 //						$("#label_success").css("display","inline");
 //						$("#label_success").append();
 //						$("#label_success").fadeOut(3000);
@@ -202,6 +235,10 @@
 					else
 					{
 						$("#label_fail").css("display","inline");
+						$("#label_two").css("display", "none");
+						$("#label_one").css("display", "none");
+						$("#label_three").css("display", "none");
+						$("#successBox").css("display","none");
 						$("#label_fail").append();
 						$("#label_fail").fadeOut(3000);
 					}
@@ -215,7 +252,6 @@
 				}
 			});
 			}
-			
 		});
 
 

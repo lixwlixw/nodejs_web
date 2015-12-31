@@ -1,0 +1,96 @@
+.bigbox{
+    width: 1170px;
+    overflow: hidden;
+    margin:0 auto;
+    margin-top:50px;
+    padding-bottom: 80px;
+}
+.montop{
+    font-size: 27px;
+    color: #333333;
+    padding-top:40px;
+}
+
+.borderb{
+    border-bottom: 1px dashed #ccc;
+}
+.montitle{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 40px;
+    width: 100%;
+    font-size: 18px;
+    color: #333333;
+    margin-top:40px;
+}
+.montitle1{
+    background:url("../images/monitor1.png") no-repeat left center;
+}
+.montitle2{
+    background:url("../images/monitor2.png") no-repeat left center;
+}
+.monitorbox {
+    margin-top: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.monitorboxTop {
+    background: #999999 none repeat scroll 0 0;
+    height: 30px;
+    width: 100%;
+}
+.monitorboxCon {
+    background: #000000 none repeat scroll 0 0;
+    overflow: hidden;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    width: 100%;
+}
+.monitorboxCon div {
+    color: #ffffff;
+    font-size: 18px;
+}
+.nobg_p {
+    color: #333;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 20px;
+}
+.monitorboxCon div span {
+    font-size: 14px;
+}
+.stateiconrgred {
+    background: red none repeat scroll 0 0;
+}
+.stateicon {
+    border-radius: 8px;
+    display: inline-block;
+    height: 15px;
+    margin: 0 10px 0 7px;
+    width: 15px;
+}
+.statecolorgred {
+    color: red;
+}
+.stateiconrgre {
+    background: #59d11e none repeat scroll 0 0;
+}
+.statecolorgre {
+    color: #59d11e;
+}
+
+.recordcon{
+    height: 460px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    overflow-y:scroll;
+}
+
+
+.recordconList {
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 10px;
+}
