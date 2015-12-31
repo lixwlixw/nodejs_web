@@ -222,6 +222,7 @@ $(document).ready(function(){
 /*console.log(JSON.stringify($.cookie("token")));*/
 		$('#exampleInputTime').attr('disabled', 'true');
 		$('#exampleStopTime').attr('disabled', 'true');
+		$('#exampleInputEmail1').attr('disabled', 'true');
 		$.ajax({
 			url:ngUrl+"/users/"+$.cookie("tname"),
 			type:"get",
