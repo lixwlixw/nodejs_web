@@ -12,15 +12,15 @@ if(rtext!=""){
     data={"text":rtext};
 }
 var repos=[];
+var reposnum = 0;
 var totals=0;
-var pages = 1;
 var fornum = 0;
 $(function(){
-
+    var pages = 1;
     function getrepname(pages) {
         repos = [];
         $.ajax({
-            url: ngUrl+"/search?size=5&page="+pages,
+            url: ngUrl+"/search?size=6&page="+pages,
             type: "get",
             cache:false,
             data:data,
@@ -34,7 +34,7 @@ $(function(){
                     for(var i=0;i<fornum;i++){
                         repos.push([json.data.results[i].repname,json.data.results[i].itemname]);
                     }
-
+                    reposnum = repos.length;
                 }else{
                     console.log("报错");
                 }
@@ -47,7 +47,8 @@ $(function(){
     }
     getrepname(pages);
 
-
+    var datastyle = '';
+    var itemdatatype = '';
     function getcreate_user(repname,itemname) {
         var create_user = '';
         $.ajax({
@@ -59,6 +60,17 @@ $(function(){
             dataType:'json',
             success:function(json){
                 create_user = json.data.create_user;
+                datastyle = '';
+                itemdatatype =  json.data.pricestate;
+                if(itemdatatype == '免费'){
+                    datastyle = 'freedata';
+                }else if(itemdatatype == '付费'){
+                    datastyle = 'paydata';
+                }else if(itemdatatype == '限量免费'){
+                    datastyle = 'limitdata';
+                }else{
+                    datastyle = '';
+                }
             },
             error:function(json){
                 errorDialog($.parseJSON(json.responseText).code);
@@ -94,12 +106,14 @@ $(function(){
         for(var i=0;i<fornum;i++){
             var repname = repos[i][0];
             var itemname = repos[i][1];
+
             var create_user =  getcreate_user(repname,itemname);
             var username =  getusername(create_user);
             var str = '<a href="itemDetails.html?repname='+repname+'&itemname='+itemname+'"><li class="borderb">'+
                 '<div class="listTop">'+repname+'/'+itemname+'</div>'+
                 '<div class="listbt">数据拥有方：<span class="itemcur">'+username+'</span></div>'+
                 '<div class="listicon"></div>'+
+                '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'+
                 '</li></a>';
             $('.repinfoList').append(str) ;
         }
@@ -108,8 +122,9 @@ $(function(){
 
     // 继续加载
     window.onscroll = function(){
+        console.log(reposnum)
         if(getScrollTop() + getWindowHeight() == getScrollHeight()){
-            if(repos.length>0){
+            if(reposnum>=6){
                 pages++;
                 getrepname(pages);
                 addhtml();

@@ -29,12 +29,20 @@
 	margin-bottom:-4px;
 	margin-right:10px;
 	}
+	
+	#nvitationLogin{
+		color: #43609f;
+	}
+	
+	#nvitationLogin:hover{
+		color: #395289;
+	}
 
 </style>
 <!-- 登陆框开始 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="padding:30px;width:422px;height:388px;">
+            <div class="modal-content" style="padding:30px;width:422px;height:416px;">
                 <div class="modal-header" style="border-bottom:0px;padding: 0px; ">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">登录</h4>
@@ -56,7 +64,10 @@
 					      <input type="checkbox"> 记住我
 					    </label>
 					  </div>
-					  <button id='signs' class="btn btn-primary" style='width:360px;height:40px;'>登录</button>                            
+					  <button id='signs' class="btn btn-primary" style='width:360px;height:40px;'>登录</button>     
+					  <div style="margin-top: 20px;margin-bottom: 40px;">
+					  		<p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="registration.html">邀请注册</a></p>
+					  </div>                       
                 </div>
                 <!-- 
                 <div class="modal-footer" style="border-top:0px;">

@@ -1,0 +1,68 @@
+.boxwrop{
+    overflow: hidden;
+    padding:0px 20px;
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.tagLIstTop{
+    height: 40px;
+    width: 100%;
+    padding:0px 20px;
+    background: #43609f;
+    line-height: 40px;
+    color: #ffffff;
+}
+.infobox{
+    padding-left:20px;
+}
+.listTop{
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+.listbox{
+    width: 100%;
+    overflow: hidden;
+}
+.listbox li{
+    width: 100%;
+    overflow: hidden;
+    border-left: 8px solid #fff;
+    padding: 15px 0px;
+
+}
+.tagName{
+    width: 75%;
+    height: 24px;
+    line-height: 24px;
+    display:block;white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    float: left;
+    font-size: 1em;
+
+}
+.tagpullnum{
+    float: right;
+    margin-top: 3px;
+    display: inline;
+
+}
+.borderb{
+    border-bottom: 1px solid #e6e6e6;
+}
+.tagcomment{
+    font-size: 1em;
+    line-height: 22px;
+    width: 100%;
+    overflow: hidden;
+    color: #666;
+}
+.downloaded-icon{
+    background-image: url("../images/pullicon.png");
+    background-repeat: no-repeat;
+    padding:8px;
+    background-position: 0px 10px;
+    background-size: contain;
+    margin-right: 6px;
+}

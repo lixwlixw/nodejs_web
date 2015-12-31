@@ -43,7 +43,7 @@ $(function(){
                	for(var i = 0;i < fornum;i++){
                		var repname = msg.data[i].repname;
                		var itemname = msg.data[i].itemname;
-               		var subtime = msg.data[i].subtime;
+               		var subtime = msg.data[i].signtime;
                			subtime = subtime.replace(/[A-Z]/g, " ");
                		var itemcomment
                		 $.ajax({

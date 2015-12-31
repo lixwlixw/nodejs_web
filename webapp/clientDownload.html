@@ -2,7 +2,9 @@
 <html>
 <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title></title>
+    <meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+    <meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+    <title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <link rel="stylesheet" href="./css/clientDownload.css">
@@ -82,19 +84,19 @@
                         <div class="smargin fcolor0">若需要向DataHub发布数据，需提供ENTRYPOINT，同时修改防火墙，使得Docker镜像的35800映射到的主机端口可以被外部访问。</div>
                         <div class="smargin">例如:docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>" -e "DAEMON_ENTRYPOINT=http://example.com:35800" -p 35800:35800 datahub</div>
                  </div>
-                  <div class="clientTitle bdbs" style="margin-top:50px;">
-                   <div class="titleImg title2"></div><strong><a href="javascript:void(0)"  id="006">DataHub Client端运行状态监控</a></strong>
-                 </div>
-                 <div class="monitorbox">
-                        <div class="monitorboxTop"></div>
-                        <div class="monitorboxCon">
-                             <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
-                             <div class="nobg_p">EntryPoint：<span class="havePoint">N/A</span></div>
-                             <div class="nobg_p">连接状态：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>
-                        </div>
-                 </div>
+                  <!--<div class="clientTitle bdbs" style="margin-top:50px;">-->
+                   <!--<div class="titleImg title2"></div><strong><a href="javascript:void(0)"  id="006">DataHub Client端运行状态监控</a></strong>-->
+                 <!--</div>-->
+                 <!--<div class="monitorbox">-->
+                        <!--<div class="monitorboxTop"></div>-->
+                        <!--<div class="monitorboxCon">-->
+                             <!--<div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>-->
+                             <!--<div class="nobg_p">EntryPoint：<span class="havePoint">N/A</span></div>-->
+                             <!--<div class="nobg_p">连接状态：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>-->
+                        <!--</div>-->
+                 <!--</div>-->
                  <div class="clientTitle bdbs" style="margin-top:50px;">
-                   <div class="titleImg title3"></div><strong><a href="javascript:void(0)"  id="007">运行Datahub CLI</a></strong>
+                   <div class="titleImg title3"></div><strong><a href="javascript:void(0)"  id="006">运行Datahub CLI</a></strong>
                  </div>
                  <div class="sub-nav">
                         <span class="sub-navicon twobg"></span>DataHub CLI是DataHub Client的命令行客户端，用来执行DataHub相关命令。
@@ -523,7 +525,7 @@
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">脚本安装</a></div>
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">源码安装</a></div>
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">Docker镜像安装安装</a></div>
-                        <div class="right_p"><a href="javascript:void(0)">DataHub Client端运行状态监控</a></div>
+                        <!--<div class="right_p"><a href="javascript:void(0)">DataHub Client端运行状态监控</a></div>-->
                         <div class="right_p"><a href="javascript:void(0)">DataHub Client端命令行</a></div>
                 </div>
         </div>         
@@ -546,7 +548,7 @@
             type: "get",
             url:ngUrl+"/daemon/id",
             cache:false,
-            async:false,
+//            async:false,
             headers:{Authorization:"Token "+account},
             success: function(msg){
                 $('.havetoken').html(msg.data.daemonid);
@@ -562,7 +564,7 @@
             type: "get",
             url:ngUrl+"/daemon/ep/"+tname,
             cache:false,
-            async:false,
+//            async:false,
             headers:{Authorization:"Token "+account},
             success: function(msg){
                   if(msg.data == null){
@@ -591,19 +593,22 @@ $(function(){
         var thisobjid = "00"+thisindex
         if(thisobjid == '001'){
             window.scrollTo(0,0)
+        }else if(thisobjid == '002'){
+            window.scrollTo(0,450)
         }else{
             clicksettop(thisobjid);
         }
         $(this).addClass('activecur').siblings().removeClass('activecur');
     });
     var setarr = [];
-    for(var i=0 ;i<7;i++){
+    for(var i=0 ;i<6;i++){
         setarr[i] = document.getElementById('00'+(i+1)).offsetTop;
     }
     function settop(setnum){
         $('.rightwrop div').eq(setnum).addClass('activecur').siblings().removeClass('activecur');
     }
     $(window).scroll(function(){
+//        alert(setarr);
         var stop = document.body.scrollTop ||document.documentElement.scrollTop;
         if (stop == 0){
             settop(0)
@@ -623,17 +628,15 @@ $(function(){
         if(stop>(setarr[5]-140)){
             settop(5)
         }
-        if(stop>(setarr[6]-140)){
-            settop(6)
-        }
+//        if(stop>(setarr[6]-140)){
+//            settop(6)
+//        }
 
 
     });
     function clicksettop(objid){
         var sheight = document.documentElement.clientHeight;
         var soffsetTop = document.getElementById(objid).offsetTop;
-        console.log(sheight);
-        console.log(soffsetTop);
         if(sheight<soffsetTop){
             window.scrollTo(0,soffsetTop-50)
         }

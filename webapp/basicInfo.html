@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>基本信息_DataHub阳光下的数据流通平台</title>
+<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
 <link rel="stylesheet" href="css/loader.css">
@@ -15,7 +17,7 @@
 </head>
 
 <style>
-	.nav > li > a:hover{
+	.nav > li > a:hover {
 		background-color:rgba(31,154,218,0.7); 
 	}	
 	.navbar-toggle .icon-bar {
@@ -96,8 +98,10 @@
                 <p id="success">修改成功！</p>
                 <p id="error">提交失败！</p>
 				<p id="error_emptyName">名称不能为空</p>
+				<p id="error_emptyName2">昵称不能为空</p>
+				<p id="error_emptyName3">昵称已经存在</p>
 				<p id="error_emptyComment">简介不能为空</p>
-				<p id="error_allEmpty">名称和简介不能为空</p>
+				<p id="error_allEmpty">输入内容不能为空</p>
 			<!--做到这-->
         </div>
 		<div  class="mid_main">
@@ -109,6 +113,11 @@
 				<label for="exampleInputName">名称<span>设置后不能修改</span></label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
                          style="margin-bottom: 0;width:480px;">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputName">昵称</label>
+				<input  class="form-control " id="exampleInputName2" placeholder="昵称"
+					   style="margin-bottom: 0;width:480px;">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputTime">简介</label>
@@ -213,6 +222,7 @@ $(document).ready(function(){
 /*console.log(JSON.stringify($.cookie("token")));*/
 		$('#exampleInputTime').attr('disabled', 'true');
 		$('#exampleStopTime').attr('disabled', 'true');
+		$('#exampleInputEmail1').attr('disabled', 'true');
 		$.ajax({
 			url:ngUrl+"/users/"+$.cookie("tname"),
 			type:"get",
@@ -222,13 +232,20 @@ $(document).ready(function(){
 			datatype:'json',
 				success:function(data){
 					var nickName=data.data.nickName;
+					var userName=data.data.userName;
 					var comment=data.data.comment;
+					var registTime=data.data.registTime;
+					var invalidTime=data.data.invalidTime;
+					$("#exampleInputTime").val(registTime);
+					$("#exampleStopTime").val(invalidTime);
 //输入框有数据
-                    if (nickName.length>0||comment.length>0)
+                    if (nickName.length>0||comment.length>0||userName.length>0)
                     {
 						$("#exampleInputName").attr("disabled",true);
+						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
-                        $("#exampleInputName").val(nickName);
+                        $("#exampleInputName").val(userName);
+						$("#exampleInputName2").val(nickName);
                         $("#textComment").val(comment);
 						$("#update_icon").css("display","none");
 //                        $("#exampleInputName").attr("disabled","disabled");
@@ -236,12 +253,14 @@ $(document).ready(function(){
 //                        $("#button01").css("display","none");
                     }
 					//输入框无数据
-                    if (nickName.length==0||comment.length==0)
+                    if (nickName.length==0||comment.length==0||userName.length==0)
                     {
-                        $("#exampleInputName").val(nickName);
+                        $("#exampleInputName").val(userName);
+						$("#exampleInputName2").val(nickName);
                         $("#textComment").val(comment);
 						$("#button01").css("display","block");
 						$("#exampleInputName").attr("disabled",false);
+						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
 						$("#update_icon").css("display","none");
 
@@ -256,6 +275,7 @@ $(document).ready(function(){
             $("#button01").css("display","block");
 //            $("#exampleInputName").attr("disabled",false);//名称设置后不能修改
             $("#textComment").attr("disabled",false);
+			$("#exampleInputName2").attr("disabled",false);
 			$("#update_icon").css("display","none");
 
 
@@ -300,9 +320,10 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#button01").click(function(){
 		var mydata = {};
-		mydata["nickname"] = $("#exampleInputName").val();
+		mydata["username"] = $("#exampleInputName").val();
 		mydata["comments"] = $("#textComment").val();
-		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0))
+		mydata["nickname"] = $("#exampleInputName2").val();
+		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0)&&($("#exampleInputName2").val().length==0))
 		{
 			$("#error_allEmpty").css("display","block");
 			$("#error_emptyName").css("display","none");
@@ -322,6 +343,13 @@ $(document).ready(function(){
 			$("#error_emptyComment").css("display","none");
 			$("#error_allEmpty").css("display","none");
 			$("#error_emptyName").fadeOut(3500);
+		}
+		else if($("#exampleInputName2").val().length==0)
+		{
+			$("#error_emptyName2").css("display","block");
+			$("#error_emptyComment").css("display","none");
+			$("#error_allEmpty").css("display","none");
+			$("#error_emptyName2").fadeOut(3500);
 		}
 		else{
 			$.ajax({
@@ -346,6 +374,7 @@ $(document).ready(function(){
 					if(data.code==0){
 
 							$("#exampleInputName").attr("disabled","disabled");
+							$("#exampleInputName2").attr("disabled","disabled");
 							$("#textComment").attr("disabled","disabled");
 							$("#button01").css("display","none");
 							$("#update_icon").css("display","inline-block");
@@ -355,8 +384,11 @@ $(document).ready(function(){
 							$("#error_emptyComment").css("display","none");
 							$("#error_allEmpty").css("display","none");
 							$("#success").fadeOut(4000);
-
-
+					}
+					if (data.code==8002)
+					{
+						$("#error_emptyName3").css("display","block")
+						$("#error_emptyName3").fadeOut(3500);
 					}
 				},
 				error:function(data){

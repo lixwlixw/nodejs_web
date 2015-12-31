@@ -66,7 +66,7 @@ body{
 #judgment p:hover{
 	color:#0077aa;
 	text-decoration:underline;
-
+	cursor: pointer;
 }
 #judgment_number{
 	border: 5px solid #e5e5e5;
@@ -630,4 +630,14 @@ body{
     color: #ff0000;
     width:200px;
     margin-bottom:15px;
+}
+.deleteTest{
+	margin-right: 10px;
+}
+.deleteTest:hover{
+	text-decoration:underline;
+	color:black;
+}
+.back_icon_a:hover{
+	text-decoration:underline;
 }

@@ -353,3 +353,73 @@ table{
 		 .window3 .p2{
 			color:#29abe2;	
 		}
+		 /*--模态框--*/
+.modal-content{
+	width: 430px !important;
+}
+#modal-main{
+	padding:30px !important;
+	width: 100% !important;
+}
+#modal_title p{
+	font-size: 20px;
+	color: #333;
+	display: inline;
+}
+.form-group{
+	margin-top: 30px;
+}
+.form-group input{
+	width: 360px !important;
+	height: 40px;
+	font-size: 14px;
+	color:#666;
+}
+.modal_label{
+	font-size: 14px;
+	color:#29abe2;
+}
+.btn-group-00{
+	margin-top: 30px;
+}
+#btn01{
+	width: 170px;
+	height: 40px;
+	margin-right: 16px;
+	background-color: #999 !important;
+	color:#fff;
+	font-size: 16px;
+}
+#btn01:hover{
+	background-color: #666 !important;
+}
+#btn02{
+	width: 170px;
+	height: 40px;
+	background-color: #29abe2;
+	color: #ffffff;
+	font-size: 16px;
+}
+#btn02:hover{
+	background-color:#1998ce;
+}
+.window{
+	width:350px;
+	height:130px;
+	border:5px solid #e5e5e5;
+	background-color:white;
+	padding-top:15px;
+	position:absolute;
+	display:none;
+	margin:42px -72px;
+}
+.window p{
+	text-align:center;
+	font-size:16px;
+	line-height:30px;
+	color:#000;
+}
+
+.window .p2{
+	color:#29abe2;
+}

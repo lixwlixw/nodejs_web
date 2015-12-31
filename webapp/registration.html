@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-邀请注册</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/registration.css">
+</head>
+<style>
+
+</style>
+<body>
+	<div class="be-loader" style="display: block;">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	<!--头部导航-->
+	<header></header>
+	<!--内容-->
+	<!--左侧导航-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:400px">
+		<div class="regBox">
+			<div class="title">
+					<p style="font:16px;">邀请注册</p>
+			</div>
+			<div class="labelBox">
+				<p id="label_one" style="display: none"><span class="span_icon"></span>邮箱输入有误，请重新输入!</p>
+				<p id="label_two" style="display: none"><span class="span_icon"></span>请重新输入公司名称!</p>
+				<p id="label_three" style="display: none"><span class="span_icon"></span>联系方式输入有误，请重新输入!</p>
+				<p id="label_four" style="display: none"><span class="span_icon"></span>请重新输入您的需求!</p>
+			</div>
+			<div class="contentbox">
+  				<div class="input-group">
+   					 <input style="border-radius:4px; margin-bottom:30px;" type="email" class="form-control" ID="loginEmail" placeholder="邮箱">
+   					 <input style="border-radius:4px; margin-bottom:30px;" type="text" class="form-control" ID="companyName" placeholder="公司名称">
+   					 <input style="border-radius:4px; margin-bottom:30px;" type="text" class="form-control" ID="phone" placeholder="联系方式">
+   					 <textarea ID="reqirement" class="form-control" style="width:100%; margin-bottom:30px;border-radius:4px;" rows="3" cols="20" placeholder="您的需求"></textarea>
+   				</div>	
+  				<div class="btn-group-00">
+  					<a ID="cancle" class="btn btn-default" role="button" type="submit" HREF="javaScript:void(0);">取消</a>
+  					<a ID="confirm" class="btn btn-default" role="button" HREF="javaScript:void(0);">确认</a> 
+  				</div>
+			</div>
+		</div>
+		<!--邮件发送成功-->
+		<div class="sendEmail" style="display:none">
+			<div class="title">
+					<p style="font:16px; padding-bottom:30px">邀请注册</p>
+			</div>
+			<div class="info">
+					<p style="font:16px; color:#00dd00; padding-bottom:20px">请发送邮件！</p><br>
+					<p style="font:16px;">工作人员稍后会与您联系。</p>
+			</div>
+		</div>
+	</div>
+	<footer></footer>
+
+	<div id="loginTem"></div>
+	
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/ngUrl.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/base64.js"></script>
+	<script src="js/md5.js"></script>
+	<script>
+		$("a").focus(function(){this.blur()});
+		$("header").load("common/header.html");
+		$("footer").load("common/footer.html");
+		$("#loginTem").load("common/login.html");
+		$(window).load(function(){
+			$(".be-loader").fadeOut("slow");
+		});
+		
+		function getParam(key) {
+			var value='';
+			var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+			if (itemid.test(decodeURIComponent(window.location.href))) {
+				value = itemid.exec(decodeURIComponent(window.location.href))[1];
+			}
+			return value;
+		}
+	</script>
+
+	<script>
+		$(document).ready(function(){
+			var b=true;
+			//var strEmail =$("#loginEmail").val();
+			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			$("#loginEmail").blur(function(){			
+            	if (!reg.test($("#loginEmail").val())){	
+            		$("#label_one").css("display","block");
+					$("#label_two").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					b=false;		
+				} 
+				else { 
+					$("#label_one").css("display","none");	
+				} 
+			});
+
+			$("#companyName").blur(function(){	
+				if($("#companyName").val().length==0){
+					$("#label_two").css("display","block");
+					$("#label_one").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					b=false;
+				}
+				else {
+					$("#label_two").css("display","none");
+				}
+			});
+
+			$("#phone").blur(function(){	
+				if(document.getElementById("phone").value==''){
+					$("#label_three").css("display","block");
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");	
+					$("#label_four").css("display","none");	
+					b=false;
+				}
+				else {
+					$("#label_three").css("display","none");
+				}
+			});
+
+			$("#reqirement").blur(function(){	
+				if(document.getElementById("phone").value==''){
+					$("#label_three").css("display","none");
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");	
+					$("#label_four").css("display","block");	
+					b=false;
+				}
+				else {
+					$("#label_four").css("display","none");
+				}
+			});
+
+		$("#confirm").click(function(){	
+	
+			if( $("#loginEmail").val() == ''){
+				$("#loginEmail").focus();
+				$("#label_one").css("display","block");
+				return;	
+			}
+
+			if( $("#companyName").val() == ''){
+				$("#companyName").focus();
+				$("#label_two").css("display","block");
+				return;	
+			}
+
+			if( $("#phone").val() == ''){
+				$("#phone").focus();
+				$("#label_three").css("display","block");
+				return;	
+			}
+
+			if( $("#reqirement").val() == ''){
+				$("#reqirement").focus();
+				$("#label_four").css("display","block");
+				return;	
+			}
+				 $(".regBox").hide();
+				 $(".sendEmail").show();
+				 	var ee=$("#loginEmail").val();
+				 	var nn=$("#companyName").val();
+				 	var pp=$("#phone").val();
+				 	var ww=$("#reqirement").val();
+				 	$("#confirm").attr("href","mailto:songliang@asiainfo.com?cc=datahub@asiainfo.com&subject=注册信息&body="+ee+"%0d%0a"+nn+"%0d%0a"+pp+"%0d%0a"+ww);
+""
+				 	$("#loginEmail").val("");
+					$("#companyName").val("");
+					$("#phone").val("");
+					$("#reqirement").val("");
+
+			});
+
+			$("#cancle").click(function(){
+					$("#loginEmail").val("");
+					$("#companyName").val("");
+					$("#phone").val("");
+					$("#reqirement").val("");
+			 });
+		});
+
+	</script>
+	
+</body>

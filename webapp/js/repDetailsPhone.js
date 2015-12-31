@@ -112,10 +112,22 @@ $(function(){
         for(var i = 0;i<itemdatas.length;i++){
             getAjax(ngUrl+ "/repositories/" + repname + "/"+itemdatas[i],function(msg){
                 itemloginName = getscreateName(msg.data.create_user);
-                var str= '<a href="itemDetails.html?repname='+repname+'&itemname='+itemdatas[i]+'"><li class="borderb">'+
+                var datastyle = '';
+                var itemdatatype = msg.data.pricestate
+                if(itemdatatype == '免费'){
+                    datastyle = 'freedata';
+                }else if(itemdatatype == '付费'){
+                    datastyle = 'paydata';
+                }else{
+                    datastyle = 'limitdata';
+                }
+                var str= '<a href="itemDetailsPhone.html?repname='+repname+'&itemname='+itemdatas[i]+'"><li class="liListwrop">'+
+                    '<div style="width:100%;overflow: hidden;padding:15px 0;" class="borderb">'+
                     '<div class="listTop">'+repname+'/'+itemdatas[i]+'</div>'+
                     '<div class="listbt">数据拥有方：<span class="itemcur">'+itemloginName+'</span></div>'+
                     '<div class="listicon" ></div>'+
+                    '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'+
+                    '</div>'+
                     '</li></a>';
                 $('.repinfoList').append(str);
             });

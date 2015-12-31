@@ -2,7 +2,9 @@
 <html>
 <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title></title>
+    <meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+    <meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+    <title>Repo详情手机页_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <script language="JavaScript" src="./js/jquery.min.js"></script>
@@ -117,7 +119,26 @@
             height: 30px;
             display: block;
         }
-
+        .pricestate{
+            position: absolute;
+            right: 26%;
+            top: 15px;
+            border: 1px solid #ff1c1c;
+            border-radius: 2rem;
+            padding:0px 5px;
+        }
+        .freedata{
+            color: #f49f12;
+            border-color: #f49f12;
+        }
+        .paydata{
+            color: #f06f9c;
+            border-color: #f06f9c;
+        }
+        .limitdata{
+            color: #ed4855;
+            border-color: #ed4855;
+        }
         .curname{
             width: 30%;
             overflow: hidden;
@@ -145,15 +166,14 @@
         }
         .repinfoList li{
             width: 100%;
-            padding-right: 70px;
-            padding:15px 0px;
             position: relative;
+            padding-left:6%;
         }
         .listTop{
             line-height: 20px;
             font-size: 1.2em;
             color: #0077aa;
-            width: 75%;
+            width: 58%;
             word-wrap:break-word;
         }
         .listbt{
@@ -180,6 +200,7 @@
         .repinfo{
             font-size: 1.2em;
             color: #000;
+            margin-left:6%;
         }
         .partitionline{
             width: 100%;
@@ -189,12 +210,15 @@
         .repcomment{
             padding-right: 6%;
         }
+        .navbar-toggle .icon-bar {
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
 <!-- 头部导航 -->
 <header></header>
-<div class="boxwrop borderb">
+<div class="boxwrop" style="border-bottom: 1px solid #e6e6e6">
     <div class="reptitle borderb">
         <div class="repNamebg"></div>
         <div class="repname"></div>
@@ -222,8 +246,8 @@
 </div>
 <div class="partitionline"></div>
 
-<div class="boxwrop" style="padding-bottom: 50px;">
-    <div class="repinfo borderb">rep信息</div>
+<div class="boxwrop" style="padding-bottom: 50px;padding-left: 0px;">
+    <div class="repinfo borderb">DataItem</div>
     <ul class="repinfoList">
         <!--<li class="borderb">-->
             <!--<div class="listTop"><a href="#">Film_and_television</a></div>-->
@@ -239,10 +263,10 @@
 </body>
 </html>
 <script>
-    $(document).on('touchstart','.borderb',function(){
+    $(document).on('touchstart','.liListwrop',function(){
         $(this).css('background-color','#e8e8e8');
     });
-    $(document).on('touchend','.borderb',function(){
+    $(document).on('touchend','.liListwrop',function(){
         $(this).css('background-color','#fff');
     });
     $("a").focus(function(){this.blur()});
