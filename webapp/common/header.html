@@ -141,7 +141,7 @@
               <a id="nLogos" class="navbar-brand" style="color: #fff;font-size: 2em" href="/">DataHub</a>
           </div> 
 		  <div  id="col-left" class="col-sm-4"  style="margin:13px 0px 10px 0px;">
-			<input id="headerInput" type="text" class="form-control" placeholder="寻找海量数据" style="height:28px;border: 0 none;">
+			<input id="headerInput" type="text" class="form-control headerInput" placeholder="寻找海量数据" style="height:28px;border: 0 none;">
 			<div class="hSearchBtn"></div>
 		  </div>
 
@@ -308,7 +308,9 @@
 	});
 	
 	$(document).on('click',".hSearchBtn",function (e) {
-		  var vals=$("#headerInput").val();
+		
+		  var vals=$(".headerInput").val();
+
 		  if(pcorphone == 'pc'){
 			  location.href="search.html?rtext="+vals;
 		  }
