@@ -2,12 +2,11 @@
  * Created by Administrator on 2015/12/9.
  */
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+	
 })
 
 var type=0;
 var size=0;
-
 
 //type类型，size分页数
 function init(type,size){
@@ -18,11 +17,13 @@ function init(type,size){
 	pagechange(0);
 }
 
-function pagechange(new_page_index){
+function pagechange(new_page_index){		
+	$('body,html').animate({ scrollTop:0}, 500);
 	var page=new_page_index+1;
 	var type=window.type;
 	var size=window.size;
 	ajaxFunHtml(type,size,page);
+	$('[data-toggle="tooltip"]').tooltip();
 }
 
 
@@ -198,7 +199,7 @@ function forList(list,type){
             		 $("#terminal-content-body").append(""+
                      		
                          	"<div class='repo'>"+
-         						"<div class='left'>"+
+         						"<div class='data_left'>"+
 
      	    					"<div class='subtitle'>"+ 
      	    						"<a style='color:#0077aa' href='repDetails.html?repname="+list[i]+"'>"+list[i]+"</a>"+ 
@@ -210,28 +211,28 @@ function forList(list,type){
 
      	    					"<div class='subline'>"+  	
      	    						"<div class='icon'>"+
-     	    							"<img style='margin-right:15px;margin-left:30px' src='images/selects/images_17.png'/>"+
+     	    							"<img style='margin-right:15px;margin-left:30px' src='images/selects/images_17.png' data-toggle='tooltip' datapalecement='top' title='更新时间'/>"+
      	    							"<span title='"+jdTime+"'>"+showTime+"<span>"+
-     	    							"<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='Paste' Paste/>"+
+     	    							"<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='item数量' />"+
      	    							"<span>"+json.data.items+"</span>"+
      	    						"</div>"+
      	    					"</div>"+
      	    					
      	    				"</div>"+	
 
-         				"<div class='right'>"+	
+         				"<div class='data_right' style='height:auto;margin-bottom:30px;'>"+	
          					"<div class='iconGroup' style='margin-right:0px;float:right;border-top:0px;margin-top:60px;'>"+
          						"<div class='like'>"+
-         							"<img src='images/selects/images_39.png'>"+
-         							"<span style='margin-left: 20px;'>"+subnum+"</span>"+
+         							"<img src='images/selects/images_39.png' data-toggle='tooltip' datapalecement='top' title='star数量'>"+
+         							"<span style='margin-left: 20px;'>"+starsnum+"</span>"+
          						"</div>"+	
          						"<div class='cart'>"+
-         							"<img src='images/selects/images_32.png'>"+
-         							"<span style='margin-left: 20px;'>"+transnum+"</span>"+
+         							"<img src='images/selects/images_32.png' data-toggle='tooltip' datapalecement='top' title='订购量'>"+
+         							"<span style='margin-left: 20px;'>"+subnum+"</span>"+
          						"</div>"+
          						"<div class='download'>"+
-         							"<img src='images/selects/images_10.png'>"+
-         							"<span style='margin-left: 20px;'>"+starsnum+"</span>"+ 
+         							"<img src='images/icon_download.png' data-toggle='tooltip' datapalecement='top' title='pull量'>"+
+         							"<span style='margin-left: 20px;'>"+transnum+"</span>"+ 
          						"</div>"+
          					"</div>"+
          				"</div>"+

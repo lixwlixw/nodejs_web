@@ -41,36 +41,42 @@ $(document).ready(function(){
             var bgarr = [];
             if(json.data.length!=0){
                 var fornum=json.data.length;
-                 bgarr = json.data;
+                bgarr = json.data;
                 var aa = parseInt(fornum / 8);
                 var bb = fornum % 8 -1;
                 var navpage = 0;
                 for(var i = 0;i<aa;i++){
                     var lilist = '<li class="li'+ navpage +'"></li>';
-                     $('.topnavlistwrop').append(lilist);
-                    for(var j=1;j<=8;j++){
+                    $('.topnavlistwrop').append(lilist);
+                    for(var j=1;j<fornum;j++){
                         var thisssss = navpage*8+j;
                         var str =  '<div class="imgwrop">'+
-                                    "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisssss].icon+".png\")'>"+
-                                    '</div>'+
-                                    '<p>'+json.data[thisssss].labelname +'</p>'+
-                                    '</div>';
+                            "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisssss].icon+".png\")'>"+
+                            '</div>'+
+                            '<p>'+json.data[thisssss].labelname +'</p>'+
+                            '</div>';
                         $('.li'+navpage).append(str);
                     }
-                     navpage++;
+                    if(aa>=1 && bb>=1){
+                        navpage++;
+                    }
+
                 }
-                 var lilist = '<li class="li'+ navpage +'"></li>';
-                  $('.topnavlistwrop').append(lilist);
-                for(var j=0;j<bb;j++){
-                    var thisnum = navpage*8+j+1;
-                    var str =  '<div class="imgwrop">'+
-                                "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisnum].icon+".png\")'>"+
-                                '</div>'+
-                                '<p>'+json.data[thisnum].labelname +'</p>'+
-                                '</div>';
+                if(bb>0){
                     var lilist = '<li class="li'+ navpage +'"></li>';
-                     $('.li'+navpage).append(str);
+                    $('.topnavlistwrop').append(lilist);
+                    for(var j=0;j<bb;j++){
+                        var thisnum = navpage*8+j+1;
+                        var str =  '<div class="imgwrop">'+
+                            "<div class='selectimgwrop select' style='background-image:url(\"images/"+json.data[thisnum].icon+".png\")'>"+
+                            '</div>'+
+                            '<p>'+json.data[thisnum].labelname +'</p>'+
+                            '</div>';
+                        var lilist = '<li class="li'+ navpage +'"></li>';
+                        $('.li'+navpage).append(str);
+                    }
                 }
+
                 for(var i = 0;i<=navpage;i++){
                     var spans = "<span></span>";
                     $('.focus-inner').append(spans);
@@ -106,15 +112,15 @@ $(document).ready(function(){
 
     //左侧导航点击切换;
     $(".topbox").on("click",".imgwrop",function(){
-             thisvalue = $(this).children('p').text();
-            if(thisvalue == '更多'){
-                $('#topNav>div:gt(7)').show();
-            }else{
-                $(".repinfoList").empty();
-                repos = [];//数据清空
-                $('.repinfo').html(thisvalue);
-                appendList2(1,thisvalue);
-            }
+        thisvalue = $(this).children('p').text();
+        if(thisvalue == '更多'){
+            $('#topNav>div:gt(7)').show();
+        }else{
+            $(".repinfoList").empty();
+            repos = [];//数据清空
+            $('.repinfo').html(thisvalue);
+            appendList2(1,thisvalue);
+        }
 
         //}
     });
@@ -210,8 +216,10 @@ $(document).ready(function(){
                         datastyle = 'freedata';
                     }else if(itemdatatype == '付费'){
                         datastyle = 'paydata';
-                    }else{
+                    }else if(itemdatatype == '限量免费'){
                         datastyle = 'limitdata';
+                    }else{
+                        datastyle = '';
                     }
                     //该用户昵称
                     $.ajax({
@@ -233,13 +241,13 @@ $(document).ready(function(){
                         }
                     });
                     var str =   '<li class="replist">'+
-                                '<div class="liconwrop borderb">'+
-                                '<div class="listTop"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
-                                '<div class="listbt">本数据由：<span class="itemcur">'+realname+'</span>&nbsp;提供</div>'+
-                                '<div class="listicon"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
-                                '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'
-                                '</div>'+
-                                '</li>'
+                        '<div class="liconwrop borderb">'+
+                        '<div class="listTop"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+repos[i][0]+'/'+ repos[i][1]+'</a></div>'+
+                        '<div class="listbt">本数据由：<span class="itemcur">'+realname+'</span>&nbsp;提供</div>'+
+                        '<div class="listicon"><a href="itemDetailsPhone.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'"></a></div>'+
+                        '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'
+                    '</div>'+
+                    '</li>'
                     $(".repinfoList").append(str);
                 },
                 error:function(json){

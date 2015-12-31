@@ -327,6 +327,7 @@ $(function(){
                 $('.xiugaiwrop').hide();
             }
             $('.valuemoney').empty();
+            $('.itemtag .value').empty();
             $.ajax({
                 type: "get",
                 url:ngUrl+"/permission/"+repname+"/"+itemname,

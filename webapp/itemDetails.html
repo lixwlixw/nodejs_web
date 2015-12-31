@@ -24,8 +24,8 @@
 	}
 	.navbar-toggle .icon-bar {
 		background-color: #fff;
-	}
 	.navbar-nav > li > a:focus{
+	}
 		background:none;
 	}
 </style>
@@ -534,7 +534,7 @@
 					cache:false,
 					data:{},
 					async:false,
-					repoheaders:headerToken,
+					headers:headerToken,
 					dataType:'json',
 					success:function(json){
 						if(json.code == 0){
@@ -669,6 +669,8 @@
 						unit = "次";
 						unitName = "times";
 					}
+					unitName="units";
+					
 					for(var i=0; i<prices.length; i++) {
 						var price = prices[i];
 						var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
