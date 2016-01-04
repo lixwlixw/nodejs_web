@@ -176,6 +176,7 @@ $(function() {
                     apendjson.create_user = msg.data.create_user;
                     apendjson.itemloginName = itemloginName;
                     apendjson.comment = msg.data.comment;
+                    apendjson.pricestate = msg.data.pricestate;
                     apendjson.jdTime = jsonTime.jdTime;
                     apendjson.showTime = jsonTime.showTime;
                     apendjson.tagss = msg.data.tags;
@@ -245,6 +246,7 @@ $(function() {
                     apendjson.create_user = msg.data.create_user;
                     apendjson.itemloginName = itemloginName;
                     apendjson.comment = msg.data.comment;
+                    apendjson.pricestate = msg.data.pricestate;
                     apendjson.jdTime = jsonTime.jdTime;
                     apendjson.showTime = jsonTime.showTime;
                     apendjson.tagss = msg.data.tags;
@@ -290,7 +292,7 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="right">'+
         '<div class="price">'+
-        '<p>免费</p>'+
+        '<p>'+apendjson.pricestate+'</p>'+
         '</div>'+
         '<div class="iconGroup">'+
         '<div class="like">'+
