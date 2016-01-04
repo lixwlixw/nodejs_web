@@ -84,19 +84,19 @@
                         <div class="smargin fcolor0">若需要向DataHub发布数据，需提供ENTRYPOINT，同时修改防火墙，使得Docker镜像的35800映射到的主机端口可以被外部访问。</div>
                         <div class="smargin">例如:docker run -d -e "DAEMON_TOKEN=<span class="havetoken"></span>" -e "DAEMON_ENTRYPOINT=http://example.com:35800" -p 35800:35800 datahub</div>
                  </div>
-                  <div class="clientTitle bdbs" style="margin-top:50px;">
-                   <div class="titleImg title2"></div><strong><a href="javascript:void(0)"  id="006">DataHub Client端运行状态监控</a></strong>
-                 </div>
-                 <div class="monitorbox">
-                        <div class="monitorboxTop"></div>
-                        <div class="monitorboxCon">
-                             <div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>
-                             <div class="nobg_p">EntryPoint：<span class="havePoint">N/A</span></div>
-                             <div class="nobg_p">连接状态：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>
-                        </div>
-                 </div>
+                  <!--<div class="clientTitle bdbs" style="margin-top:50px;">-->
+                   <!--<div class="titleImg title2"></div><strong><a href="javascript:void(0)"  id="006">DataHub Client端运行状态监控</a></strong>-->
+                 <!--</div>-->
+                 <!--<div class="monitorbox">-->
+                        <!--<div class="monitorboxTop"></div>-->
+                        <!--<div class="monitorboxCon">-->
+                             <!--<div class="nobg_p">Daemon Id：<span class="havetoken"></span></div>-->
+                             <!--<div class="nobg_p">EntryPoint：<span class="havePoint">N/A</span></div>-->
+                             <!--<div class="nobg_p">连接状态：<strong class="stateicon stateiconrgred"></strong><span class="statecolor statecolorgred">Client端失去连接</span></div>-->
+                        <!--</div>-->
+                 <!--</div>-->
                  <div class="clientTitle bdbs" style="margin-top:50px;">
-                   <div class="titleImg title3"></div><strong><a href="javascript:void(0)"  id="007">运行Datahub CLI</a></strong>
+                   <div class="titleImg title3"></div><strong><a href="javascript:void(0)"  id="006">运行Datahub CLI</a></strong>
                  </div>
                  <div class="sub-nav">
                         <span class="sub-navicon twobg"></span>DataHub CLI是DataHub Client的命令行客户端，用来执行DataHub相关命令。
@@ -525,7 +525,7 @@
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">脚本安装</a></div>
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">源码安装</a></div>
                         <div class="right_p"><span class="rboxicon"></span><a href="javascript:void(0)">Docker镜像安装安装</a></div>
-                        <div class="right_p"><a href="javascript:void(0)">DataHub Client端运行状态监控</a></div>
+                        <!--<div class="right_p"><a href="javascript:void(0)">DataHub Client端运行状态监控</a></div>-->
                         <div class="right_p"><a href="javascript:void(0)">DataHub Client端命令行</a></div>
                 </div>
         </div>         
@@ -601,13 +601,14 @@ $(function(){
         $(this).addClass('activecur').siblings().removeClass('activecur');
     });
     var setarr = [];
-    for(var i=0 ;i<7;i++){
+    for(var i=0 ;i<6;i++){
         setarr[i] = document.getElementById('00'+(i+1)).offsetTop;
     }
     function settop(setnum){
         $('.rightwrop div').eq(setnum).addClass('activecur').siblings().removeClass('activecur');
     }
     $(window).scroll(function(){
+//        alert(setarr);
         var stop = document.body.scrollTop ||document.documentElement.scrollTop;
         if (stop == 0){
             settop(0)
@@ -627,9 +628,9 @@ $(function(){
         if(stop>(setarr[5]-140)){
             settop(5)
         }
-        if(stop>(setarr[6]-140)){
-            settop(6)
-        }
+//        if(stop>(setarr[6]-140)){
+//            settop(6)
+//        }
 
 
     });

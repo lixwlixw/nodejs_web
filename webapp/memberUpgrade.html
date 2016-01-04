@@ -180,10 +180,15 @@
 							</div>
 							<div class="btn-group-00">
 								<div class="btn-group " role="group">
-									<button type="button" class="btn btn-default btn0" id="btn01">取消</button>
+									<button type="button" class="btn btn-default btn0" data-dismiss="modal" id="btn01">取消</button>
 								</div>
 								<div class="btn-group " role="group">
 									<button type="button" class="btn btn-default btn0" id="btn02">确认</button>
+									<div class="window">
+										<p>请发送您的升级需求到</p>
+										<p class="p2" >datahub@asiainfo.com</p>
+										<p>我们会在三个工作日内回复您</p>
+									</div>
 								</div>
 							</div>
 					</div>
@@ -223,157 +228,186 @@
 	});
 
 	$(document).ready(function(){
-
+		$("#member_grade").attr("disabled",true);
+		$("#member_price").attr("disabled",true);
+		$("#member_time").attr("disabled",true);
 	});
 </script>
 <script>
-	$(document).ready(function(){
-		$(".btn1").click(function(){
-//			$(".window1").slideDown(100);
-			$(this).modal();
+	$(document).ready(function() {
+		//点击X按钮fadeOut弹窗
+		$("#modal_title button").click(function(){
+			$(".window").fadeOut(10);
 		});
-
-		$(".btn2").click(function(){
-//			$(".window2").slideDown(100);
-			$(this).modal();
-		});
-
-		$(".btn3").click(function(){
-//			$(".window3").slideDown(100);
-			$(this).modal();
-
+		$("#btn01").click(function(){
+			$(".window").fadeOut(10);
 		});
 
 		$.ajax({
-			url:ngUrl+"/vip/"+$.cookie("tname"),
-				type:"get",
-				cache:false,
-				async:false,
-				headers:{Authorization:"Token "+$.cookie("token")},
-				datatype:'json',
-				success:function(d){
-					var UT=d.data.userType;
-					if (UT==1)
-					{
-						
-					}
-					else if (UT==3)
-					{
-						$(".btn3").hide();
-					}
-					else if (UT==4)
-					{
-						$(".btn3").hide();
-						$(".btn2").hide();
-
-					}
-					else if (UT==5)
-					{
-						$(".btn3").hide();
-						$(".btn2").hide();
-						$(".btn1").hide();
-					}
-					
-				},
-				error:function(json){
-					errorDialog($.parseJSON(json.responseText).code);
-				$('#errorDM').modal('show');
+			url: ngUrl + "/vip/" + $.cookie("tname"),
+			type: "get",
+			cache: false,
+			async: false,
+			headers: {Authorization: "Token " + $.cookie("token")},
+			datatype: 'json',
+			success: function (d) {
+				var UT = d.data.userType;
+				if (UT == 1) {
 
 				}
-	
-			});
+				else if (UT == 3) {
+					$(".btn3").hide();
+				}
+				else if (UT == 4) {
+					$(".btn3").hide();
+					$(".btn2").hide();
 
-		$(".btn1").on("click",function(){
-			alert("11");
+				}
+				else if (UT == 5) {
+					$(".btn3").hide();
+					$(".btn2").hide();
+					$(".btn1").hide();
+				}
+
+			},
+			error: function (json) {
+				errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
+
+			}
 
 		});
-		$(".btn2").on("click",function(){
-			$("#member_grade").val("金卡会员");
+
+		$(".btn1").on("click", function () {
+			$("#member_grade").val("钻石会员");
+			var mydate = new Date();
+			var year = mydate.getFullYear(); //获取完整的年份(4位,1970-????)
+			var month = mydate.getMonth(); //获取当前月份(0-11,0代表1月)
+			var day = mydate.getDate(); //获取当前日(1-31)
+			var time = ((year + 1) + "-" + (month + 1) + "-" + day);
+			$("#member_time").val(time);
 			//获取费用
 			$.ajax({
-				url:ngUrl+"/vip/"+$.cookie("tname")+"/cost?userType=4",
-				type:"get",
-				cache:false,
-				async:false,
-				headers:{Authorization:"Token "+$.cookie("token")},
-				datatype:'json',
-				success:function(json) {
-					console.log(json);
+				url: ngUrl + "/vip/" + $.cookie("tname") + "/cost?type=5",
+				type: "get",
+				cache: false,
+				async: false,
+				headers: {Authorization: "Token " + $.cookie("token")},
+				datatype: 'json',
+				success: function (json) {
+					$("#member_price").val(json.data.cost);
 				},
-				error:function(){
+				error: function () {
 
+				}
+
+			});
+		});
+
+		//点击金卡会员按钮获取表单信息
+		$(".btn2").on("click", function () {
+			//$("#myModal").modal('toggle');
+			$("#member_grade").val("金卡会员");
+			var mydate = new Date();
+			var year = mydate.getFullYear(); //获取完整的年份(4位,1970-????)
+			var month = mydate.getMonth(); //获取当前月份(0-11,0代表1月)
+			var day = mydate.getDate(); //获取当前日(1-31)
+			var time = ((year + 1) + "-" + (month + 1) + "-" + day);
+			$("#member_time").val(time);
+			//获取费用
+			$.ajax({
+				url: ngUrl + "/vip/" + $.cookie("tname") + "/cost?type=4",
+				type: "get",
+				cache: false,
+				async: false,
+				headers: {Authorization: "Token " + $.cookie("token")},
+				datatype: 'json',
+				success: function (json) {
+					$("#member_price").val(json.data.cost);
+				},
+				error: function () {
 
 				}
 			});
 			//
 			$.ajax({
-				url:ngUrl+"/vip/"+$.cookie("tname"),
-				type:"get",
-				cache:false,
-				async:false,
-				headers:{Authorization:"Token "+$.cookie("token")},
-				datatype:'json',
-				success:function(json) {
+				url: ngUrl + "/vip/" + $.cookie("tname"),
+				type: "get",
+				cache: false,
+				async: false,
+				headers: {Authorization: "Token " + $.cookie("token")},
+				datatype: 'json',
+				success: function (json) {
 					console.log(json);
-					var usertype=json.data.userType;
+					var usertype = json.data.userType;
 
 				},
-				error:function(){
+				error: function () {
 				}
 			});
 
 		});
-		$(".btn3").on("click",function(){
-			alert("11");
+		$("#btn02").on("click",function(){
+			$(".window").fadeIn();
+		});
+		$(".btn3").on("click", function () {
+			$("#member_grade").val("认证会员");
+			var mydate = new Date();
+			var year = mydate.getFullYear(); //获取完整的年份(4位,1970-????)
+			var month = mydate.getMonth(); //获取当前月份(0-11,0代表1月)
+			var day = mydate.getDate(); //获取当前日(1-31)
+			var time = ((year + 1) + "-" + (month + 1) + "-" + day);
+			$("#member_time").val(time);
+			//获取费用
+			$.ajax({
+				url: ngUrl + "/vip/" + $.cookie("tname") + "/cost?type=3",
+				type: "get",
+				cache: false,
+				async: false,
+				headers: {Authorization: "Token " + $.cookie("token")},
+				datatype: 'json',
+				success: function (json) {
+					$("#member_price").val(json.data.cost);
+				},
+				error: function () {
+
+
+				}
+
+			});
 
 		});
-	
-	});
 
-	$(document).bind("click",function(e){
-				var target  = e.target;
-				if(target.className.indexOf("window1")<0&&target.className.indexOf("btn1")<0)
-				{
-					$(".window1").fadeOut(10);
-				}
-				if (target.className.indexOf("window2")<0&&target.className.indexOf("btn2")<0)
-				{
-					$(".window2").fadeOut(10);
-				}
-				if (target.className.indexOf("window3")<0&&target.className.indexOf("btn3")<0)
-				{
-					$(".window3").fadeOut(10);
-				}
-				
-	});
-
-//	$(document).bind("click",function(e){
-//			var target  = e.target;
-//			if((target.className.indexOf("window1")<0&&target.className.indexOf("btn1")<0)
-//				&&(target.className.indexOf("window2")<0&&target.className.indexOf("btn2")<0)
-//				&&(target.className.indexOf("window3")<0&&target.className.indexOf("btn3")<0)){
-//					
-//			$(".window1").fadeOut(10);
-//			$(".window2").fadeOut(10);
-//			$(".window3").fadeOut(10);
-//				
+		$(document).bind("click", function (e) {
+			var target = e.target;
+			if (target.className.indexOf("window1") < 0 && target.className.indexOf("btn1") < 0) {
+				$(".window1").fadeOut(10);
+			}
+			if (target.className.indexOf("window2") < 0 && target.className.indexOf("btn2") < 0) {
+				$(".window2").fadeOut(10);
+			}
+			if (target.className.indexOf("window3") < 0 && target.className.indexOf("btn3") < 0) {
+				$(".window3").fadeOut(10);
+			}
+//			$(".window").fadeOut(3000);
+//			if (target.className.indexOf("window") < 0 && target.className.indexOf("btn02") < 0) {
+//				$(".window").fadeOut(10);
 //			}
-//		
-//	});
-	$("p").bind("click",function(e){
-				stopEventStrans(e);
-	});
 
-		
-	function stopEventStrans(e) {
-		e = e || window.event;
-		if (e.stopPropagation) {
-			e.stopPropagation();//IE以外
-		} else {
-			e.cancelBubble = true;//IE
+		});
+
+		$("p").bind("click", function (e) {
+			stopEventStrans(e);
+		});
+
+
+		function stopEventStrans(e) {
+			e = e || window.event;
+			if (e.stopPropagation) {
+				e.stopPropagation();//IE以外
+			} else {
+				e.cancelBubble = true;//IE
+			}
 		}
-	}
-	
-
-
+	});
 </script>

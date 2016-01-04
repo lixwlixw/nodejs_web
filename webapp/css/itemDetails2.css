@@ -127,6 +127,7 @@
     display:inline-block;
     width: 25px;
     height: 25px;
+    cursor:pointer;
 }
 #icon_heart+p{
     height: 25px;
@@ -232,7 +233,6 @@
 .content{
     float: left;
     width: 100%;
-    display:none;
 }
 /*content*/
 .content:hover{

@@ -183,19 +183,24 @@
     position: absolute;
     right: 26%;
     top: 15px;
-    border: 1px solid #ff1c1c;
-    border-radius: 2rem;
+
     padding:0px 5px;
 }
 .freedata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
     color: #f49f12;
     border-color: #f49f12;
 }
 .paydata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
     color: #f06f9c;
     border-color: #f06f9c;
 }
 .limitdata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
     color: #ed4855;
     border-color: #ed4855;
 }

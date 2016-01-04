@@ -112,6 +112,22 @@ body{
 		 display: none;
 	 }
 #error_emptyName{
+	 background-color: #ffe5e5;
+	 color: #ff0000;
+	 font-size: 16px;
+	 line-height: 28px;
+	 padding:0px 10px ;
+	 display: none;
+ }
+#error_emptyName2{
+	background-color: #ffe5e5;
+	color: #ff0000;
+	font-size: 16px;
+	line-height: 28px;
+	padding:0px 10px ;
+	display: none;
+}
+#error_emptyName3{
 	background-color: #ffe5e5;
 	color: #ff0000;
 	font-size: 16px;

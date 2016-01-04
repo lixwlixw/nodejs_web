@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DataHub阳光下的数据流通平台</title>
+<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+<title>DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
 <link rel="stylesheet" href="css/index.css">
@@ -116,8 +118,22 @@
                         <!--                    
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>   
                         -->   
-                        <li style="float: left;"><a id='sign-in' href='javaScript:void(0);'><img src="images/login.png"></a></li>
-                        <li style="float: left;"><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>
+                        <li style="float: left;">
+                        	<a id='sign-in' href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/login.png">
+                        		  -->
+                        		  登录
+                        	</a>
+                        </li>
+                        <li style="float: left;">
+                        	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		帮助
+                        	</a>
+                        </li>
                         <!--             
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 14px;margin-left:9px;padding: 0px 5px;margin-right: 10px'>?</a></li>
                          -->                      
@@ -125,11 +141,7 @@
                     </ul>
                     <ul id="inLoginf" class="nav navbar-nav">
                     	
-                        <li id="selectIndexs" class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li> 
-                        <!--                                    
-                        <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 9px;margin-right:15px;padding: 5px 10px;'>?</a></li>
-                         -->        
-                        
+                        <li id="selectIndexs" class="active"><a class="selectbtn" href="selects.html" style='color: #fff;font-size: 1em'>数据精选</a></li>                       
                         <!--
                         <li><a id='sign-help' href='javaScript:void(0);'><img src="images/i.png"></a></li>  
                         <li><a id='innames' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'></a></li>                    
@@ -146,23 +158,32 @@
                   </li>
 
                   <li class="inLoginfLiF">
-                  	<a title='我的订阅' style="color: #fff;font-size: 1em" href="mySubscribe.html">
+                  	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<!-- 
                   		<img src="images/fl1.png" />
                   		-->
-                  		我的订阅
+                  		我的订购
                   	</a>
                   </li>                       
                   <li class="inLoginfLiF">
-                  	<a title='我的pull' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->
-                  		我的pull
+                  		pull记录
+                  	</a>
+                  </li> 
+                  <li class="inLoginfLiF">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
                   	</a>
                   </li> 
                  
-                 <li class="inLoginfLiF" id="inLoginLiF">
+                 <!-- id="inLoginLiF" -->
+                 <li class="inLoginfLiF" id="inLoginLiF" style="width: auto;">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!-- 
                   		<img src="images/fl3.png" />
@@ -170,13 +191,12 @@
                   		个人中心
                   	</a>
 					  <ul class="dropdown-menu">
-					  	<!--
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
 					    <li role="separator" class="divider"></li>
-					    -->
 					    <li><a href="memberUpgrade.html" target="_blank">会员升级</a></li>
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
+					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>
@@ -201,7 +221,7 @@
             	<div class="col-sm-12"> 
                 	<h1 class="text-center animated fadeInDown" id="heatt">阳光下的数据流通平台</h1> 
 						<div id="dashboard" class="text-center actions animated fadeInDown delay2">
-                         <div style="margin-top:50px;" class="container" id="seachHeader">
+                         <div style="margin-top:45px;" class="container" id="seachHeader">
                                                             
                                 <span class="search-span">
                                     <input value="" autocomplete="off" maxlength="255" placeholder="请输入关键字搜索海量数据" class="search-input" name="wd" id="kw">
@@ -330,7 +350,7 @@
 						<div class="col-md-3" style='padding:0px;border-left: 1px solid #aaa;border-top: 1px solid #aaa;border-bottom: 1px solid #aaa;height:300px;' id='guanindex'> 
 		           			<img src="images/guanU1.png" />
 		           		</div>
-		           		<a href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
+		           		<a id="guanCom1" href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
 							<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
 								<div class="wobble-bottom guanDiv">
 				           			<img src="images/guan1.png" style='margin-top:30px'/>
@@ -340,7 +360,7 @@
 		           				</div>		
 			           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
+		           		<a id="guanCom2" href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guandx.png"  style='margin-top:30px'/>
@@ -350,7 +370,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business'>
+		           		<a id="guanCom3" href='itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd3 guanNum">
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan3.png"   style='margin-top:30px'/>
@@ -360,7 +380,7 @@
 	           				</div>
 		           		</div> 
 		           		</a>
-		           		<a href='itemDetails.html?repname=Base_station_location&itemname=Base_station_location'>
+		           		<a id="guanCom4" href='itemDetails.html?repname=Base_station_location&itemname=Base_station_location'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd4 guanNum" >
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan4.png"  style='margin-top:30px' />
@@ -370,7 +390,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=UnionPay&itemname=UnionPay'>
+		           		<a id="guanCom5" href='itemDetails.html?repname=UnionPay&itemname=UnionPay'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan6.png"   style='margin-top:30px'/>
@@ -380,7 +400,7 @@
 	           				</div>
 		           		</div>
 		           		</a>
-		           		<a href='itemDetails.html?repname=GIS_map&itemname=GIS_map'>
+		           		<a id="guanCom6" href='itemDetails.html?repname=GIS_map&itemname=GIS_map'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
 		           			<div class="wobble-bottom guanDiv">
 			           			<img src="images/guan5.png"   style='margin-top:30px'/>
@@ -595,6 +615,12 @@
 			$('#internethref').attr('href','selects.html?type=互联网专题');
 			$('#investigationhref').attr('href','selects.html?type=征信专题');
 			$('#operatorhref').attr('href','selects.html?type=运营商专题');
+			$('#guanCom1').attr('href','itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods');
+			$('#guanCom2').attr('href','itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route');
+			$('#guanCom3').attr('href','itemDetails.html?repname=Enterprise_business&itemname=Enterprise_business');
+			$('#guanCom4').attr('href','itemDetails.html?repname=Base_station_location&itemname=Base_station_location');
+			$('#guanCom5').attr('href','itemDetails.html?repname=UnionPay&itemname=UnionPay');
+			$('#guanCom6').attr('href','itemDetails.html?repname=GIS_map&itemname=GIS_map');
 		}
 		if(pcorphone == 'phone'){
 			$('.selectbtn').attr('href','selectsPhone.html');
@@ -602,6 +628,12 @@
 			$('#internethref').attr('href','selectsPhone.html?type=互联网专题');
 			$('#investigationhref').attr('href','selectsPhone.html?type=征信专题');
 			$('#operatorhref').attr('href','selectsPhone.html?type=运营商专题');
+			$('#guanCom1').attr('href','itemDetailsPhone.html?repname=Internet_stats&itemname=Ecommerce_goods');
+			$('#guanCom2').attr('href','itemDetailsPhone.html?repname=Transportation_of_beijing&itemname=Rail_transit_route');
+			$('#guanCom3').attr('href','itemDetailsPhone.html?repname=Enterprise_business&itemname=Enterprise_business');
+			$('#guanCom4').attr('href','itemDetailsPhone.html?repname=Base_station_location&itemname=Base_station_location');
+			$('#guanCom5').attr('href','itemDetailsPhone.html?repname=UnionPay&itemname=UnionPay');
+			$('#guanCom6').attr('href','itemDetailsPhone.html?repname=GIS_map&itemname=GIS_map');
 		}
     	 
     	 if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
