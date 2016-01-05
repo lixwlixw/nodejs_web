@@ -90,6 +90,9 @@ $(function() {
                 var jsonTime = getTimes(times);
                 $('.repoptime').html(jsonTime.showTime);
                 $('.repoptime').attr('title',jsonTime.jdTime);
+                $('.repoptime').attr('data-toggle','tooltip');
+                $('.repoptime').attr('datapalecement','top');
+
                 ///////////////////////////////////////////
                 for (i = 0; i < msg.data.dataitems.length; i++) {
                     datas.push(msg.data.dataitems[i]);
@@ -310,5 +313,6 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '</div>';
     $('.itemList').append(htmls);
+    $('[data-toggle="tooltip"]').tooltip();
 
 }
