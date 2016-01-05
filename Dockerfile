@@ -8,6 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /
 
 ##VOLUME /datahub/src/main/webapp/
 #ADD ./webapp /datahub/src/main/webapp
+RUN sed -i "1i deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib" /etc/apt/sources.list
 RUN apt-get update && apt-get -y install nodejs npm && npm install -g fis3
 RUN ln -s /usr/bin/nodejs /usr/sbin/node
 RUN mkdir -p /datahub/raw/main/webapp
