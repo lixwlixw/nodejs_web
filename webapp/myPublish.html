@@ -1,192 +1,181 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
 	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
-	<title>我的发布_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
-	<!--css-->
+	<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
+	<title>dataHub-数据精选</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/pagination.css"/>
 	<link rel="stylesheet" href="css/command.css">
 	<link rel="stylesheet" href="css/loader.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/search.css">
-	<link rel="stylesheet" href="./css/pagination.css"/>
-	<link rel="stylesheet" href="css/myPublish.css">
-	<style>
-		.nav > li > a:hover{
-			background-color:rgba(31,154,218,0.7);
-		}
-		.navbar-toggle .icon-bar {
-			background-color: #fff;
-		}
-		.navbar-nav > li > a:focus{
-			background:none;
-		}
-	</style>
-	<!--js-->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-
-	<script src="js/ngUrl.js"></script>
-	<script src="js/login.js"></script>
-	<script src="js/base64.js"></script>
-	<script src="js/md5.js"></script>
-	<script src="./js/jquery.pagination.js"></script>
-	<script src="js/jquery.cookie.js"></script>
-	<script src='js/errorDialog.js'></script>
-	<script src="js/myPublish.js"></script>
-    <script src="js/jquery.pagination.js"></script>
-	<script>
-		$(function() {
-			//加载页面头尾登陆
-			$("a").focus(function(){this.blur()});
-			$("header").load("common/header.html");
-			$("footer").load("common/footer.html");
-			$("#loginTem").load("common/login.html");
-			$(window).load(function(){
-				$(".be-loader").fadeOut("slow");
-			});
-
-		});
-		function stopEventStrans(e) {
-			e = e || window.event;
-			if (e.stopPropagation) {
-				e.stopPropagation();//IE以外
-			} else {
-				e.cancelBubble = true;//IE
-			}
-		}
-		function getRep(reps,repname) {
-			for(var i in reps) {
-				if(reps[i].repname == repname) {
-					return reps[i];
-				}
-			}
-		}
-	</script>
+	<link rel="stylesheet" href="css/myOder.css">
 </head>
+<style>
+
+</style>
 <body>
-<div class="be-loader" style="display: block;">
-	<div class="spinner">
-		<div class="spinner-container container1">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-		</div>
-		<div class="spinner-container container2">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-		</div>
-		<div class="spinner-container container3">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-		</div>
-	</div>
-</div>
+
+<!--头部导航-->
 <header></header>
-
-<div id="publish" class="container">
-	<div id="publish-head">
-		<span class="name"><b>我的发布</b></span>
-		<span class="add-icon"></span>
-		<div id="judgment">
-			<p id="openRepo">开放Repository</p>
-			<p id="privateRepo">私有Repository</p>
+<!--内容-->
+<!--左侧导航-->
+<div class="container" style="width:1170px;padding:0px; margin-top:50px;margin-bottom:100px;">
+	<div class="top_nav">
+		<div class="topanvcon cur">我的发布<span class="add-icon"></span>
+			<div id="judgment">
+				<p id="openRepo">开放Repository</p>
+				<p id="privateRepo">私有Repository</p>
+			</div>
+			<div id="judgment_number">
+				<p id="p1"><span></span><lable style="line-height: 29px;width:100%;">可用资源不足。</lable></p>
+				<p id="p2">请通过<a href="memberUpgrade.html" target="_blank" ><span>会员升级</span></a>获取更多资源</p>
+			</div>
 		</div>
-		<div id="judgment_number">
-			<p id="p1"><span></span><lable style="line-height: 29px;width:100%;">可用资源不足。</lable></p>
-			<p id="p2">请通过<a href="memberUpgrade.html" target="_blank" ><span>会员升级</span></a>获取更多资源</p>
+		<div class="topanvcon">我的订单</div>
+	</div>
+	<ul class="mypushcomment">
+		<li>
+			<div id="publish" class="container">
+				<div id="publish-head">
+					<div id="addRep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body" style="padding: 30px 30px 45px 30px">
+									<div class="head">
+										<span class="title">新增Repository</span>
+										<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+									</div>
+									<div class="repname">
+										<div class="key">
+											<span class="title">Repository 名称</span>
+											<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
+										<div class="value">
+											<input id="repnameInput" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
+										</div>
+									</div>
+									<div class="repcomment">
+										<div class="key">Repository 描述</div>
+										<div class="value">
+											<textarea placeholder='200字以内'></textarea>
+										</div>
+									</div>
+									<div class="property">
+										<div class="key">属性</div>
+										<div class="value">
+											<!--								<select>
+                                                                                <option value="private">私&nbsp;&nbsp;有</option>
+                                                                                <option value="public">开&nbsp;&nbsp;放</option>
+                                                                            </select>-->
+											<!--开放或私有属性-->
+											<p></p>
+										</div>
+									</div>
+									<div id="ListManagement">
+										<p>白名单管理 <span id="icon_list"></span><span id="insert"></span></p>
 
-		</div>
-		<div id="addRep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body" style="padding: 30px 30px 45px 30px">
-						<div class="head">
-							<span class="title">新增Repository</span>
-							<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-						</div>
-						<div class="repname">
-							<div class="key">
-								<span class="title">Repository 名称</span>
-								<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
-							<div class="value">
-								<input id="repnameInput" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
+									</div>
+									<div class="submit">
+										<input type="button" value="提交">
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="repcomment">
-							<div class="key">Repository 描述</div>
-							<div class="value">
-								<textarea placeholder='200字以内'></textarea>
-							</div>
-						</div>
-						<div class="property">
-							<div class="key">属性</div>
-							<div class="value">
-<!--								<select>
-									<option value="private">私&nbsp;&nbsp;有</option>
-									<option value="public">开&nbsp;&nbsp;放</option>
-								</select>-->
-								<!--开放或私有属性-->
-								 <p></p>
-							</div>
-						</div>
-                        <div id="ListManagement">
-                            <p>白名单管理 <span id="icon_list"></span><span id="insert"></span></p>
-
-                        </div>
-						<div class="submit">
-							<input type="button" value="提交">
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="publish-body" style="margin-bottom: 30px;">
-		<div class="repocount">
-			Repository:<span></span>
-		</div>
-		<div class="repolist">
-		</div>
-		<div class="pages"></div>
-	</div>
-	<div class="norepnum">
-			<p>我的发布下暂时没有发布Repository。</p>
-	</div>
-</div>
-<div class="modal fade" id="myModalTest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="padding:30px;width:520px;float: left;height: auto;">
-            <div class="modal-header" style="border-bottom:0px;padding: 0px;height: 58px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">白名单管理</h4>
-				<div style="height: 40px">
-					<div id="mess" class='container' style="visibility:hidden;">s</div>
+				<div id="publish-body" style="margin-bottom: 30px;">
+					<div class="repocount">
+						Repository:<span></span>
+					</div>
+					<div class="repolist">
+					</div>
+					<div class="pages"></div>
 				</div>
-                <input style="width:220px;height:30px;float:left;margin-right:10px;" type="text" class="form-control" id="emailTest" placeholder="请输入白名单用户的注册邮箱">
-                <button style="height:30px;width:110px;float:left;margin-right:5px;background-color: #29abe2;border: none;" class="btn btn-primary" id="inList">添加到白名单</button>
-                <button style="height:30px;width:110px;float:left;background-color: #29abe2;border:none;" class="btn btn-primary" id="seList">在列表中查找</button>
-            </div>
-            <div style="float: left;border-top: 1px solid #e5e5e5;width: 100%;margin:20px 0px;"></div>
-            <div style='float:left'>
-                <div id="delCurrent" style="float:left;margin-right:10px;margin-bottom: 10px;">[删除]</div>
-                <div id="delAll" style="float:left;margin-bottom: 10px;">[清空白名单]</div>
-            </div>
-            <div id="modalRep_list" class="modal-body" style="padding: 0px;float:left;width:100%;"></div>
-            <div class="pagesPer" style='float:left'></div>
+				<div class="norepnum">
+					<p>我的发布下暂时没有发布Repository。</p>
+				</div>
+			</div>
+			<div class="modal fade" id="myModalTest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="padding:30px;width:520px;float: left;height: auto;">
+						<div class="modal-header" style="border-bottom:0px;padding: 0px;height: 58px">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">白名单管理</h4>
+							<div style="height: 40px">
+								<div id="mess" class='container' style="visibility:hidden;">s</div>
+							</div>
+							<input style="width:220px;height:30px;float:left;margin-right:10px;" type="text" class="form-control" id="emailTest" placeholder="请输入白名单用户的注册邮箱">
+							<button style="height:30px;width:110px;float:left;margin-right:5px;background-color: #29abe2;border: none;" class="btn btn-primary" id="inList">添加到白名单</button>
+							<button style="height:30px;width:110px;float:left;background-color: #29abe2;border:none;" class="btn btn-primary" id="seList">在列表中查找</button>
+						</div>
+						<div style="float: left;border-top: 1px solid #e5e5e5;width: 100%;margin:20px 0px;"></div>
+						<div style='float:left'>
+							<div id="delCurrent" style="float:left;margin-right:10px;margin-bottom: 10px;">[删除]</div>
+							<div id="delAll" style="float:left;margin-bottom: 10px;">[清空白名单]</div>
+						</div>
+						<div id="modalRep_list" class="modal-body" style="padding: 0px;float:left;width:100%;"></div>
+						<div class="pagesPer" style='float:left'></div>
 
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li>
+			<table class="toptab table">
+				<tr>
+					<td style="width: 10%">订单号</td>
+					<td style="width: 10%;">时间</td>
+					<td style="width: 22%;">repo名/item名</td>
+					<td style="width: 18%;">订购方</td>
+					<td style="width: 20%;">价格包</td>
+					<td style="width: 12%;">订单状态</td>
+					<td style="width: 8%">投诉状态</td>
+				</tr>
+			</table>
+			<div class="dingcon">
+				<!--<div class="mucon">-->
+				<!--<div class="mutime">2015-12-23</div>-->
+				<!--<table class="table">-->
+				<!--<tr>-->
+				<!--<td style="width: 10%">xxxxx</td>-->
+				<!--<td style="width: 10%">12:34:12</td>-->
+				<!--<td style="width: 22%;">repo名/item名</td>-->
+				<!--<td style="width: 18%;">北京亚心智慧数据科技有限公司</td>-->
+				<!--<td style="width: 20%;"><div>10￥/80</div><div>有效期70天</div><div>失效日期：2015-12-12</div></td>-->
+				<!--<td style="width: 10%;"><div>等待审核</div><div class="chethisbtn"><span class="nobtn">忽略</span> <span class="yesbtn">同意</span></div></td>-->
+				<!--<td style="width: 10%;">投诉中</td>-->
+				<!--</tr>-->
+				<!--</table>-->
+				<!--</div>-->
+			</div>
+		</li>
+	</ul>
+
 </div>
-
 <footer></footer>
+
 <div id="loginTem"></div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="./js/jquery.pagination.js"></script>
+<script src='js/errorDialog.js'></script>
+<script src="js/myOder.js"></script>
+<script src="js/myPublish.js"></script>
+<script>
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+</script>
+
+
 </body>
-</html>

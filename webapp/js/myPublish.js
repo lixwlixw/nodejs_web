@@ -6,7 +6,7 @@
 $(function() {
 
     //addRep
-    $("#publish-head .add-icon").click(function() {
+    $(".add-icon").click(function() {
 
         var display=$("#judgment").css("display");
         if(display=="none")
