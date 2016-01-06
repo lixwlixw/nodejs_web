@@ -78,7 +78,11 @@ $(function(){
     
 	$(document).on('click','#logout',function(){
 		$.cookie("tname",null,{path:"/"});
-		$.cookie("token",null,{path:"/"}); 
+		$.cookie("token",null,{path:"/"});
+		
+		 $.cookie("tuserid",null,{path:"/"}); // 必填: 该用户在您系统上的唯一ID
+		 $.cookie("tnickname",null,{path:"/"}); // 选填: 用户名
+		 $.cookie("tregtime",null,{path:"/"}); // 选填: 用户的注册时间，用Unix时间戳表示
 		
 		var href=location.href;
 		var htmlnum=href.indexOf(".html");
