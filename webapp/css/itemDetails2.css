@@ -65,6 +65,7 @@
     height: 30px;
     float: left;
     margin-top:35px;
+    position: relative;
 }
 #LT_left_icon>div{
     display:inline;
@@ -73,6 +74,32 @@
 #LT_left_icon p{
     display:inline ;
 
+
+}
+#LT_left_icon .alert_login{
+    position: absolute;
+    display:none;
+    background-color: #fff;
+    border: 5px solid #e5e5e5;
+    color: #666;
+    font-size: 14px;
+    height: 86px;
+    width: 180px;
+    text-align: center;
+    left:420px;
+    bottom: -80px;
+}
+#LT_left_icon .alert_login p{
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    width: 170px;
+}
+#LT_left_icon .alert_login p a{
+    color:#29abe2;
+}
+#LT_left_icon .alert_login p a:hover{
+    cursor: pointer;
 }
 #icon_buy{
         background-image: url('/images/icon_buy.png');
@@ -165,13 +192,16 @@
     background-image: linear-gradient(to bottom, #d74656 0%, #d74656 100%) !important;
     background-color:#d74656 ;
 }
+#LT-right  button:focus{
+    background-color:#d74656 ;
+}
 #button_buy>p{
     margin-top: 30px;
     margin-left: -25px;
     width: 3.2em;
     height: 3.2em;
-    border: 1px solid #ed4885;
-    color:#ed4885;
+    border: 1px solid #f06f9c;
+    color:#f06f9c;
     padding: 3px 3px 3px 7px;
     float: left;
     border-radius: 3px;
@@ -188,7 +218,7 @@
 }
 #nav1{
     line-height: 50px;
-    width: 290px;
+    width: 219px;
     float: left;
 }
 #nav1:hover{
@@ -207,7 +237,7 @@
 }
 #nav2{
     line-height: 50px;
-    width:290px;
+    width:219px;
     float: left;
 }
 #nav2:hover{
@@ -216,20 +246,74 @@
 }
 #nav3{
     line-height: 50px;
-    width: 290px;
+    width: 219px;
     float: left;;
 }
 #nav3:hover{
     border-bottom:4px solid #8c97cb;
     font-weight: bold;
 }
+#nav4{
+    line-height: 50px;
+    width: 219px;
+    float: left;;
+}
+#nav4:hover{
+    border-bottom:4px solid #8c97cb;
+    font-weight: bold;
+}
 
 
 /*内容开始*/
-.left_content{
+#left_content{
     float: left;
     width: 876px;
 }
+#left_exam{
+    float: left;
+    width: 876px;
+    font-size: 10px;
+    word-break:break-all;
+}
+#left_exam p:nth-child(1){
+    padding:15px 0px 15px 15px;
+    border-bottom: 1px solid #666666;
+    font-size: 20px;
+    font-weight: 700;
+    color: #666666;
+}
+#left_exam p:nth-child(2){
+    padding:15px 0px 15px 15px;
+    font-size: 12px;
+    width: 876px;
+    word-break:break-all;
+    line-height: 22px;
+    color: #666666;
+}
+#left_unit{
+    float: left;
+    width: 876px;
+    font-size: 10px;
+    word-break:break-all;
+}
+#left_unit p:nth-child(1){
+    padding:15px 0px 15px 15px;
+    border-bottom: 1px solid #666666;
+    font-size: 20px;
+    font-weight: 700;
+    color: #666666;
+}
+#left_unit p:nth-child(2){
+    font-size: 12px;
+    width: 876px;
+    word-break:break-all;
+    line-height: 22px;
+    color: #666666;
+}
+#left_unit table,td,tr{
+    border:1px solid #f3f3f3;
+}
+
 .content{
     float: left;
     width: 100%;
@@ -421,13 +505,170 @@
     font-size:18px ;
     font-weight: bold;
 }
+#client_down p:nth-child(5){
+    font-size: 14px;
+    color:#333;
+    width: 230px;
+    text-indent:1em;
+}
 #client_down p:nth-child(4){
     font-size: 14px;
     color:#333;
     width: 230px;
 }
-#client_down p:nth-child(4)>span{
+#client_down p:nth-child(5)>span{
     font-size: 14px;
     color: #43609f;
     font-weight:bold;
+}
+/*----------订购-------------*/
+#subscriptDialog .modal-dialog {
+    width: 758px;
+
+}
+#subscriptDialog .modal-dialog .modal-content{
+    padding: 0px 10px;
+    background-color: #f6f9fd;
+}
+
+#subscriptDialog .modal-body {
+    padding: 30px 30px 10px 30px;
+}
+#subscriptDialog .modal-body>div {
+    margin-bottom: 30px;
+}
+#subscriptDialog .modal-body .sub0 {
+    font-size: 16px;
+    color: #000;
+}
+#subscriptDialog .modal-body .sub0 .itext {
+    font-weight: 900;
+    border: none;
+    outline:none;
+    border-bottom: 1px solid #e5e5e5;
+    width: 510px;
+    background-color: #f6f9fd;
+}
+#subscriptDialog .modal-body .sub0 .requirera {
+    margin-bottom: 20px;
+}
+#subscriptDialog .modal-body .shead {
+    font-size: 16px;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: 20px;
+}
+#subscriptDialog .modal-body .sbody {
+    font-size: 14px;
+    color: #333;
+    line-height: 24px;
+    padding-left: 30px;
+}
+#subscriptDialog .modal-body .sub2 .sbody>div,#subscriptDialog .modal-body .sub4 .sbody>div {
+    margin-bottom: 10px;
+}
+#subscriptDialog .modal-body .sub3 .charge-head {
+    margin-bottom: 10px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body {
+    font-size: 14px;
+    color: #333;
+    padding: 15px 15px 0px 15px;
+    background-color: #f5f5f5;
+    border: 1px dotted #e5e5e5;
+    line-height: normal;
+}
+#subscriptDialog .modal-body .sub3 .charge-body>div {
+    margin-bottom: 15px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body .cbtn, #subscriptDialog .modal-body .sub3 .charge-body .cdtitle {
+    margin-right: 5px;
+}
+#subscriptDialog .modal-body .sub3 .charge-body .cvalue {
+    margin-right: 10px;
+}
+#subscriptDialog .modal-body .subdate {
+    text-align: right;
+    font-weight: 900;
+}
+#subscriptDialog .modal-body .subbtns {
+    text-align: center;
+}
+#subscriptDialog .modal-body .subbtns input {
+    width: 160px;
+    height: 40px;
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+#subscriptDialog .modal-body .subbtns .cancel {
+    background-color: #999999;
+    margin-right: 10px;
+}
+#subscriptDialog .modal-body .subbtns .cancel:hover {
+    background-color: #666666;
+}
+#subscriptDialog .modal-body .subbtns .submit {
+    background-color: #29abe2;
+    margin-left:10px;
+}
+#subscriptDialog .modal-body .subbtns .submit:hover {
+    background-color: #1998ce;
+}
+#subscriptDialog .subprocess {
+    font-size: 18px;
+    color: #333;
+    font-weight: 900;
+    text-align: center;
+    height: 113px;
+    line-height: 113px;
+}
+#subscriptDialog .subprocess .midle {
+    color: #29abe2;
+}
+#subscriptDialog .subafterprocess span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#subscriptDialog .subafterprocess>div {
+    text-align: center;
+    height: 148px;
+    padding: 25px 0px 45px 0px;
+    font-size: 18px;
+    font-weight: 900;
+    color: #333;
+}
+#subscriptDialog .subafterprocess>div .head {
+    margin-bottom: 15px;
+}
+#subscriptDialog .subafterprocess>div .head .icon {
+    margin-right: 10px;
+}
+#subscriptDialog .subafterprocess .successed .head {
+    color: #1db506;
+}
+#subscriptDialog .subafterprocess .failed .head {
+    color: #ec6467;
+}
+#subscriptDialog .subafterprocess .failed .body .email {
+    color: #29abe2;
+}
+#subscriptDialog .subafterprocess .successed .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: -44px 0px;
+    width: 26px;
+    height: 26px;
+}
+#subscriptDialog .subafterprocess .failed .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 26px;
+    height: 26px;
 }
