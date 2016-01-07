@@ -5,8 +5,6 @@ COPY start.sh /start.sh
 ENV TIME_ZONE=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone
 
-
-##VOLUME /datahub/src/main/webapp/
 #ADD ./webapp /datahub/src/main/webapp
 RUN sed -i "1i deb http://mirrors.aliyun.com/debian wheezy main contrib non-free" /etc/apt/sources.list
 RUN sed -i "2i deb-src http://mirrors.aliyun.com/debian wheezy main contrib non-free" /etc/apt/sources.list 
