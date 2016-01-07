@@ -263,6 +263,17 @@ $(function() {
             });
         }
     }
+    window.onscroll = function(){
+        var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+        if(scrolltop>400){
+            $('.gotop').show();
+        }else{
+            $('.gotop').hide();
+        }
+    }
+    $('.gotop').click(function(){
+        document.documentElement.scrollTop = document.body.scrollTop =0;
+    })
 
 });
 
@@ -290,7 +301,7 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '</div>'+
         '<div class="supplier">'+
-        '<p> 本数据由 <a href="dataOfDetails.html?username='+apendjson.create_user+'">' + apendjson.itemloginName + '</a>提供</p>'+
+        '<p> 本数据由 <a href="dataOfDetails.html?username='+apendjson.create_user+'">' + apendjson.itemloginName +' </a>提供</p>'+
         '</div>'+
         '</div>'+
         '<div class="right">'+

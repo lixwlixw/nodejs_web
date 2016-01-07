@@ -102,8 +102,8 @@
 .subline{
     float:left;
     width:100%;
-    margin-bottom:20px;
-    margin-top:20px
+    /*margin-bottom:20px;*/
+    /*margin-top:20px*/
 }
 .lable{
     margin-left: 30px;
@@ -179,7 +179,8 @@
 .right{
     width:160px;
     float:left;
-    height: 225px;
+    /*height: 225px;*/
+    overflow: hidden;
     margin-left:97px;
     margin-right:20px;
 }
@@ -237,12 +238,15 @@
 
 #li1:hover{
 }
-
+.span_time{
+    margin-top:20px;
+}
 
 #main-right{
     float:right;
     width:260px;
     padding-left: 40px;
+    margin-top:50px;
 }
 #about{
     border-top: 1px solid #8c97cb;
@@ -300,4 +304,17 @@
 .pagination a, .pagination span {
     display: inline;
     float: none;
+}
+.gotop{
+    width: 35px;
+    height: 35px;
+    background:url("../images/image_112.png") no-repeat;
+    position: fixed;
+    right: 27px;
+    bottom: 100px;
+    cursor: pointer;
+    display: none;
+}
+.gotop:hover{
+    background:url("../images/image_117.png") no-repeat;
 }
