@@ -23,6 +23,7 @@ $(function(){
 					$("#messageModa2").css("display","block");
 					$("#messageModal").css("display","none");
 					$("#messageModa3").css("display","none");
+					$("#messageModa4").css("display","none");			
 					$("#messageModa2").fadeOut(4000);
 　					}
 				
@@ -53,7 +54,7 @@ $(function(){
   		  	},
     		success:function(json){ 
     			$.cookie("tname",exampleInputEmail1,{ expires: 1},{path:"/"});
-    			$.cookie("token",json.token,{ expires: 1},{path:"/"});
+    			$.cookie("token",json.data.token,{ expires: 1},{path:"/"});
     			location.href=window.location.href;
     		},
     		error:function (XMLHttpRequest, textStatus, errorThrown){
@@ -61,15 +62,29 @@ $(function(){
     				$("#messageModa3").css("display","block");
 					$("#messageModa2").css("display","none");
 					$("#messageModal").css("display","none");
+					$("#messageModa4").css("display","none");				
 					$("#messageModa3").fadeOut(5000);
     			}
-    			if(XMLHttpRequest.status==401||XMLHttpRequest.status==504||XMLHttpRequest.status==403){
+    			if(XMLHttpRequest.status==401){
+    				$("#messageModa4").css("display","none");
     				$("#messageModa2").css("display","none");
 					$("#messageModa3").css("display","none");
-					$("#messageModal").css("display","block");
-					$("#messageModal").fadeOut(4000);
-					
-					
+					$("#messageModal").css("display","block");					
+					$("#messageModal").fadeOut(4000);		
+    			}
+    			if(XMLHttpRequest.status==403){
+    				var times=$.parseJSON(XMLHttpRequest.responseText).data.retry_times;
+    				if(times<5){
+    					var timesnumLogin=5-times;
+    					$("#messageModa4").text("账户名与密码不匹配，请重新输入。剩余次数"+timesnumLogin+"次");
+    				}else{
+    					var timenumLogin=formatSeconds($.parseJSON(XMLHttpRequest.responseText).data.ttl_times);
+    					$("#messageModa4").html("<span class='back_icon'></span>重试次数太多，账号被锁定。<br/><div style='margin-left:28px;color:#ea0c1d;'>剩余解锁时间为："+timenumLogin+"</div>");
+    				} 				
+    				$("#messageModa4").css("display","block");
+    				$("#messageModa2").css("display","none");
+					$("#messageModa3").css("display","none");
+					$("#messageModal").css("display","none");		
     			}
     		}
     	});        
@@ -95,10 +110,28 @@ $(function(){
 		
 		//location.href=window.location.href;
  	});
-	
-	
-
 
 });
 
+function formatSeconds(value) {
+    var theTime = parseInt(value);// 秒
+    var theTime1 = 0;// 分
+    var theTime2 = 0;// 小时
+    if(theTime > 60) {
+        theTime1 = parseInt(theTime/60);
+        theTime = parseInt(theTime%60);
+            if(theTime1 > 60) {
+            theTime2 = parseInt(theTime1/60);
+            theTime1 = parseInt(theTime1%60);
+            }
+    }
+        var result = ""+parseInt(theTime)+"秒";
+        if(theTime1 > 0) {
+        result = ""+parseInt(theTime1)+"分"+result;
+        }
+        if(theTime2 > 0) {
+        result = ""+parseInt(theTime2)+"小时"+result;
+        }
+    return result;
+}
 
