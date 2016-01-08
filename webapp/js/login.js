@@ -76,10 +76,10 @@ $(function(){
     				var times=$.parseJSON(XMLHttpRequest.responseText).data.retry_times;
     				if(times<5){
     					var timesnumLogin=5-times;
-    					$("#messageModa4").text("账户名与密码不匹配，请重新输入。剩余次数"+timesnumLogin+"次");
+    					$("#messageModa4").text("密码错误，还有"+timesnumLogin+"次机会");
     				}else{
     					var timenumLogin=formatSeconds($.parseJSON(XMLHttpRequest.responseText).data.ttl_times);
-    					$("#messageModa4").html("<span class='back_icon'></span>重试次数太多，账号被锁定。<br/><div style='margin-left:28px;color:#ea0c1d;'>剩余解锁时间为："+timenumLogin+"</div>");
+    					$("#messageModa4").html("<span class='back_icon'></span>登录密码错误次数已达上限<br/><div style='margin-left:28px;color:#ea0c1d;'>账号将在："+timenumLogin+"后自动解锁</div>");
     				} 				
     				$("#messageModa4").css("display","block");
     				$("#messageModa2").css("display","none");
