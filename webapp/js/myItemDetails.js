@@ -560,6 +560,9 @@ var lilist = $('.namelist li');
 //////////////////搜索白名单
     $('.selectbtn').click(function(){
         var curusername = $.trim($('#addvalue').val());
+        if(curusername == ''){
+            return;
+        }
         $.ajax({
             type:"GET",
             url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
