@@ -38,26 +38,10 @@
 #LT_left_title div>span{
     font-size: 10px;
     width: 30px;
-    height: 15px;
-    padding: 1px 2px ;
+    height: 17px;
     border-radius: 10px;
-    margin-right: 5px;
-
-}
-#LT_left_title div>span:nth-child(2){
-    border:1px solid #53be64;
-    color:#53be64;
-    position: absolute;
     margin: 7px;
-    padding: 0px 3px;
-
-}
-#LT_left_title div>span:nth-child(3){
-    border:1px solid #666666;
-    color:#666666;
-    position: absolute;
-    margin: 7px 2px 3px 43px;
-    padding: 0px 3px;
+    padding: 0px 4px;
 
 }
 #LT_left_icon{
@@ -178,7 +162,7 @@
     font-size:15px;
     float: right;
 }
-#LT-right  button {
+#hurry_buy{
     margin-top: 30px;
     color: #ffffff;
     font-size: 18px;
@@ -188,12 +172,61 @@
     background-image: linear-gradient(to bottom, #f26071 0%, #d74656 100%);
     border: 1px solid #f26071;
 }
-#LT-right  button:hover{
+#hurry_buy:hover{
     background-image: linear-gradient(to bottom, #d74656 0%, #d74656 100%) !important;
     background-color:#d74656 ;
 }
-#LT-right  button:focus{
+#hurry_buy:focus{
     background-color:#d74656 ;
+}
+#apply_buy{
+    margin-top: 30px;
+    color: #ffffff;
+    font-size: 18px;
+    float: right;
+    width: 160px;
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #68e696 0%, #50cd83 100%);
+    border: 1px solid #50cd83;
+    display: none;
+}
+#apply_buy:hover{
+    background-image: linear-gradient(to bottom, #50cd83 0%, #68e696 100%) !important;
+    background-color:#50cd83 ;
+}
+#apply_buy:focus{
+    background-color:#50cd83 ;
+}
+#cancel_buy{
+    margin-top: 30px;
+    color: #ffffff;
+    font-size: 18px;
+    float: right;
+    width: 160px;
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #e8e8e8 0%, #666666 100%);
+    border: 1px solid #666666;
+    display: none;
+}
+#cancel_buy:hover{
+    background-image: linear-gradient(to bottom, #666666 0%, #e8e8e8 100%) !important;
+    background-color:#666666 ;
+}
+#cancel_buy:focus{
+    background-color:#666666 ;
+}
+#upcoming_release{
+    margin-top: 30px;
+    color: #333333;
+    font-size: 16px;
+    float: right;
+    width: 225px;
+    font-weight: bold;
+    border: 1px solid #333333;
+    height: 41px;
+    text-align: center;
+    line-height: 41px;
+    display: none;
 }
 #button_buy>p{
     margin-top: 30px;
@@ -510,16 +543,20 @@
     color:#333;
     width: 230px;
     text-indent:1em;
+    display: inline;
 }
 #client_down p:nth-child(4){
     font-size: 14px;
     color:#333;
     width: 230px;
+    display: inline;
 }
 #client_down p:nth-child(5)>span{
     font-size: 14px;
     color: #43609f;
     font-weight:bold;
+    padding-right: 3px;
+
 }
 /*----------订购-------------*/
 #subscriptDialog .modal-dialog {
@@ -566,6 +603,9 @@
 }
 #subscriptDialog .modal-body .sub2 .sbody>div,#subscriptDialog .modal-body .sub4 .sbody>div {
     margin-bottom: 10px;
+}
+#subscriptDialog .modal-body .sub2 .sbody>div>div{
+    text-indent: 2em;
 }
 #subscriptDialog .modal-body .sub3 .charge-head {
     margin-bottom: 10px;

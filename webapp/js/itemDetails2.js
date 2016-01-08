@@ -32,9 +32,6 @@ $(function(){
         $(".modal-open").css("padding-right","15px");
         $('#myModal').modal('toggle');
     });
-
-
-
 });
 //获取reponame,itemname
 function getParam(key) {
@@ -49,13 +46,12 @@ function getParam(key) {
 function yes_no_login(){
         if($.cookie("token")!=null&&$.cookie("token")!="null") {
             login="true";
-            $(".content1_pullNumber span").css("display","inline-block");
+            $(".content .content1_pullNumber span").css("display","inline-block");
         }
         else
         {
             login="false";
-            $(".content1_pullNumber span").css("display","none");
-
+            $(".content .content1_pullNumber span").css("display","none");
         }
 }
 
@@ -403,12 +399,13 @@ function about_item(){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
                 $(".span_time span:nth-child(2)").text(json.data.optime);
-                var label=json.data.label;
-                if(label==null){
+          /*      var label=json.data.label;
+                if(label==null||label=="null"){
                 }
                 else{
                     $(".span_label").append($("<span></span>").text(json.data.label));
-                }
+                    console.log(json.data.label);
+                }*/
             }
         },
         error:function(){
@@ -433,6 +430,27 @@ function company(){
         success:function(json) {
             //company
             var create_user=json.data.create_user;
+            //显示标签
+            var label=json.data.label.sys.supply_style;
+            var label_owner=json.data.label.owner;
+            if(label_owner!= "undefined"||label_owner!=undefined||label_owner!=null||label_owner!="null"){
+                for( var lab in label_owner){
+                    $(".span_label").append($("<span></span>").text(label_owner[lab].value));
+                }
+            }
+
+             if(label==null||label=="null"){
+             }
+             else{
+                 if(label=="batch")
+                     $(".span_label").append($("<span></span>").text("批量数据"));
+                 if(label=="flow")
+                     $(".span_label").append($("<span></span>").text("流式数据"));
+                 if(label=="api")
+                     $(".span_label").append($("<span></span>").text("API"));
+             }
+
+
             var Sample=json.data.Sample;//样例数据
             $("#left_exam p:nth-child(2)").text(Sample);
             var Meta=json.data.Meta;//元数据
@@ -445,8 +463,8 @@ function company(){
             {
                 var expire=price[i].expire;//有效期
                 var money=price[i].money;//money
-                var times=price[i].times;//次数
-                $("#LT-right .form-control").append($("<option></option>").attr("value",i+1).text(money+"元"+times+"次,"+"有效期"+expire+"天"))
+                var units=price[i].units;//次数
+                $("#LT-right .form-control").append($("<option></option>").attr("value",i+1).text(money+"元"+units+"次,  "+"有效期"+expire+"天"))
             }
             //获取付费状态
             if(pricestate=="免费")
@@ -474,8 +492,37 @@ function company(){
                     if(j.code==0){
                         company_name= j.data.userName;
                         $("#client_down p span").text(company_name);
-                    }
+                        //GET /heartbeat/status/:user 获取user的daemon status。
+                        var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+                        if(login=="true"){
+                            $.ajax({
+                                url: ngUrl + "/heartbeat/status/"+company_name,
+                                type: "GET",
+                                cache: false,
+                                async: false,
+                                dataType: 'json',
+                                headers: header,
+                                success: function (json) {
+                                      var status=json.data.status;
+                                      if(status=="offline")
+                                      {
+                                          $("#LT_left_title .line").text("离线");
+                                          $("#LT_left_title .line").css({"border":"1px solid #666666", "color":"#666666","position":"absolute","":""});
+                                      }
+                                    if(status=="online")
+                                    {
+                                        $("#LT_left_title .line").text("在线");
+                                        $("#LT_left_title .line").css({"border":"1px solid #53be64", "color":"#53be64","position":"absolute","":""});
+                                    }
 
+                                },
+                                error: function (json) {
+                                    errorDialog($.parseJSON(json.responseText).code);
+                                    $('#errorDM').modal('show');
+                                }
+                            });
+                        }
+                    }
                 },
                 error:function(){
 
@@ -533,102 +580,633 @@ function tablesheet(){
     $("#left_unit table tbody tr:odd").css({"background-color":"#f3f3f3","height":"35px","width":"60px"});
     $("#left_unit table tbody tr:even").css({"background-color":"#f1f6fa","height":"35px","width":"60px"});
 }
-//关闭弹窗 点击订购
+//点击空白处关闭登录提醒弹窗、点击订购逻辑
 function closewrap(){
     yes_no_login();
     $(window).load(function() {
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
         $(document).bind("click", function (e) {
             if ((e.target.className.indexOf("alert_login")<0 && e.target.id != "icon_heart"&&e.target.className.indexOf("btn")<0)) {
                 $(".alert_login").css("display","none");
             }
         });
+        if(login=="false"||login==false) {
+            alert(login);
+            alert(login=="false");
+            $("#hurry_buy").click(function () {
 
-        $("#button_buy button").click(function(){
+                $(".alert_login").css({"display": "block", "left": "706px"}).show();
+            });
+        }
+        else{
+            var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+            $.ajax({
+                url: ngUrl + "/repositories/" + repoName + "/" + itemName,
+                type: "get",
+                cache: false,
+                async: false,
+                headers: header,
+                dataType: 'json',
+                success: function (json) {
+                   var tags=json.data.tags;
+                   var price_money=json.data.price[0].money;
+                    if(tags==0||price_money==null)
+                    {
+                        $("#cancel_buy").hide();
+                        $("#hurry_buy").hide();
+                        $("#apply_buy").hide();
+                        $("#price_plan").hide();
+                        $("#upcoming_release").show();
+                    }
+                    else {
+                        $.ajax({
+                            url: ngUrl+"/repositories/"+repoName+"/"+itemName+"?haspermission=1",
+                            type: "get",
+                            cache:false,
+                            data:{},
+                            async:false,
+                            headers:header,
+                            dataType:'json',
+                            success:function(json){
+                                var permission=json.data.permission;
+                                if(permission==false||permission=="false")
+                                {
+                                    $.ajax({
+                                        url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
+                                        type: "get",
+                                        cache:false,
+                                        async:false,
+                                        headers:header,
+                                        dataType:'json',
+                                        success:function(json){
+                                            if(json.code==0){
+                                                if(json.data=="undefined"||json.data==undefined||json.data==null||json.data=="null")
+                                                {
+                                                    $("#apply_buy").show();
+                                                    $("#hurry_buy").hide();
+                                                    $("#cancel_buy").hide();
+                                                    apply_buy();
+                                                }
+                                                else {
+                                                    $("#cancel_buy").show();
+                                                    $("#hurry_buy").hide();
+                                                    $("#apply_buy").hide();
+                                                    cancel_buy();
+                                                }
+                                            }
+                                        },
+                                        error:function(){
 
-            var repoName=getParam("repname");
-            var itemName=getParam("itemname");
-            if(login=="false"){
-                $(".alert_login").css({"display":"block","left":"706px"}).show();
-            }else {
+                                        }
+                                    });
+                                }
+                                else {
+                                    $("#hurry_buy").show();
+                                    $("#cancel_buy").hide();
+                                    $("#apply_buy").hide();
+                                    hurry_buy();
+                                }
+                            },
+                            error:function(){
 
-                $('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
-                        $("#subscriptDialog .subprocess .midle").text("60S");
-                        $("#subscriptDialog .modal-dialog").css({width:"758px"});
-                        $("#subscriptDialog .modal-header").show();
-                        $("#subscriptDialog .subcontent").show();
-                        $("#subscriptDialog .subprocess").hide();
-                        $("#subscriptDialog .subafterprocess .successed").hide();
-                        $("#subscriptDialog .subafterprocess .failed").hide();
-                    });
-                $("#subscriptDialog").modal('toggle');
-                $("#subscriptDialog .modal-body .subbtns .cancel").click(function() {
-                    $('#subscriptDialog').modal('toggle');
+                            }
+                        });
+
+
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    });
+}
+
+//立即订购
+function hurry_buy(){
+    $("#hurry_buy").click(function(e){
+
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+        $(".repnamePm").text(repoName);
+        $(".itemnamePm").text(itemName);
+        var create_user;
+        var subscripted;
+        var supplyStyle;
+        var prices;
+        var subType=true;
+            var headerToken={};
+            //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
+            var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+            $.ajax({
+                url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        subscripted = json.data.itemaccesstype;
+                        create_user = json.data.create_user;
+                        prices = json.data.price;
+                        supplyStyle = json.data.label.supply_style;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            //获取subscriptionid+time
+
+            $.ajax({
+                url: ngUrl+"/subscription/"+repoName+"/"+itemName,
+                type: "post",
+                cache:false,
+                data:{},
+                async:false,
+                headers:{Authorization:"Token "+$.cookie("token")},
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+
+                        subscriptionid=json.data.subscriptionid;
+                        subcreateTimes=json.data.signtime.substring(0,10);
+                        $(".dvalue").text(subcreateTimes);
+                    }
+                },
+                error:function(json){
+                    subType=false;
+                }
+            });
+            //if(prices == undefined || prices == 0||subType==false)
+            //{
+            //    //$("#authority-dialog .down .email").text("datahub@asiainfo.com");
+            //    //var off = $(this).closest("#dataitem-head-right").offset();
+            //    //$("#authority-dialog")
+            //    //    .css({'top':off.top+30,'left':off.left-100})
+            //    //    .show();
+            //    //return;
+            //    alert("权限不够");
+            //}
+            //------------------------订购合同------------------------
+            //设置甲方乙方
+            var usera = $.cookie("tname");//获取当前用户，甲方
+            var userb = create_user;//获取item用户，乙方
+            $.ajax({
+                url: ngUrl+"/users/"+usera,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        usera = json.data.userName;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            $.ajax({
+                url: ngUrl+"/users/"+userb,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        userb = json.data.userName;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            $("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
+            $("#subscriptDialog .modal-body .sub0 .requirerb .itext").val(userb);
+            //创建价格列表
+            var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
+            chargeBody.html("");
+                $.ajax({
+                    url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+                    type: "GET",
+                    cache:false,
+                    async:false,
+                    dataType:'json',
+                    //headers:{Authorization:"Token "+$.cookie("token")},
+                    success:function(json) {
+                        var pricestate = json.data.pricestate;//获取付费状态
+                        var price = json.data.price;//计费方式
+                        var price_length = price.length;
+                        for (var i = 0; i < price_length; i++) {
+                            var expire = price[i].expire;//有效期
+                            var money = price[i].money;//money
+                            var units = price[i].units;//次数
+                            var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                            charegeitem.append($("<span class='cvalue'></span>").
+                            append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                            append($("<span class='moneyv'></span>").text(money+"元")).
+                            append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                            append($("<span class='moneyu2'></span>").text(units+"次")).
+                            append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                            append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                            //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
+                            //charegeitem.append($("<span class='cdvalue'></span>").
+                            //append($("<span class='vexpire'></span>").text(1)).
+                            //append($("<span class='uexpire'></span>").text(" 天")));
+                        }
+                    },
+                    error:function(){
+
+                    }
                 });
-                $("#subscriptDialog .modal-body .subbtns .submit").click(function() {
-                    //TODO 没有提交的数据：甲方、乙方、合同订购日期
+            //TODO 设置订购合同日期，目前写死
+            var timer;
+            $('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
+                $("#subscriptDialog .subprocess .midle").text("60S");
+                $("#subscriptDialog .modal-dialog").css({width:"758px"});
+                $("#subscriptDialog .modal-header").show();
+                $("#subscriptDialog .subcontent").show();
+                $("#subscriptDialog .subprocess").hide();
+                $("#subscriptDialog .subafterprocess .successed").hide();
+                $("#subscriptDialog .subafterprocess .failed").hide();
+            });
+            $("#subscriptDialog").modal('toggle');
+
+    });
+
+
+    $("#subscriptDialog .modal-body .subbtns .cancel").click(function() {
+        $('#subscriptDialog').modal('toggle');
+    });
+    $("#subscriptDialog .modal-body .subbtns .submit").click(function() {
+        //TODO 没有提交的数据：甲方、乙方、合同订购日期
 //					var usera = $.cookie("tname");
 //					var userb = create_user;
 //					var date = $("#subscriptDialog .modal-body .subdate .dvalue").text();
-                    var repname = getParam("repname");
-                    var itemname = getParam("itemname");
-                    var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+        var repoName = getParam("repname");
+        var itemName = getParam("itemname");
+        var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
 
-                    //process
-                    $("#subscriptDialog .modal-header").hide();
-                    $("#subscriptDialog .subcontent").hide();
-                    $("#subscriptDialog .subprocess").show();
-                    $("#subscriptDialog .modal-dialog").css({width:"540px"});
-                    var i = 59;
-                    timer = setInterval(function() {
-                        $("#subscriptDialog .subprocess .midle").text(i+"S");
-                        i--;
-                        if(i == 0){
-                            clearInterval(timer);
-                            $("#subscriptDialog .modal-header").show();
-                            $("#subscriptDialog .subprocess").hide();
-                            $("#subscriptDialog .subafterprocess .failed").show();
-                        }
-                    },1000);
-                });
-                //订购合同
-                var timer;
-                var data = {"price":{}};
-                var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
-                var planid = charge.find(".moneyu:first").attr("mark").toString();
-                //订购
+        //process
+        $("#subscriptDialog .modal-header").hide();
+        $("#subscriptDialog .subcontent").hide();
+        $("#subscriptDialog .subprocess").show();
+        $("#subscriptDialog .modal-dialog").css({width:"540px"});
+        var i = 59;
+        timer = setInterval(function() {
+            $("#subscriptDialog .subprocess .midle").text(i+"S");
+            i--;
+            if(i == 0){
+                clearInterval(timer);
+                $("#subscriptDialog .modal-header").show();
+                $("#subscriptDialog .subprocess").hide();
+                $("#subscriptDialog .subafterprocess .failed").show();
+            }
+        },1000);
+        //订购合同
+        var data = {"price":{}};
+        var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
+        console.log(charge.html());
+        console.log(charge.find(".moneyu").html());
+        var planid = charge.find(".moneyu").attr("mark").toString();
+
+        //订购
+        $.ajax({
+            url: ngUrl+"/subscription/"+repoName+"/"+itemName,
+            type: "PUT",
+            cache:false,
+            //	data:JSON.stringify(data),
+            data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
+            async:false,
+            dataType:'json',
+            headers:header,
+            success:function(json){
+                if(json.code == 0){
+                    setTimeout(function() {
+                        clearInterval(timer);
+                        $("#subscriptDialog .modal-header").show();
+                        $("#subscriptDialog .subprocess").hide();
+                        $("#subscriptDialog .subafterprocess .successed").show();
+                        $("#subscriptDialog .subafterprocess .failed").hide();
+                        var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+                        $("#dataitem-head-right .subscript .value").text(stars+1);
+                    }, 1000)
+                }else {
+                    clearInterval(timer);
+                    $("#subscriptDialog .modal-header").show();
+                    $("#subscriptDialog .subprocess").hide();
+                    $("#subscriptDialog .subafterprocess .successed").hide();
+                    $("#subscriptDialog .subafterprocess .failed").show();
+                }
+            },
+            error:function(json){
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+    });
+}
+
+
+
+
+//申请订购
+function apply_buy(){
+    $("#apply_buy").click(function(e){
+
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+        var create_user;
+        var subscripted;
+        var supplyStyle;
+        var prices;
+        var subType=true;
+        //替换  服务内容
+
+        $(".sub1 .sbody").replaceWith("<div class='sbody'>甲方向乙方申请订购“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据服务。" +
+            "<br>乙方保证所提供数据的内容与“<span class='repnamePm'></span>”描述，“<span class='itemnamePm'></span>”描述、样例数据、元数据申明的一致，并保障数据质量。</div>");
+        //替换  双方权利与义务
+        $(".sub2 .sbody").replaceWith("");
+        var $sbody=$("<div></div>").addClass("sbody").appendTo(".sub2");
+        $sbody.append($("<div></div>").text("1、甲方提出申请后，乙方7天内有权选择同意或者拒绝。如甲方的申请7天未得到处理，则该申请失效。"));
+        $sbody.append($("<div></div>").text(" 2、若乙方同意为甲方提供数据服务，且冻结本次订购的金额后，订购合同正式生效。订购合同生效后双方权利与义务约束如下：")
+            .append($("<div></div>").text("a   若由于乙方原因导致用户订购的数据内容无法完整获取，则乙方全额退回本次订购的全部款项。"))
+            .append($("<div></div>").text("b 若乙方提供的数据与申明不符，甲方可向DataHub平台申诉。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效。"))
+            .append($("<div></div>").html("c  乙方向甲方拥有发布于DataHub平台的<span class='repnamePm'></span>/<span class='itemnamePm'></span>的数据版权。"))
+            .append($("<div></div>").html("d  甲方拥有<span class='repnamePm'></span>/<span class='itemnamePm'></span>的使用权，不得对获取的数据进行转售。")));
+        $sbody.append($("<div></div>").text("3、若乙方同意为甲方提供数据服务，但甲方的可用余额不足，则本次申请无法生效。"));
+
+            $(".repnamePm").text(repoName);
+            $(".itemnamePm").text(itemName);
+            var headerToken={};
+            $("#myModalLabel").text("申请数据订购合同");
+            //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
+            var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+            $.ajax({
+                url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        subscripted = json.data.itemaccesstype;
+                        create_user = json.data.create_user;
+                        prices = json.data.price;
+                        supplyStyle = json.data.label.supply_style;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            //获取subscriptionid+time
+            $.ajax({
+                url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
+                type: "post",
+                cache:false,
+                data:{},
+                async:false,
+                headers:{Authorization:"Token "+$.cookie("token")},
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+
+                        subscriptionid=json.data.subscriptionid;
+                        subcreateTimes=json.data.applytime.substring(0,10);
+                        $(".dvalue").text(subcreateTimes);
+
+                    }
+                },
+                error:function(json){
+                    subType=false;
+                }
+            });
+
+            //------------------------订购合同------------------------
+            //设置甲方乙方
+            var usera = $.cookie("tname");//获取当前用户，甲方
+            var userb = create_user;//获取item用户，乙方
+            $.ajax({
+                url: ngUrl+"/users/"+usera,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        usera = json.data.userName;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            $.ajax({
+                url: ngUrl+"/users/"+userb,
+                type: "get",
+                cache:false,
+                data:{},
+                async:false,
+                dataType:'json',
+                success:function(json){
+                    if(json.code == 0){
+                        userb = json.data.userName;
+                    }
+                },
+                error:function(json){
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+            $("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
+            $("#subscriptDialog .modal-body .sub0 .requirerb .itext").val(userb);
+            //创建价格列表
+            var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
+            chargeBody.html("");
+            $.ajax({
+                url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+                type: "GET",
+                cache:false,
+                async:false,
+                dataType:'json',
+                //headers:{Authorization:"Token "+$.cookie("token")},
+                success:function(json) {
+                    var pricestate = json.data.pricestate;//获取付费状态
+                    var price = json.data.price;//计费方式
+                    var price_length = price.length;
+                    for (var i = 0; i < price_length; i++) {
+                        var expire = price[i].expire;//有效期
+                        var money = price[i].money;//money
+                        var units = price[i].units;//次数
+                        var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                        charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                        charegeitem.append($("<span class='cvalue'></span>").
+                        append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                        append($("<span class='moneyv'></span>").text(money+"元")).
+                        append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                        append($("<span class='moneyu2'></span>").text(units+"次")).
+                        append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                        append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                        //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
+                        //charegeitem.append($("<span class='cdvalue'></span>").
+                        //append($("<span class='vexpire'></span>").text(1)).
+                        //append($("<span class='uexpire'></span>").text(" 天")));
+                    }
+                },
+                error:function(){
+
+                }
+            });
+            //TODO 设置订购合同日期，目前写死
+            var timer;
+            $('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
+                $("#subscriptDialog .subprocess .midle").text("60S");
+                $("#subscriptDialog .modal-dialog").css({width:"758px"});
+                $("#subscriptDialog .modal-header").show();
+                $("#subscriptDialog .subcontent").show();
+                $("#subscriptDialog .subprocess").hide();
+                $("#subscriptDialog .subafterprocess .successed").hide();
+                $("#subscriptDialog .subafterprocess .failed").hide();
+            });
+            $("#subscriptDialog").modal('toggle');
+    });
+
+
+    $("#subscriptDialog .modal-body .subbtns .cancel").click(function() {
+        $('#subscriptDialog').modal('toggle');
+    });
+    $("#subscriptDialog .modal-body .subbtns .submit").click(function() {
+        //TODO 没有提交的数据：甲方、乙方、合同订购日期
+//					var usera = $.cookie("tname");
+//					var userb = create_user;
+//					var date = $("#subscriptDialog .modal-body .subdate .dvalue").text();
+        var repoName = getParam("repname");
+        var itemName = getParam("itemname");
+        var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+
+        //process
+        $("#subscriptDialog .modal-header").hide();
+        $("#subscriptDialog .subcontent").hide();
+        $("#subscriptDialog .subprocess").show();
+        $("#subscriptDialog .modal-dialog").css({width:"540px"});
+        var i = 59;
+        timer = setInterval(function() {
+            $("#subscriptDialog .subprocess .midle").text(i+"S");
+            i--;
+            if(i == 0){
+                clearInterval(timer);
+                $("#subscriptDialog .modal-header").show();
+                $("#subscriptDialog .subprocess").hide();
+                $("#subscriptDialog .subafterprocess .failed").show();
+            }
+        },1000);
+        //订购合同
+        var data = {"price":{}};
+        var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
+        var planid = charge.find(".moneyu:first").attr("mark").toString();
+        //申请订购
+        $.ajax({
+            url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
+            type: "PUT",
+            cache:false,
+            //	data:JSON.stringify(data),
+            data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid,"action":"apply"}),
+            async:false,
+            dataType:'json',
+            headers:header,
+            success:function(json){
+                if(json.code == 0){
+                    setTimeout(function() {
+                        clearInterval(timer);
+                        $("#subscriptDialog .modal-header").show();
+                        $("#subscriptDialog .subprocess").hide();
+                        $("#subscriptDialog .subafterprocess .successed").show();
+                        $("#subscriptDialog .subafterprocess .failed").hide();
+                        var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+                        $("#dataitem-head-right .subscript .value").text(stars+1);
+                        $("#apply_buy").hide();
+                        $("#hurry_buy").hide();
+                        $("#cancel_buy").show();
+                        location.reload();
+                    }, 1000)
+                }else {
+                    clearInterval(timer);
+                    $("#subscriptDialog .modal-header").show();
+                    $("#subscriptDialog .subprocess").hide();
+                    $("#subscriptDialog .subafterprocess .successed").hide();
+                    $("#subscriptDialog .subafterprocess .failed").show();
+                }
+            },
+            error:function(json){
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+    });
+
+}
+
+function cancel_buy(){
+    var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+    $("#cancel_buy").on("click",function(){
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+        $.ajax({
+            url: ngUrl + "/subscription/" + repoName + "/" + itemName + "/apply",
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: header,
+            success: function (json) {
+                var subscriptionid=json.data.subscriptionid;
                 $.ajax({
-                    url: ngUrl+"/subscription/"+repname+"/"+itemname,
+                    url: ngUrl + "/subscription/" + repoName + "/" + itemName + "/apply",
                     type: "PUT",
-                    cache:false,
+                    cache: false,
                     //	data:JSON.stringify(data),
-                    data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
-                    async:false,
-                    dataType:'json',
-                    headers:header,
-                    success:function(json){
-                        if(json.code == 0){
-                            setTimeout(function() {
-                                clearInterval(timer);
-                                $("#subscriptDialog .modal-header").show();
-                                $("#subscriptDialog .subprocess").hide();
-                                $("#subscriptDialog .subafterprocess .successed").show();
-                                $("#subscriptDialog .subafterprocess .failed").hide();
-                                var stars = parseInt($("#dataitem-head-right .subscript .value").text());
-                                $("#dataitem-head-right .subscript .value").text(stars+1);
-                            }, 1000)
-                        }else {
-                            clearInterval(timer);
-                            $("#subscriptDialog .modal-header").show();
-                            $("#subscriptDialog .subprocess").hide();
-                            $("#subscriptDialog .subafterprocess .successed").hide();
-                            $("#subscriptDialog .subafterprocess .failed").show();
+                    data: JSON.stringify({"subscriptionid": subscriptionid,"action": "withdraw"}),
+                    async: false,
+                    dataType: 'json',
+                    headers: header,
+                    success: function (json) {
+                        if (json.code == 0) {
+                            $("#apply_buy").show();
+                            $("#hurry_buy").hide();
+                            $("#cancel_buy").hide();
+                            alert("取消成功！");
+                            location.reload();
                         }
                     },
-                    error:function(json){
+                    error: function (json) {
                         errorDialog($.parseJSON(json.responseText).code);
                         $('#errorDM').modal('show');
                     }
                 });
+            },
+            error: function () {
             }
         });
     });

@@ -66,7 +66,7 @@
                         <div id="LT_left_title">
                             <div>
                            <a href="javascript:void(0)"> <p id="titleName">USA/CHINAUSA/CHINAUSA/CHINAUSA/CHINAUSA/CHINAUSA/CHINA</p></a>
-                            <span>在线</span><span>离线</span>
+                            <span class="line"></span>
                             </div>
                         </div>
                         <!--在线或离线-->
@@ -80,15 +80,20 @@
                         </div><!--//放小图-->
                     </div>
                     <div id="LT-right">
+                        <span style="position: absolute"></span><!-- 存planid -->
+                        <span style="position: absolute"></span>
                         <div>
                             <select class="form-control">
                             <!--<option value="1">18-2118-2118-21</option>-->
                             <!--<option value="2">22-2518-2118-21</option>-->
-                        </select>
+                            </select>
                         </div>
                         <div id="button_buy">
-                            <p>限量试用</p>
-                            <button href="javascript:void(0)" class="btn btn-primary btn-lg" role="button">立刻订购</button>
+                            <p id="price_plan">限量试用</p>
+                            <button id="hurry_buy" href="javascript:void(0)" class="btn btn-primary btn-lg" role="button">立刻订购</button>
+                            <button id="apply_buy" href="javascript:void(0)" class="btn btn-primary btn-lg" role="button">申请订购</button>
+                            <button id="cancel_buy" href="javascript:void(0)" class="btn btn-primary btn-lg" role="button">取消订购</button>
+                            <div id="upcoming_release">该数据即将发布</div>
                         </div>
 
                     </div>
@@ -229,26 +234,31 @@
                             <input class="cancel" type="button" value="取消">
                             <input class="submit" type="button" value="签约">
                         </div>
-                        <div class="subafterprocess">
-                            <div class="successed"  style="display: none">
-                                <div class="head">
-                                    <span class="icon"></span>
-                                    <span class="text">签约成功！</span>
-                                </div>
-                                <div class="body">
-                                    您现在可以用Client端Pull数据啦~
-                                </div>
-                            </div>
-                            <div class="failed"  style="display: none">
-                                <div class="head">
-                                    <span class="icon"></span>
-                                    <span class="text">账户余额不足，签约失败！</span>
-                                </div>
-                                <div class="body">
-                                    <span class="statictext">请发送充值需求邮件至</span>
-                                    <span class="email">datahub@asiainfo.com</span>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="subprocess" style="display: none">
+                    <span>正在签约,</span>
+                    <span class="midle">60S</span>
+                    <span>内反馈结果,请稍等~</span>
+                </div>
+                <div class="subafterprocess">
+                    <div class="successed"  style="display: none">
+                        <div class="head">
+                            <span class="icon"></span>
+                            <span class="text">签约成功！</span>
+                        </div>
+                        <div class="body">
+                            您现在可以用Client端Pull数据啦~
+                        </div>
+                    </div>
+                    <div class="failed"  style="display: none">
+                        <div class="head">
+                            <span class="icon"></span>
+                            <span class="text">账户余额不足，签约失败！</span>
+                        </div>
+                        <div class="body">
+                            <span class="statictext">请发送充值需求邮件至</span>
+                            <span class="email">datahub@asiainfo.com</span>
                         </div>
                     </div>
                 </div>
