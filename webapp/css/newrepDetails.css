@@ -1,0 +1,106 @@
+.commentwrop{
+    width: 100%;
+    overflow: hidden;
+    padding:20px;
+    background: #ebeef5;
+}
+
+#replycommentcon,#commentcon{
+    width: 100%;
+    height: 80px;
+}
+#left_comment{
+    width: 100%;
+    overflow: hidden;
+    float: left;
+}
+.conmentbt{
+    width: 100% ;
+    height: 35px;
+    margin-top:20px;
+    position: relative;
+}
+.commentnums{
+    width: 60% ;
+    height: 24px;
+    line-height: 24px;
+    color: #666;
+}
+.surplusnum{
+    color: #000;
+}
+.exceednum{
+    color:#fa5e61;
+}
+.publish_btn{
+    width: 95px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background-image:linear-gradient(to bottom, #faaa68 0%, #d98747 100%);
+    border-radius: 5px;
+    position: absolute;
+    right: 0px;
+    top:0px;
+    cursor: pointer;
+}
+.commentList{
+    width: 100%;
+    overflow: hidden;
+}
+.comListconwrop{
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #c8c8c8;
+    position: relative;
+    padding:20px 0px;
+}
+.comnews{
+    line-height: 20px;
+    color: #666666;
+}
+.commenname{
+    color:#000;
+    position: absolute;
+    top:20px;
+    right: 20px;
+}
+.commentdate{
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    color: #666666;
+    margin-top:10px;
+}
+
+.reply_wrop{
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+}
+.reply_btn{
+    color: #43609f;
+    font-weight: bold;
+    cursor: pointer;
+}
+.reply_btn:hover{
+    color: #395289;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
