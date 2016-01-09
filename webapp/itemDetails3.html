@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+	<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/pagination.css">
+	<link rel="stylesheet" href="css/itemDetails.css">
+	<link rel="stylesheet" href="css/editormd.css">
+
+</head>
+
+<style>
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.7);
+	}
+	.navbar-toggle .icon-bar {
+		background-color: #fff;
+	.navbar-nav > li > a:focus{
+	}
+		background:none;
+	}
+</style>
+
+<body>
+<div class="be-loader" style="display: block;">
+	<div class="spinner">
+		<div class="spinner-container container1">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container2">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container3">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+	</div>
+</div>
+<header></header>
+<div id="dataitem" class="container">
+	<div id="dataitem-right">
+		<div id="introduce1">
+			<div class="introduce1-head">关于<span></span></div>
+			<div class="introduce1-body"></div>
+		</div>
+		<div id="introduce2">
+			<div class="introduce2-a">
+				<span class="a-icon" title="更新时间"></span>
+				<span class="a-value"></span>
+			</div>
+			<div class="introduce2-b">
+				<span class="filetype"></span>
+			</div>
+			<div class="introduce2-c">
+				<div class="rep">
+					<div class="name">所属Repository</div>
+					<div class="value"><div></div><a href="#"></a></div>
+				</div>
+				<div class="owner">
+					<div class="name">数据拥有方</div>
+					<div class="value"><div></div><a href="#"></a></div>
+				</div>
+			</div>
+		</div>
+		<div id="introduce3">
+			<div class="introduce3-icon"></div>
+			<div class="introduce3-text"><a href="clientDownload.html">获取Client端</a></div>
+		</div>
+		<!--<div id="introduce4">
+			<div class="introduce4-head">
+				<b>相关DataItem</b>
+			</div>
+			<div class="introduce4-body">
+				<div>
+					<div class="num">1</div>
+					<div class="name">DataItem Name</div>
+					<div class="icons">
+						<span class="star-icon"></span>
+						<span class="star-value">238</span>
+						<span class="subscript-icon"></span>
+						<span class="subscript-value">344</span>
+						<span class="downloaded-icon"></span>
+						<span class="downloaded-value">235</span>
+					</div>
+				</div>
+			</div>
+		</div>-->
+	</div>
+	<div id="dataitem-left">
+		<div id="dataitem-head">
+			<div id="dataitem-head-left" style="text-align: left;float: left;">
+				<span class="icon"></span>
+				<span class="repname"><a></a></span>
+				<span class="line">&nbsp;/&nbsp;</span>
+				<span class="itemname"></span>
+			</div>
+			<div id="dataitem-head-right" style="text-align: right;float: right;">
+				<span class="star">
+					<span class="icon"  title="star量">
+						<span class="icon-image gray_star"></span
+						><span class="icon-text">Star</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="subscript">
+					<span class="icon" title="订购量">
+						<span class="icon-image"></span
+						><span class="icon-text">订购</span>
+					</span
+					><span class="value"></span>
+				</span
+				><span class="downloaded">
+					<span class="icon" title="pull量"></span
+					><span class="value"></span>
+				</span>
+			</div>
+			<div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">签约结果</h4>
+						</div>
+						<div class="subcontent">
+							<div class="modal-body">
+								<div class="sub0">
+									<div class="requirera">
+										<span class="ptext">数据需求方（甲方）：</span>
+										<input class="itext" type="text">
+									</div>
+									<div class="requirerb">
+										<span class="ptext">数据提供方（乙方）：</span>
+										<input class="itext" type="text">
+									</div>
+								</div>
+								<div class="sub1">
+									<div class="shead">一、服务内容</div>
+									<div class="sbody">
+										乙方向甲方提供名为“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据服务，乙方保证所提供数据的内容与“<span class='repnamePm'></span>”描述，“<span class='itemnamePm'></span>”描述、样例数据、元数据申明的一致，并保障数据质量。
+									</div>
+								</div>
+								<div class="sub2">
+									<div class="shead">二、双方权利与义务</div>
+									<div class="sbody">
+										<div>1、若由于乙方原因导致用户订购的数据内容无法完整获取，则乙方全额退回本次订购的全部款项。</div>
+										<div>2、若乙方提供的数据与申明不符，甲方可向DataHub平台申请，将本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效。</div>
+										<div>3、乙方拥有发布于DataHub平台的“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据版权。</div>
+									</div>
+								</div>
+								<div class="sub3">
+									<div class="shead">三、数据提供服务费用标准</div>
+									<div class="sbody">
+										<div class="charge-head">本次数据服务费用标准如下：</div>
+										<div class="charge-body">
+										</div>
+									</div>
+								</div>
+								<div class="sub4">
+									<div class="shead">四、甲方向乙方支付费用的方式</div>
+									<div class="sbody">
+										<div>1、甲方同意所选择的数据服务内容及价格，向DataHub平台申请订购。</div>
+										<div>2、DataHub平台冻结本次订购资金成功后，生成订购关系。</div>
+										<div>3、具体数据服务履行完毕后，30天内，若甲方对数据服务的质量和内容无异议，则本次订购产生的费用正式转到乙方账户。若对数据服务的质量和内容有异议，则可向平台方进行申诉。若经过平台方鉴定，并与双方协商认为乙方提供的数据与申明不符，则本次订购无效，本次订购费用返还给甲方。若经过平台方介入鉴定，并与双方协商认为乙方提供的数据与申明相符，则本次订购有效，本次订购费用正式转到乙方账户。</div>
+									</div>
+								</div>
+								<div class="subdate">
+									<span class="dtitle">签约日期：</span>
+									<span class="dvalue">2015年12月1日</span>
+								</div>
+								<div class="subbtns">
+									<input class="cancel" type="button" value="取消">
+									<input class="submit" type="button" value="签约">
+								</div>
+							</div>
+						</div>
+						<div class="subprocess" style="display: none">
+							<span>正在签约,</span>
+							<span class="midle">60S</span>
+							<span>内反馈结果,请稍等~</span>
+						</div>
+						<div class="subafterprocess">
+							<div class="successed"  style="display: none">
+								<div class="head">
+						<span class="icon"></span
+							><span class="text">签约成功！</span>
+								</div>
+								<div class="body">
+									您现在可以用Client端Pull数据啦~
+								</div>
+							</div>
+							<div class="failed"  style="display: none">
+								<div class="head">
+						<span class="icon"></span
+							><span class="text">账户余额不足，签约失败！</span>
+								</div>
+								<div class="body">
+									<span class="statictext">请发送充值需求邮件至</span>
+									<span class="email">datahub@asiainfo.com</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="dataitem-body">
+			<div id="dataitem-tag">
+				<div class="tag-head">
+					<span class="icon" title="tag量"></span>
+					<span class="text"></span>
+				</div>
+				<div class="tag-body">
+					<div id="show-message" style="display: none">
+						<span class="login">您还没有登录，请<a>登录</a></span>
+					</div>
+					<table></table>
+					<div id="splitpage"></div>
+				</div>
+			</div>
+
+			<div id="dataitem-exemple">
+				<div class="exemple-head">
+					<span class="text">样例</span>
+				</div>
+				<div class="exemple-body markdown-body"></div>
+			</div>
+			<div id="dataitem-metadata">
+				<div class="metadata-head">
+					<span class="text">元数据</span>
+				</div>
+				<div class="metadata-body markdown-body"></div>
+			</div>
+		</div>
+	</div>
+	<div id="authority-dialog">
+		<div class="up">
+		<span class="icon">&nbsp;</span
+			><span class="text">权限不足</span>
+		</div>
+		<div class="down">
+		<span>请发邮件至</span
+			><span class="email"></span
+			><span>申请订阅权限。</span>
+		</div>
+	</div>
+</div>
+<div id="mobileItemDetail">
+	<div class="content">
+		<div class="head">
+			<span class="iconl"></span>
+		<span class="name">
+			<span class="repname"><a href="#" style="color:#29abe2"></a></span>
+			<span>&nbsp;/&nbsp;</span><br>
+			<span class="itemname">DataItem Name</span>
+		</span>
+			<span class="iconr"></span>
+		</div>
+		<div class="desc">
+			<div class="comment">
+				测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+				测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+			</div>
+			<div class="labels">
+			<span class="orilabel">流式数据</span
+				></div>
+			<div class="statistics">
+				<div class="left">
+				<span class="time">
+					<span class="icon"></span><span class="val">一小时以前</span>
+				</span><span class="tags">
+					<span class="icon"></span><span class="val">222</span>
+				</span>
+				</div>
+				<div class="right">
+				<span class="star">
+					<span class="icon"></span><span class="val">222</span>
+				</span><span class="sub">
+					<span class="icon"></span><span class="val">333</span>
+				</span><span class="pull">
+					<span class="icon"></span><span class="val">444</span>
+				</span>
+				</div>
+			</div>
+			<div class="owner">
+			<span class="text">
+				<span class="tname">数据拥有方</span>
+				<span class="tval">重庆市数易安信息技术有限公司</span>
+			</span>
+				<span class="iconr"></span>
+			</div>
+			<div class="repository">
+			<span class="text">
+				<span class="tname">所属Repository</span>
+				<span class="tval">Mobile_phone_information</span>
+			</span>
+				<span class="iconr"></span>
+			</div>
+		</div>
+		<div class="data">
+			<div class="taglist">
+			<span class="name">
+				<span class="nicon"></span
+					><span class="nval">333,456</span>
+			</span>
+				<span class="iconr"></span>
+			</div>
+			<div class="sample">
+				<span class="name">样例</span>
+				<span class="iconr"></span>
+			</div>
+			<div class="meta">
+				<span class="name">元数据</span>
+				<span class="iconr"></span>
+			</div>
+		</div>
+	</div>
+	<div class="taglistDetail" style="display: none">
+		<div class="name">
+			<span class="icon"></span><span class="tags">223</span>
+		</div>
+		<div class="body"></div>
+	</div>
+	<div class="sampleDetail" style="display: none">
+		<div class="name">样例</div>
+		<div class="body markdown-body"></div>
+	</div>
+	<div class="metaDetail" style="display: none">
+		<div class="name">元数据</div>
+		<div class="body markdown-body"></div>
+	</div>
+
+</div>
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/jquery.zclip.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<script src='js/marked.js'></script>
+<script src='js/clipboard.min.js'></script>
+<script src='js/errorDialog.js'></script>
+<script>
+	var login = false;
+	var firsttry = true;
+	var tags = 0;
+	var subscriptionid="";
+	var subcreateTimes="";
+	$("a").focus(function(){this.blur()});
+	$("header").load("common/header.html");
+	$("footer").load("common/footer.html");
+	$("#loginTem").load("common/login.html");
+	$(window).load(function(){
+		$(".be-loader").fadeOut("slow");
+	});
+	$(window).load(function(){
+		changeTriangleState();
+		$("#dataitem-tag #show-message a").click(function() {
+			$(".modal-open").css("padding-right","15px");
+			$('#myModal').modal('toggle');
+		});
+		$(document).bind('click',function(e){
+			if(e.target.id != "show-message" && e.target.id != "authority-dialog") {
+				$('#show-message').hide();
+				$("#authority-dialog").hide();
+			}
+		});
+		$('#dataitem-tag .tag-body .tag-5 .btn').click(function(e){
+			stopEventStrans(e);
+		});
+		$("#dataitem-head-right .star .icon").click(function(e) {
+			stopEventStrans(e);
+			if(!login) {
+				var off = $(this).closest("#dataitem-head-right").offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}else {
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var authorization = login ? {Authorization:"Token "+$.cookie("token")}:"";
+				//查看是否公开
+				var access;
+				var create_user;
+				var headerToken={};
+				//登陆后
+				if($.cookie("token")!=null&&$.cookie("token")!="null"){
+					headerToken={Authorization:"Token "+$.cookie("token")};
+				}
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					headers:headerToken,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							access = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+						}
+					},
+					error:function(json){
+						//alert(json.msg);
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				/* TODO 私有也可以点赞，代码删除 if(access !=  "public") {
+					$("#authority-dialog .down .email").text(create_user);
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				}*/
+				//查看是否点过赞
+				var starred = false;
+				$.ajax({
+					url: ngUrl+"/star/"+repname+"/"+itemname,
+					type: "GET",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					headers:authorization,
+					success:function(json){
+						if(json.code == 0){
+							starred = json.data.starred
+						}
+					},
+					error:function(json){
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				if(starred) {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=0",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars-1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("red_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("gray_star");
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+				}else {
+					$.ajax({
+						url: ngUrl+"/star/"+repname+"/"+itemname+"?star=1",
+						type: "PUT",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						headers:authorization,
+						success:function(json){
+							if(json.code == 0){
+								var stars = parseInt($("#dataitem-head-right .star .value").text());
+								$("#dataitem-head-right .star .value").text(stars+1);
+								$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+								$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+				}
+			}
+		});
+		$("#dataitem-head-right .subscript .icon").click(function(e) {
+			stopEventStrans(e);
+			var create_user;
+			var subscripted;
+			var supplyStyle;
+			var prices;
+			var subType=true;
+			if(!login) {
+				var off = $(this).closest("#dataitem-head-right").offset();
+				$("#show-message")
+					.css({position: "absolute",'top':off.top+30,'left':off.left})
+					.show();
+				return;
+			}
+			else{
+				var headerToken={};
+				//登陆后
+				if($.cookie("token")!=null&&$.cookie("token")!="null"){
+					headerToken={Authorization:"Token "+$.cookie("token")};
+				}
+				var repname = getParam("repname");
+				var itemname = getParam("itemname");
+				var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+				$.ajax({
+					url: ngUrl+"/repositories/"+repname+"/"+itemname,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					headers:headerToken,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							subscripted = json.data.itemaccesstype;
+							create_user = json.data.create_user;
+							prices = json.data.price;
+							supplyStyle = json.data.label.supply_style;
+						}
+					},
+					error:function(json){
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				//alert(prices[0].uuid)
+				//获取subscriptionid+time
+
+ 				$.ajax({
+					url: ngUrl+"/subscription/"+repname+"/"+itemname,
+					type: "post",
+					cache:false,
+					data:{},
+					async:false,
+					headers:{Authorization:"Token "+$.cookie("token")},
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							subscriptionid=json.data.subscriptionid;
+							subcreateTimes=json.data.signtime.substring(0,10);
+			 				$(".dvalue").text(subcreateTimes);
+						}
+					},
+					error:function(json){
+						subType=false;
+						//errorDialog($.parseJSON(json.responseText).code);
+						//$('#errorDM').modal('show');
+					}
+				}); 
+
+/* 				if(subscripted == "private") {
+					//$("#authority-dialog .down .email").text(create_user);
+					$("#authority-dialog .down .email").text("datahub@asiainfo.com");
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				} */
+				if(prices == undefined || prices == 0||subType==false)
+				{
+					$("#authority-dialog .down .email").text("datahub@asiainfo.com");
+					var off = $(this).closest("#dataitem-head-right").offset();
+					$("#authority-dialog")
+						.css({'top':off.top+30,'left':off.left-100})
+						.show();
+					return;
+				}
+				//------------------------订购合同------------------------
+				//设置甲方乙方
+				var usera = $.cookie("tname");//获取当前用户，甲方
+				var userb = create_user;//获取item用户，乙方
+				$.ajax({
+					url: ngUrl+"/users/"+usera,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							usera = json.data.userName;
+						}
+					},
+					error:function(json){
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				$.ajax({
+					url: ngUrl+"/users/"+userb,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						if(json.code == 0){
+							userb = json.data.userName;
+						}
+					},
+					error:function(json){
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				$("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
+				$("#subscriptDialog .modal-body .sub0 .requirerb .itext").val(userb);
+				//创建价格列表
+				var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
+				chargeBody.html("");
+				if(prices == undefined || prices == 0) {
+					var price;
+					var unit;
+					if(supplyStyle == "flow") {
+						time = 1;
+						unit = "天";
+					}else {
+						time = 50;
+						unit = "次";
+					}
+
+					var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+					charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+					charegeitem.append($("<span class='cvalue'></span>").
+						append($("<span class='moneyu'></span>").text("¥ ")).
+						append($("<span class='moneyv'></span>").text(0)).
+						append($("<span class='moneyl'>/&nbsp;</span>")).
+						append($("<span class='moneyv2'></span>").text(time)).
+						append($("<span class='moneyu2'></span>").attr("value", supplyStyle == "flow" ? "d":"").text(unit)));
+
+					charegeitem.append($("<span class='cdtitle'></span>").text("有效期"));
+					charegeitem.append($("<span class='cdvalue'></span>").
+						append($("<span class='vexpire'></span>").text(1)).
+						append($("<span class='uexpire'></span>").text(" 天")));
+				}else {
+					var unit;
+					var unitName;
+					if(supplyStyle == "flow") {
+						unit = {"m":"分钟","h":"小时","d":"天"};
+						unitName = "time";
+					}else {
+						unit = "次";
+						unitName = "times";
+					}
+					unitName="units";
+					
+					for(var i=0; i<prices.length; i++) {
+						var price = prices[i];
+						var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+						var radio = $("<input name='subcharge' type='radio'>");
+						if(i == 0) {//默认选择第一条
+							radio.attr("checked", "checked");
+						}
+						charegeitem.append($("<span class='cbtn'></span>").append(radio));
+						charegeitem.append($("<span class='cvalue'></span>").
+							append($("<span class='moneyu' mark="+price.uuid+"></span>").text("¥ ")).
+							append($("<span class='moneyv'></span>").text(price.money)).
+							append($("<span class='moneyl'>/&nbsp;</span>")).
+							append($("<span class='moneyv2'></span>").text(price[unitName])).
+							append($("<span class='moneyu2'></span>").attr("value", supplyStyle == "flow" ? price.unit:"").text(supplyStyle == "flow" ? unit[price.unit] : unit)));
+
+						charegeitem.append($("<span class='cdtitle'></span>").text("有效期"));
+						charegeitem.append($("<span class='cdvalue'></span>").
+							append($("<span class='vexpire'></span>").text(price.expire)).
+							append($("<span class='uexpire'></span>").text(" 天")));
+					}
+				}
+				//TODO 设置订购合同日期，目前写死
+				var timer;
+				$('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
+						$("#subscriptDialog .subprocess .midle").text("60S");
+						$("#subscriptDialog .modal-dialog").css({width:"758px"});
+						$("#subscriptDialog .modal-header").show();
+						$("#subscriptDialog .subcontent").show();
+						$("#subscriptDialog .subprocess").hide();
+						$("#subscriptDialog .subafterprocess .successed").hide();
+						$("#subscriptDialog .subafterprocess .failed").hide();
+					}
+				);
+				$('#subscriptDialog').modal('toggle');
+
+
+			}
+		});
+		$("#subscriptDialog .modal-body .subbtns .cancel").click(function() {
+			$('#subscriptDialog').modal('toggle');
+		});
+		$("#subscriptDialog .modal-body .subbtns .submit").click(function() {
+			//TODO 没有提交的数据：甲方、乙方、合同订购日期
+//					var usera = $.cookie("tname");
+//					var userb = create_user;
+//					var date = $("#subscriptDialog .modal-body .subdate .dvalue").text();
+			var repname = getParam("repname");
+			var itemname = getParam("itemname");
+			var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+
+			//process
+			$("#subscriptDialog .modal-header").hide();
+			$("#subscriptDialog .subcontent").hide();
+			$("#subscriptDialog .subprocess").show();
+			$("#subscriptDialog .modal-dialog").css({width:"540px"});
+			var i = 59;
+			timer = setInterval(function() {
+				$("#subscriptDialog .subprocess .midle").text(i+"S");
+				i--;
+				if(i == 0){
+					clearInterval(timer);
+					$("#subscriptDialog .modal-header").show();
+					$("#subscriptDialog .subprocess").hide();
+					$("#subscriptDialog .subafterprocess .failed").show();
+				}
+			},1000);
+			var data = {"price":{}};
+			var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
+/* 			data.price["money"] = charge.find(".moneyv:first").text();
+			data.price["time"] = charge.find(".moneyv:first").text();
+			data.price["unit"] = charge.find(".moneyu2:first").attr("value");
+			data.price["expire"] = charge.find(".vexpire:first").text(); */
+			var planid = charge.find(".moneyu:first").attr("mark").toString();
+			//订购
+			$.ajax({
+				url: ngUrl+"/subscription/"+repname+"/"+itemname,
+				type: "PUT",
+				cache:false,
+			//	data:JSON.stringify(data),
+				data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
+				async:false,
+				dataType:'json',
+				headers:header,
+				success:function(json){
+					if(json.code == 0){
+						setTimeout(function() {
+							clearInterval(timer);
+							$("#subscriptDialog .modal-header").show();
+							$("#subscriptDialog .subprocess").hide();
+							$("#subscriptDialog .subafterprocess .successed").show();
+							$("#subscriptDialog .subafterprocess .failed").hide();
+							var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+							$("#dataitem-head-right .subscript .value").text(stars+1);
+						}, 1000)
+					}else {
+						clearInterval(timer);
+						$("#subscriptDialog .modal-header").show();
+						$("#subscriptDialog .subprocess").hide();
+						$("#subscriptDialog .subafterprocess .successed").hide();
+						$("#subscriptDialog .subafterprocess .failed").show();
+					}
+				},
+				error:function(json){
+					errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
+				}
+			});
+		});
+		$("#authority-dialog").click(function(e) {
+			stopEventStrans(e);
+		});
+		$("#mobileItemDetail >.content .data .sample").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .sampleDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .sampleDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .sampleDetail").hide();
+		});
+		$("#mobileItemDetail >.content .data .meta").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .metaDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .metaDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .metaDetail").hide();
+		});
+		$("#mobileItemDetail >.content .data .taglist").click(function() {
+			$("#mobileItemDetail >.content").hide();
+			$("#mobileItemDetail .taglistDetail").show();
+			$("body,html").animate({scrollTop:0},0);
+		});
+		$("#mobileItemDetail .taglistDetail .name").click(function() {
+			$("#mobileItemDetail >.content").show();
+			$("#mobileItemDetail .taglistDetail").hide();
+		});
+		$("#mobileItemDetail .taglistDetail .body .tagrecored").hover(function(){
+			$(this).find(".state:first").show();
+		},function() {
+			$(this).find(".state:first").hide();
+		});
+	});
+
+	$(document).ready(function(){
+		if($.cookie("token")!=null&&$.cookie("tname")!=null&&$.cookie("tname")!="null"&&$.cookie("tname")!="null"){
+			login = true;
+		}
+		ajaxRe();
+		$("#splitpage").pagination(tags, {
+			callback: ajaxRe,//PageCallback() 为翻页调用次函数。
+			prev_text: " 上一页",
+			next_text: "下一页 ",
+			items_per_page: 6, //每页的数据个数
+			num_display_entries: 1, //两侧首尾分页条目数
+			num_edge_entries: 3, //连续分页主体部分分页条目数
+			current_page: 0,   //当前页码
+			ellipse_text:"...",
+			link_to:"javascript:void(0)"
+		});
+	});
+
+
+	function ajaxRe(index){
+		var headerToken={};
+		//登陆后
+		if($.cookie("token")!=null&&$.cookie("token")!="null"){
+			headerToken={Authorization:"Token "+$.cookie("token")};
+		}
+		var repname = getParam("repname");
+		var itemname = getParam("itemname");
+		$(".repnamePm").text(repname);
+		$(".itemnamePm").text(itemname);
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+		if(firsttry) {
+			index = 0;
+		}
+		$.ajax({
+			url: ngUrl+"/repositories/"+repname+"/"+itemname+"?page="+(index+1)+"&size=6",
+			type: "get",
+			cache:false,
+			data:{},
+			async:false,
+			headers:headerToken,
+			dataType:'json',
+			success:function(json){
+				if(json.code == 0){
+					//获取tags
+					tags = json.data.tags;
+					if(firsttry) {
+						firsttry = false;
+						return;
+					}
+					//设置repname
+					var shebei = browserRedirect();
+					var url = shebei == "phone" ? "repDetailsPhone.html?repname="+repname :"repDetails.html?repname="+repname;
+					$("#dataitem-head-left .repname a").text(repname).attr("href", url);
+					$("#dataitem-head-left .itemname").text(itemname);
+					$("#mobileItemDetail .head .name .repname a").text(repname).attr("href", url);
+					$("#mobileItemDetail .head .name .itemname a").text(itemname);
+					$("#mobileItemDetail .head").click(function() {
+						location.href = "repDetails.html?repname="+repname;
+					});
+					//设置点赞量、订阅量、下载量
+					if(login) {
+						$.ajax({//初始化点赞
+							url: ngUrl+"/star/"+repname+"/"+itemname,
+							type: "GET",
+							cache:false,
+							data:{},
+							async:false,
+							dataType:'json',
+							headers:header,
+							success:function(json){
+								if(json.code == 0){
+									var starred = json.data.starred;
+									if(starred) {
+										$("#dataitem-head-right .star .icon .icon-image").removeClass("gray_star");
+										$("#dataitem-head-right .star .icon .icon-image").addClass("red_star");
+									}
+								}
+							},
+							error:function(json){
+								errorDialog($.parseJSON(json.responseText).code);
+								$('#errorDM').modal('show');
+							}
+						});
+					}
+					$.ajax({
+						url: ngUrl+"/star_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .star .value").text(json.data.numstars);
+								$("#mobileItemDetail .statistics .right .star .val").text(json.data.numstars);
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+					$.ajax({
+						url: ngUrl+"/subscription_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .subscript .value").text(json.data.numsubs);
+								$("#mobileItemDetail .statistics .right .sub .val").text(json.data.numsubs);
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+					$.ajax({
+						url: ngUrl+"/transaction_stat/"+repname+"/"+itemname,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								$("#dataitem-head-right .downloaded .value").text(json.data.numpulls);
+								$("#mobileItemDetail .statistics .right .pull .val").text(json.data.numpulls)
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+					//设置tag数量
+					$("#dataitem-tag .tag-head .text").text(json.data.tags);
+					$("#mobileItemDetail .desc .statistics .left .tags .val").text(json.data.tags);
+					$("#mobileItemDetail .data .taglist .name .nval").text(json.data.tags);
+					$("#mobileItemDetail .taglistDetail .name .tags").text(json.data.tags);
+
+					//创建taglists列表
+					createTaglist(json.data.taglist, repname, itemname,json);
+					createPhoneTaglist(json.data.taglist, repname, itemname,json);
+					//设置样例和元数据
+					$("#dataitem-exemple .exemple-body").html(marked(json.data.Sample));
+					$("#mobileItemDetail .sampleDetail .body").html(marked(json.data.Sample));
+					$("#dataitem-metadata .metadata-body").html(marked(json.data.Meta));
+					$("#mobileItemDetail .metaDetail .body").html(marked(json.data.Meta));
+					//设置introduce1的itemname
+					$("#introduce1 .introduce1-head span:first").attr("title", itemname).text(itemname);
+					//设置comment
+					$("#introduce1 .introduce1-body").text(json.data.comment);
+					$("#mobileItemDetail .desc .comment").text(json.data.comment);
+					//设置时间
+					var time=json.data.optime;
+					var atime = time.substring(0, time.indexOf(".") > -1 ? time.indexOf(".") : time.indexOf("|"));
+					var btime = time.substring(time.indexOf("|")+1,time.length);
+					$("#introduce2 .introduce2-a .a-value").attr("title",atime).text(btime);
+					$("#mobileItemDetail .desc .statistics .left .time .val").attr("title",atime).text(btime);
+					//设置标签
+					if(json.data.label.sys.supply_style == "flow") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#fc9b00").text("流式数据");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#fc9b00").text("流式数据");
+					}else if(json.data.label.sys.supply_style == "batch") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#20abe2").text("批量数据");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#20abe2").text("批量数据");
+					}else if(json.data.label.sys.supply_style == "api") {
+						$("#introduce2 .introduce2-b .filetype").css("background-color", "#f06f77").text("API");
+						$("#mobileItemDetail .desc .labels .orilabel").css("background-color", "#f06f77").text("API");
+					}
+					var ptags = json.data.label.owner;
+					for(var i in ptags) {
+						$("<span></span>").addClass("personaltag").css("background-color", "#6ecbcc").text(ptags[i]).appendTo("#introduce2 .introduce2-b");
+						$("<span></span>").addClass("perlabel").css("background-color", "#6ecbcc").text(ptags[i]).appendTo("#mobileItemDetail .desc .labels");
+					}
+
+					//设置仓库和数据拥有方
+					$("#introduce2 .introduce2-c .rep a").attr("title", repname).text(repname).attr("href", "repDetails.html?repname="+repname);
+					$("#mobileItemDetail .desc .repository .tval").text(repname);
+					$("#mobileItemDetail .desc .repository").click(function() {
+						location.href = "repDetails.html?repname="+repname;
+					});
+					var createuser = json.data.create_user;
+					$.ajax({
+						url: ngUrl+"/users/"+createuser,
+						type: "get",
+						cache:false,
+						data:{},
+						async:false,
+						dataType:'json',
+						success:function(json){
+							if(json.code == 0){
+								var owner = json.data.userName || json.data.nickName;
+								$("#introduce2 .introduce2-c .owner a").attr("title", owner).text(owner).attr("href", "dataOfDetails.html?username="+createuser);
+								$("#mobileItemDetail .desc .owner .tval").text(owner);
+								$("#mobileItemDetail .desc .owner").click(function() {
+									location.href = "dataOfDetails.html?username="+createuser;
+								});
+							}
+						},
+						error:function(json){
+							errorDialog($.parseJSON(json.responseText).code);
+							$('#errorDM').modal('show');
+						}
+					});
+				}else {
+					console.log("报错");
+				}
+			},
+			error:function(json){
+			//	alert(JSON.stringify(JSON.parse(json.responseText)));
+				errorDialog($.parseJSON(json.responseText).code);
+				$('#errorDM').modal('show');
+			}
+		});
+		$("body,html").animate({scrollTop:0},0);
+	}
+	function createTaglist(tags, repname, itemname, json) {
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+		//设置tag详情，先清空table
+		$("#dataitem-tag .tag-body table").html("");
+		if(tags.length == 0){
+			$("#dataitem-tag .tag-body table").html('<div style="line-height:25px;padding-top:20px;">暂时没有Tags，请浏览元数据及样例数据。<br/>如需要此数据，请邮件发送至datahub@asiainfo.com与我们联系。</div>');
+		}else{
+			for(var i=0; i<tags.length; i++) {
+				var tag = tags[i];
+				var td1 = $("<td></td>").addClass("tag-1").text(tag.tag);
+				var td2 = $("<td></td>").addClass("tag-2").text(tag.comment);
+				var tagtime=tag.optime;
+				var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
+				var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
+				var td3 = $("<td></td>").addClass("tag-3").text(atagtime).attr("title",btagtime);
+				var td4 = $("<td></td>").addClass("tag-4").css("position", "relative");
+				td4.append($("<input>").addClass("plaintext").attr("type", "text").attr("id", "clipval_"+i).attr("readonly", "readonly").attr("value", repname+"/"+itemname+":"+tag.tag));
+				var clipbtn = $("<input>").addClass("btn").attr("type", "button").attr("data-clipboard-action","copy").attr("data-clipboard-target", "#clipval_"+i).attr("value", "复制");
+				var clipboard = new Clipboard(clipbtn.get(0));
+				clipboard.on('success', function(e) {
+					alert("复制成功!");
+				});
+				clipboard.on('error', function(e) {
+					alert("暂不支持此浏览器,请手动复制或更换浏览器!");
+				});
+				td4.append(clipbtn);
+				var td5btn = $("<input>").addClass("btn").attr("type", "button").attr("value", "Pull");
+				td5btn.click(function(e) {
+					var off = $(this).offset();
+					var dailog = $("#show-message");
+					dailog.css({position: "absolute",'top':off.top+25,'left':off.left-110}).show();
+					stopEventStrans(e);
+				});
+				var td5 = $("<td></td>").addClass("tag-5").append(td5btn);
+				var td5div = $("<div></div>").addClass("download").css("font-size", "0px").appendTo(td5);
+				var divicon = $("<span></span>").addClass("icon").appendTo(td5div).attr("title", "pull量");
+				//设置tag下载量
+				var numpulls = -1;
+				var nummypulls = -1;
+				$.ajax({
+					url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
+					type: "get",
+					cache:false,
+					data:{},
+					async:false,
+					dataType:'json',
+					headers:header,
+					success:function(json){
+						if(json.code == 0){
+							numpulls = json.data.numpulls;
+							nummypulls = json.data.nummypulls;
+						}
+					},
+					error:function(json){
+						errorDialog($.parseJSON(json.responseText).code);
+						$('#errorDM').modal('show');
+					}
+				});
+				var divtext = $("<span></span>").addClass("text").text(numpulls).appendTo(td5div);
+				var tr = $("<tr></tr>").append(td1).append(td3).append(td4).append(td5);
+				$("#dataitem-tag .tag-body table").append(tr);
+				if(json.data.label.sys.supply_style == "batch") {
+					td2.insertAfter(td1);
+				}
+				//已登录
+				if(login) {
+					$("<td></td>").addClass("numPulls").insertBefore(td4).text("pull:"+nummypulls);
+					$("#show-message .login").hide();
+					$("#show-message .tag").remove();
+					$("<span><a href='clientDownload.html'>请获取Client端</a></span>").addClass("tag").appendTo($("#show-message"));
+				}
+			}
+		}
+	}
+	function createPhoneTaglist(tags, repname, itemname, json) {
+		var header = login ? {Authorization:"Token "+$.cookie("token")}:"";
+		//设置tag详情，先清空table
+		var taglist = $("#mobileItemDetail .taglistDetail .body").html("");
+		for(var i=0; i<tags.length; i++) {
+			var tag = tags[i];
+			var tagrecored =  $("<div class='tagrecored'></div>").appendTo(taglist);
+			$('<div class="state" style="display: none"></div>').appendTo(tagrecored);
+			var content = $('<div class="content" style="display: block"></div>').appendTo(tagrecored);
+			var tagname = $('<div class="tagname"></div>').appendTo(content);
+			tagname.append($('<div class="left"></div>')).text(tag.tag);
+			//设置tag下载量
+			var numpulls = -1;
+			var nummypulls = -1;
+			$.ajax({
+				url: ngUrl+"/transaction_stat/"+repname+"/"+itemname+"/"+tag.tag,
+				type: "get",
+				cache:false,
+				data:{},
+				async:false,
+				dataType:'json',
+				headers:header,
+				success:function(json){
+					if(json.code == 0){
+						numpulls = json.data.numpulls;
+						nummypulls = json.data.nummypulls;
+					}
+				},
+				error:function(json){
+					errorDialog($.parseJSON(json.responseText).code);
+					$('#errorDM').modal('show');
+				}
+			});
+			tagname.append($('<div class="right"></div>').append($('<span class="icon"></span>')).append($('<span class="text"></span>').text(numpulls)));
+			$('<div class="comment"></div>').text(tag.comment).attr("title",btagtime).appendTo(content);
+
+			var tagtime=tag.optime;
+			var atagtime = tagtime.substring(tagtime.indexOf("|")+1,tagtime.length);
+			var btagtime = tagtime.substring(0, tagtime.indexOf(".") > -1 ? tagtime.indexOf(".") : tagtime.indexOf("|"));
+			$('<div class="optime"></div>').text(atagtime).attr("title", btagtime).appendTo(content);
+
+			var pullurl = $('<div class="pullurl"></div>').appendTo(content);
+			pullurl.append($('<input class="itext" type="text" readonly="readonly">').attr("value", repname+"/"+itemname+":"+tag.tag));
+			var pullbtn = $('<input class="btn" type="button" value="Pull">').css("position", "relative");
+			pullurl.append(pullbtn);
+
+			pullbtn.click(function(e) {
+				alert("请获取Client端");
+				var off = $(this).offset();
+				var dailog = $("#show-message");
+				dailog.css({position: "absolute",'top':off.top-500,'left':off.left}).show();
+				stopEventStrans(e);
+			});
+			//已登录
+			if(login) {
+				$("#show-message .login").hide();
+				$("#show-message .tag").remove();
+				$("<span><a href='clientDownload.html'>请获取Client端</a></span>").addClass("tag").appendTo($("#show-message"));
+			}
+		}
+	}
+	function getParam(key) {
+		var value='';
+		var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		if (itemid.test(decodeURIComponent(window.location.href))) {
+			value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		}
+		return value;
+	}
+	function stopEventStrans(e) {
+		e = e || window.event;
+		if (e.stopPropagation) {
+			e.stopPropagation();//IE以外
+		} else {
+			e.cancelBubble = true;//IE
+		}
+	}
+	function changeTriangleState() {
+		//点击切换三角符号状态
+		var changeTraingleBtns = [$("#mobileItemDetail .head"), $("#mobileItemDetail .desc .owner"), $("#mobileItemDetail .desc .repository"),
+			$("#mobileItemDetail .data .taglist"), $("#mobileItemDetail .data .sample"), $("#mobileItemDetail .data .meta")];
+		for(var i=0; i<changeTraingleBtns.length; i++) {
+			var btn = changeTraingleBtns[i];
+			btn.mousedown(redTraingle);
+			btn.mouseup(grayTraingle);
+			btn.css("cursor","pointer");
+		}
+	}
+	function redTraingle() {
+		$(this).find(".iconr:first").css({backgroundImage:"url('../images/itemDetails_mobileRedTriangle.png')", backgroundPosition:"-6px -4px"});
+	}
+	function grayTraingle() {
+		$(this).find(".iconr:first").css({backgroundImage:"url('../images/itemDetails_mobileTriangleR.png')", backgroundPosition:"-6px -8px"});
+	}
+	function browserRedirect() {
+		var pcorphone;
+		var sUserAgent = navigator.userAgent.toLowerCase();
+		var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+		var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+		var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+		var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+		var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+		var bIsAndroid = sUserAgent.match(/android/i) == "android";
+		var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+		var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+		if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+			pcorphone = 'phone';
+			return pcorphone;
+		} else {
+			pcorphone = 'pc';
+			return pcorphone;
+		}
+	}
+</script>
+</html>

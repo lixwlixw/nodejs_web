@@ -544,48 +544,28 @@ function switchover(){
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-        //$("#left_exam").hide();
-        //$("#left_unit").hide();
-        //$("#left_comment").hide();
-        //$(".left_content_page").show();
-        //$("#left_content").fadeIn();
+
 
     });
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-        //$("#left_content").hide();
-        //$("#left_unit").hide();
-        //$(".left_content_page").hide();
-        //$("#left_comment").hide();
-        //$("#left_exam").fadeIn();
+
     });
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-        //$("#left_exam").hide();
-        //$("#left_content").hide();
-        //$(".left_content_page").hide();
-        //$("#left_comment").hide();
-        //$("#left_unit").fadeIn();
+
     });
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-        //$("#left_exam").hide();
-        //$("#left_content").hide();
-        //$(".left_content_page").hide();
-        //$("#left_comment").hide();
-        //$("#left_unit").fadeIn();
+
     });
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-        //$("#left_exam").hide();
-        //$("#left_content").hide();
-        //$(".left_content_page").hide();
-        //$("#left_unit").hide();
-        //$("#left_comment").fadeIn();
+
     });
 }
 function tablesheet(){
@@ -605,7 +585,6 @@ function closewrap(){
         });
         if(login=="false") {
             $("#hurry_buy").click(function(){
-
                 $(".alert_login").css({"display": "block", "left": "706px"}).show();
             });
         }
@@ -841,7 +820,6 @@ function hurry_buy(){
                                 append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
 
                         }
-
                             //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
                             //charegeitem.append($("<span class='cdvalue'></span>").
                             //append($("<span class='vexpire'></span>").text(1)).
@@ -899,54 +877,95 @@ function hurry_buy(){
         //订购合同
         var data = {"price":{}};
         var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
-        console.log(charge.html());
-        console.log(charge.find(".moneyu").html());
         var planid = charge.find(".moneyu").attr("mark").toString();
-
-        //订购
+        Array.prototype.max = function(){   //最大值
+            return Math.max.apply({},this)
+        }
         $.ajax({
-            url: ngUrl+"/subscription/"+repoName+"/"+itemName,
-            type: "PUT",
+            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+            type: "GET",
             cache:false,
-            //	data:JSON.stringify(data),
-            data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
             async:false,
             dataType:'json',
-            headers:header,
-            success:function(json){
-                if(json.code == 0){
-                    setTimeout(function() {
-                        clearInterval(timer);
-                        $("#subscriptDialog .modal-header").show();
-                        $("#subscriptDialog .subprocess").hide();
-                        $("#subscriptDialog .subafterprocess .successed").show();
-                        $("#subscriptDialog .subafterprocess .failed").hide();
-                        var stars = parseInt($("#dataitem-head-right .subscript .value").text());
-                        $("#dataitem-head-right .subscript .value").text(stars+1);
-                    }, 1000)
-                }else if(json.code==5024){
-                    $("#subscriptDialog .modal-header").show();
-                    $("#subscriptDialog .subprocess").hide();
-                    $("#subscriptDialog .subafterprocess .successed").hide();
-                    $("#subscriptDialog .subafterprocess .failed").show();
-                } else{
-                    clearInterval(timer);
-                    $("#subscriptDialog .modal-header").show();
-                    $("#subscriptDialog .subprocess").hide();
-                    $("#subscriptDialog .subafterprocess .successed").hide();
-                    $("#subscriptDialog .subafterprocess .failed").show();
+            //headers:{Authorization:"Token "+$.cookie("token")},
+            success:function(json) {
+                var pricestate = json.data.pricestate;//获取付费状态
+                var price = json.data.price;//计费方式
+                var price_length=json.data.price.length;
+                var price_array=new Array();
+                for(var i=0;i<price_length;i++)
+                {
+                    price_array.push(price[i].money);
                 }
+                $.ajax({
+                    url: ngUrl + "/bill/" + $.cookie("tname") + "/info",
+                    type: "GET",
+                    cache: false,
+                    async: false,
+                    dataType: 'json',
+                    headers: header,
+                    success: function (json) {
+                        //console.log(price_array.max());价格的最大值
+                        var actualBalance=json.data.actualBalance;
+                        var availableBalance=json.data.availableBalance;
+                        if(actualBalance>=(price_array.max())){
+                            //订购
+                            $.ajax({
+                                url: ngUrl+"/subscription/"+repoName+"/"+itemName,
+                                type: "PUT",
+                                cache:false,
+                                //	data:JSON.stringify(data),
+                                data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid}),
+                                async:false,
+                                dataType:'json',
+                                headers:header,
+                                success:function(json){
+                                    if(json.code == 0){
+                                        setTimeout(function() {
+                                            clearInterval(timer);
+                                            $("#subscriptDialog .modal-header").show();
+                                            $("#subscriptDialog .subprocess").hide();
+                                            $("#subscriptDialog .subafterprocess .successed").show();
+                                            $("#subscriptDialog .subafterprocess .failed").hide();
+                                            var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+                                            $("#dataitem-head-right .subscript .value").text(stars+1);
+                                        }, 1000)
+                                    }else if(json.code==5024){
+                                        $("#subscriptDialog .modal-header").show();
+                                        $("#subscriptDialog .subprocess").hide();
+                                        $("#subscriptDialog .subafterprocess .successed").hide();
+                                        $("#subscriptDialog .subafterprocess .failed").show();
+                                    }else{
+                                        clearInterval(timer);
+                                        $("#subscriptDialog .modal-header").show();
+                                        $("#subscriptDialog .subprocess").hide();
+                                        $("#subscriptDialog .subafterprocess .successed").hide();
+                                        $("#subscriptDialog .subafterprocess .failed").show();
+                                    }
+                                },
+                                error:function(json){
+                                    errorDialog($.parseJSON(json.responseText).code);
+                                    $('#errorDM').modal('show');
+                                }
+                            });
+                        }
+                        else{
+                            $("#subscriptDialog .modal-header").show();
+                            $("#subscriptDialog .subprocess").hide();
+                            $("#subscriptDialog .subafterprocess .successed").hide();
+                            $("#subscriptDialog .subafterprocess .failed").show();
+                        }
+                    },
+                    error: function () {
+                    }
+                });
+
+
             },
-            error:function(json){
-                //errorDialog($.parseJSON(json.responseText).code);
-                //$('#errorDM').modal('show');
-                //目前只能这样，无法判断余额
-                $("#subscriptDialog .modal-header").show();
-                $("#subscriptDialog .subprocess").hide();
-                $("#subscriptDialog .subafterprocess .successed").hide();
-                $("#subscriptDialog .subafterprocess .failed").show();
+            error:function(){
             }
         });
+
     });
 }
 
@@ -1139,13 +1158,9 @@ function apply_buy(){
     });
     $("#subscriptDialog .modal-body .subbtns .submit").click(function() {
         //TODO 没有提交的数据：甲方、乙方、合同订购日期
-//					var usera = $.cookie("tname");
-//					var userb = create_user;
-//					var date = $("#subscriptDialog .modal-body .subdate .dvalue").text();
         var repoName = getParam("repname");
         var itemName = getParam("itemname");
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
-
         //process
         $("#subscriptDialog .modal-header").hide();
         $("#subscriptDialog .subcontent").hide();
