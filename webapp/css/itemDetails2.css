@@ -457,6 +457,9 @@
     text-align: center;
     margin-left: 27px;
 }
+.content .left_content_page{
+    float: right;
+}
 /*页面右边*/
 /*上半部分*/
 #main-right{

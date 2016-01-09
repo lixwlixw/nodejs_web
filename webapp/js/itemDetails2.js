@@ -57,8 +57,7 @@ function yes_no_login(){
 
 //分页
 function request(){
-
-    $(".pagination").pagination(tagNum, {
+    $(".left_content_page").pagination(tagNum, {
         maxentries:tagNum,
         items_per_page: 6,
         num_display_entries: 1,
@@ -76,16 +75,18 @@ function gonextpage(nextpages){
         var repoName = getParam("repname");
         var itemName = getParam("itemname");
         var nextpages = nextpages + 1;
-       $("#left_content").empty();
+       $("#left_content .left_content_con").empty();
         yes_no_login();
         var headerToken={};
+
         //登陆后
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
+
         //tag信息
         $.ajax({
-            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages,
+            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages+"&size=6",
             type: "GET",
             cache: false,
             async: false,
@@ -101,7 +102,7 @@ function gonextpage(nextpages){
                         var tag_comment = taglist[i].comment;
                         var tag_time = taglist[i].optime;
 
-                        var $left_content = $("#left_content");
+                        var $left_content = $("#left_content .left_content_con");
                         var $content = $("<div></div>").addClass("content").appendTo($left_content);
                         var $content1_title = $("<div></div>").addClass("content1_title").appendTo($content);
                         $content1_title.append($("<p></p>").text(tag_tag));
@@ -112,9 +113,10 @@ function gonextpage(nextpages){
                         $content1_time.append($("<span>2分钟以前</span>").text(tag_time));
 
                         var $content1_pullNumber = $("<div></div>").addClass("content1_pullNumber").appendTo($content);
-                        $content1_pullNumber.append("<span></span>");
-                        $content1_pullNumber.append("<span>Pull:0</span>");
-
+                        if(login=="true"){
+                            $content1_pullNumber.append("<span></span>");
+                            $content1_pullNumber.append("<span>Pull:0</span>");
+                        }
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
                         $content1_copy_div.append($("<input type='text'>").attr("value", repoName + itemName + tag_tag).attr("id", "input_copy" + i));
@@ -133,10 +135,6 @@ function gonextpage(nextpages){
                         var content1_download = $("<div></div>").addClass("content1_download").appendTo($content);
                         content1_download.append("<span></span>");
                         content1_download.append("<p>890266</p>");
-
-
-
-
                         //获取tag的pull量
                             $.ajax({
                                 url: ngUrl + "/transaction_stat/" + repoName + "/" + itemName + "/" + tag_tag,
@@ -147,7 +145,9 @@ function gonextpage(nextpages){
                                 headers:headerToken,
                                 success: function (json) {
                                     if (json.code == 0) {
+
                                         $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
+
                                         $(".content .content1_download>p").text(json.data.numpulls);
                                     }
                                 },
@@ -157,6 +157,8 @@ function gonextpage(nextpages){
                                 }
                             });
                     }
+                    //$("<div></div>").addClass("left_content_page").appendTo($left_content);
+
                 }
             },
             error: function () {
@@ -539,41 +541,51 @@ function switchover(){
     $("#left_exam").hide();
     $("#left_unit").hide();
     $("#left_comment").hide();
-    $("#nav1").on("click",function(){
-        $("#left_exam").hide();
-        $("#left_unit").hide();
-        $("#left_comment").hide();
-        $(".pagination").show();
-        $("#left_content").fadeIn();
+    $("#left_nav>p").on("click",function(){
+        var index=$(this).index();
+        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
+        //$("#left_exam").hide();
+        //$("#left_unit").hide();
+        //$("#left_comment").hide();
+        //$(".left_content_page").show();
+        //$("#left_content").fadeIn();
 
     });
-    $("#nav2").on("click",function(){
-        $("#left_content").hide();
-        $("#left_unit").hide();
-        $(".pagination").hide();
-        $("#left_comment").hide();
-        $("#left_exam").fadeIn();
+    $("#left_nav>p").on("click",function(){
+        var index=$(this).index();
+        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
+        //$("#left_content").hide();
+        //$("#left_unit").hide();
+        //$(".left_content_page").hide();
+        //$("#left_comment").hide();
+        //$("#left_exam").fadeIn();
     });
-    $("#nav3").on("click",function(){
-        $("#left_exam").hide();
-        $("#left_content").hide();
-        $(".pagination").hide();
-        $("#left_comment").hide();
-        $("#left_unit").fadeIn();
+    $("#left_nav>p").on("click",function(){
+        var index=$(this).index();
+        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
+        //$("#left_exam").hide();
+        //$("#left_content").hide();
+        //$(".left_content_page").hide();
+        //$("#left_comment").hide();
+        //$("#left_unit").fadeIn();
     });
-    $("#nav3").on("click",function(){
-        $("#left_exam").hide();
-        $("#left_content").hide();
-        $(".pagination").hide();
-        $("#left_comment").hide();
-        $("#left_unit").fadeIn();
+    $("#left_nav>p").on("click",function(){
+        var index=$(this).index();
+        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
+        //$("#left_exam").hide();
+        //$("#left_content").hide();
+        //$(".left_content_page").hide();
+        //$("#left_comment").hide();
+        //$("#left_unit").fadeIn();
     });
-    $("#nav4").on("click",function(){
-        $("#left_exam").hide();
-        $("#left_content").hide();
-        $(".pagination").hide();
-        $("#left_unit").hide();
-        $("#left_comment").fadeIn();
+    $("#left_nav>p").on("click",function(){
+        var index=$(this).index();
+        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
+        //$("#left_exam").hide();
+        //$("#left_content").hide();
+        //$(".left_content_page").hide();
+        //$("#left_unit").hide();
+        //$("#left_comment").fadeIn();
     });
 }
 function tablesheet(){
@@ -591,10 +603,8 @@ function closewrap(){
                 $(".alert_login").css("display","none");
             }
         });
-        if(login=="false"||login==false) {
-            alert(login);
-            alert(login=="false");
-            $("#hurry_buy").click(function () {
+        if(login=="false") {
+            $("#hurry_buy").click(function(){
 
                 $(".alert_login").css({"display": "block", "left": "706px"}).show();
             });
@@ -808,20 +818,30 @@ function hurry_buy(){
                     success:function(json) {
                         var pricestate = json.data.pricestate;//获取付费状态
                         var price = json.data.price;//计费方式
-                        var price_length = price.length;
-                        for (var i = 0; i < price_length; i++) {
-                            var expire = price[i].expire;//有效期
-                            var money = price[i].money;//money
-                            var units = price[i].units;//次数
-                            var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
-                            charegeitem.append($("<span class='cvalue'></span>").
-                            append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
-                            append($("<span class='moneyv'></span>").text(money+"元")).
-                            append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
-                            append($("<span class='moneyu2'></span>").text(units+"次")).
-                            append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
-                            append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                        if(price==undefined||price==null){
+                            $("#cancel_buy").hide();
+                            $("#hurry_buy").hide();
+                            $("#apply_buy").hide();
+                            $("#price_plan").hide();
+                            $("#upcoming_release").show();
+                        }else {
+                            var price_length = price.length;
+                            for (var i = 0; i < price_length; i++) {
+                                var expire = price[i].expire;//有效期
+                                var money = price[i].money;//money
+                                var units = price[i].units;//次数
+                                var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                                charegeitem.append($("<span class='cvalue'></span>").
+                                append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                                append($("<span class='moneyv'></span>").text(money+"元")).
+                                append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                                append($("<span class='moneyu2'></span>").text(units+"次")).
+                                append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                                append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+
+                        }
+
                             //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
                             //charegeitem.append($("<span class='cdvalue'></span>").
                             //append($("<span class='vexpire'></span>").text(1)).
@@ -904,7 +924,12 @@ function hurry_buy(){
                         var stars = parseInt($("#dataitem-head-right .subscript .value").text());
                         $("#dataitem-head-right .subscript .value").text(stars+1);
                     }, 1000)
-                }else {
+                }else if(json.code==5024){
+                    $("#subscriptDialog .modal-header").show();
+                    $("#subscriptDialog .subprocess").hide();
+                    $("#subscriptDialog .subafterprocess .successed").hide();
+                    $("#subscriptDialog .subafterprocess .failed").show();
+                } else{
                     clearInterval(timer);
                     $("#subscriptDialog .modal-header").show();
                     $("#subscriptDialog .subprocess").hide();
@@ -913,8 +938,13 @@ function hurry_buy(){
                 }
             },
             error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
+                //errorDialog($.parseJSON(json.responseText).code);
+                //$('#errorDM').modal('show');
+                //目前只能这样，无法判断余额
+                $("#subscriptDialog .modal-header").show();
+                $("#subscriptDialog .subprocess").hide();
+                $("#subscriptDialog .subafterprocess .successed").hide();
+                $("#subscriptDialog .subafterprocess .failed").show();
             }
         });
     });
@@ -1055,20 +1085,30 @@ function apply_buy(){
                 success:function(json) {
                     var pricestate = json.data.pricestate;//获取付费状态
                     var price = json.data.price;//计费方式
-                    var price_length = price.length;
-                    for (var i = 0; i < price_length; i++) {
-                        var expire = price[i].expire;//有效期
-                        var money = price[i].money;//money
-                        var units = price[i].units;//次数
-                        var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                        charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
-                        charegeitem.append($("<span class='cvalue'></span>").
-                        append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
-                        append($("<span class='moneyv'></span>").text(money+"元")).
-                        append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
-                        append($("<span class='moneyu2'></span>").text(units+"次")).
-                        append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
-                        append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                    if(price==undefined||price==null){
+                        $("#cancel_buy").hide();
+                        $("#hurry_buy").hide();
+                        $("#apply_buy").hide();
+                        $("#price_plan").hide();
+                        $("#upcoming_release").show();
+                    }else {
+                        var price_length = price.length;
+                        for (var i = 0; i < price_length; i++) {
+                            var expire = price[i].expire;//有效期
+                            var money = price[i].money;//money
+                            var units = price[i].units;//次数
+                            var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                            charegeitem.append($("<span class='cvalue'></span>").
+                            append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                            append($("<span class='moneyv'></span>").text(money+"元")).
+                            append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                            append($("<span class='moneyu2'></span>").text(units+"次")).
+                            append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                            append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+
+                    }
+
                         //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
                         //charegeitem.append($("<span class='cdvalue'></span>").
                         //append($("<span class='vexpire'></span>").text(1)).
