@@ -119,10 +119,10 @@
 			dataType:'json',
 			success:function(json){
 				if(type=="meta"){
-					$("#tt").html(json.data.Meta);
+					$("#tt").text(json.data.Meta);
 				}
 				if(type=="sample"){
-					$("#tt").html(json.data.Sample);
+					$("#tt").text(json.data.Sample);
 				}
 				
 				testEditor = editormd("editormd", {
