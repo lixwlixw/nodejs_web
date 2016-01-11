@@ -358,7 +358,7 @@ $(function(){
                                         var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
                                         var itemProSelect = $("#editItem .itempro .value span");
                                         var itemtagDiv = $("#editItem .itemtag .value");
-                                        itemNameInput.val(repname).attr("disabled", "disabled");
+                                        itemNameInput.val(itemname).attr("disabled", "disabled");
                                         itemCommentTextArea.val(json.data.comment);
                                         itemProSelect.html(itemaccesstype);
                                         if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
@@ -370,16 +370,19 @@ $(function(){
                                                 }
                                         }
                                     var jsonobj = json.data.price;
-                                    for(var i = 0;i<jsonobj.length;i++){
-                                        var islimit = false;
-                                        var limitvalue = ''
-                                       if (jsonobj[i].limit){
-                                           islimit = true;
-                                           limitvalue = jsonobj[i].limit;
-                                       }
-                                        var itemdatatype = supply_style;
-                                        createItemTagmoney(jsonobj[i].units, jsonobj[i].money, jsonobj[i].expire,jsonobj[i].plan_id,false,islimit,itemdatatype,limitvalue);
-                                    }                                
+                                    if(jsonobj){
+                                        for(var i = 0;i<jsonobj.length;i++){
+                                            var islimit = false;
+                                            var limitvalue = ''
+                                            if (jsonobj[i].limit){
+                                                islimit = true;
+                                                limitvalue = jsonobj[i].limit;
+                                            }
+                                            var itemdatatype = supply_style;
+                                            createItemTagmoney(jsonobj[i].units, jsonobj[i].money, jsonobj[i].expire,jsonobj[i].plan_id,false,islimit,itemdatatype,limitvalue);
+                                        }
+                                    }
+
                                 }
                         },
                         error:function(json){
@@ -601,8 +604,7 @@ $('.gobackbtnwrop').click(function(){
 ///////////////提交修改
     $("#editItem .submit input").click(function() {
         var reg = new RegExp("^[0-9]*$");
-        var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
-
+        //var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
         var itemtagDiv = $("#editItem .itemtag .value");
         var labels = itemtagDiv.children(".persontag");
         var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
@@ -622,16 +624,19 @@ $('.gobackbtnwrop').click(function(){
                  //alert("");
                  return;
              }
-            if(tagmoney == "" || tagmoney <= 0 || !reg.test(tagmoney)){
-                $('#itemmess').html('价格需大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                //alert('价格需大于0');
+            if(tagmoney == '' || tagmoney < 0 ){
+                $('#itemmess').html('价格需大于等于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                 return;
             }
-            if(newmoney.test(tagmoney) == false){
-                $('#itemmess').html('价格精确到小数点后2位').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                //alert('价格精确到小数点后2位');
-                return;
+            var dot = tagmoney.indexOf(".");
+            if(dot != -1){
+                var dotCnt = tagmoney.substring(dot+1,tagmoney.length);
+                if(dotCnt.length > 2){
+                    $('#itemmess').html('价格精确到小数点后2位').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                    return;
+                }
             }
+            //alert(tagmoney.indexOf('.'))
             if(tagmoney.indexOf('.') == -1){
                 tagmoney = tagmoney+'.00';
             }
@@ -659,6 +664,7 @@ $('.gobackbtnwrop').click(function(){
                 }
                 dataarr[i].limit = parseInt(limitnum);
             }
+
             dataarr[i].units = parseInt(tagtime);
             dataarr[i].money = parseFloat(tagmoney);
             dataarr[i].expire = parseInt(tagexpire);
@@ -809,6 +815,12 @@ $('.gobackbtnwrop').click(function(){
 
 function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecked,itemdatatype,limitvalue) {
     var isday = '';
+    var thisthistagmoney = '';
+    if(tagmoney >= 0){
+        if(tagmoney.toString().indexOf('.') == -1){
+            thisthistagmoney = tagmoney+'.00';
+        }
+    }
     if(itemdatatype == 'flow'){
         isday = '天';
     }else{
@@ -824,7 +836,7 @@ function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecke
         var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).attr('dataid',dataid).appendTo(itemtagmoney);
         persontag.append($("<input/>").addClass("tagtime").attr("type", "text").val(tagtime));
         persontag.append($("<div> "+isday +"=</div>").addClass("tagequal"));
-        persontag.append($("<input/>").addClass("tagmoney").attr("type", "text").val(tagmoney));
+        persontag.append($("<input/>").addClass("tagmoney").attr("type", "text").val(thisthistagmoney));
         persontag.append($("<div>元&nbsp;&nbsp;有效期</div>").addClass("tagequal"));
         persontag.append($("<input/>").addClass("tagexpire").attr("type", "text").val(tagexpire));
         persontag.append($("<div>天</div>").addClass("tagequal"));
