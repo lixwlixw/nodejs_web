@@ -21,5 +21,7 @@ ADD ./webapp /datahub/raw/main/webapp
 WORKDIR /datahub/raw/main/webapp
 RUN fis3 release -d /datahub/src/main/webapp
 
+mkdir -p /etc/nginx/sslkey
+
 CMD ["/start.sh"]
 #ENTRYPOINT ["/start.sh"]
