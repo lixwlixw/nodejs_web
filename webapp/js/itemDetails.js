@@ -459,14 +459,15 @@ function company(){
             $("#left_unit p:nth-child(2)").html(marked(Meta));
 
             var pricestate=json.data.pricestate;//获取付费状态
-            var price=json.data.price;//计费方式
-            var price_length=price.length;
-            for(var i=0;i<price_length;i++)
-            {
-                var expire=price[i].expire;//有效期
-                var money=price[i].money;//money
-                var units=price[i].units;//次数
-                $("#LT-right .form-control").append($("<option></option>").attr("value",i+1).text(money+"元"+units+"次,  "+"有效期"+expire+"天"))
+            var price = json.data.price;//计费方式
+            if(price!=undefined||price!=null) {
+                var price_length = price.length;
+                for (var i = 0; i < price_length; i++) {
+                    var expire = price[i].expire;//有效期
+                    var money = price[i].money;//money
+                    var units = price[i].units;//次数
+                    $("#LT-right .form-control").append($("<option></option>").attr("value", i + 1).text(money + "元" + units + "次,  " + "有效期" + expire + "天"))
+                }
             }
             //获取付费状态
             if(pricestate=="免费")
@@ -599,8 +600,8 @@ function closewrap(){
                 dataType: 'json',
                 success: function (json) {
                    var tags=json.data.tags;
-                   var price_money=json.data.price[0].money;
-                    if(tags==0||price_money==null)
+                    var price=json.data.price;
+                    if(tags==0||price==null||price=="undefined"|| price==undefined)
                     {
                         $("#cancel_buy").hide();
                         $("#hurry_buy").hide();
@@ -796,7 +797,7 @@ function hurry_buy(){
                     //headers:{Authorization:"Token "+$.cookie("token")},
                     success:function(json) {
                         var pricestate = json.data.pricestate;//获取付费状态
-                        var price = json.data.price;//计费方式
+                            var price = json.data.price;//计费方式
                         if(price==undefined||price==null){
                             $("#cancel_buy").hide();
                             $("#hurry_buy").hide();
