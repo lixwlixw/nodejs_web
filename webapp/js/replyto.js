@@ -110,6 +110,7 @@ $(function(){
             success: function (msg) {
                 var msglenth = msg.data.results.length;
                 replytoNum = msg.data.total;
+                $('.commentallnum').html(replytoNum)
                 for(var i = 0;i<msglenth;i++){
                     addreplyhtml(msg.data.results[i]);
                 }

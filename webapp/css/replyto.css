@@ -154,6 +154,19 @@
     float: none;
 }
 
+#nav4{
+    position: relative;
+}
+.commentallnum{
+    border: 1px solid #43609f;
+    border-radius: 9px;
+    font-size: 10px;
+    height: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 1px 4px;
+    width: 30px;
+}
 
 
 
