@@ -279,7 +279,10 @@ $(function() {
 
 
 function apendBigbox(apendjson,i,labelstr){
-
+    var thispricestate = '';
+    if(apendjson.pricestate != ''){
+        thispricestate = '<p>'+apendjson.pricestate+'</p>';
+    }
     htmls =
         '<div class="repo">'+
         '<div class="left">'+
@@ -306,7 +309,7 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="right">'+
         '<div class="price">'+
-        '<p>'+apendjson.pricestate+'</p>'+
+        thispricestate+
         '</div>'+
         '<div class="iconGroup">'+
         '<div class="like">'+
