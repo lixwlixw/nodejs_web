@@ -41,34 +41,34 @@ $(function(){
     }
     function oderstate(phase){
         var thisstate = '';
-        switch (phase){
+        switch(phase)
+        {
             case 1:
-                thisstate ="订单生效";
+                thisstate="正在消费中";
                 break;
             case 2:
-                thisstate ="冻结";
+                thisstate="订单已完成";
                 break;
             case 3:
-                thisstate ="订单完成";
+                thisstate="订单已完成";
                 break;
             case 5:
-                thisstate ="item被删除订单失效";
+                thisstate="Item下线，订单失效";
                 break;
             case 6:
-                thisstate ="管理员删除";
+                thisstate="管理员删除";
                 break;
             case 7:
-                thisstate ="等待您审核";
+                thisstate="申请订购中";
                 break;
             case 8:
-                thisstate ="撤回申请";
+                thisstate="已撤回申请";
                 break;
             case 9:
-                thisstate ="申请订购被拒绝";
+                thisstate="申请被拒绝";
                 break;
-            case 10:
-                thisstate ="申诉中";
-                break;
+            default:
+                thisstate="未知的状态";
         }
         return thisstate;
     }
