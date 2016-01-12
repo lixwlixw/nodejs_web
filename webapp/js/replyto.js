@@ -2,23 +2,6 @@
  * Created by Administrator on 2016/1/9.
  */
 $(function(){
-    var commentthisname = '';
-    var thistname = $.cookie("tname");
-    $.ajax({
-        url: ngUrl+"/users/"+thistname,
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        success:function(j) {
-            if(j.code==0){
-                commentthisname= j.data.userName;
-            }
-        },
-        error:function(){
-
-        }
-    });
     function getParam(key) {
         var value='';
         var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
@@ -29,6 +12,41 @@ $(function(){
     }
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
+    var commentthisname = '';
+    var thistname = '';
+    $.ajax({
+        url:ngUrl+"/repositories/"+repoName+"/"+itemName+"?abstract=1",
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json) {
+            if(json.code==0){
+                thistname= json.data.create_user;
+            }
+        },
+        error:function(json){
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
+        }
+    });
+    $.ajax({
+        url: ngUrl+"/users/"+thistname,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json) {
+            if(json.code==0){
+                commentthisname= json.data.userName;
+            }
+        },
+        error:function(json){
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
+        }
+    });
+
     function addcommenthtml(towho){
         var thisstr = '<div class="commentwrop replycboxbg" id="replyCommnet">'+
             '<textarea name="" id="replycommentcon" datatowho="回复'+towho+'">回复'+towho+'</textarea>'+
@@ -85,7 +103,7 @@ $(function(){
         $('.commentList').empty();
         $.ajax({
             type:'GET',
-            url: ngUrl + "/comments/" + repoName + "/"+itemName+'?page='+commentpages+'&size=5',
+            url: ngUrl + "/comments/" + repoName + "/"+itemName+'?page='+commentpages+'&size=20',
             cache: false,
             async: false,
             dataType:'json',
@@ -107,7 +125,7 @@ $(function(){
     getcommentlist(1);
     $(".conmentpages").pagination(replytoNum, {
         maxentries:replytoNum,
-        items_per_page: 5,
+        items_per_page: 20,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
