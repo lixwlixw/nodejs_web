@@ -246,33 +246,38 @@ $(function(){
     ///////////////////发表评论///////////////////////
     function getissub(thisobj,orreply){
         var issubscription = false;
-        $.ajax({
-            type:'get',
-            url: ngUrl + "/subscription/" + repoName + "/"+itemName,
-            cache: false,
-            dataType:'json',
-            async: false,
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (msg) {
-                if(msg.code == 0){
-                    issubscription = msg.data;
-                }
-            },
-            error:function(msg){
-                errorDialog($.parseJSON(msg.responseText).code);
-                $('#errorDM').modal('show');
-            }
 
-        });
         if($.cookie("token") == null || $.cookie("token") == 'null'){
-            alert('请先登录')
-        }else if(issubscription == false){
-            alert('您还没有订购该item')
+            alert('请先登录');
+            return;
         }else{
-            pushreplycom(thisobj,orreply);
-            $(thisobj).val('');
-            $('.surplusnum').html('210');
-            $('.exceednum').html('0');
+            $.ajax({
+                type:'get',
+                url: ngUrl + "/subscription/" + repoName + "/"+itemName,
+                cache: false,
+                dataType:'json',
+                async: false,
+                headers: {Authorization: "Token " + $.cookie("token")},
+                success: function (msg) {
+                    if(msg.code == 0){
+                        issubscription = msg.data;
+                    }
+                },
+                error:function(msg){
+                    errorDialog($.parseJSON(msg.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+
+            });
+            if(issubscription == false){
+                alert('您还没有订购该item');
+                return
+            }else{
+                pushreplycom(thisobj,orreply);
+                $(thisobj).val('');
+                $('.surplusnum').html('210');
+                $('.exceednum').html('0');
+            }
         }
     }
     $('#pushcon_btn').click(function(){
