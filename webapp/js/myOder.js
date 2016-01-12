@@ -163,7 +163,7 @@ $(function(){
                     ischethisbtn = '<div class="chethisbtn" datare="'+thisrepname +'" datait="'+thisitemname+'" dataspid="'+subscriptionid+'" dataplanid="'+thisplanid+'" ><span class="nobtn">忽略</span> <span class="yesbtn">同意</span></div>';
                 }
                 var thisphase = oderstate(jsonoder.data.results[i].subscriptions[j].phase);
-                var oderdate = jsonoder.data.results[i].subscriptions[j].signtime.substr(11,8);
+                var oderdate = jsonoder.data.results[i].subscriptions[j].sorttime.substr(11,8);
                 var expiretime = jsonoder.data.results[i].subscriptions[j].expiretime.replace(/[A-Z]/g, " ");
                 html += '<table class="table tabcon">' +
                     '<tr>' +

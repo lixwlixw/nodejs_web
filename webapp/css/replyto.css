@@ -1,0 +1,164 @@
+.commentwrop{
+    width: 100%;
+    overflow: hidden;
+    padding:20px;
+    background: #ebeef5;
+}
+
+#replycommentcon{
+    width: 100%;
+    height: 45px;
+}
+
+#commentcon{
+    width: 100%;
+    height: 80px;
+}
+.commentwrop textarea{
+    border: 0 none;
+    resize: none;
+}
+#left_comment{
+    width: 100%;
+    overflow: hidden;
+    float: left;
+}
+.commentreplyname{
+    color:#000;
+    padding-top:8px;
+    padding-bottom:15px;
+}
+.commentreplyname span{
+    color: #666666;
+}
+.conmentbt{
+    width: 100% ;
+    height: 35px;
+    margin-top:20px;
+    position: relative;
+}
+.commentnums{
+    width: 60% ;
+    height: 24px;
+    line-height: 24px;
+    color: #666;
+}
+.reply_surplusnum,.surplusnum{
+    color: #000;
+}
+.reply_exceednum,.exceednum{
+    color:#fa5e61;
+}
+.comListconwrop div{
+    border: none;
+}
+.replytobox{
+    padding:0px 40px;
+}
+.publish_btn{
+    width: 95px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background-image:linear-gradient(to bottom, #faaa68 0%, #d98747 100%);
+    border-radius: 5px;
+    position: absolute;
+    right: 0px;
+    top:0px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.commentList{
+    width: 100%;
+    overflow: hidden;
+}
+.comListconwrop{
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #c8c8c8;
+    position: relative;
+    padding-top:20px;
+    padding-bottom: 10px;
+}
+.comnews{
+    line-height: 20px;
+    color: #666666;
+    width: 585px;
+    word-wrap:break-word;
+    margin:10px 0px;
+}
+
+.myitemcolor{
+    color: #997d4c;
+}
+.commenname{
+    color:#000;
+    position: absolute;
+    top:20px;
+    right: 20px;
+}
+.commentdate{
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    color: #666666;
+}
+
+.reply_wrop{
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+}
+.reply_btn{
+    color: #43609f;
+    font-weight: bold;
+    cursor: pointer;
+}
+.reply_btn:hover{
+    color: #395289;
+}
+
+.delcommentbtn{
+    margin-left:20px;
+    color: #43609f;
+    font-weight: bold;
+    cursor: pointer;
+}
+.delcommentbtn:hover{
+    color: #395289;
+}
+
+.replycboxbg{
+    background:#f3fbfe;
+}
+
+.conmentpages .pagination a,.conmentpages .pagination span {
+    padding:7px 15px 5px 15px;
+}
+.pagination a {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    color: #666;
+}
+.pagination span.current {
+    background: #29abe2 none repeat scroll 0 0;
+    border-radius: 3px;
+}
+.pagination {
+    text-align: right;
+    width: 100%;
+}
+.pagination a, .pagination span {
+    display: inline;
+    float: none;
+}
+
+
+
+
+
+
+
+
+
