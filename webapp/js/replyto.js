@@ -271,6 +271,8 @@ $(function(){
         }else{
             pushreplycom(thisobj,orreply);
             $(thisobj).val('');
+            $('.surplusnum').html('210');
+            $('.exceednum').html('0');
         }
     }
     $('#pushcon_btn').click(function(){
