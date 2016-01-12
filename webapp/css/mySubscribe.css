@@ -5,8 +5,8 @@ body{
     padding-bottom: 50px;
 }
 .subTop{
-    padding: 22px 0 25px;
-    font-size: 20px;
+    padding: 40px 0 15px;
+    font-size: 27px;
     color: #333;
 }
 .mysubnum{
@@ -97,6 +97,11 @@ body{
     color: #0077aa;
 }
 
+.allsubnum{
+	font-size: 12px;
+	font-weight: bold;
+	color: #333333;
+}
 
 
 
