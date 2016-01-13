@@ -618,13 +618,22 @@ $('.gobackbtnwrop').click(function(){
             var tagtime = moneydiv.children(".tagtime:first").val();
             var tagmoney = moneydiv.children(".tagmoney:first").val();
             var tagexpire = moneydiv.children(".tagexpire:first").val();
+            var isnimitid = moneydiv.children(".isnimitid:first");
             var limitnum = moneydiv.children(".ishiddenbox").children(".limitnum:first").val();
             if(!reg.test(tagtime) || tagtime ==0 || tagtime == ""){
                 $('#itemmess').html('次数（天数）需为大于0的整数').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
                  //alert("");
                  return;
              }
-            if(tagmoney == '' || tagmoney < 0 ){
+            if(isNaN(tagmoney)){
+                $('#itemmess').html('价格必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                return;
+            }
+            if(tagmoney == ''){
+                $('#itemmess').html('价格不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                return;
+            }
+            if(tagmoney < 0 ){
                 $('#itemmess').html('价格需大于等于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                 return;
             }
@@ -651,19 +660,25 @@ $('.gobackbtnwrop').click(function(){
                 //alert("有效期需为大于0的整数");
                 return;
             }
-            if(limitnum){
-                if(!reg.test(limitnum)){
-                    $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                    //alert("限购次数必须为数字");
+            if(isnimitid.is(':checked') == true){
+                if(limitnum){
+                    if(!reg.test(limitnum)){
+                        $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                        //alert("限购次数必须为数字");
+                        return;
+                    }
+                    if(limitnum <= 0){
+                        $('#itemmess').html('限购次数必须大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                        //alert("限购次数必须大于0");
+                        return;
+                    }
+                    dataarr[i].limit = parseInt(limitnum);
+                }else{
+                    $('#itemmess').html('限购次数不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                     return;
                 }
-                if(limitnum <= 0){
-                    $('#itemmess').html('限购次数必须大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                    //alert("限购次数必须大于0");
-                    return;
-                }
-                dataarr[i].limit = parseInt(limitnum);
             }
+
 
             dataarr[i].units = parseInt(tagtime);
             dataarr[i].money = parseFloat(tagmoney);
@@ -816,9 +831,11 @@ $('.gobackbtnwrop').click(function(){
 function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecked,itemdatatype,limitvalue) {
     var isday = '';
     var thisthistagmoney = '';
-    if(tagmoney >= 0){
+    if(tagmoney >= 0 && tagmoney != 'null' && tagmoney != null){
         if(tagmoney.toString().indexOf('.') == -1){
             thisthistagmoney = tagmoney+'.00';
+        }else{
+            thisthistagmoney = tagmoney;
         }
     }
     if(itemdatatype == 'flow'){
