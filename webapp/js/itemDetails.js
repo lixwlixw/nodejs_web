@@ -8,8 +8,10 @@ $(function(){
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     //item标题
+    var url ="repDetails.html?repname="+repoName;
     var titleName=(repoName+"/"+itemName);
-    $("#titleName").text(titleName);
+    $("#titleName").text(titleName).parent().attr("href",url);
+
     $(".slideTxtBox").slide({trigger:"click"});
     yes_no_login();//判断是否登录
     gonextpage(0);//请求tag数据
@@ -119,7 +121,7 @@ function gonextpage(nextpages){
                         }
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
-                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName + itemName + tag_tag).attr("id", "input_copy" + i));
+                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i));
                         var clipbtn = $("<button>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i);
                         //复制功能
                         var clipboard = new Clipboard(clipbtn.get(0));
@@ -494,7 +496,8 @@ function company(){
                     //company
                     if(j.code==0){
                         company_name= j.data.userName;
-                        $("#client_down p span").text(company_name);
+                        var url="dataOfDetails.html?username="+create_user;
+                        $("#client_down p a").text(company_name).attr("href",url);
                         //GET /heartbeat/status/:user 获取user的daemon status。
                         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
                         if(login=="true"){

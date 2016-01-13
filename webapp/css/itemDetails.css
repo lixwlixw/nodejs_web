@@ -38,13 +38,12 @@
     color: #395289;
 }
 #LT_left_title div>span{
-    font-size: 10px;
+    font-size: 0.8em !important;
     display: inline;
-    width: 30px;
-    height: 17px;
     border-radius: 10px;
     margin: 7px;
     padding: 0px 4px;
+    text-align: center;
 
 }
 #LT_left_icon{
@@ -310,6 +309,7 @@
     width: 876px;
     font-size: 10px;
     word-break:break-all;
+    display: none;
 }
 #left_exam p:nth-child(1){
     padding:15px 0px 15px 15px;
@@ -331,6 +331,7 @@
     width: 876px;
     font-size: 10px;
     word-break:break-all;
+    display: none;
 }
 #left_unit p:nth-child(1){
     padding:15px 0px 15px 15px;
@@ -349,7 +350,9 @@
 #left_unit table,td,tr{
     border:1px solid #f3f3f3;
 }
-
+#left_comment{
+    display: none;
+}
 .content{
     float: left;
     width: 100%;
@@ -364,16 +367,24 @@
     padding-bottom: 15px;
     width: 230px;
     float: left;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .content .content1_title p:nth-child(1){
     font-size:12px;
+    width: 230px;
     color:#666;
     line-height: 25px;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .content .content1_title p:nth-child(2){
     font-size:12px;
     line-height: 25px;
+    width: 230px;
     color:#333;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .content .content1_time{
     width:235px;
@@ -557,7 +568,7 @@
     width: 230px;
     display: inline;
 }
-#client_down p:nth-child(5)>span{
+#client_down p:nth-child(5)>a{
     font-size: 14px;
     color: #43609f;
     font-weight:bold;
