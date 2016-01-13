@@ -1,0 +1,173 @@
+﻿.title{
+	margin-top: 40px;
+}
+.title p{
+	font-size: 27px;
+	color: #333333;
+}
+.dataitem p{
+	font-size: 12px bold;
+	color: #333333;
+	margin-top: 7px;
+	padding-bottom: 41px;
+}
+/* .dataitem:hover p{
+	font-size: 12px bold;
+	color: #333333;
+} */
+.order{
+	width:1130px;
+	margin-left: 20px;
+	margin-right: 20px;
+	padding-top: 11px;
+	padding-bottom: 10px;
+	float: left;
+}
+.order p{
+	font-size: 14px;
+	color: #000000;
+	width: 250px;
+	padding-left: 1px;
+	margin-left: 0px;
+}
+.order span{
+	font: 14px bold;
+	color: #000000;
+}
+.orderNum{
+	float:left;
+}
+.orderNum p{
+	font:14px ;
+	color: #000000;
+}
+.orderNum span{
+	font: 14px bold;
+	color: #000000;
+}
+.orderTime{
+	float:right;
+}
+.orderTime p{
+	font:14px ;
+	color: #000000;
+	padding-left: 36px;
+}
+.orderTime span{
+	font:14px bold;
+	color: #000000;
+}
+.repo{
+	width:100%;
+	height: auto;
+	margin-left: 20px;
+	float:left;
+	border-top:1px solid #c8c8c8;
+	padding:10px 20px;	
+}
+/* .repo:hover{
+	background-color:#f4fbfe;
+	border-color: #f4fbfe;
+	border-color: #f4fbfe;
+} */
+.left{
+	float:left;
+	width:540px;
+}
+.repoName {
+	float:left;
+	font: 20px bold;
+	color: #43609f;
+	padding-top: 21px;
+	padding-bottom: 21px;
+}
+.description{
+	float:left;
+	padding-bottom: 20px;
+	font:14px;
+	color: #333333;
+	line-height: 20px;
+	width:470px;
+}
+.supplier{
+	float:left;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 12px;
+	color:#666666;
+}
+.supplier a{
+	font-size: 12px;
+	color:#43609f;
+}
+
+/* .supplier:hover{
+	opacity: 0.15;
+} */
+.supplier a:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.repoName a:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.orderStatus{
+	float:left; 
+	margin-top: 57px;
+	margin-bottom: 57px;
+	height:40px; 
+	width:auto;
+	color: #666666;
+}
+.orderStatus p{
+	border: 2px solid #666666;
+    border-radius: 3px;
+    height: 26px;
+    line-height: 18px;
+    margin-top: 15px;
+    padding: 2px 10px;
+    width: auto;
+}
+.price{
+	float:left;
+	width:15%;
+	height:140px;
+	padding-top: 40px;
+	margin-left: 70px;
+}
+	
+.price p{
+	padding-left: 0px; 
+	padding-right: 0px; 
+	padding-bottom: 20px;
+	width: 210px; 
+	border-left-width: 70px; 
+	font:14px #666666;
+}
+}
+.button{
+	height:30px;
+	width:112px;
+	float: left;
+	width: 90px;
+	margin-top: 68px;
+	margin-bottom: 50px;
+	margin-left: 100px;"
+}
+
+.repoE{
+	margin-bottom:60px;
+	float:left;
+	border-bottom: 1px solid #c8c8c8;
+	border-top: 1px solid #c8c8c8;
+}
+.repoE:hover{
+	background-color:#f4fbfe;
+	border-color: #f4fbfe;
+}
+
+
+
