@@ -114,7 +114,7 @@ function ajaxFunHtml(type,size,page){
 		        		switch(orderStatus)
 		        		{
 		        			case 1:
-		        				orderStatus="正在消费中";
+		        				orderStatus="正在生效中";
 		        			break;
 		        			case 2:
 		        				orderStatus="订单已完成";
@@ -492,7 +492,7 @@ function ajaxTotal(type,size){
 	        		switch(orderStatus)
 	        		{
 	        			case 1:
-	        				orderStatus="正在消费中";
+	        				orderStatus="正在生效中";
 	        			break;
 	        			case 2:
 	        				orderStatus="订单已完成";
