@@ -45,10 +45,8 @@ $(document).ready(function(){
 
 function rel(str){
     var s="";
-    if(str.toLowerCase().indexOf(rtext)!=-1){
-    	//alert(str.toLowerCase().indexOf(rtext));
-    	//alert(rtext.length);
-    	var start=str.toLowerCase().indexOf(rtext);
+    if(str.toLowerCase().indexOf(rtext.toLowerCase())!=-1){
+    	var start=str.toLowerCase().indexOf(rtext.toLowerCase());
     	var end=start+rtext.length;
     	var strtext=str.substring(start,end);
         s=str.replace(strtext, "<span style=background-color:#fffe8f;>"+strtext+"</span>");
