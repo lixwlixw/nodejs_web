@@ -114,7 +114,7 @@ function ajaxFunHtml(type,size,page){
 		        		switch(orderStatus)
 		        		{
 		        			case 1:
-		        				orderStatus="正在消费中";
+		        				orderStatus="正在生效中";
 		        			break;
 		        			case 2:
 		        				orderStatus="订单已完成";
@@ -156,23 +156,29 @@ function ajaxFunHtml(type,size,page){
 		        		//pull量
 		        		var pullnum="";
 		        		var pullText="";
-		        		$.ajax({
-		        	        url: ngUrl+"/transaction_stat/"+json.data.results[i].repname+"/"+json.data.results[i].itemname,
-		        	        type: "get",
-		        	        cache:false,
-		        	        data:{},
-		        	        async:false,
-		        	        headers:headerToken,
-		        	        dataType:'json',
-		        	        success:function(json){
-		        	        	pullnum = json.data.numpulls;
-		        	        	if(pullnum>0){
-		        	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
-		        	        	}else{
-		        	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
-		        	        	}
-		        	        }
-		        	    }); 
+//		        		$.ajax({
+//		        	        url: ngUrl+"/transaction_stat/"+json.data.results[i].repname+"/"+json.data.results[i].itemname,
+//		        	        type: "get",
+//		        	        cache:false,
+//		        	        data:{},
+//		        	        async:false,
+//		        	        headers:headerToken,
+//		        	        dataType:'json',
+//		        	        success:function(json){
+//		        	        	pullnum = json.data.numpulls;
+//		        	        	if(pullnum>0){
+//		        	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+//		        	        	}else{
+//		        	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+//		        	        	}
+//		        	        }
+//		        	    }); 
+		        		pullnum=json.data.results[i].plan.used;
+        	        	if(pullnum>0){
+	    	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+	    	        	}else{
+	    	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+	    	        	}
 		        		//supply_style
 		        		var supply_style="";
 		        		if(json.data.results[i].supply_style=="flow"){
@@ -492,7 +498,7 @@ function ajaxTotal(type,size){
 	        		switch(orderStatus)
 	        		{
 	        			case 1:
-	        				orderStatus="正在消费中";
+	        				orderStatus="正在生效中";
 	        			break;
 	        			case 2:
 	        				orderStatus="订单已完成";
@@ -534,23 +540,29 @@ function ajaxTotal(type,size){
 	        		//pull量
 	        		var pullnum="";
 	        		var pullText="";
-	        		$.ajax({
-	        	        url: ngUrl+"/transaction_stat/"+json.data.results[i].repname+"/"+json.data.results[i].itemname,
-	        	        type: "get",
-	        	        cache:false,
-	        	        data:{},
-	        	        async:false,
-	        	        headers:headerToken,
-	        	        dataType:'json',
-	        	        success:function(json){
-	        	        	pullnum = json.data.numpulls;
-	        	        	if(pullnum>0){
-	        	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
-	        	        	}else{
-	        	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
-	        	        	}
-	        	        }
-	        	    }); 
+//	        		$.ajax({
+//	        	        url: ngUrl+"/transaction_stat/"+json.data.results[i].repname+"/"+json.data.results[i].itemname,
+//	        	        type: "get",
+//	        	        cache:false,
+//	        	        data:{},
+//	        	        async:false,
+//	        	        headers:headerToken,
+//	        	        dataType:'json',
+//	        	        success:function(json){
+//	        	        	pullnum = json.data.numpulls;
+//	        	        	if(pullnum>0){
+//	        	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+//	        	        	}else{
+//	        	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+//	        	        	}
+//	        	        }
+//	        	    }); 
+	        		pullnum=json.data.results[i].plan.used;
+    	        	if(pullnum>0){
+    	        		pullText="<span style='float:left;border: 2px solid #e60012;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+    	        	}else{
+    	        		pullText="<span style='float:left;border: 2px solid #337ab7;border-radius: 10px;height:10px;width:10px;display:block'></span>";
+    	        	}
 	        		//supply_style
 	        		var supply_style="";
 	        		if(json.data.results[i].supply_style=="flow"){

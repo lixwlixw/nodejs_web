@@ -1,0 +1,98 @@
+.infoBox{
+	margin-top: 30px;
+	float:left;
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #395289;
+}
+#title p{
+	float:left;
+	margin-top: 30px;
+	font-size: 35px;
+	color: #ff0000;
+}
+#title span{
+	margin-top: 35px;
+	float:right;
+}
+
+#To{
+	
+	margin-top:120px;
+	font:16px;
+	color: #333333;
+	margin-bottom: 20px;
+}
+#info{
+	float:left;
+	font:16px;
+	color: #333333;
+	margin-bottom: 25px;
+}
+#active{
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	margin-top: 15px;
+	width:225px;
+	height:40px;
+	border-radius: 5px;
+}
+#active:hover{
+	background-image: linear-gradient(to bottom, #265a88 0%, #337ab7 100%) !important;
+	background-color:#337ab7;
+	color:#ffffff;
+}
+#active:focus{
+	background-color:#337ab7;
+}
+#copy{
+	float:left;
+	font:16px;
+	color: #333333;
+	margin-top: 40px;
+}
+#address{
+	float:left;
+	margin-top: 20px;
+	font:16px bold;
+	color: #43609f;
+}
+#address:hover{
+	color:#faaa88;
+}
+#secure{
+	float:left;
+	margin-top: 40px;
+	font:16px;
+	color: #333333;
+}
+#contact{
+	float:left;
+	margin-top: 20px;
+	font:16px;
+	color: #333333;
+}
+.QR {
+	float:left;
+	margin-top: 100px;
+	margin-bottom:40px;
+}
+#pic{
+	float:left;
+	width:30%;
+}
+#des1 {
+	width:50%;
+	font-size: 12px;
+	float:left;
+	margin-left: 10px;
+	margin-top: 59px;
+}
+
+#des2 {
+	width:50%;
+	font-size: 12px;
+	float:left;
+	margin-left: 10px;
+}
